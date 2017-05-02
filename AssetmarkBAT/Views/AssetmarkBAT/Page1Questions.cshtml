@@ -44,23 +44,6 @@
         @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post))
         {
             @Html.HiddenFor(m => m.UserId)
-            //@Html.HiddenFor(m => m.Year)
-            //@Html.HiddenFor(m => m.PracticeType)
-
-           
-            @*@Html.HiddenFor(m => m.Years)*@
-            @*@Html.HiddenFor(m => m.Ff_TotalFirmAsset)
-            @Html.HiddenFor(m => m.Ff_TotalFirmAssetAnnualized)
-            @Html.HiddenFor(m => m.Ff_NonRecurringRevenue)
-            @Html.HiddenFor(m => m.Ff_NonRecurringRevenueAnnualized)
-            @Html.HiddenFor(m => m.Ff_RecurringRevenue)
-            @Html.HiddenFor(m => m.Ff_RecurringRevenueAnnualized)
-            @Html.HiddenFor(m => m.Ff_DirectExpenses)
-            @Html.HiddenFor(m => m.Ff_DirectExpensesAnnualized)
-            @Html.HiddenFor(m => m.Ff_IndirecteExpenses)
-            @Html.HiddenFor(m => m.Ff_IndirecteExpensesAnnualized)
-            @Html.HiddenFor(m => m.Ff_OperatingProfit)
-            @Html.HiddenFor(m => m.Ff_OperatingProfitAnnualized)*@
 
             <div>
                 @Html.DropDownListFor(x => x.PracticeType, new SelectList(Model.PracticeTypes, "Value", "Text"), "Practice Type")
@@ -182,7 +165,8 @@
                 @Model.Ff_NewClientsAnnualized
                 @Html.ValidationMessageFor(x => Model.Ff_NewClients)<br /><br />
 
-                <input type="submit" value="VMI Inputs Next" />
+                <input type="submit" name="submit" value="Save Your Inputs" />
+                <input type="submit" name="submit" value="VMI Inputs Next" />
             </div>
 
         }

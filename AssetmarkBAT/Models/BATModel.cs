@@ -108,36 +108,63 @@ namespace AssetmarkBAT.Models
 
 
         //Managing section
-        public int Vmi_Man_Written_Plan { get; set; }    
-        public int Vmi_Man_Track { get; set; }      
-        public int Vmi_Man_Phase { get; set; }    
-        public int Vmi_Man_Revenue { get; set; }   
-        public int Vmi_Man_Practice { get; set; }
+        public string Vmi_Man_Written_Plan { get; set; }    
+        public string Vmi_Man_Track { get; set; }      
+        public string Vmi_Man_Phase { get; set; }    
+        public string Vmi_Man_Revenue { get; set; }   
+        public string Vmi_Man_Practice { get; set; }
 
 
         //Marketing section
-        public int Vmi_Mar_Value_Proposition { get; set; }
-        public int Vmi_Mar_Materials { get; set; }
-        public int Vmi_Mar_Plan { get; set; }
-        public int Vmi_Mar_Prospects { get; set; }
-        public int Vmi_Mar_New_Business { get; set; }
+        public string Vmi_Mar_Value_Proposition { get; set; }
+        public string Vmi_Mar_Materials { get; set; }
+        public string Vmi_Mar_Plan { get; set; }
+        public string Vmi_Mar_Prospects { get; set; }
+        public string Vmi_Mar_New_Business { get; set; }
 
 
         //Optimizing section
-        public int Vmi_Opt_Automate { get; set; }
-        public int Vmi_Opt_Procedures { get; set; }
-        public int Vmi_Opt_Segment { get; set; }
-        public int Vmi_Opt_Model { get; set; }
-        public int Vmi_Opt_Schedule { get; set; }
+        public string Vmi_Opt_Automate { get; set; }
+        public string Vmi_Opt_Procedures { get; set; }
+        public string Vmi_Opt_Segment { get; set; }
+        public string Vmi_Opt_Model { get; set; }
+        public string Vmi_Opt_Schedule { get; set; }
 
         //Empowering section
-        public int Vmi_Emp_Human { get; set; }
-        public int Vmi_Emp_Compensation { get; set; }
-        public int Vmi_Emp_Responsibilities { get; set; }
-        public int Vmi_Emp_Staff { get; set; }
-        public int Vmi_Emp_Emp_Retention { get; set; }
+        public string Vmi_Emp_Human { get; set; }
+        public string Vmi_Emp_Compensation { get; set; }
+        public string Vmi_Emp_Responsibilities { get; set; }
+        public string Vmi_Emp_Staff { get; set; }
+        public string Vmi_Emp_Emp_Retention { get; set; }
 
         public string Vmi_Complete { get; set; }
+
+        public BATModel()
+        {
+            Vmi_Emp_Compensation = null;
+            Vmi_Emp_Emp_Retention = null;
+            Vmi_Emp_Human = null;
+            Vmi_Emp_Responsibilities = null;
+            Vmi_Emp_Staff = null;
+
+            Vmi_Man_Phase = null;
+            Vmi_Man_Practice = null;
+            Vmi_Man_Revenue = null;
+            Vmi_Man_Track = null;
+            Vmi_Man_Written_Plan = null;
+
+            Vmi_Mar_Materials = null;
+            Vmi_Mar_New_Business = null;
+            Vmi_Mar_Plan = null;
+            Vmi_Mar_Prospects = null;
+            Vmi_Mar_Value_Proposition = null;
+
+            Vmi_Opt_Automate = null;
+            Vmi_Opt_Model = null;
+            Vmi_Opt_Procedures = null;
+            Vmi_Opt_Schedule = null;
+            Vmi_Opt_Segment = null;
+        }
     }
 
     public class AgreeToTermsModel
