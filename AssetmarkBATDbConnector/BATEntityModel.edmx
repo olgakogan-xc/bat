@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="am_bvs.databaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="am_bat">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ff_TotalFirmAsset" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_NonRecurringRevenue" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_RecurringRevenue" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_DirectExpenses" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_IndirectExpenses" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_Projected_Growth" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_Client_Relationships" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_Fte_Non_Advisors" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_Fte_Advisors" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_New_Clients" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vmi_Man_Written_Plan" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Man_Track" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Man_Phase" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Man_Revenue" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Man_Practice" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Mar_Value_Proposition" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Mar_Materials" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Mar_Plan" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Mar_Prospects" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Mar_New_Business" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Opt_Automate" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Opt_Procedures" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Opt_Segment" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Opt_Model" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Opt_Schedule" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Emp_Human" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Emp_Compensation" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Emp_Responsibilities" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Emp_Staff" Type="nvarchar" MaxLength="10" />
+          <Property Name="Vmi_Emp_Emp_Retention" Type="nvarchar" MaxLength="10" />
+          <Property Name="VmiIndex" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_Complete" Type="nvarchar" MaxLength="50" />
+          <Property Name="Vmi_Complete" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="am_bvsdatabaseModelStoreContainer">
+          <EntitySet Name="am_bat" EntityType="Self.am_bat" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="am_bvs.databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AssetmarkBATEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="am_bat" EntityType="am_bvs.databaseModel.am_bat" />
+        </EntityContainer>
+        <EntityType Name="am_bat">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_TotalFirmAsset" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_NonRecurringRevenue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_RecurringRevenue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_DirectExpenses" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_IndirectExpenses" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_Projected_Growth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_Client_Relationships" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_Fte_Non_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_Fte_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_New_Clients" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Man_Written_Plan" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Man_Track" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Man_Phase" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Man_Revenue" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Man_Practice" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Mar_Value_Proposition" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Mar_Materials" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Mar_Plan" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Mar_Prospects" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Mar_New_Business" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Opt_Automate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Opt_Procedures" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Opt_Segment" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Opt_Model" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Opt_Schedule" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Emp_Human" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Emp_Compensation" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Emp_Responsibilities" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Emp_Staff" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Emp_Emp_Retention" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="VmiIndex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Vmi_Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="am_bvsdatabaseModelStoreContainer" CdmEntityContainer="AssetmarkBATEntities">
+          <EntitySetMapping Name="am_bat">
+            <EntityTypeMapping TypeName="am_bvs.databaseModel.am_bat">
+              <MappingFragment StoreEntitySet="am_bat">
+                <ScalarProperty Name="Vmi_Complete" ColumnName="Vmi_Complete" />
+                <ScalarProperty Name="Ff_Complete" ColumnName="Ff_Complete" />
+                <ScalarProperty Name="VmiIndex" ColumnName="VmiIndex" />
+                <ScalarProperty Name="Vmi_Emp_Emp_Retention" ColumnName="Vmi_Emp_Emp_Retention" />
+                <ScalarProperty Name="Vmi_Emp_Staff" ColumnName="Vmi_Emp_Staff" />
+                <ScalarProperty Name="Vmi_Emp_Responsibilities" ColumnName="Vmi_Emp_Responsibilities" />
+                <ScalarProperty Name="Vmi_Emp_Compensation" ColumnName="Vmi_Emp_Compensation" />
+                <ScalarProperty Name="Vmi_Emp_Human" ColumnName="Vmi_Emp_Human" />
+                <ScalarProperty Name="Vmi_Opt_Schedule" ColumnName="Vmi_Opt_Schedule" />
+                <ScalarProperty Name="Vmi_Opt_Model" ColumnName="Vmi_Opt_Model" />
+                <ScalarProperty Name="Vmi_Opt_Segment" ColumnName="Vmi_Opt_Segment" />
+                <ScalarProperty Name="Vmi_Opt_Procedures" ColumnName="Vmi_Opt_Procedures" />
+                <ScalarProperty Name="Vmi_Opt_Automate" ColumnName="Vmi_Opt_Automate" />
+                <ScalarProperty Name="Vmi_Mar_New_Business" ColumnName="Vmi_Mar_New_Business" />
+                <ScalarProperty Name="Vmi_Mar_Prospects" ColumnName="Vmi_Mar_Prospects" />
+                <ScalarProperty Name="Vmi_Mar_Plan" ColumnName="Vmi_Mar_Plan" />
+                <ScalarProperty Name="Vmi_Mar_Materials" ColumnName="Vmi_Mar_Materials" />
+                <ScalarProperty Name="Vmi_Mar_Value_Proposition" ColumnName="Vmi_Mar_Value_Proposition" />
+                <ScalarProperty Name="Vmi_Man_Practice" ColumnName="Vmi_Man_Practice" />
+                <ScalarProperty Name="Vmi_Man_Revenue" ColumnName="Vmi_Man_Revenue" />
+                <ScalarProperty Name="Vmi_Man_Phase" ColumnName="Vmi_Man_Phase" />
+                <ScalarProperty Name="Vmi_Man_Track" ColumnName="Vmi_Man_Track" />
+                <ScalarProperty Name="Vmi_Man_Written_Plan" ColumnName="Vmi_Man_Written_Plan" />
+                <ScalarProperty Name="Ff_New_Clients" ColumnName="Ff_New_Clients" />
+                <ScalarProperty Name="Ff_Fte_Advisors" ColumnName="Ff_Fte_Advisors" />
+                <ScalarProperty Name="Ff_Fte_Non_Advisors" ColumnName="Ff_Fte_Non_Advisors" />
+                <ScalarProperty Name="Ff_Client_Relationships" ColumnName="Ff_Client_Relationships" />
+                <ScalarProperty Name="Ff_Projected_Growth" ColumnName="Ff_Projected_Growth" />
+                <ScalarProperty Name="Ff_IndirectExpenses" ColumnName="Ff_IndirectExpenses" />
+                <ScalarProperty Name="Ff_DirectExpenses" ColumnName="Ff_DirectExpenses" />
+                <ScalarProperty Name="Ff_RecurringRevenue" ColumnName="Ff_RecurringRevenue" />
+                <ScalarProperty Name="Ff_NonRecurringRevenue" ColumnName="Ff_NonRecurringRevenue" />
+                <ScalarProperty Name="Ff_TotalFirmAsset" ColumnName="Ff_TotalFirmAsset" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

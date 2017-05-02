@@ -1,0 +1,178 @@
+﻿@model AssetmarkBAT.Models.BATModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Page2Questions</title>
+
+    <style type="text/css">
+        label {
+            float: left;
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @Html.Partial("~/Views/AssetmarkBAT/Shared/Header.cshtml")
+    </div>
+    <div>
+        @using (Html.BeginForm("Report", "AssetmarkBAT", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.Year)
+            @Html.HiddenFor(m => m.PracticeType)
+
+            @Html.HiddenFor(m => m.Ff_TotalFirmAsset)
+            @Html.HiddenFor(m => m.Ff_TotalFirmAssetAnnualized)
+            @Html.HiddenFor(m => m.Ff_NonRecurringRevenue)
+            @Html.HiddenFor(m => m.Ff_NonRecurringRevenueAnnualized)
+            @Html.HiddenFor(m => m.Ff_RecurringRevenue)
+            @Html.HiddenFor(m => m.Ff_RecurringRevenueAnnualized)
+            @Html.HiddenFor(m => m.Ff_DirectExpenses)
+            @Html.HiddenFor(m => m.Ff_DirectExpensesAnnualized)
+            @Html.HiddenFor(m => m.Ff_IndirecteExpenses)
+            @Html.HiddenFor(m => m.Ff_IndirecteExpensesAnnualized)
+            @Html.HiddenFor(m => m.Ff_OperatingProfit)
+            @Html.HiddenFor(m => m.Ff_OperatingProfitAnnualized)
+
+            @Html.HiddenFor(m => m.Ff_ProjectedGrowthRate)
+            @Html.HiddenFor(m => m.Ff_ProjectedGrowthRateAnnualized)
+            @Html.HiddenFor(m => m.Ff_ClientRelationships)
+            @Html.HiddenFor(m => m.Ff_ClientRelationshipsAnnualized)
+            @Html.HiddenFor(m => m.Ff_FullTimeNonAdvisors)
+            @Html.HiddenFor(m => m.Ff_FullTimeNonAdvisorsAnnualized)
+            @Html.HiddenFor(m => m.Ff_FullTimeAdvisors)
+            @Html.HiddenFor(m => m.Ff_FullTimeAdvisorsAnnualized)
+            @Html.HiddenFor(m => m.Ff_NewClients)
+            @Html.HiddenFor(m => m.Ff_NewClientsAnnualized)
+
+
+            <br /><br /><div>======Managing Your Practice=======</div><br /><br />
+
+            <div>
+                <label>I do not have a written business plan that drives future (1-, 3-, 5+year) goals</label>
+                @Html.TextBoxFor(m => m.Vmi_Man_Written_Plan)
+                I have a written business plan that is executed consistently and drives future goals.
+            </div><br />
+            <div>
+                <label>I do not track financial business metrics.</label>
+                @Html.TextBoxFor(m => m.Vmi_Man_Track)
+                I regularly track financial business metrics and work toward goals bvased on those metrics.
+            </div><br />
+            <div>
+                <label>All of my clients are in the distribution phase of their financial lives. </label>
+                @Html.TextBoxFor(m => m.Vmi_Man_Phase)
+                All of my clients are in the accumulation state of their financial lives. 
+            </div><br />
+            <div>
+                <label>All of my revenue is commission-based</label>
+                @Html.TextBoxFor(m => m.Vmi_Man_Revenue)
+                All of my revenue is recurring and fee-based.
+            </div><br />
+
+            <div>
+                <label>I have an advisor-drive practice that is solely reliant upon me.</label>
+                @Html.TextBoxFor(m => m.Vmi_Man_Practice)
+                I have a process-driven, sustainable practice that I can easily transition.
+            </div>
+
+            <br /><br /><div>====== Marketing Your Business =======</div><br /><br />
+
+            <div>
+                <label>I do not have a clearly defined value proposition. </label>
+                @Html.TextBoxFor(m => m.Vmi_Mar_Value_Proposition)
+                I have a clearly defined value proposition that is aligned with my target market.
+            </div><br />
+            <div>
+                <label>I do not have formal marketing materials, a web site or an institutionalized brand. </label>
+                @Html.TextBoxFor(m => m.Vmi_Mar_Materials)
+                I have high-quality marketing materials, including a webhsite, with an institutionalized brand.
+            </div><br />
+            <div>
+                <label>I do not have a formal marketing plan and do not have a consistent flow of prospects.</label>
+                @Html.TextBoxFor(m => m.Vmi_Mar_Plan)
+                I have a formal marketing plan that consistently drives high qualityh prospects to my practice.
+            </div><br />
+            <div>
+                <label>I have difficulty evaluating prospects because I have not defined my ideal client.</label>
+                @Html.TextBoxFor(m => m.Vmi_Mar_Prospects)
+                I consistently asseess prospects using my ideal client profile that aligns with my target market.
+            </div><br />
+            <div>
+                <label>I rarely get new business from clients, center of influence or professional referrals</label>
+                @Html.TextBoxFor(m => m.Vmi_Mar_New_Business)
+                I consistently get new business from client, cener of indluence and professional referrals.
+            </div><br />
+
+            <br /><br /><div>====== Optimizing Your Operations =======</div><br /><br />
+
+            <div>
+                <label>I do not automate processes with technological or outsourced solutions.</label>
+                @Html.TextBoxFor(m => m.Vmi_Opt_Automate)
+                I consistently automate processes, utilizing technological and outsourced solutions.
+            </div><br />
+            <div>
+                <label>I do not have written procedures for my operations and perform tasks using ad hoc processes.</label>
+                @Html.TextBoxFor(m => m.Vmi_Opt_Procedures)
+                I have detailed, written procedures for business operations that are performed consistently.
+            </div><br />
+            <div>
+                <label>I have not segmented my client base, so I do not know how different clients drive revenue.</label>
+                @Html.TextBoxFor(m => m.Vmi_Opt_Segment)
+                I have segmented my client base into tiers and know how they impact revenut and profitability.
+            </div><br />
+            <div>
+                <label>I do not have a defined client service model and frequently provide non-standardized services.</label>
+                @Html.TextBoxFor(m => m.Vmi_Opt_Model)
+                I have a defined client service model that consisttently providees a high-quality client experience. 
+            </div><br />
+            <div>
+                <label>I do not have a formal or consistent fee schedule.</label>
+                @Html.TextBoxFor(m => m.Vmi_Opt_Schedule)
+                I have a formal fee schedule that is applied consistently and aligned with the services provided.
+            </div><br />
+
+            <br /><br /><div>====== Empowering Your Team =======</div><br /><br />
+
+            <div>
+                <label>I have not invested resources in human capital development.</label>
+                @Html.TextBoxFor(m => m.Vmi_Emp_Human)
+                I have invested in developing and growing a staff inline with my firm's strategy and goals.
+            </div><br />
+            <div>
+                <label>I do not have a formal compensation plan that aligns with industry standards.</label>
+                @Html.TextBoxFor(m => m.Vmi_Emp_Compensation)
+                I have a formal compensaion plan, aligned with industry standards that motivate my team.
+            </div><br />
+            <div>
+                <label>I am responsible for all aspects of client engagement, service and back-office operations.</label>
+                @Html.TextBoxFor(m => m.Vmi_Emp_Responsibilities)
+                I focus only on revenue-producing activities and outsource or use my staff for everything else.
+            </div><br />
+            <div>
+                <label>I am not sfatted adequately to effectively manage my workload or reach my growth objectives.</label>
+                @Html.TextBoxFor(m => m.Vmi_Emp_Staff)
+                I am staffed optimally to effectively manage my work load and I have capacity for growth. 
+            </div><br />
+            <div>
+                <label>I have problems with employee retention or have no employees to retain.</label>
+                @Html.TextBoxFor(m => m.Vmi_Emp_Emp_Retention)
+                I have no problems with retention and have staff that are in the business for the long term.
+            </div><br /><br /><br />
+
+            <div>
+                <br /><br />
+                <input type="submit" value="Previous" name="submit" />
+                <input type="submit" value="Next" name="submit" />
+            </div>
+
+        }
+    </div>
+</body>
+</html>

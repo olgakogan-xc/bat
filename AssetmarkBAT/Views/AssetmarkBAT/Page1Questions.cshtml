@@ -1,0 +1,191 @@
+﻿@model AssetmarkBAT.Models.BATModel
+
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+    .error{
+        color:red;
+    }
+     label {
+        float: left;
+        width: 300px;
+    }
+     .hidden{
+         display:none;
+     }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Page1Questions</title>
+</head>
+<body>
+    <div>
+        @Html.Partial("~/Views/AssetmarkBAT/Shared/Header.cshtml")
+    </div>
+    <div>
+        <br /><br />
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate tempus dapibus. Etiam sed risus justo. Duis ornare elementum nisl, euismod elementum ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec aliquam commodo purus nec congue. Nunc gravida tortor nec nisi venenatis feugiat. Quisque a tempus lorem, sagittis tincidunt felis. Donec viverra turpis et urna porta, non hendrerit elit convallis. Ut efficitur nec est eu fermentum. Vivamus ac dignissim magna. Fusce pellentesque sapien sit amet sollicitudin placerat.
+
+        Fusce maximus dignissim ultrices. Phasellus gravida sem nec lectus commodo, eu venenatis lectus faucibus. Etiam a nisl et felis viverra vulputate. Vestibulum sagittis, arcu at fermentum hendrerit, justo magna mattis erat, ac sodales lorem neque non velit. Phasellus vitae lobortis purus. Phasellus efficitur risus a mauris dignissim, non tristique nisl eleifend. Maecenas elementum porttitor tellus vel vestibulum.
+
+
+
+        <br /><br />
+
+        @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.UserId)
+            //@Html.HiddenFor(m => m.Year)
+            //@Html.HiddenFor(m => m.PracticeType)
+
+           
+            @*@Html.HiddenFor(m => m.Years)*@
+            @*@Html.HiddenFor(m => m.Ff_TotalFirmAsset)
+            @Html.HiddenFor(m => m.Ff_TotalFirmAssetAnnualized)
+            @Html.HiddenFor(m => m.Ff_NonRecurringRevenue)
+            @Html.HiddenFor(m => m.Ff_NonRecurringRevenueAnnualized)
+            @Html.HiddenFor(m => m.Ff_RecurringRevenue)
+            @Html.HiddenFor(m => m.Ff_RecurringRevenueAnnualized)
+            @Html.HiddenFor(m => m.Ff_DirectExpenses)
+            @Html.HiddenFor(m => m.Ff_DirectExpensesAnnualized)
+            @Html.HiddenFor(m => m.Ff_IndirecteExpenses)
+            @Html.HiddenFor(m => m.Ff_IndirecteExpensesAnnualized)
+            @Html.HiddenFor(m => m.Ff_OperatingProfit)
+            @Html.HiddenFor(m => m.Ff_OperatingProfitAnnualized)*@
+
+            <div>
+                @Html.DropDownListFor(x => x.PracticeType, new SelectList(Model.PracticeTypes, "Value", "Text"), "Practice Type")
+                @Html.ValidationMessageFor(x => Model.PracticeType)
+            </div><br />
+
+            <div>
+                @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes)
+            </div><br />
+
+            <div>
+                @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes)
+            </div><br />                     
+
+            @Html.DropDownListFor(x => x.Year, new SelectList(Model.Years, "Value", "Text", Model.Year), "-- Select Time Period --" )
+            <script type="text/javascript">
+                      $("#Year")
+                        .change(function () {
+                            //alert("value changed");
+                            //alert($('#Year :selected').text());
+                            if ($('#Year :selected').text() == "YTD")
+                            {
+                                document.getElementById('Month').style.display = 'block';
+                            }
+                            else {
+                                document.getElementById('Month').style.display = 'none';
+                            }
+                            
+                          //document.location = this.value;
+                        });
+            </script>
+            @Html.ValidationMessageFor(x => Model.Year)
+
+            <label>Performance Metric</label>            
+            @Html.DropDownListFor(x => Model.Month, Model.Months, new { @class="hidden"})
+            @*<span>Annualized values</span><br /><br /><br />*@<br /><br />
+
+            <div>
+                @Html.LabelFor(m => Model.Ff_TotalFirmAsset)
+                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { @class = "ff-value" })
+                <span class="ff-value">@Model.Ff_TotalFirmAssetAnnualized</span>
+                @Html.ValidationMessageFor(x => Model.Ff_TotalFirmAsset)
+            </div><br />
+            <div>
+
+                @Html.LabelFor(m => m.Ff_NonRecurringRevenue)
+                @Html.TextBoxFor(m => m.Ff_NonRecurringRevenue)
+                @Model.Ff_NonRecurringRevenueAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_NonRecurringRevenue)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_RecurringRevenue)
+                @Html.TextBoxFor(m => m.Ff_RecurringRevenue)
+                @Model.Ff_RecurringRevenueAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_RecurringRevenue)
+            </div><br />
+            <div>
+                @*@Html.LabelFor(m => Model.Ff_TotalRevenue)*@
+                <b>Total Revenue    $234,567</b>
+
+                @*@Html.LabelFor(m => Model.Ff_TotalRevenueAnnualized)*@
+            </div><br /><br />
+
+
+
+
+
+            <div>
+                @Html.LabelFor(m => m.Ff_DirectExpenses)
+                @Html.TextBoxFor(m => m.Ff_DirectExpenses)
+                @Model.Ff_DirectExpensesAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_DirectExpenses)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_IndirecteExpenses)
+                @Html.TextBoxFor(m => m.Ff_IndirecteExpenses)
+                @Model.Ff_IndirecteExpensesAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_IndirecteExpenses)
+            </div><br />
+            <div>
+                @*@Html.LabelFor(m => Model.Ff_OperatingProfit)*@
+                <b>Operating Profit $987,978</b>
+                @*@Html.LabelFor(m => Model.Ff_OperatingProfitAnnualized)*@
+            </div><br /><br />
+
+
+
+
+
+
+
+            <div>
+                @Html.LabelFor(m => m.Ff_ProjectedGrowthRate)
+                @Html.TextBoxFor(m => m.Ff_ProjectedGrowthRate)
+                @Model.Ff_ProjectedGrowthRateAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_ProjectedGrowthRate)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_ClientRelationships)
+                @Html.TextBoxFor(m => m.Ff_ClientRelationships)
+                @Model.Ff_ClientRelationshipsAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_ClientRelationships)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_FullTimeNonAdvisors)
+                @Html.TextBoxFor(m => m.Ff_FullTimeNonAdvisors)
+                @Model.Ff_FullTimeNonAdvisorsAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_FullTimeNonAdvisors)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_FullTimeAdvisors)
+                @Html.TextBoxFor(m => m.Ff_FullTimeAdvisors)
+                @Model.Ff_FullTimeAdvisorsAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_FullTimeAdvisors)
+            </div><br />
+            <div>
+                @Html.LabelFor(m => m.Ff_NewClients)
+                @Html.TextBoxFor(m => m.Ff_NewClients)
+                @Model.Ff_NewClientsAnnualized
+                @Html.ValidationMessageFor(x => Model.Ff_NewClients)<br /><br />
+
+                <input type="submit" value="VMI Inputs Next" />
+            </div>
+
+        }
+    </div>
+</body>
+</html>

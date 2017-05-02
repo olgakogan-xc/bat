@@ -1,0 +1,51 @@
+﻿@model AssetmarkBAT.Models.AgreeToTermsModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Terms</title>
+
+    <script type="text/javascript">
+    (function ($) {
+        $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
+    } (jQuery));
+    </script>
+</head>
+<body>
+    <div> 
+        @Html.Partial("~/Views/AssetmarkBAT/Shared/Header.cshtml")
+    </div>
+    <div>
+        <br /><br />
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate tempus dapibus. Etiam sed risus justo. Duis ornare elementum nisl, euismod elementum ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec aliquam commodo purus nec congue. Nunc gravida tortor nec nisi venenatis feugiat. Quisque a tempus lorem, sagittis tincidunt felis. Donec viverra turpis et urna porta, non hendrerit elit convallis. Ut efficitur nec est eu fermentum. Vivamus ac dignissim magna. Fusce pellentesque sapien sit amet sollicitudin placerat.
+
+        Fusce maximus dignissim ultrices. Phasellus gravida sem nec lectus commodo, eu venenatis lectus faucibus. Etiam a nisl et felis viverra vulputate. Vestibulum sagittis, arcu at fermentum hendrerit, justo magna mattis erat, ac sodales lorem neque non velit. Phasellus vitae lobortis purus. Phasellus efficitur risus a mauris dignissim, non tristique nisl eleifend. Maecenas elementum porttitor tellus vel vestibulum.
+
+        Nunc bibendum justo libero, sit amet ullamcorper mauris convallis sed. Maecenas nunc erat, suscipit quis vulputate id, fringilla a odio. Nunc eget tristique nibh. Integer porttitor diam in justo egestas fringilla eu auctor est. Duis rutrum orci mi, non aliquam enim fermentum ac. Nullam bibendum non ante a luctus. Praesent quis sem sem. Aenean aliquam fermentum arcu, vel egestas felis mattis vel. Suspendisse elementum auctor pulvinar. Fusce venenatis, tellus eu commodo feugiat, odio neque laoreet sem, a condimentum est nisl vitae urna. Etiam ultricies mauris at dolor pretium, eget volutpat libero venenatis. Aliquam lobortis, nisi et suscipit rutrum, mauris tortor mollis ante, id dictum ex odio quis magna. Quisque vitae ornare tellus. Etiam molestie porta magna.
+
+        Donec scelerisque aliquet nibh, nec iaculis eros placerat quis. Vivamus congue sodales nulla vitae imperdiet. Donec magna turpis, suscipit ac tincidunt in, pharetra sed justo. Proin sed tellus non dui iaculis vestibulum. Ut tempus, ante sed commodo blandit, neque quam sodales dolor, at venenatis tellus ipsum ac ex. Nulla ultrices elit sit amet placerat molestie. Maecenas egestas nibh nisl, at ultricies purus tempor vitae. Nam a nunc sed erat faucibus suscipit vitae vitae libero. Morbi mollis in felis in consectetur. Aliquam erat volutpat. Integer suscipit erat est, ut aliquet ex convallis vitae. Donec blandit elementum eros ac pharetra. Morbi elementum magna vel auctor pellentesque. Suspendisse tincidunt molestie vehicula. Mauris dignissim, nibh sed iaculis tempor, felis ante laoreet turpis, vel ullamcorper ex velit ac dolor. Aliquam erat volutpat.
+
+        Suspendisse lobortis, libero quis viverra efficitur, mauris sem consequat risus, et pellentesque odio nunc vel tellus. Donec vitae tellus at sem placerat sodales. Phasellus non lacus id urna molestie ultrices. Vivamus augue nisl, lobortis sit amet molestie sed, varius a tortor. Suspendisse eu porttitor nisl. In diam nulla, vehicula quis odio id, pretium suscipit nunc. Cras in scelerisque odio, nec accumsan nisi. Donec ac augue ex. Donec non tristique nunc, nec gravida mi. Phasellus fermentum vestibulum augue in scelerisque. Vestibulum mattis euismod dui, ac dapibus nunc tincidunt id.
+
+        <br /><br />
+
+        @using (Html.BeginForm("Page1Questions", "AssetmarkBAT", FormMethod.Post))
+        {
+            <div>
+                @Html.LabelFor(m => m.AgreedToTerms)
+                @Html.CheckBoxFor(m => Model.AgreedToTerms)
+                
+                <input type="submit" value="Get Started" />
+
+                @Html.ValidationMessageFor(x => Model.AgreedToTerms)
+            </div>            
+        }
+    </div>
+</body>
+</html>
