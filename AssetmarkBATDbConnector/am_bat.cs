@@ -46,7 +46,5 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
         public string VmiIndex { get; set; }
-        public string Ff_Complete { get; set; }
-        public string Vmi_Complete { get; set; }
     }
 }

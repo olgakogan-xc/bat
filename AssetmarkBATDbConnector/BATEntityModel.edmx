@@ -41,8 +41,6 @@
           <Property Name="Vmi_Emp_Staff" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="nvarchar" MaxLength="10" />
           <Property Name="VmiIndex" Type="nvarchar" MaxLength="50" />
-          <Property Name="Ff_Complete" Type="nvarchar" MaxLength="50" />
-          <Property Name="Vmi_Complete" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="am_bvsdatabaseModelStoreContainer">
           <EntitySet Name="am_bat" EntityType="Self.am_bat" Schema="dbo" store:Type="Tables" />
@@ -90,8 +88,6 @@
           <Property Name="Vmi_Emp_Staff" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="VmiIndex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ff_Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Vmi_Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -102,8 +98,6 @@
           <EntitySetMapping Name="am_bat">
             <EntityTypeMapping TypeName="am_bvs.databaseModel.am_bat">
               <MappingFragment StoreEntitySet="am_bat">
-                <ScalarProperty Name="Vmi_Complete" ColumnName="Vmi_Complete" />
-                <ScalarProperty Name="Ff_Complete" ColumnName="Ff_Complete" />
                 <ScalarProperty Name="VmiIndex" ColumnName="VmiIndex" />
                 <ScalarProperty Name="Vmi_Emp_Emp_Retention" ColumnName="Vmi_Emp_Emp_Retention" />
                 <ScalarProperty Name="Vmi_Emp_Staff" ColumnName="Vmi_Emp_Staff" />

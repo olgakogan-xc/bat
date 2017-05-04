@@ -28,40 +28,28 @@ namespace AssetmarkBAT.Controllers
         public ActionResult Index()
         {
             BATModel model = new BATModel();
+            InitializeDropDowns(model);
 
             if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
             {
                 model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
-                PopulateModelFromDatabase(model);
-
-                //first page completed
-
-                if (!string.IsNullOrEmpty(model.Vmi_Emp_Emp_Retention))
+                if (PopulateModelFromDatabase(model))
                 {
-                    return View(_ReportViewName, model);
+                    if (!string.IsNullOrEmpty(model.Vmi_Emp_Emp_Retention))
+                    {
+                        return View(_ReportViewName, model);
+                    }
+                    else if (!string.IsNullOrEmpty(model.Ff_NewClients))
+                    {
+                        return View(_Page2QuestionsViewName, model);
+                    }
+                    else
+                    {
+                        return View(_Page1QuestionsViewName, model);
+                    }
                 }
-                else if (!string.IsNullOrEmpty(model.Ff_NewClients))
-                {
-                    return View(_Page2QuestionsViewName, model);
-                }                
                 else
-                {
-                    return View(_Page1QuestionsViewName, model);
-                }
-
-                //if (!string.IsNullOrEmpty(model.Ff_Complete) && !string.IsNullOrEmpty(model.Vmi_Complete))
-                //{
-                //    return View(_ReportViewName, model);
-                //}
-                //else if (string.IsNullOrEmpty(model.Ff_Complete))
-                //{
-                //    InitializeDropDowns(model);
-                //    return View(_Page1QuestionsViewName, model);
-                //}
-                //else
-                //{
-                //    return View(_Page2QuestionsViewName, model);
-                //}
+                    return View(_TermsViewName);
             }
 
             return View("Terms");
@@ -275,7 +263,6 @@ namespace AssetmarkBAT.Controllers
                     Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
                     Ff_New_Clients = model.Ff_NewClients,
                     Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
-                    Ff_Complete = model.Ff_Complete,
                     //VMI
                     Vmi_Man_Phase = model.Vmi_Man_Phase,
                     Vmi_Man_Practice = model.Vmi_Man_Practice,
@@ -297,8 +284,7 @@ namespace AssetmarkBAT.Controllers
                     Vmi_Opt_Procedures = model.Vmi_Opt_Procedures,
                     Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
                     Vmi_Opt_Segment = model.Vmi_Opt_Segment,
-                    VmiIndex = "1000",
-                    Vmi_Complete = model.Vmi_Complete
+                    VmiIndex = "1000"
                 };
 
                 var original = db.am_bat.Find(user.UserId);
@@ -316,7 +302,7 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
-        private void PopulateModelFromDatabase(BATModel model)
+        private bool PopulateModelFromDatabase(BATModel model)
         {
             using (AssetmarkBATEntities db = new AssetmarkBATEntities())
             {
@@ -384,7 +370,11 @@ namespace AssetmarkBAT.Controllers
                     model.Vmi_Emp_Human = original.Vmi_Emp_Human;
                     model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
                     model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
+
+                    return true;
                 }
+
+                return false;
             }
         }
 
