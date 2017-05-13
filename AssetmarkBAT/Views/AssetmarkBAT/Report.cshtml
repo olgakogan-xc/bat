@@ -8,74 +8,78 @@
     AssetMark – BAT – Assessement4
 }
 
-<main>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <h1><img src="images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
-                </div>
-            </div>
-            <h2>Valuation Range</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium et accusamus eligendi rem dignissimos similique nulla officiis laudantium earum, eius. Ad, soluta fugit recusandae nulla illum minima consequatur sint nesciunt.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error reprehenderit accusantium, reiciendis, incidunt libero nostrum ullam at a, blanditiis, repudiandae exercitationem illum eligendi quisquam culpa quidem natus laboriosam inventore voluptas.</p>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4 class="secondary">Valuation Range<br><span class="light">Firm Relative to Peer Group Benchmark</span></h4>
-                    <div class="graph">
-                        <div id="container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+@using (Html.BeginForm("Optimizer", "AssetmarkBAT", FormMethod.Post))
+{
+    <main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h1><img src="~/Styles/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <h4 class="secondary">To Download Your Detailed Report,<br>Fill In Your Contact Information</h4>
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name">
-                                </div>
-                            </div>
+                <h2>Valuation Range</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium et accusamus eligendi rem dignissimos similique nulla officiis laudantium earum, eius. Ad, soluta fugit recusandae nulla illum minima consequatur sint nesciunt.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error reprehenderit accusantium, reiciendis, incidunt libero nostrum ullam at a, blanditiis, repudiandae exercitationem illum eligendi quisquam culpa quidem natus laboriosam inventore voluptas.</p>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="secondary">Valuation Range<br><span class="light">Firm Relative to Peer Group Benchmark</span></h4>
+                        <div class="graph">
+                            <div id="container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="secondary">To Download Your Detailed Report,<br>Fill In Your Contact Information</h4>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Last Name">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Phone Number">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                    </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Zip or Postal Code">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Broker-Dealer or RIA Name">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="button-container text-center">
+                            @*<button>View Detailed Report</button>*@
+                            <input type="submit" value="View Detailed Report" name="submit" />
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Zip or Postal Code">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Broker-Dealer or RIA Name">
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <div class="button-container text-center">
-                        <button>View Detailed Report</button>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-</main>
+    </main>
+}

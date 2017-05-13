@@ -27,6 +27,7 @@ namespace AssetmarkBAT.Controllers
         private string _Page1QuestionsViewName = "Page1Questions";
         private string _Page2QuestionsViewName = "Page2Questions";
         private string _ReportViewName = "Report";
+        private string _ValuationOptimizer = "ValuationOptimizer";
         private string _UserId = string.Empty;
         //public ValuationModel _ValModel = new ValuationModel();
         
@@ -133,8 +134,8 @@ namespace AssetmarkBAT.Controllers
             
 
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 if (submit == "Save Your Inputs")
                 {
                     PopulateEntityFromModel(model);
@@ -174,11 +175,11 @@ namespace AssetmarkBAT.Controllers
                     
                     return View(_Page2QuestionsViewName, model);
                 }
-            }
-            else
-            {
-                return View(_Page1QuestionsViewName, model);
-            }
+            //}
+            //else
+            //{
+            //    return View(_Page1QuestionsViewName, model);
+            //}
         }
 
         /// <summary>
@@ -196,8 +197,8 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Next")
             {
-                PopulateEntityFromModel(model);
-                CalculateVMIScore(model);
+                //PopulateEntityFromModel(model);
+                //CalculateVMIScore(model);
                 return View(_ReportViewName, model);
             }
             else if (submit == "Previous")
@@ -206,6 +207,16 @@ namespace AssetmarkBAT.Controllers
             }
             else
                 return View(_Page2QuestionsViewName, model);
+        }
+
+        [HttpPost]
+        public ActionResult Optimizer(BATModel model)
+        {
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+            InitializeDropDowns(model);
+
+            return View(_ValuationOptimizer, model);
         }
 
         #region PrivateMethods
