@@ -11,11 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Xfinium.Pdf;
-using Xfinium.Pdf.Actions;
-using Xfinium.Pdf.Core;
-using Xfinium.Pdf.Graphics;
-using Xfinium.Pdf.Graphics.FormattedContent;
+//using Xfinium.Pdf;
+//using Xfinium.Pdf.Actions;
+//using Xfinium.Pdf.Core;
+//using Xfinium.Pdf.Graphics;
+//using Xfinium.Pdf.Graphics.FormattedContent;
 
 
 namespace AssetmarkBAT.Controllers
@@ -46,9 +46,9 @@ namespace AssetmarkBAT.Controllers
             //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
             MemoryStream stream = new MemoryStream(byteArray);
 
-            SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
-            PdfFixedDocument document = htmlToPdf.Convert(stream);
-            document.Save("C:\\output.pdf");
+            //SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
+            //PdfFixedDocument document = htmlToPdf.Convert(stream);
+            //document.Save("C:\\output.pdf");
 
 
 
@@ -443,37 +443,37 @@ namespace AssetmarkBAT.Controllers
 
         private void CreatePdf()
         {
-            PdfFixedDocument document = new PdfFixedDocument();
-            PdfPage page = document.Pages.Add();
-            //document.Save("empty.pdf");
+            //PdfFixedDocument document = new PdfFixedDocument();
+            //PdfPage page = document.Pages.Add();
+            ////document.Save("empty.pdf");
 
 
 
 
-            // Create a standard font with Helvetica face and 24 point size
-            PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
-            // Create a solid RGB red brush.
-            PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
-            PdfBrush darkBlueBrush = new PdfBrush();
-            darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
-            PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
+            //// Create a standard font with Helvetica face and 24 point size
+            //PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
+            //// Create a solid RGB red brush.
+            //PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
+            //PdfBrush darkBlueBrush = new PdfBrush();
+            //darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
+            //PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
 
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
+            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
+            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
 
 
 
-            page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-            page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+            //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+            //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
 
-            page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
+            //page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
 
-            string imagePath = HttpContext.Server.MapPath(@"~\UserPDF\" + "Lock.png");
-            PdfImage lockImage = new PdfImage(imagePath);
-            page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
-            string path = HttpContext.Server.MapPath(@"~\UserPDF\" + _UserId + ".pdf");
-            document.Save(path);
-            //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+            //string imagePath = HttpContext.Server.MapPath(@"~\UserPDF\" + "Lock.png");
+            //PdfImage lockImage = new PdfImage(imagePath);
+            //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+            //string path = HttpContext.Server.MapPath(@"~\UserPDF\" + _UserId + ".pdf");
+            //document.Save(path);
+            ////PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
 
 
         }
@@ -621,239 +621,239 @@ namespace AssetmarkBAT.Controllers
         #endregion
     }
 
-    public class SimpleHtmlToPdf
-    {
-        // Stack of fonts
-        private Stack<PdfFont> fonts = new Stack<PdfFont>();
+    //public class SimpleHtmlToPdf
+    //{
+    //    // Stack of fonts
+    //    private Stack<PdfFont> fonts = new Stack<PdfFont>();
 
-        /// <summary>
-        /// Gets the active font.
-        /// </summary>
-        public PdfFont ActiveFont
-        {
-            get { return fonts.Peek(); }
-        }
+    //    /// <summary>
+    //    /// Gets the active font.
+    //    /// </summary>
+    //    public PdfFont ActiveFont
+    //    {
+    //        get { return fonts.Peek(); }
+    //    }
 
-        private Stack<PdfBrush> textColors = new Stack<PdfBrush>();
-        /// <summary>
-        /// Gets the active text color.
-        /// </summary>
-        public PdfBrush ActiveTextColor
-        {
-            get { return textColors.Peek(); }
-        }
+    //    private Stack<PdfBrush> textColors = new Stack<PdfBrush>();
+    //    /// <summary>
+    //    /// Gets the active text color.
+    //    /// </summary>
+    //    public PdfBrush ActiveTextColor
+    //    {
+    //        get { return textColors.Peek(); }
+    //    }
 
-        /// <summary>
-        /// Converts simple XHTML code to a PDF document.
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        public PdfFixedDocument Convert(Stream html)
-        {
-            PdfFixedDocument document = new PdfFixedDocument();
+    //    /// <summary>
+    //    /// Converts simple XHTML code to a PDF document.
+    //    /// </summary>
+    //    /// <param name="html"></param>
+    //    /// <returns></returns>
+    //    public PdfFixedDocument Convert(Stream html)
+    //    {
+    //        PdfFixedDocument document = new PdfFixedDocument();
 
-            PdfFormattedContent fc = ConvertHtmlToFormattedContent(html);
-            DrawFormattedContent(document, fc);
+    //        PdfFormattedContent fc = ConvertHtmlToFormattedContent(html);
+    //        DrawFormattedContent(document, fc);
 
-            return document;
-        }
+    //        return document;
+    //    }
 
-        /// <summary>
-        /// Converts simple XHTML to a formatted content object.
-        /// </summary>
-        /// <param name="html"></param>
-        /// <returns></returns>
-        private PdfFormattedContent ConvertHtmlToFormattedContent(Stream html)
-        {
-            PdfFormattedContent fc = new PdfFormattedContent();
-            PdfFormattedParagraph currentParagraph = null;
-            PdfUriAction currentLinkAction = null;
-            PdfFormattedTextBlock bullet = null;
+    //    /// <summary>
+    //    /// Converts simple XHTML to a formatted content object.
+    //    /// </summary>
+    //    /// <param name="html"></param>
+    //    /// <returns></returns>
+    //    private PdfFormattedContent ConvertHtmlToFormattedContent(Stream html)
+    //    {
+    //        PdfFormattedContent fc = new PdfFormattedContent();
+    //        PdfFormattedParagraph currentParagraph = null;
+    //        PdfUriAction currentLinkAction = null;
+    //        PdfFormattedTextBlock bullet = null;
 
-            // Create a default font.
-            fonts.Push(new PdfStandardFont(PdfStandardFontFace.Helvetica, 10));
-            // Create a default text color.
-            textColors.Push(new PdfBrush(PdfRgbColor.Black));
+    //        // Create a default font.
+    //        fonts.Push(new PdfStandardFont(PdfStandardFontFace.Helvetica, 10));
+    //        // Create a default text color.
+    //        textColors.Push(new PdfBrush(PdfRgbColor.Black));
 
-            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(html);
-            xmlReader.MoveToContent();
+    //        System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(html);
+    //        xmlReader.MoveToContent();
 
-            while (xmlReader.Read())
-            {
-                switch (xmlReader.NodeType)
-                {
-                    case System.Xml.XmlNodeType.Element:
-                        switch (xmlReader.Name)
-                        {
-                            case "p":
-                                currentParagraph = new PdfFormattedParagraph();
-                                currentParagraph.SpacingBefore = 3;
-                                currentParagraph.SpacingAfter = 3;
-                                fc.Paragraphs.Add(currentParagraph);
-                                break;
-                            case "br":
-                                if (currentParagraph.Blocks.Count > 0)
-                                {
-                                    PdfFormattedTextBlock textBlock =
-                                        currentParagraph.Blocks[currentParagraph.Blocks.Count - 1] as PdfFormattedTextBlock;
-                                    textBlock.Text = textBlock.Text + "\r\n";
-                                }
-                                else
-                                {
-                                    PdfFormattedTextBlock textBlock = new PdfFormattedTextBlock("\r\n", ActiveFont);
-                                    currentParagraph.Blocks.Add(textBlock);
-                                }
-                                break;
-                            case "a":
-                                while (xmlReader.MoveToNextAttribute())
-                                {
-                                    if (xmlReader.Name == "href")
-                                    {
-                                        currentLinkAction = new PdfUriAction();
-                                        currentLinkAction.URI = xmlReader.Value;
-                                    }
-                                }
-                                break;
-                            case "font":
-                                while (xmlReader.MoveToNextAttribute())
-                                {
-                                    if (xmlReader.Name == "color")
-                                    {
-                                        PdfBrush color = ActiveTextColor;
-                                        string colorCode = xmlReader.Value;
-                                        // #RRGGBB
-                                        if (colorCode.StartsWith("#") && (colorCode.Length == 7))
-                                        {
-                                            byte r = byte.Parse(colorCode.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-                                            byte g = byte.Parse(colorCode.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-                                            byte b = byte.Parse(colorCode.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-                                            color = new PdfBrush(new PdfRgbColor(r, g, b));
-                                        }
+    //        while (xmlReader.Read())
+    //        {
+    //            switch (xmlReader.NodeType)
+    //            {
+    //                case System.Xml.XmlNodeType.Element:
+    //                    switch (xmlReader.Name)
+    //                    {
+    //                        case "p":
+    //                            currentParagraph = new PdfFormattedParagraph();
+    //                            currentParagraph.SpacingBefore = 3;
+    //                            currentParagraph.SpacingAfter = 3;
+    //                            fc.Paragraphs.Add(currentParagraph);
+    //                            break;
+    //                        case "br":
+    //                            if (currentParagraph.Blocks.Count > 0)
+    //                            {
+    //                                PdfFormattedTextBlock textBlock =
+    //                                    currentParagraph.Blocks[currentParagraph.Blocks.Count - 1] as PdfFormattedTextBlock;
+    //                                textBlock.Text = textBlock.Text + "\r\n";
+    //                            }
+    //                            else
+    //                            {
+    //                                PdfFormattedTextBlock textBlock = new PdfFormattedTextBlock("\r\n", ActiveFont);
+    //                                currentParagraph.Blocks.Add(textBlock);
+    //                            }
+    //                            break;
+    //                        case "a":
+    //                            while (xmlReader.MoveToNextAttribute())
+    //                            {
+    //                                if (xmlReader.Name == "href")
+    //                                {
+    //                                    currentLinkAction = new PdfUriAction();
+    //                                    currentLinkAction.URI = xmlReader.Value;
+    //                                }
+    //                            }
+    //                            break;
+    //                        case "font":
+    //                            while (xmlReader.MoveToNextAttribute())
+    //                            {
+    //                                if (xmlReader.Name == "color")
+    //                                {
+    //                                    PdfBrush color = ActiveTextColor;
+    //                                    string colorCode = xmlReader.Value;
+    //                                    // #RRGGBB
+    //                                    if (colorCode.StartsWith("#") && (colorCode.Length == 7))
+    //                                    {
+    //                                        byte r = byte.Parse(colorCode.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
+    //                                        byte g = byte.Parse(colorCode.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
+    //                                        byte b = byte.Parse(colorCode.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
+    //                                        color = new PdfBrush(new PdfRgbColor(r, g, b));
+    //                                    }
 
-                                        textColors.Push(color);
-                                    }
-                                }
-                                break;
-                            case "ul":
-                                bullet = new PdfFormattedTextBlock("\x95 ", ActiveFont);
-                                break;
-                            case "li":
-                                currentParagraph = new PdfFormattedParagraph();
-                                currentParagraph.SpacingBefore = 3;
-                                currentParagraph.SpacingAfter = 3;
-                                currentParagraph.Bullet = bullet;
-                                currentParagraph.LeftIndentation = 18;
-                                fc.Paragraphs.Add(currentParagraph);
-                                break;
-                            case "b":
-                            case "strong":
-                                PdfFont boldFont = CopyFont(ActiveFont);
-                                boldFont.Bold = true;
-                                fonts.Push(boldFont);
-                                break;
-                            case "i":
-                            case "em":
-                                PdfFont italicFont = CopyFont(ActiveFont);
-                                italicFont.Italic = true;
-                                fonts.Push(italicFont);
-                                break;
-                            case "u":
-                                PdfFont underlineFont = CopyFont(ActiveFont);
-                                underlineFont.Underline = true;
-                                fonts.Push(underlineFont);
-                                break;
-                        }
-                        break;
-                    case System.Xml.XmlNodeType.EndElement:
-                        switch (xmlReader.Name)
-                        {
-                            case "a":
-                                currentLinkAction = null;
-                                break;
-                            case "ul":
-                                bullet = null;
-                                break;
-                            case "b":
-                            case "strong":
-                            case "i":
-                            case "em":
-                            case "u":
-                                fonts.Pop();
-                                break;
-                            case "font":
-                                textColors.Pop();
-                                break;
-                        }
-                        break;
-                    case System.Xml.XmlNodeType.Text:
-                        string text = xmlReader.Value;
-                        // Remove spaces from text that do not have meaning in HTML.
-                        text = text.Replace("\r", "");
-                        text = text.Replace("\n", "");
-                        text = text.Replace("\t", " ");
-                        PdfFormattedTextBlock block = new PdfFormattedTextBlock(text, ActiveFont);
-                        block.TextColor = ActiveTextColor;
-                        if (currentLinkAction != null)
-                        {
-                            block.Action = currentLinkAction;
-                            // Make the links blue.
-                            block.TextColor = new PdfBrush(PdfRgbColor.Blue);
-                        }
-                        currentParagraph.Blocks.Add(block);
-                        break;
-                }
-            }
-
-
-
-            return fc;
-        }
+    //                                    textColors.Push(color);
+    //                                }
+    //                            }
+    //                            break;
+    //                        case "ul":
+    //                            bullet = new PdfFormattedTextBlock("\x95 ", ActiveFont);
+    //                            break;
+    //                        case "li":
+    //                            currentParagraph = new PdfFormattedParagraph();
+    //                            currentParagraph.SpacingBefore = 3;
+    //                            currentParagraph.SpacingAfter = 3;
+    //                            currentParagraph.Bullet = bullet;
+    //                            currentParagraph.LeftIndentation = 18;
+    //                            fc.Paragraphs.Add(currentParagraph);
+    //                            break;
+    //                        case "b":
+    //                        case "strong":
+    //                            PdfFont boldFont = CopyFont(ActiveFont);
+    //                            boldFont.Bold = true;
+    //                            fonts.Push(boldFont);
+    //                            break;
+    //                        case "i":
+    //                        case "em":
+    //                            PdfFont italicFont = CopyFont(ActiveFont);
+    //                            italicFont.Italic = true;
+    //                            fonts.Push(italicFont);
+    //                            break;
+    //                        case "u":
+    //                            PdfFont underlineFont = CopyFont(ActiveFont);
+    //                            underlineFont.Underline = true;
+    //                            fonts.Push(underlineFont);
+    //                            break;
+    //                    }
+    //                    break;
+    //                case System.Xml.XmlNodeType.EndElement:
+    //                    switch (xmlReader.Name)
+    //                    {
+    //                        case "a":
+    //                            currentLinkAction = null;
+    //                            break;
+    //                        case "ul":
+    //                            bullet = null;
+    //                            break;
+    //                        case "b":
+    //                        case "strong":
+    //                        case "i":
+    //                        case "em":
+    //                        case "u":
+    //                            fonts.Pop();
+    //                            break;
+    //                        case "font":
+    //                            textColors.Pop();
+    //                            break;
+    //                    }
+    //                    break;
+    //                case System.Xml.XmlNodeType.Text:
+    //                    string text = xmlReader.Value;
+    //                    // Remove spaces from text that do not have meaning in HTML.
+    //                    text = text.Replace("\r", "");
+    //                    text = text.Replace("\n", "");
+    //                    text = text.Replace("\t", " ");
+    //                    PdfFormattedTextBlock block = new PdfFormattedTextBlock(text, ActiveFont);
+    //                    block.TextColor = ActiveTextColor;
+    //                    if (currentLinkAction != null)
+    //                    {
+    //                        block.Action = currentLinkAction;
+    //                        // Make the links blue.
+    //                        block.TextColor = new PdfBrush(PdfRgbColor.Blue);
+    //                    }
+    //                    currentParagraph.Blocks.Add(block);
+    //                    break;
+    //            }
+    //        }
 
 
 
-        /// <summary>
-        /// Creates a bold copy of the given font.
-        /// </summary>
-        /// <param name="font"></param>
-        /// <returns></returns>
-        private PdfFont CopyFont(PdfFont font)
-        {
-            PdfFont copy = null;
-            PdfStandardFont standardFont = font as PdfStandardFont;
-            if (standardFont != null)
-            {
-                copy = new PdfStandardFont(standardFont);
-            }
-
-            return copy;
-        }
-
-        /// <summary>
-        /// Draws the formatted content on document's pages.
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="fc"></param>
-        private void DrawFormattedContent(PdfFixedDocument document, PdfFormattedContent fc)
-        {
-            double leftMargin, topMargin, rightMargin, bottomMargin;
-            leftMargin = topMargin = rightMargin = bottomMargin = 36;
-
-            PdfPage page = document.Pages.Add();
-            PdfFormattedContent fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-            while (fragment != null)
-            {
-                page.Graphics.DrawFormattedContent(fragment,
-                    leftMargin, topMargin, page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-                page.Graphics.CompressAndClose();
-
-                fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-                if (fragment != null)
-                {
-                    page = document.Pages.Add();
-                }
-            }
-        }
+    //        return fc;
+    //    }
 
 
-    }
+
+    //    /// <summary>
+    //    /// Creates a bold copy of the given font.
+    //    /// </summary>
+    //    /// <param name="font"></param>
+    //    /// <returns></returns>
+    //    private PdfFont CopyFont(PdfFont font)
+    //    {
+    //        PdfFont copy = null;
+    //        PdfStandardFont standardFont = font as PdfStandardFont;
+    //        if (standardFont != null)
+    //        {
+    //            copy = new PdfStandardFont(standardFont);
+    //        }
+
+    //        return copy;
+    //    }
+
+    //    /// <summary>
+    //    /// Draws the formatted content on document's pages.
+    //    /// </summary>
+    //    /// <param name="document"></param>
+    //    /// <param name="fc"></param>
+    //    private void DrawFormattedContent(PdfFixedDocument document, PdfFormattedContent fc)
+    //    {
+    //        double leftMargin, topMargin, rightMargin, bottomMargin;
+    //        leftMargin = topMargin = rightMargin = bottomMargin = 36;
+
+    //        PdfPage page = document.Pages.Add();
+    //        PdfFormattedContent fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
+    //        while (fragment != null)
+    //        {
+    //            page.Graphics.DrawFormattedContent(fragment,
+    //                leftMargin, topMargin, page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
+    //            page.Graphics.CompressAndClose();
+
+    //            fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
+    //            if (fragment != null)
+    //            {
+    //                page = document.Pages.Add();
+    //            }
+    //        }
+    //    }
+
+
+    //}
 }
