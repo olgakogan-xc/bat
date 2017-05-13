@@ -1,0 +1,121 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <title>@RenderSection("Title")</title>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/ui-bootstrap-tpls.js"></script>
+    <script src="Scripts/rzslider.js"></script>
+    <script src="Scripts/demo.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.15/angular-locale_en-us.js"></script>
+    <script src="Scripts/angular-input-masks.js"></script>
+
+    <script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="//code.highcharts.com/highcharts-more.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
+    <link rel="icon" href="">
+    <link rel="stylesheet" href="~/Styles/styles.css">
+</head>
+<body>
+
+
+
+    <div class="wrapper">
+        <header>
+            <section class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="#"><img src="~/Styles/Images/AMK_Wordmark.png" alt="ASSETMARK"></a>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <nav>
+                                <ul>
+                                    <li><i class="icon-phone"></i> 1-844-540-0972</li>
+                                    <li><a href="#" class="btn btn-secondary btn-small">Contact Us</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </header>
+
+        @RenderBody()
+
+        <footer>
+            <section class="footer">
+                <div class="container">
+                    <p>The information on this website is for informational purposes only and is not a solicitation for investment. The opinions expressed here are those of AssetMark and are subject to change at any time. Individual investors should consult with their financial advisors before making any investment decisions. Always consult with a qualified tax advisor before making any investment decisions</p>
+
+                    <p>© 2017 AssetMark, Inc. All rights reserved. AssetMark, Inc. is an investment adviser registered with the Securities and Exchange Commission.</p>
+                </div>
+            </section>
+        </footer>
+
+    </div>
+
+
+   
+
+
+    <script>
+        Highcharts.chart('container', {
+
+            chart: {
+                type: 'columnrange',
+                inverted: false
+            },
+
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return '$' + this.value;
+                    }
+                },
+                title: {
+                    enabled: false
+                }
+            },
+
+            xAxis: {
+                categories: ['Current Value', 'Optimized Value']
+            },
+
+            tooltip: {
+                enabled: false,
+            },
+
+            plotOptions: {
+                columnrange: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function () {
+                            return '$' + this.y;
+                        }
+                    }
+                }
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            series: [{
+                name: 'Temperatures',
+                data: [
+                    [33862000, 45240000],
+                    [7089000, 11943000]
+                ]
+            }]
+
+        });
+    </script>
+
+</body>
+</html>

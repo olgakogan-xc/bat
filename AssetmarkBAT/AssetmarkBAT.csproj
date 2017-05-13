@@ -141,6 +141,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Xfinium.Pdf.Win, Version=6.3.1.1, Culture=neutral, PublicKeyToken=3a083ecebc95eb1c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Xfinium.Pdf.Win.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -201,6 +205,7 @@
     </Compile>
     <Compile Include="Models\BATModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ValuationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\Helpers.cs" />
@@ -210,9 +215,12 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\angular-input-masks.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\demo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -223,7 +231,12 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\rzslider.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Styles\Images\AMK_Wordmark.png" />
+    <Content Include="Styles\Images\business_assessment_logo.png" />
+    <Content Include="Styles\styles.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -240,6 +253,10 @@
     <Content Include="Views\AssetmarkBAT\Page1Questions.cshtml" />
     <Content Include="Views\AssetmarkBAT\Page2Questions.cshtml" />
     <Content Include="Views\AssetmarkBAT\Report.cshtml" />
+    <Content Include="Views\AssetmarkBAT\ValuationOptimizer.cshtml" />
+    <Content Include="Views\AssetmarkBAT\Eloqua.cshtml" />
+    <Content Include="Views\AssetmarkBAT\Shared\Footer.cshtml" />
+    <Content Include="Views\AssetmarkBAT\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

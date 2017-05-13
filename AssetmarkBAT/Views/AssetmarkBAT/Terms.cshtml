@@ -1,51 +1,166 @@
 ﻿@model AssetmarkBAT.Models.AgreeToTermsModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/AssetmarkBAT/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+@section Title
+{
+    AssetMark – BAT – Assessement1 
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Terms</title>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     (function ($) {
         $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
-    } (jQuery));
-    </script>
-</head>
-<body>
-    <div> 
-        @Html.Partial("~/Views/AssetmarkBAT/Shared/Header.cshtml")
-    </div>
-    <div>
-        <br /><br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate tempus dapibus. Etiam sed risus justo. Duis ornare elementum nisl, euismod elementum ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec aliquam commodo purus nec congue. Nunc gravida tortor nec nisi venenatis feugiat. Quisque a tempus lorem, sagittis tincidunt felis. Donec viverra turpis et urna porta, non hendrerit elit convallis. Ut efficitur nec est eu fermentum. Vivamus ac dignissim magna. Fusce pellentesque sapien sit amet sollicitudin placerat.
+    }(jQuery));
+</script>
 
-        Fusce maximus dignissim ultrices. Phasellus gravida sem nec lectus commodo, eu venenatis lectus faucibus. Etiam a nisl et felis viverra vulputate. Vestibulum sagittis, arcu at fermentum hendrerit, justo magna mattis erat, ac sodales lorem neque non velit. Phasellus vitae lobortis purus. Phasellus efficitur risus a mauris dignissim, non tristique nisl eleifend. Maecenas elementum porttitor tellus vel vestibulum.
+<main>
+    <section>
+        <div class="container">
+            <h1><img src="~/Styles/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
+            <h2>Business Assessment</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="no-margin">
+                        The Business Assessment Tool gives you the ability to objectively analyze your business, identify areas of strength, evaluate opportunities for improvement, and make changes based on what you discover. With just a few simple inputs, the tool provides you with a sophisticated view of your business performance, allowing you to benchmark your firm, calculate key performance metrics, and provide comparisons against key performance indicators. By creating a clear picture of the drivers that increase or decrease practice value, you can build a better and more valuable business.
+                    </p>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <h4>Additional Resources</h4>
+                    <ul>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <i class="icon-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <i class="icon-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <i class="icon-pdf"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="grey">
+        <div class="container">
+            <h2>Firm Financials &amp; Value Maximization Index® Score</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga suscipit aut dicta dolor, asperiores, quia ea animi beatae quos consequatur pariatur enim laudantium eaque veniam corporis. Ullam neque totam excepturi.</p>
+            <ul>
+                <li>Firm Financials</li>
+                <li>Value Maximization Index®</li>
+            </ul>
+            <p>
+                Key firm financial data such as assets under management, revenue, and expenses all comprise a quantitative base for your firm’s estimated value. Your Value Maximization Index® (VMI) is based on individual Value Maximization Indicators that evaluate and summarize your business operations and practices that relate to “practice risk.” Together, your growth rate, operating profit, and VMI inputs provide an estimated valuation range for your firm.
+            </p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2>Getting Started</h2>
+            <p>Please review and accept the Terms of Use below to begin the Business Assessment.</p>
 
-        Nunc bibendum justo libero, sit amet ullamcorper mauris convallis sed. Maecenas nunc erat, suscipit quis vulputate id, fringilla a odio. Nunc eget tristique nibh. Integer porttitor diam in justo egestas fringilla eu auctor est. Duis rutrum orci mi, non aliquam enim fermentum ac. Nullam bibendum non ante a luctus. Praesent quis sem sem. Aenean aliquam fermentum arcu, vel egestas felis mattis vel. Suspendisse elementum auctor pulvinar. Fusce venenatis, tellus eu commodo feugiat, odio neque laoreet sem, a condimentum est nisl vitae urna. Etiam ultricies mauris at dolor pretium, eget volutpat libero venenatis. Aliquam lobortis, nisi et suscipit rutrum, mauris tortor mollis ante, id dictum ex odio quis magna. Quisque vitae ornare tellus. Etiam molestie porta magna.
+            @using (Html.BeginForm("Page1Questions", "AssetmarkBAT", FormMethod.Post))
+            {
+                <div class="terms">
+                    Business Assessment Tool - Terms of Use <br /><br />
+                    As of 5/9/17 <br /><br />
+                    At AssetMark, Inc., together with our affiliates (collectively referred to as “AssetMark”), we are pleased to provide you with access to some Practice Management Services, including use of the Business Assessment Tool (the “Tool”), and this website (“Site”). Your use of these Services, the Tool and the Site is subject to the following terms of use set out in this agreement ("Agreement"). By clicking “I Agree” below and accessing this Site, you accept and agree to be bound by this Agreement. Your use of this Site is governed by the version of this Agreement in effect on the date the Site is accessed by you. AssetMark reserves the right to modify this Agreement at any time and without prior notice. You may review the Agreement at <a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/bat_terms_of_use">https://www.assetmark.com/~/media/assetmark/files/business_assessment/bat_terms_of_use</a> This Agreement is in addition to the assetmark.com Terms of Use. Please use caution and common sense when using this Site and consult with your own legal, compliance, tax and other professional advisors before deciding to utilize this Tool or any others.
 
-        Donec scelerisque aliquet nibh, nec iaculis eros placerat quis. Vivamus congue sodales nulla vitae imperdiet. Donec magna turpis, suscipit ac tincidunt in, pharetra sed justo. Proin sed tellus non dui iaculis vestibulum. Ut tempus, ante sed commodo blandit, neque quam sodales dolor, at venenatis tellus ipsum ac ex. Nulla ultrices elit sit amet placerat molestie. Maecenas egestas nibh nisl, at ultricies purus tempor vitae. Nam a nunc sed erat faucibus suscipit vitae vitae libero. Morbi mollis in felis in consectetur. Aliquam erat volutpat. Integer suscipit erat est, ut aliquet ex convallis vitae. Donec blandit elementum eros ac pharetra. Morbi elementum magna vel auctor pellentesque. Suspendisse tincidunt molestie vehicula. Mauris dignissim, nibh sed iaculis tempor, felis ante laoreet turpis, vel ullamcorper ex velit ac dolor. Aliquam erat volutpat.
+                    <br /><br /><b>1. SERVICES AND USE OF ASSETMARK SITE</b><br />
+                    AssetMark is providing this Tool and access to this Site solely as an accommodation to educate financial advisers regarding important practice management issues. Unless otherwise indicated on the Site, AssetMark does not make any representations whatsoever as to the correctness or accuracy of the Site, the information contained on it or provided to you as a result of your use of it. You assume full and complete responsibility in the use of and reliance on any and all information provided through the Site or provided to you by AssetMark in connection with your use of the Site, sources of advice and assistance, referrals to professionals, sample forms, language, checklist and other documentation and information. You will not rely on the information contained on the Site or provided to you by AssetMark in connection with your use of it in entering into any transaction. You will conduct your own due diligence before entering into a transaction. AssetMark assumes no responsibility for verifying, investigating, supplementing, updating or correcting the information contained on the Site in connection with your use of it or for performing any due diligence with respect to any transaction contemplated by you. ASSETMARK DOES NOT PROVIDE LEGAL, TAX, ACCOUNTING, FINANCIAL OR REGULATORY ADVICE IN THE ACQUISITION, MERGER OR SALES PROCESS, OR WITH RESPECT TO ANY INFORMATION CONTAINED ON THE SITE.
+                    <br /><br /><b>2. POSTINGS ON TOOL</b><br />
+                    You are solely responsible for all Information you post or otherwise communicate using the Tool, and AssetMark acts only as a passive conduit for distribution and publication of such Information. You represent and warrant that all information you post or otherwise communicate using the Tool shall not: (i) be false, inaccurate or misleading; (ii) contain any advertising; (iii) infringe any third party's copyright, trademark or other proprietary rights; (iv) violate any law, statute, ordinance or regulation; (v) be defamatory or harassing; (vi) contain any viruses or other malicious software; (vii) be obscene or otherwise inappropriate; and (viii) contain any information regarding individual clients, their accounts or holdings. Without limiting or waiving any right or remedy AssetMark may have with regard to a breach of this Agreement by you, whether provided under this Agreement or otherwise, AssetMark may delete your posting, in whole or in part, and restrict access to the Site if AssetMark believes you to be in violation of this Section 2.
+                    <br /><br /><b>3. ASSETMARK ROLE NOT AGENT OR FIDUCIARY</b><br />
+                    AssetMark provides the Site and the information contained therein to you as an independent contractor only and not as an agent or representative of or fiduciary to you or any other person. AssetMark has no involvement in the negotiation or completion of any transaction between you and, as the case may be, any buyer, seller or service provider. As a result, unless otherwise indicated on the Site, AssetMark has no control over the truth or accuracy of any information provided on the Site or otherwise provided to you by AssetMark in connection with your use of it.
+                    <br /><br /><b>4. INFORMATION POSTED ON THE SITE/CONFIDENTIALITY</b><br />
+                    Information posted on the Site is visible to any AssetMark employee and may be used by AssetMark to provide services to you. You authorize the disclosure of your information to AssetMark personnel in connection with the administration of the Site. NO INFORMATION REGARDING INDIVIDUAL CLIENTS, THEIR ACCOUNTS OR HOLDINGS MAY BE POSTED ON THE SITE.
+                    <br /><br /><b>5. INDEMNIFICATION</b><br />
+                    You hereby agree to release, defend, indemnify, and hold harmless AssetMark and its affiliates, officers, directors, agents, subsidiaries and employees from and against any claim, action, proceeding, liability, loss, damage, cost, or expense (including, without limitation, attorneys' fees and expert costs) of any kind or nature, known or unknown, suspected or unsuspected, disclosed or undisclosed, arising out of or in any way connected with your breach of this Agreement, your use of the Site or any transaction that arises from your use of this Site including any potential sale or acquisition (each a "Claim" and, collectively, the "Claims"); except any such claims, demands and damages that are the result of AssetMark's gross negligence or willful misconduct. You shall pay all amounts that a court finally awards or that you agree to in settlement of any Claim(s) as well as any and all of AssetMark's expenses or charges as they are incurred by AssetMark or any other party indemnified under this Section in cooperating in the defense of any Claim(s). This obligation shall survive expiration or termination of this Agreement.
+                    <br /><br /><b>6. TERMINATION</b><br />
+                    AssetMark may terminate authorization to use the Site without prior notice to you for any reason, including, but not limited to, your breach of any of the terms and conditions of this Agreement.
+                    <br /><br /><b>7. GENERAL TERMS</b><br />
+                    This Agreement has been made in and will be construed and enforced in accordance with California law, as applied to agreements entered into and completely performed in California. The provisions of Sections 2 (Postings on Tool), 5 (Indemnification) and 7 (General Terms) shall survive any expiration of termination of this Agreement. Failure to insist on strict performance of any term of this Agreement will not operate as a waiver of any subsequent default or failure of performance, and any waiver of any term of this Agreement will not be taken or held to be a waiver of the term itself. No waiver of any term of this Agreement will be valid unless in writing and acknowledged in writing by the waiving party. If any portion of this Agreement is adjudged invalid or unenforceable by a court of competent jurisdiction, such provision will be enforced to the maximum permissible extent to effect the intent of the parties, and the remaining portions will remain in full force and effect. No joint venture, partnership, franchise, employment, or agency relationship exists between you and AssetMark as a result of this Agreement or your use of the Site. This Agreement constitutes the entire agreement between you and AssetMark with respect to the Tool; provided, however, that you will also be subject to any additional terms and conditions of which you are notified and to which you manifest your consent by continued use of the Site. This Agreement will not supersede or replace any terms of any other Agreements that you may sign with AssetMark.
+                    <br /><br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="cbTerms">
+                                @*<input type="checkbox" id="cbTerms" ng-model="terms" class="ng-valid ng-dirty ng-valid-parse ng-touched"> Agree to the terms of use*@
+                                @Html.CheckBoxFor(m => Model.AgreedToTerms, new { ng_Model = "terms", @class = "ng-valid ng-dirty ng-valid-parse ng-touched", @id = "cbTerms" })Agree to the terms of use
+                                @Html.ValidationMessageFor(x => Model.AgreedToTerms)
+                            </label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="page2.html" class="btn" ng-class="{'hide': !terms}">Get sssssStarted</a>
+                        </div>
+                    </div>
 
-        Suspendisse lobortis, libero quis viverra efficitur, mauris sem consequat risus, et pellentesque odio nunc vel tellus. Donec vitae tellus at sem placerat sodales. Phasellus non lacus id urna molestie ultrices. Vivamus augue nisl, lobortis sit amet molestie sed, varius a tortor. Suspendisse eu porttitor nisl. In diam nulla, vehicula quis odio id, pretium suscipit nunc. Cras in scelerisque odio, nec accumsan nisi. Donec ac augue ex. Donec non tristique nunc, nec gravida mi. Phasellus fermentum vestibulum augue in scelerisque. Vestibulum mattis euismod dui, ac dapibus nunc tincidunt id.
+                </div>
+            }
+        </div>
+    </section>
 
-        <br /><br />
+</main>
 
-        @using (Html.BeginForm("Page1Questions", "AssetmarkBAT", FormMethod.Post))
-        {
-            <div>
-                @Html.LabelFor(m => m.AgreedToTerms)
-                @Html.CheckBoxFor(m => Model.AgreedToTerms)
-                
-                <input type="submit" value="Get Started" />
 
-                @Html.ValidationMessageFor(x => Model.AgreedToTerms)
-            </div>            
-        }
-    </div>
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>AssetMark – BAT – Assessement1</title>
+
+        <script type="text/javascript">
+            (function ($) {
+                $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
+            }(jQuery));
+        </script>
+    </head>
+    <body>
+        <div>
+            @Html.Partial("~/Views/AssetmarkBAT/Shared/Header.cshtml")
+        </div>
+        <div>
+            <br /><br />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate tempus dapibus. Etiam sed risus justo. Duis ornare elementum nisl, euismod elementum ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec aliquam commodo purus nec congue. Nunc gravida tortor nec nisi venenatis feugiat. Quisque a tempus lorem, sagittis tincidunt felis. Donec viverra turpis et urna porta, non hendrerit elit convallis. Ut efficitur nec est eu fermentum. Vivamus ac dignissim magna. Fusce pellentesque sapien sit amet sollicitudin placerat.
+
+            Fusce maximus dignissim ultrices. Phasellus gravida sem nec lectus commodo, eu venenatis lectus faucibus. Etiam a nisl et felis viverra vulputate. Vestibulum sagittis, arcu at fermentum hendrerit, justo magna mattis erat, ac sodales lorem neque non velit. Phasellus vitae lobortis purus. Phasellus efficitur risus a mauris dignissim, non tristique nisl eleifend. Maecenas elementum porttitor tellus vel vestibulum.
+
+            Nunc bibendum justo libero, sit amet ullamcorper mauris convallis sed. Maecenas nunc erat, suscipit quis vulputate id, fringilla a odio. Nunc eget tristique nibh. Integer porttitor diam in justo egestas fringilla eu auctor est. Duis rutrum orci mi, non aliquam enim fermentum ac. Nullam bibendum non ante a luctus. Praesent quis sem sem. Aenean aliquam fermentum arcu, vel egestas felis mattis vel. Suspendisse elementum auctor pulvinar. Fusce venenatis, tellus eu commodo feugiat, odio neque laoreet sem, a condimentum est nisl vitae urna. Etiam ultricies mauris at dolor pretium, eget volutpat libero venenatis. Aliquam lobortis, nisi et suscipit rutrum, mauris tortor mollis ante, id dictum ex odio quis magna. Quisque vitae ornare tellus. Etiam molestie porta magna.
+
+            Donec scelerisque aliquet nibh, nec iaculis eros placerat quis. Vivamus congue sodales nulla vitae imperdiet. Donec magna turpis, suscipit ac tincidunt in, pharetra sed justo. Proin sed tellus non dui iaculis vestibulum. Ut tempus, ante sed commodo blandit, neque quam sodales dolor, at venenatis tellus ipsum ac ex. Nulla ultrices elit sit amet placerat molestie. Maecenas egestas nibh nisl, at ultricies purus tempor vitae. Nam a nunc sed erat faucibus suscipit vitae vitae libero. Morbi mollis in felis in consectetur. Aliquam erat volutpat. Integer suscipit erat est, ut aliquet ex convallis vitae. Donec blandit elementum eros ac pharetra. Morbi elementum magna vel auctor pellentesque. Suspendisse tincidunt molestie vehicula. Mauris dignissim, nibh sed iaculis tempor, felis ante laoreet turpis, vel ullamcorper ex velit ac dolor. Aliquam erat volutpat.
+
+            Suspendisse lobortis, libero quis viverra efficitur, mauris sem consequat risus, et pellentesque odio nunc vel tellus. Donec vitae tellus at sem placerat sodales. Phasellus non lacus id urna molestie ultrices. Vivamus augue nisl, lobortis sit amet molestie sed, varius a tortor. Suspendisse eu porttitor nisl. In diam nulla, vehicula quis odio id, pretium suscipit nunc. Cras in scelerisque odio, nec accumsan nisi. Donec ac augue ex. Donec non tristique nunc, nec gravida mi. Phasellus fermentum vestibulum augue in scelerisque. Vestibulum mattis euismod dui, ac dapibus nunc tincidunt id.
+
+            <br /><br />
+
+            @using (Html.BeginForm("Page1Questions", "AssetmarkBAT", FormMethod.Post))
+            {
+                <div>
+                    @Html.LabelFor(m => m.AgreedToTerms)
+                    @Html.CheckBoxFor(m => Model.AgreedToTerms)
+
+                    <input type="submit" value="Get Started" />
+
+                    @Html.ValidationMessageFor(x => Model.AgreedToTerms)
+                </div>
+            }
+        </div>
+    </body>
+    </html>*@
