@@ -22,6 +22,7 @@ namespace AssetmarkBAT.Controllers
 {
     public class AssetmarkBATController : Controller
     {
+
         private string _CookieName = "assetmarkBAT";
         private string _TermsViewName = "Terms";
         private string _Page1QuestionsViewName = "Page1Questions";
