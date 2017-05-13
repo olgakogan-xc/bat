@@ -1,17 +1,179 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    Layout = "~/Views/AssetmarkBAT/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+@section Title
+{
+    AssetMark – BAT – Assessement5
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AssetMark – BAT – Assessement5</title>
-</head>
-<body>
-    <div> 
-    </div>
+
+<main>
+    <section>
+        <div class="container">
+            <h1><img src="images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
+            <h2>Business Assessment</h2>
+            <p>Thank you for completing your business assessment. Take a look at the Value Maximization Index® table below to identify which category you scored the lowest in, then click the category links to access resources specific to each category that are designed to help you improve corresponding areas of your business.</p>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Valuation Categories</th>
+                                <th>Score</th>
+                                <th class="text-right">PDFs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Managing Your Practice</td>
+                                <td>120</td>
+                                <td class="text-right"><a href="#"><i class="icon-pdf">pdf</i></a></td>
+                            </tr>
+                            <tr>
+                                <td>Managing Your Practice</td>
+                                <td>120</td>
+                                <td class="text-right"><a href="#"><i class="icon-pdf">pdf</i></a></td>
+                            </tr>
+                            <tr>
+                                <td>Managing Your Practice</td>
+                                <td>120</td>
+                                <td class="text-right"><a href="#"><i class="icon-pdf">pdf</i></a></td>
+                            </tr>
+                            <tr>
+                                <td>Managing Your Practice</td>
+                                <td>120</td>
+                                <td class="text-right"><a href="#"><i class="icon-pdf">pdf</i></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total VMI Score</td>
+                                <td>470</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <p><strong>To adjust your inputs you can <a href="#">return to the beginning</a></strong></p>
+        </div>
+    </section>
+    <section class="white">
+        <div class="container">
+            <h2>Valuation Optimizer</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis nulla fuga magnam ratione debitis nostrum! Blanditiis quasi fugit, dignissimos illum doloribus consectetur accusamus, sed itaque, eaque totam laudantium ab nulla.</p>
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+
+                    <div class="graph">
+                        <h6>Firm Valuation Range: Current Value vs. Optimized Value</h6>
+                        <div id="container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                    </div>
+
+                    <h6>See how changes impact your firm valuation.</h6>
+                    <p>
+                        <small>Use the slider on "Your Firm" to increase or decrease your VMI Score</small><br>
+                        <small>Top performing firms</small>
+                    </p>
+                    <div class="optimizer">
+                        <div class="title">
+                            <h3 class="optimized-label">Projected Annual Growth Rate</h3>
+                            <div class="optimized-value">7%</div>
+                        </div>
+                        <div class="optimizer-slider">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="optimizer">
+                        <div class="title">
+                            <h3 class="optimized-label">Profit Margin</h3>
+                            <div class="optimized-value">16%</div>
+                        </div>
+                        <div class="sub-title">
+                            <h4 class="optimized-label">Profit is annualized</h4>
+                            <div class="optimized-value">$2,054,400</div>
+                        </div>
+                        <div class="optimizer-slider">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="optimizer">
+                        <div class="title">
+                            <h3 class="optimized-label">Valuation Maximization Index<sup>&trade;</sup></h3>
+                            <div class="optimized-value">210</div>
+                        </div>
+                        <div class="optimizer-slider">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="button-container text-right">
+                        <button>Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/highcharts-more.js"></script>
+<script>
+    Highcharts.chart('container', {
+
+        chart: {
+            type: 'columnrange',
+            inverted: false
+        },
+
+        yAxis: {
+            labels: {
+                formatter: function () {
+                    return '$' + this.value;
+                }
+            },
+            title: {
+                enabled: false
+            }
+        },
+
+        xAxis: {
+            categories: ['Current Value', 'Optimized Value']
+        },
+
+        tooltip: {
+            enabled: false,
+        },
+
+        plotOptions: {
+            columnrange: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function () {
+                        return '$' + this.y;
+                    }
+                }
+            }
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Temperatures',
+            data: [
+                [33862000, 45240000],
+                [7089000, 11943000]
+            ]
+        }]
+
+    });
+</script>
 </body>
 </html>
+
