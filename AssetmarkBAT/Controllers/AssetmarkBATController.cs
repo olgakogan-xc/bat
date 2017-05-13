@@ -39,7 +39,7 @@ namespace AssetmarkBAT.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
+            //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
 
             byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
 
