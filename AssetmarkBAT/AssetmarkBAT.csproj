@@ -237,6 +237,7 @@
     <Content Include="Styles\Images\AMK_Wordmark.png" />
     <Content Include="Styles\Images\business_assessment_logo.png" />
     <Content Include="Styles\styles.css" />
+    <Content Include="Styles\Images\Lock.PNG" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -260,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserPDF\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

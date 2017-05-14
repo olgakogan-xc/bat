@@ -40,17 +40,12 @@ namespace AssetmarkBAT.Controllers
         public ActionResult Index()
         {
             //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
-
-            byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
-
+            //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
             //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
-            MemoryStream stream = new MemoryStream(byteArray);
-
+            //MemoryStream stream = new MemoryStream(byteArray);
             //SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
             //PdfFixedDocument document = htmlToPdf.Convert(stream);
             //document.Save("C:\\output.pdf");
-
-
 
             BATModel model = new BATModel();
             InitializeDropDowns(model);
@@ -60,18 +55,18 @@ namespace AssetmarkBAT.Controllers
                 model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
                 if (PopulateModelFromDatabase(model))
                 {
-                    //if (!string.IsNullOrEmpty(model.Vmi_Emp_Emp_Retention))
-                    //{
-                    //    return View(_ReportViewName, model);
-                    //}
-                    ////else if (!string.IsNullOrEmpty(model.Ff_NewClients))
-                    ////{
-                    ////    return View(_Page2QuestionsViewName, model);
-                    ////}
-                    //else
-                    //{
-                    return View(_Page1QuestionsViewName, model);
-                    //}
+                    if (model.Page2Complete)
+                    {
+                        return View(_ValuationOptimizer, model);
+                    }
+                    else if (model.Page1Complete)
+                    {
+                        return View(_Page2QuestionsViewName, model);
+                    }
+                    else
+                    {
+                        return View(_Page1QuestionsViewName, model);
+                    }
                 }
                 else
                     return View(_TermsViewName);
@@ -98,14 +93,10 @@ namespace AssetmarkBAT.Controllers
             BATModel model = new BATModel();
             InitializeDropDowns(model);
 
-
-
-
             if (HttpContext.Request.Cookies[_CookieName] == null || string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
             {
                 model.UserId = Guid.NewGuid().ToString();
                 _UserId = model.UserId;
-                CreatePdf();
 
                 HttpCookie assetmarkBATCookie = new HttpCookie(_CookieName);
                 assetmarkBATCookie.Value = model.UserId;
@@ -115,7 +106,7 @@ namespace AssetmarkBAT.Controllers
             else
             {
                 model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
-                CreatePdf();
+                
                 PopulateModelFromDatabase(model);
             }
 
@@ -139,6 +130,7 @@ namespace AssetmarkBAT.Controllers
             //{
                 if (submit == "Save Your Inputs")
                 {
+                    model.BATValuationModel = new ValuationModel();
                     PopulateEntityFromModel(model);
                     return View(_Page1QuestionsViewName, model);
                 }
@@ -198,8 +190,10 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Next")
             {
-                //PopulateEntityFromModel(model);
+                model.PDFPath = CreatePdf(model.UserId);
+                PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
+                
                 return View(_ReportViewName, model);
             }
             else if (submit == "Previous")
@@ -214,6 +208,7 @@ namespace AssetmarkBAT.Controllers
         public ActionResult Optimizer(BATModel model)
         {
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
+           
 
             InitializeDropDowns(model);
 
@@ -297,185 +292,201 @@ namespace AssetmarkBAT.Controllers
         {
             try
             {
-                model.BATValuationModel.ProfitMargin = Convert.ToDouble(model.Ff_NonRecurringRevenue) + Convert.ToDouble(model.Ff_RecurringRevenue) - (Convert.ToDouble(model.Ff_DirectExpenses) + Convert.ToDouble(model.Ff_IndirecteExpenses));
-                model.BATValuationModel.ProjectedAnnualGrowthRate = Convert.ToInt32(model.Ff_ProjectedGrowthRate);
-               
-                //using (AssetmarkBATEntities db = new AssetmarkBATEntities())
-                //{
-                //    am_bat user = new am_bat()
-                //    {
-                //        UserId = model.UserId,
-                //        //Firm Financials
-                //        Ff_TotalFirmAsset = model.Ff_TotalFirmAsset,
-                //        Ff_NonRecurringRevenue = model.Ff_NonRecurringRevenue,
-                //        Ff_RecurringRevenue = model.Ff_RecurringRevenue,
-                //        Ff_DirectExpenses = model.Ff_DirectExpenses,
-                //        Ff_IndirectExpenses = model.Ff_IndirecteExpenses,
-                //        Ff_Client_Relationships = model.Ff_ClientRelationships,
-                //        Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
-                //        Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
-                //        Ff_New_Clients = model.Ff_NewClients,
-                //        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
-                //        //VMI
-                //        Vmi_Man_Phase = model.Vmi_Man_Phase,
-                //        Vmi_Man_Practice = model.Vmi_Man_Practice,
-                //        Vmi_Man_Revenue = model.Vmi_Man_Revenue,
-                //        Vmi_Man_Track = model.Vmi_Man_Track,
-                //        Vmi_Man_Written_Plan = model.Vmi_Man_Written_Plan,
-                //        Vmi_Mar_Materials = model.Vmi_Mar_Materials,
-                //        Vmi_Mar_New_Business = model.Vmi_Mar_New_Business,
-                //        Vmi_Mar_Plan = model.Vmi_Mar_Plan,
-                //        Vmi_Mar_Prospects = model.Vmi_Mar_Prospects,
-                //        Vmi_Mar_Value_Proposition = model.Vmi_Mar_Value_Proposition,
-                //        Vmi_Emp_Compensation = model.Vmi_Emp_Compensation,
-                //        Vmi_Emp_Emp_Retention = model.Vmi_Emp_Emp_Retention,
-                //        Vmi_Emp_Human = model.Vmi_Emp_Human,
-                //        Vmi_Emp_Responsibilities = model.Vmi_Emp_Responsibilities,
-                //        Vmi_Emp_Staff = model.Vmi_Emp_Staff,
-                //        Vmi_Opt_Automate = model.Vmi_Opt_Automate,
-                //        Vmi_Opt_Model = model.Vmi_Opt_Model,
-                //        Vmi_Opt_Procedures = model.Vmi_Opt_Procedures,
-                //        Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
-                //        Vmi_Opt_Segment = model.Vmi_Opt_Segment,
-                //        VmiIndex = "1000"
-                //    };
+                //TODO calculations
+                //model.BATValuationModel.ProfitMargin = Convert.ToDouble(model.Ff_NonRecurringRevenue) + Convert.ToDouble(model.Ff_RecurringRevenue) - (Convert.ToDouble(model.Ff_DirectExpenses) + Convert.ToDouble(model.Ff_IndirecteExpenses));
+                //model.BATValuationModel.ProjectedAnnualGrowthRate = Convert.ToInt32(model.Ff_ProjectedGrowthRate);
 
-                //    var original = db.am_bat.Find(user.UserId);
+                if(model.BATValuationModel == null)
+                {
+                    model.BATValuationModel = new ValuationModel();
+                }
 
-                //    if (original != null)
-                //    {
-                //        db.Entry(original).CurrentValues.SetValues(user);
-                //    }
-                //    else
-                //    {
-                //        db.am_bat.Add(user);
-                //    }
+                model.BATValuationModel.ProfitMargin = 225000;
+                model.BATValuationModel.ProjectedAnnualGrowthRate = 0.04;
 
-                //    db.SaveChanges();
-                //}
+                using (AssetmarkBATEntities db = new AssetmarkBATEntities())
+                {
+                    am_bat user = new am_bat()
+                    {
+                        UserId = model.UserId,
+                        //Firm Financials
+                        Ff_TotalFirmAsset = model.Ff_TotalFirmAsset,
+                        Ff_NonRecurringRevenue = model.Ff_NonRecurringRevenue,
+                        Ff_RecurringRevenue = model.Ff_RecurringRevenue,
+                        Ff_DirectExpenses = model.Ff_DirectExpenses,
+                        Ff_IndirectExpenses = model.Ff_IndirecteExpenses,
+                        Ff_Client_Relationships = model.Ff_ClientRelationships,
+                        Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
+                        Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
+                        Ff_New_Clients = model.Ff_NewClients,
+                        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
+                        //VMI
+                        Vmi_Man_Phase = model.Vmi_Man_Phase,
+                        Vmi_Man_Practice = model.Vmi_Man_Practice,
+                        Vmi_Man_Revenue = model.Vmi_Man_Revenue,
+                        Vmi_Man_Track = model.Vmi_Man_Track,
+                        Vmi_Man_Written_Plan = model.Vmi_Man_Written_Plan,
+                        Vmi_Mar_Materials = model.Vmi_Mar_Materials,
+                        Vmi_Mar_New_Business = model.Vmi_Mar_New_Business,
+                        Vmi_Mar_Plan = model.Vmi_Mar_Plan,
+                        Vmi_Mar_Prospects = model.Vmi_Mar_Prospects,
+                        Vmi_Mar_Value_Proposition = model.Vmi_Mar_Value_Proposition,
+                        Vmi_Emp_Compensation = model.Vmi_Emp_Compensation,
+                        Vmi_Emp_Emp_Retention = model.Vmi_Emp_Emp_Retention,
+                        Vmi_Emp_Human = model.Vmi_Emp_Human,
+                        Vmi_Emp_Responsibilities = model.Vmi_Emp_Responsibilities,
+                        Vmi_Emp_Staff = model.Vmi_Emp_Staff,
+                        Vmi_Opt_Automate = model.Vmi_Opt_Automate,
+                        Vmi_Opt_Model = model.Vmi_Opt_Model,
+                        Vmi_Opt_Procedures = model.Vmi_Opt_Procedures,
+                        Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
+                        Vmi_Opt_Segment = model.Vmi_Opt_Segment,
+                        VmiIndex = "1000",
+                        PDF = model.PDFPath                        
+                    };
 
+                    var original = db.am_bat.Find(user.UserId);
 
+                    if (original != null)
+                    {
+                        db.Entry(original).CurrentValues.SetValues(user);
+                    }
+                    else
+                    {
+                        db.am_bat.Add(user);
+                    }
 
+                    db.SaveChanges();
+                }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
+                Console.WriteLine("Error saving to Azure database " + model.UserId, e.Message);
             }
         }
 
         private bool PopulateModelFromDatabase(BATModel model)
         {
-            //using (AssetmarkBATEntities db = new AssetmarkBATEntities())
-            //{
-            //    var original = db.am_bat.Find(model.UserId);
+            using (AssetmarkBATEntities db = new AssetmarkBATEntities())
+            {
+                var original = db.am_bat.Find(model.UserId);
 
-            //    if (original != null)
-            //    {
-            //        //Firm Financials
-            //        model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
-            //        model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
-            //        model.Ff_RecurringRevenue = original.Ff_RecurringRevenue;
-            //        model.Ff_DirectExpenses = original.Ff_DirectExpenses;
-            //        model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
-            //        model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
-            //        model.Ff_ClientRelationships = original.Ff_Client_Relationships;
-            //        model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
-            //        model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
-            //        model.Ff_NewClients = original.Ff_New_Clients;
+                if (original != null)
+                {
+                    //Firm Financials
+                    model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
+                    model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
+                    model.Ff_RecurringRevenue = original.Ff_RecurringRevenue;
+                    model.Ff_DirectExpenses = original.Ff_DirectExpenses;
+                    model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
+                    model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
+                    model.Ff_ClientRelationships = original.Ff_Client_Relationships;
+                    model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
+                    model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
+                    model.Ff_NewClients = original.Ff_New_Clients;
 
-            //        //// VMI OLD CODE
-            //        //model.Vmi_Man_Phase = (string.IsNullOrEmpty(original.Vmi_Man_Phase)) ? 5 : Convert.ToInt32(original.Vmi_Man_Phase);
-            //        //model.Vmi_Man_Practice = (string.IsNullOrEmpty(original.Vmi_Man_Practice)) ? 5 : Convert.ToInt32(original.Vmi_Man_Practice);
-            //        //model.Vmi_Man_Revenue = (string.IsNullOrEmpty(original.Vmi_Man_Revenue)) ? 5 : Convert.ToInt32(original.Vmi_Man_Revenue);
-            //        //model.Vmi_Man_Track = (string.IsNullOrEmpty(original.Vmi_Man_Track)) ? 5 : Convert.ToInt32(original.Vmi_Man_Track);
-            //        //model.Vmi_Man_Written_Plan = (string.IsNullOrEmpty(original.Vmi_Man_Written_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Man_Written_Plan);
+                    //// VMI OLD CODE
+                    //model.Vmi_Man_Phase = (string.IsNullOrEmpty(original.Vmi_Man_Phase)) ? 5 : Convert.ToInt32(original.Vmi_Man_Phase);
+                    //model.Vmi_Man_Practice = (string.IsNullOrEmpty(original.Vmi_Man_Practice)) ? 5 : Convert.ToInt32(original.Vmi_Man_Practice);
+                    //model.Vmi_Man_Revenue = (string.IsNullOrEmpty(original.Vmi_Man_Revenue)) ? 5 : Convert.ToInt32(original.Vmi_Man_Revenue);
+                    //model.Vmi_Man_Track = (string.IsNullOrEmpty(original.Vmi_Man_Track)) ? 5 : Convert.ToInt32(original.Vmi_Man_Track);
+                    //model.Vmi_Man_Written_Plan = (string.IsNullOrEmpty(original.Vmi_Man_Written_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Man_Written_Plan);
 
-            //        //model.Vmi_Mar_Materials = (string.IsNullOrEmpty(original.Vmi_Mar_Materials)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Materials);
-            //        //model.Vmi_Mar_New_Business = (string.IsNullOrEmpty(original.Vmi_Mar_New_Business)) ? 5 : Convert.ToInt32(original.Vmi_Mar_New_Business);
-            //        //model.Vmi_Mar_Plan = (string.IsNullOrEmpty(original.Vmi_Mar_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Plan);
-            //        //model.Vmi_Mar_Prospects = (string.IsNullOrEmpty(original.Vmi_Mar_Prospects)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Prospects);
-            //        //model.Vmi_Mar_Value_Proposition = (string.IsNullOrEmpty(original.Vmi_Mar_Value_Proposition)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Value_Proposition);
+                    //model.Vmi_Mar_Materials = (string.IsNullOrEmpty(original.Vmi_Mar_Materials)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Materials);
+                    //model.Vmi_Mar_New_Business = (string.IsNullOrEmpty(original.Vmi_Mar_New_Business)) ? 5 : Convert.ToInt32(original.Vmi_Mar_New_Business);
+                    //model.Vmi_Mar_Plan = (string.IsNullOrEmpty(original.Vmi_Mar_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Plan);
+                    //model.Vmi_Mar_Prospects = (string.IsNullOrEmpty(original.Vmi_Mar_Prospects)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Prospects);
+                    //model.Vmi_Mar_Value_Proposition = (string.IsNullOrEmpty(original.Vmi_Mar_Value_Proposition)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Value_Proposition);
 
-            //        //model.Vmi_Opt_Automate = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Automate);
-            //        //model.Vmi_Opt_Model = (string.IsNullOrEmpty(original.Vmi_Opt_Model)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Model);
-            //        //model.Vmi_Opt_Procedures = (string.IsNullOrEmpty(original.Vmi_Opt_Procedures)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Procedures);
-            //        //model.Vmi_Opt_Schedule = (string.IsNullOrEmpty(original.Vmi_Opt_Schedule)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Schedule);
-            //        //model.Vmi_Opt_Segment = (string.IsNullOrEmpty(original.Vmi_Opt_Segment)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Segment);
+                    //model.Vmi_Opt_Automate = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Automate);
+                    //model.Vmi_Opt_Model = (string.IsNullOrEmpty(original.Vmi_Opt_Model)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Model);
+                    //model.Vmi_Opt_Procedures = (string.IsNullOrEmpty(original.Vmi_Opt_Procedures)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Procedures);
+                    //model.Vmi_Opt_Schedule = (string.IsNullOrEmpty(original.Vmi_Opt_Schedule)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Schedule);
+                    //model.Vmi_Opt_Segment = (string.IsNullOrEmpty(original.Vmi_Opt_Segment)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Segment);
 
-            //        //model.Vmi_Emp_Compensation = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Compensation);
-            //        //model.Vmi_Emp_Emp_Retention = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Emp_Retention);
-            //        //model.Vmi_Emp_Human = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Human);
-            //        //model.Vmi_Emp_Responsibilities = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Responsibilities);
-            //        //model.Vmi_Emp_Staff = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Staff);
+                    //model.Vmi_Emp_Compensation = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Compensation);
+                    //model.Vmi_Emp_Emp_Retention = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Emp_Retention);
+                    //model.Vmi_Emp_Human = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Human);
+                    //model.Vmi_Emp_Responsibilities = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Responsibilities);
+                    //model.Vmi_Emp_Staff = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Staff);
 
-            //        //VMI END OF OLD CODE
+                    //VMI END OF OLD CODE
 
-            //        model.Vmi_Man_Phase = original.Vmi_Man_Phase;
-            //        model.Vmi_Man_Practice = original.Vmi_Man_Practice;
-            //        model.Vmi_Man_Revenue = original.Vmi_Man_Revenue;
-            //        model.Vmi_Man_Track = original.Vmi_Man_Track;
-            //        model.Vmi_Man_Written_Plan = original.Vmi_Man_Written_Plan;
+                    model.Vmi_Man_Phase = original.Vmi_Man_Phase;
+                    model.Vmi_Man_Practice = original.Vmi_Man_Practice;
+                    model.Vmi_Man_Revenue = original.Vmi_Man_Revenue;
+                    model.Vmi_Man_Track = original.Vmi_Man_Track;
+                    model.Vmi_Man_Written_Plan = original.Vmi_Man_Written_Plan;
 
-            //        model.Vmi_Mar_Materials = original.Vmi_Mar_Materials;
-            //        model.Vmi_Mar_New_Business = original.Vmi_Mar_New_Business;
-            //        model.Vmi_Mar_Plan = original.Vmi_Mar_Plan;
-            //        model.Vmi_Mar_Prospects = original.Vmi_Mar_Prospects;
-            //        model.Vmi_Mar_Value_Proposition = original.Vmi_Mar_Value_Proposition;
+                    model.Vmi_Mar_Materials = original.Vmi_Mar_Materials;
+                    model.Vmi_Mar_New_Business = original.Vmi_Mar_New_Business;
+                    model.Vmi_Mar_Plan = original.Vmi_Mar_Plan;
+                    model.Vmi_Mar_Prospects = original.Vmi_Mar_Prospects;
+                    model.Vmi_Mar_Value_Proposition = original.Vmi_Mar_Value_Proposition;
 
-            //        model.Vmi_Opt_Automate = original.Vmi_Opt_Automate;
-            //        model.Vmi_Opt_Model = original.Vmi_Opt_Model;
-            //        model.Vmi_Opt_Procedures = original.Vmi_Opt_Procedures;
-            //        model.Vmi_Opt_Schedule = original.Vmi_Opt_Schedule;
-            //        model.Vmi_Opt_Segment = original.Vmi_Opt_Segment;
+                    model.Vmi_Opt_Automate = original.Vmi_Opt_Automate;
+                    model.Vmi_Opt_Model = original.Vmi_Opt_Model;
+                    model.Vmi_Opt_Procedures = original.Vmi_Opt_Procedures;
+                    model.Vmi_Opt_Schedule = original.Vmi_Opt_Schedule;
+                    model.Vmi_Opt_Segment = original.Vmi_Opt_Segment;
 
-            //        model.Vmi_Emp_Compensation = original.Vmi_Emp_Compensation;
-            //        model.Vmi_Emp_Emp_Retention = original.Vmi_Emp_Emp_Retention;
-            //        model.Vmi_Emp_Human = original.Vmi_Emp_Human;
-            //        model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
-            //        model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
+                    model.Vmi_Emp_Compensation = original.Vmi_Emp_Compensation;
+                    model.Vmi_Emp_Emp_Retention = original.Vmi_Emp_Emp_Retention;
+                    model.Vmi_Emp_Human = original.Vmi_Emp_Human;
+                    model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
+                    model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
 
-            //        return true;
-            //    }
+                    model.PDFPath = original.PDF;
+
+                    return true;
+                }
 
                 return false;
-            //}
+            }
         }
 
-        private void CreatePdf()
+        private string CreatePdf(string id)
         {
-            PdfFixedDocument document = new PdfFixedDocument();
-            PdfPage page = document.Pages.Add();
-            //document.Save("empty.pdf");
+            try
+            {
+                PdfFixedDocument document = new PdfFixedDocument();
+                PdfPage page = document.Pages.Add();
+                //document.Save("empty.pdf");
 
 
 
 
-            // Create a standard font with Helvetica face and 24 point size
-            PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
-            // Create a solid RGB red brush.
-            PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
-            PdfBrush darkBlueBrush = new PdfBrush();
-            darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
-            PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
+                // Create a standard font with Helvetica face and 24 point size
+                PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
+                // Create a solid RGB red brush.
+                PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
+                PdfBrush darkBlueBrush = new PdfBrush();
+                darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
+                PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
 
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
-
-
-
-            page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-            page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-
-            page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
-
-            string imagePath = HttpContext.Server.MapPath(@"~\UserPDF\" + "Lock.png");
-            PdfImage lockImage = new PdfImage(imagePath);
-            page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
-            string path = HttpContext.Server.MapPath(@"~\UserPDF\" + _UserId + ".pdf");
-            document.Save(path);
-            //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+                page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
+                page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
 
 
+
+                page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+                page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+
+                page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
+
+                string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
+                PdfImage lockImage = new PdfImage(imagePath);
+                page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+                string path = HttpContext.Server.MapPath(@"~\UserPDF\" + id + ".pdf");
+                document.Save(path);
+                //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+                return path;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error creating PDF for user " + id,  e.Message);
+                return string.Empty;
+            }
         }
 
         private void CalculateVMIScore(BATModel model)

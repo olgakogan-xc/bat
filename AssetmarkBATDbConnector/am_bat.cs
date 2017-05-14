@@ -15,11 +15,32 @@ namespace AssetmarkBATDbConnector
     public partial class am_bat
     {
         public string UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Zip { get; set; }
+        public string BrokerOrIRA { get; set; }
+        public string DateStarted { get; set; }
+        public Nullable<bool> EloquaUser { get; set; }
+        public string TimeRange { get; set; }
+        public string PracticeType { get; set; }
+        public string AffiliationModel { get; set; }
+        public string FirmType { get; set; }
+        public string PDF { get; set; }
         public string Ff_TotalFirmAsset { get; set; }
         public string Ff_NonRecurringRevenue { get; set; }
+        public string Ff_NonRecurringRevenue_Annualized { get; set; }
         public string Ff_RecurringRevenue { get; set; }
+        public string Ff_RecurringRevenue_Annualized { get; set; }
+        public string Ff_TotalRevenue { get; set; }
+        public string Ff_TotalRevenue_Annualized { get; set; }
         public string Ff_DirectExpenses { get; set; }
+        public string Ff_DirectExpenses_Annualized { get; set; }
         public string Ff_IndirectExpenses { get; set; }
+        public string Ff_IndirectExpenses_Annualized { get; set; }
+        public string Ff_OperatingProfit { get; set; }
+        public string Ff_OperaintProfit_Annualized { get; set; }
         public string Ff_Projected_Growth { get; set; }
         public string Ff_Client_Relationships { get; set; }
         public string Ff_Fte_Non_Advisors { get; set; }
@@ -46,5 +67,7 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
         public string VmiIndex { get; set; }
+        public string Page1Complete { get; set; }
+        public string Page2Complete { get; set; }
     }
 }

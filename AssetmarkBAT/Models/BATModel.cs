@@ -129,6 +129,11 @@ namespace AssetmarkBAT.Models
 
         public ValuationModel BATValuationModel { get; set; }
 
+        public string PDFPath { get; set; }
+
+        public bool Page1Complete { get; set; }
+        public bool Page2Complete { get; set; }
+
         public BATModel()
         {
             Vmi_Emp_Compensation = null;
