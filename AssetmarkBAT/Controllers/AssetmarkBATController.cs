@@ -11,11 +11,11 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-//using Xfinium.Pdf;
-//using Xfinium.Pdf.Actions;
-//using Xfinium.Pdf.Core;
-//using Xfinium.Pdf.Graphics;
-//using Xfinium.Pdf.Graphics.FormattedContent;
+using Xfinium.Pdf;
+using Xfinium.Pdf.Actions;
+using Xfinium.Pdf.Core;
+using Xfinium.Pdf.Graphics;
+using Xfinium.Pdf.Graphics.FormattedContent;
 
 
 namespace AssetmarkBAT.Controllers
@@ -443,37 +443,37 @@ namespace AssetmarkBAT.Controllers
 
         private void CreatePdf()
         {
-            //PdfFixedDocument document = new PdfFixedDocument();
-            //PdfPage page = document.Pages.Add();
-            ////document.Save("empty.pdf");
+            PdfFixedDocument document = new PdfFixedDocument();
+            PdfPage page = document.Pages.Add();
+            //document.Save("empty.pdf");
 
 
 
 
-            //// Create a standard font with Helvetica face and 24 point size
-            //PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
-            //// Create a solid RGB red brush.
-            //PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
-            //PdfBrush darkBlueBrush = new PdfBrush();
-            //darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
-            //PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
+            // Create a standard font with Helvetica face and 24 point size
+            PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
+            // Create a solid RGB red brush.
+            PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
+            PdfBrush darkBlueBrush = new PdfBrush();
+            darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
+            PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
 
-            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
+            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
+            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
 
 
 
-            //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-            //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+            page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+            page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
 
-            //page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
+            page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
 
-            //string imagePath = HttpContext.Server.MapPath(@"~\UserPDF\" + "Lock.png");
-            //PdfImage lockImage = new PdfImage(imagePath);
-            //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
-            //string path = HttpContext.Server.MapPath(@"~\UserPDF\" + _UserId + ".pdf");
-            //document.Save(path);
-            ////PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+            string imagePath = HttpContext.Server.MapPath(@"~\UserPDF\" + "Lock.png");
+            PdfImage lockImage = new PdfImage(imagePath);
+            page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+            string path = HttpContext.Server.MapPath(@"~\UserPDF\" + _UserId + ".pdf");
+            document.Save(path);
+            //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
 
 
         }
