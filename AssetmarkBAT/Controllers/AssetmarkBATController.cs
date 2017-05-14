@@ -31,7 +31,7 @@ namespace AssetmarkBAT.Controllers
         private string _ValuationOptimizer = "ValuationOptimizer";
         private string _UserId = string.Empty;
         //public ValuationModel _ValModel = new ValuationModel();
-        
+
 
         /// <summary>
         /// Action Method to initiate the BAT tool
@@ -53,6 +53,7 @@ namespace AssetmarkBAT.Controllers
             if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
             {
                 model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
+                
                 if (PopulateModelFromDatabase(model))
                 {
                     if (model.Page2Complete)
@@ -106,7 +107,7 @@ namespace AssetmarkBAT.Controllers
             else
             {
                 model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
-                
+
                 PopulateModelFromDatabase(model);
             }
 
@@ -123,51 +124,53 @@ namespace AssetmarkBAT.Controllers
         {
             InitializeDropDowns(model);
 
-            
+
 
 
             //if (ModelState.IsValid)
             //{
-                if (submit == "Save Your Inputs")
+            if (submit == "Save Your Inputs")
+            {
+                model.BATValuationModel = new ValuationModel();
+                model.PDFPath = "Just starting";
+                model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
+                PopulateEntityFromModel(model);
+                return View(_Page1QuestionsViewName, model);
+            }
+            else
+            {
+                PopulateModelFromDatabase(model);
+
+                if (string.IsNullOrEmpty(model.Vmi_Man_Written_Plan))
                 {
-                    model.BATValuationModel = new ValuationModel();
-                    PopulateEntityFromModel(model);
-                    return View(_Page1QuestionsViewName, model);
+                    model.Vmi_Man_Written_Plan = "5";
+                    model.Vmi_Man_Phase = "5";
+                    model.Vmi_Man_Practice = "5";
+                    model.Vmi_Man_Revenue = "5";
+                    model.Vmi_Man_Track = "5";
+
+                    model.Vmi_Mar_Materials = "5";
+                    model.Vmi_Mar_New_Business = "5";
+                    model.Vmi_Mar_Plan = "5";
+                    model.Vmi_Mar_Prospects = "5";
+                    model.Vmi_Mar_Value_Proposition = "5";
+
+                    model.Vmi_Opt_Automate = "5";
+                    model.Vmi_Opt_Model = "5";
+                    model.Vmi_Opt_Procedures = "5";
+                    model.Vmi_Opt_Schedule = "5";
+                    model.Vmi_Opt_Segment = "5";
+
+                    model.Vmi_Emp_Compensation = "5";
+                    model.Vmi_Emp_Emp_Retention = "5";
+                    model.Vmi_Emp_Human = "5";
+                    model.Vmi_Emp_Responsibilities = "5";
+                    model.Vmi_Emp_Staff = "5";
                 }
-                else
-                {
-                    PopulateModelFromDatabase(model);
 
-                    if (string.IsNullOrEmpty(model.Vmi_Man_Written_Plan))
-                    {
-                        model.Vmi_Man_Written_Plan = "5";
-                        model.Vmi_Man_Phase = "5";
-                        model.Vmi_Man_Practice = "5";
-                        model.Vmi_Man_Revenue = "5";
-                        model.Vmi_Man_Track = "5";
 
-                        model.Vmi_Mar_Materials = "5";
-                        model.Vmi_Mar_New_Business = "5";
-                        model.Vmi_Mar_Plan = "5";
-                        model.Vmi_Mar_Prospects = "5";
-                        model.Vmi_Mar_Value_Proposition = "5";
-
-                        model.Vmi_Opt_Automate = "5";
-                        model.Vmi_Opt_Model = "5";
-                        model.Vmi_Opt_Procedures = "5";
-                        model.Vmi_Opt_Schedule = "5";
-                        model.Vmi_Opt_Segment = "5";
-
-                        model.Vmi_Emp_Compensation = "5";
-                        model.Vmi_Emp_Emp_Retention = "5";
-                        model.Vmi_Emp_Human = "5";
-                        model.Vmi_Emp_Responsibilities = "5";
-                        model.Vmi_Emp_Staff = "5";
-                    }
-
-                    
-                    return View(_Page2QuestionsViewName, model);
-                }
+                return View(_Page2QuestionsViewName, model);
+            }
             //}
             //else
             //{
@@ -190,10 +193,11 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Next")
             {
-                model.PDFPath = CreatePdf(model.UserId);
+                //model.PDFPath = CreatePdf(model.UserId);
+                model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
-                
+
                 return View(_ReportViewName, model);
             }
             else if (submit == "Previous")
@@ -208,7 +212,7 @@ namespace AssetmarkBAT.Controllers
         public ActionResult Optimizer(BATModel model)
         {
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
-           
+
 
             InitializeDropDowns(model);
 
@@ -286,7 +290,7 @@ namespace AssetmarkBAT.Controllers
             batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
         }
 
-        
+
 
         private void PopulateEntityFromModel(BATModel model)
         {
@@ -296,7 +300,7 @@ namespace AssetmarkBAT.Controllers
                 //model.BATValuationModel.ProfitMargin = Convert.ToDouble(model.Ff_NonRecurringRevenue) + Convert.ToDouble(model.Ff_RecurringRevenue) - (Convert.ToDouble(model.Ff_DirectExpenses) + Convert.ToDouble(model.Ff_IndirecteExpenses));
                 //model.BATValuationModel.ProjectedAnnualGrowthRate = Convert.ToInt32(model.Ff_ProjectedGrowthRate);
 
-                if(model.BATValuationModel == null)
+                if (model.BATValuationModel == null)
                 {
                     model.BATValuationModel = new ValuationModel();
                 }
@@ -342,7 +346,8 @@ namespace AssetmarkBAT.Controllers
                         Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
                         Vmi_Opt_Segment = model.Vmi_Opt_Segment,
                         VmiIndex = "1000",
-                        PDF = model.PDFPath                        
+                        PDF = model.PDFPath,
+                        DateStarted = model.DateStarted
                     };
 
                     var original = db.am_bat.Find(user.UserId);
@@ -437,6 +442,8 @@ namespace AssetmarkBAT.Controllers
                     model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
 
                     model.PDFPath = original.PDF;
+                    model.DateStarted = original.DateStarted;
+
 
                     return true;
                 }
@@ -482,9 +489,9 @@ namespace AssetmarkBAT.Controllers
                 //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
                 return path;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Console.WriteLine("Error creating PDF for user " + id,  e.Message);
+                Console.WriteLine("Error creating PDF for user " + id, e.Message);
                 return string.Empty;
             }
         }
@@ -513,7 +520,7 @@ namespace AssetmarkBAT.Controllers
             if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
             {
                 //TODO: blank
-                model.BATValuationModel.NonAdvisorCashFlowYear1 = 0;                
+                model.BATValuationModel.NonAdvisorCashFlowYear1 = 0;
             }
             else
             {
@@ -602,15 +609,15 @@ namespace AssetmarkBAT.Controllers
         private void CalculateKPIs(BATModel model)
         {
             //TODO: blanks for D12 and D18
-            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ? 
+            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ?
                 0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
 
             //TODO: blanks for D12  and D20
-            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_FullTimeAdvisorsAnnualized) == 0) ? 
+            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_FullTimeAdvisorsAnnualized) == 0) ?
                 0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_FullTimeAdvisorsAnnualized);
 
             //TODO: blanks for D13 and D18 
-            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_TotalRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ? 
+            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_TotalRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ?
                 0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
 
 
@@ -625,7 +632,7 @@ namespace AssetmarkBAT.Controllers
                 0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
 
             //TODO: blanks for D12 
-            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0) ? 
+            model.BATValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0) ?
                 0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
         }
 

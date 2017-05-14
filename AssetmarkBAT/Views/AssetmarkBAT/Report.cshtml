@@ -10,6 +10,8 @@
 
 @using (Html.BeginForm("Optimizer", "AssetmarkBAT", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.DateStarted)
+
     <main>
         <section>
             <div class="container">

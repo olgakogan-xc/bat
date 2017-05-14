@@ -127,6 +127,8 @@ namespace AssetmarkBAT.Models
 
         public string Vmi_Complete { get; set; }
 
+        public string DateStarted { get; set; }
+
         public ValuationModel BATValuationModel { get; set; }
 
         public string PDFPath { get; set; }
