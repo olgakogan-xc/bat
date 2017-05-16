@@ -1,13 +1,21 @@
 ﻿using AssetmarkBAT.Models;
 using AssetmarkBATDbConnector;
+using Microsoft.Win32;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Auth;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.File;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.IO;
 //using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -39,43 +47,43 @@ namespace AssetmarkBAT.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
-            //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
-            //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
-            //MemoryStream stream = new MemoryStream(byteArray);
-            //SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
-            //PdfFixedDocument document = htmlToPdf.Convert(stream);
-            //document.Save("C:\\output.pdf");
+            ////FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
+            ////byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
+            ////byte[] byteArray = Encoding.ASCII.GetBytes(contents);
+            ////MemoryStream stream = new MemoryStream(byteArray);
+            ////SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
+            ////PdfFixedDocument document = htmlToPdf.Convert(stream);
+            ////document.Save("C:\\output.pdf");
 
-            BATModel model = new BATModel();
-            InitializeDropDowns(model);
+            //BATModel model = new BATModel();
+            //InitializeDropDowns(model);
 
-            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
-            {
-                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
-                
-                if (PopulateModelFromDatabase(model))
-                {
-                    if (model.Page2Complete)
-                    {
-                        return View(_ValuationOptimizer, model);
-                    }
-                    else if (model.Page1Complete)
-                    {
-                        return View(_Page2QuestionsViewName, model);
-                    }
-                    else
-                    {
-                        return View(_Page1QuestionsViewName, model);
-                    }
-                }
-                else
-                    return View(_TermsViewName);
-            }
+            //if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            //{
+            //    model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
 
-            return View("Terms");
+            //    if (PopulateModelFromDatabase(model))
+            //    {
+            //        if (model.Page2Complete)
+            //        {
+            //            return View(_ValuationOptimizer, model);
+            //        }
+            //        else if (model.Page1Complete)
+            //        {
+            //            return View(_Page2QuestionsViewName, model);
+            //        }
+            //        else
+            //        {
+            //            return View(_Page1QuestionsViewName, model);
+            //        }
+            //    }
+            //    else
+            //        return View(_TermsViewName);
+            //}
 
-            //return View("Eloqua");
+            //return View("Terms");
+
+            return View("Eloqua");
         }
 
         /// <summary>
@@ -193,7 +201,7 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Next")
             {
-                //model.PDFPath = CreatePdf(model.UserId);
+                model.PDFPath = CreatePdf(model.UserId);
                 model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
@@ -452,48 +460,206 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
+
+
+        //[HttpGet]
+        //public FileResult DownloadWidgetDataFile(long widgetId)
+        //{
+        //    using (var mem = new MemoryStream())
+        //    {
+        //        // Create spreadsheet based on widgetId...
+        //        // Or get the path for a file on the server...
+
+        //        return File(mem, "application/vnd.ms-excel", "WidgetData.pdf");
+        //    }
+        //}
+
+        //private CloudBlobContainer GetAssetmarkContainer()
+        //{
+        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+        //    CloudBlobClient client = new CloudBlobClient(storageAccount.BlobStorageUri.PrimaryUri);
+
+        //    return client.GetContainerReference("assetmarkbat");
+        //}
+
+        private void DownloadUserPdf(string userId)
+        {
+
+            string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");
+            //document.Save(path);
+            //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+
+
+
+            
+            //CloudBlockBlob blockBlob = container.GetBlockBlobReference("userPdf.pdf");
+            //var memoryStream = new MemoryStream();
+            //var memoryStream = System.IO.File.OpenWrite(@"C:\myfile.pdf");
+            //blockBlob.DownloadToStream(memoryStream);
+            //string test = memoryStream.ToString();
+            //memoryStream.Close();
+
+
+            //string url = blockBlob.StorageUri.PrimaryUri.ToString();
+            // Create an instance of WebClient
+            WebClient webClient = new WebClient();
+
+
+            String dPath = String.Empty;
+            RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
+            if (rKey != null)
+                dPath = (String)rKey.GetValue("Default Download Directory");
+            if (String.IsNullOrEmpty(dPath))
+                dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
+
+            string filePath = dPath + @"\userFileAgain.pdf";
+
+           //ShowPDF
+            //string fileName = "fileName.pdf";
+
+            //var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            //var blobClient = storageAccount.CreateCloudBlobClient();
+            //var container = blobClient.GetContainerReference("containerName");
+            //var blockBlob = container.GetBlockBlobReference(fileName);
+
+            //Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
+            //return File(blockBlob.DownloadByteArray(), "application/pdf");
+       
+
+
+
+        //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        //using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        //{
+        //    Response.AppendHeader("Content-Disposition", "attachment; filename=userFileNew.pdf");
+        //    //var fn = response.Headers["Content-Disposition"].Split(new string[] { "=" }, StringSplitOptions.None)[1];
+        //    string basePath = @"X:\Folder\SubFolder"; // Change accordingly...
+        //    var responseStream = response.GetResponseStream();
+        //    using (var fileStream = System.IO.File.Create(filePath))
+        //    {
+        //        responseStream.CopyTo(fileStream);
+        //    }
+        //}
+
+
+
+
+
+        //foreach (IListBlobItem item in container.ListBlobs(null, false))
+        //{
+        //    if (item.GetType() == typeof(CloudBlockBlob))
+        //    {
+        //        CloudBlockBlob blob1 = (CloudBlockBlob)item;
+
+        //        Console.WriteLine("Block blob of length {0}: {1}", blob1.Properties.Length, blob1.Uri);
+
+        //    }
+        //    else if (item.GetType() == typeof(CloudPageBlob))
+        //    {
+        //        CloudPageBlob pageBlob = (CloudPageBlob)item;
+
+        //        Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
+
+        //    }
+        //    else if (item.GetType() == typeof(CloudBlobDirectory))
+        //    {
+        //        CloudBlobDirectory directory = (CloudBlobDirectory)item;
+
+        //        Console.WriteLine("Directory: {0}", directory.Uri);
+        //    }
+        //}
+
+
+        //string uniqueBlobName = "helloworld.pdf";
+        //CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
+
+        //using (var fileStream = System.IO.File.OpenRead(path))
+        //{
+        //    blob.UploadFromStream(fileStream);
+        //    fileStream.Dispose();
+        //}
+
+
+
+
+
+
+        //return path;
+
+        //}
+        //catch (Exception e)
+        //{
+        //    Console.WriteLine("Error creating PDF for user " + id, e.Message);
+        //    return string.Empty;
+        //}
+
+
+        webClient.DownloadFile(new Uri(""), filePath);
+
+        }
+
+
         private string CreatePdf(string id)
         {
-            try
+            //try
+            //{
+            PdfFixedDocument document = new PdfFixedDocument();
+            PdfPage page = document.Pages.Add();
+            //document.Save("empty.pdf");
+
+            // Create a standard font with Helvetica face and 24 point size
+            PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
+            // Create a solid RGB red brush.
+            PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
+            PdfBrush darkBlueBrush = new PdfBrush();
+            darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
+            PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
+
+            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
+            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
+            page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+            page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+            page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
+
+            string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
+            PdfImage lockImage = new PdfImage(imagePath);
+            page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+
+            MemoryStream stream = new MemoryStream();
+            // Saves the document as stream
+            document.Save(stream);
+
+            // Converts the PdfDocument object to byte form.
+            //byte[] docBytes = stream.ToArray();
+            //Loads the byte array in PdfLoadedDocument
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+            CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+            var permissions = myContainer.GetPermissions();
+            permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+            myContainer.SetPermissions(permissions);
+
+
+            bool a = myContainer.Exists();
+            int numberOfBlobs = myContainer.ListBlobs().Count();
+
+            List<IListBlobItem> blobs = myContainer.ListBlobs().ToList();
+
+            
+
+
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference("assetmarkbat/helloworld");
+          
+            //blockBlob.UploadFromStream(stream);
+
+            using (var fileStream = System.IO.File.OpenRead(@"C:\olga\test.txt"))
             {
-                PdfFixedDocument document = new PdfFixedDocument();
-                PdfPage page = document.Pages.Add();
-                //document.Save("empty.pdf");
-
-
-
-
-                // Create a standard font with Helvetica face and 24 point size
-                PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
-                // Create a solid RGB red brush.
-                PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
-                PdfBrush darkBlueBrush = new PdfBrush();
-                darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
-                PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
-
-                page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-                page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
-
-
-
-                page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-                page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-
-                page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
-
-                string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
-                PdfImage lockImage = new PdfImage(imagePath);
-                page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
-                string path = HttpContext.Server.MapPath(@"~\UserPDF\" + id + ".pdf");
-                document.Save(path);
-                //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
-                return path;
+                blockBlob.Properties.ContentType = "text/plain";
+                blockBlob.UploadFromStream(fileStream);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error creating PDF for user " + id, e.Message);
-                return string.Empty;
-            }
+
+            return blockBlob.StorageUri.PrimaryUri.ToString();
         }
 
         private void CalculateVMIScore(BATModel model)
