@@ -436,33 +436,7 @@ namespace AssetmarkBAT.Controllers
                     model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
                     model.Ff_NewClients = original.Ff_New_Clients;
 
-                    //// VMI OLD CODE
-                    //model.Vmi_Man_Phase = (string.IsNullOrEmpty(original.Vmi_Man_Phase)) ? 5 : Convert.ToInt32(original.Vmi_Man_Phase);
-                    //model.Vmi_Man_Practice = (string.IsNullOrEmpty(original.Vmi_Man_Practice)) ? 5 : Convert.ToInt32(original.Vmi_Man_Practice);
-                    //model.Vmi_Man_Revenue = (string.IsNullOrEmpty(original.Vmi_Man_Revenue)) ? 5 : Convert.ToInt32(original.Vmi_Man_Revenue);
-                    //model.Vmi_Man_Track = (string.IsNullOrEmpty(original.Vmi_Man_Track)) ? 5 : Convert.ToInt32(original.Vmi_Man_Track);
-                    //model.Vmi_Man_Written_Plan = (string.IsNullOrEmpty(original.Vmi_Man_Written_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Man_Written_Plan);
-
-                    //model.Vmi_Mar_Materials = (string.IsNullOrEmpty(original.Vmi_Mar_Materials)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Materials);
-                    //model.Vmi_Mar_New_Business = (string.IsNullOrEmpty(original.Vmi_Mar_New_Business)) ? 5 : Convert.ToInt32(original.Vmi_Mar_New_Business);
-                    //model.Vmi_Mar_Plan = (string.IsNullOrEmpty(original.Vmi_Mar_Plan)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Plan);
-                    //model.Vmi_Mar_Prospects = (string.IsNullOrEmpty(original.Vmi_Mar_Prospects)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Prospects);
-                    //model.Vmi_Mar_Value_Proposition = (string.IsNullOrEmpty(original.Vmi_Mar_Value_Proposition)) ? 5 : Convert.ToInt32(original.Vmi_Mar_Value_Proposition);
-
-                    //model.Vmi_Opt_Automate = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Automate);
-                    //model.Vmi_Opt_Model = (string.IsNullOrEmpty(original.Vmi_Opt_Model)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Model);
-                    //model.Vmi_Opt_Procedures = (string.IsNullOrEmpty(original.Vmi_Opt_Procedures)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Procedures);
-                    //model.Vmi_Opt_Schedule = (string.IsNullOrEmpty(original.Vmi_Opt_Schedule)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Schedule);
-                    //model.Vmi_Opt_Segment = (string.IsNullOrEmpty(original.Vmi_Opt_Segment)) ? 5 : Convert.ToInt32(original.Vmi_Opt_Segment);
-
-                    //model.Vmi_Emp_Compensation = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Compensation);
-                    //model.Vmi_Emp_Emp_Retention = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Emp_Retention);
-                    //model.Vmi_Emp_Human = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Human);
-                    //model.Vmi_Emp_Responsibilities = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Responsibilities);
-                    //model.Vmi_Emp_Staff = (string.IsNullOrEmpty(original.Vmi_Opt_Automate)) ? 5 : Convert.ToInt32(original.Vmi_Emp_Staff);
-
-                    //VMI END OF OLD CODE
-
+                    //VMI's
                     model.Vmi_Man_Phase = original.Vmi_Man_Phase;
                     model.Vmi_Man_Practice = original.Vmi_Man_Practice;
                     model.Vmi_Man_Revenue = original.Vmi_Man_Revenue;
@@ -489,7 +463,6 @@ namespace AssetmarkBAT.Controllers
 
                     model.PDFPath = original.PDF;
                     model.DateStarted = original.DateStarted;
-
 
                     return true;
                 }
@@ -540,8 +513,11 @@ namespace AssetmarkBAT.Controllers
 
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
         {
+            if(PM > 20)
+                return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 48000000, calculatedmin = 22000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+
             //if params are blank return current with benchmark
-            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -551,7 +527,7 @@ namespace AssetmarkBAT.Controllers
             //{
             PdfFixedDocument document = new PdfFixedDocument();
             PdfPage page = document.Pages.Add();
-            document.Save("empty.pdf");
+            //document.Save("empty.pdf");
 
             // Create a standard font with Helvetica face and 24 point size
             PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
