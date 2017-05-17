@@ -76,16 +76,15 @@
                     </div>
                 </div>
                 <div class="sliders">
-                    <h4>Marketing Your Practices==============</h4>
+                    <h4>Managing</h4>
                     <div class="slider">
                         <div class="row">
                             <div class="col-md-4 slider-low">
                                 I do not have a written business plan that drives future (1-, 3-,5+-year) goals
                             </div>
                             <div class="col-md-4 slider-control">
-                                @*<input type="hidden" ng-model="myp1.value" />*@
-                               
-                                @Html.TextBoxFor(m => m.Vmi_Mar_Plan, new { ng_init = string.Format("myp1.value = '{0}'", Model.Vmi_Mar_Plan), ng_model = "myp1.value" })
+                                @*<input type="hidden" ng-model="myp1.value" />*@                               
+                                @Html.TextBoxFor(m => m.Vmi_Man_Written_Plan, new { ng_init = string.Format("myp1.value = '{0}'", Model.Vmi_Man_Written_Plan), ng_model = "myp1.value" })
                                 <rzslider rz-slider-model="myp1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -99,7 +98,8 @@
                                 I do not track financial business metrics.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myp2.value" />
+                                @*<input type="hidden" ng-model="myp2.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Man_Track, new { ng_init = string.Format("myp2.value = '{0}'", Model.Vmi_Man_Track), ng_model = "myp2.value" })
                                 <rzslider rz-slider-model="myp2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -113,7 +113,8 @@
                                 All of my clients are in the distribution phase of their financial lives.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myp3.value" />
+                                @*<input type="hidden" ng-model="myp3.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Man_Phase, new { ng_init = string.Format("myp3.value = '{0}'", Model.Vmi_Man_Phase), ng_model = "myp3.value" })
                                 <rzslider rz-slider-model="myp3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -127,7 +128,8 @@
                                 All of my revenue is commission-based.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myp4.value" />
+                                @*<input type="hidden" ng-model="myp4.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Man_Revenue, new { ng_init = string.Format("myp4.value = '{0}'", Model.Vmi_Man_Revenue), ng_model = "myp4.value" })
                                 <rzslider rz-slider-model="myp4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -141,7 +143,8 @@
                                 I have an advisor-driven practice that is solely reliant upon me.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myp5.value" />
+                                @*<input type="hidden" ng-model="myp5.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Man_Practice, new { ng_init = string.Format("myp5.value = '{0}'", Model.Vmi_Man_Practice), ng_model = "myp5.value" })
                                 <rzslider rz-slider-model="myp5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -152,14 +155,15 @@
                 </div>
                 <hr>
                 <div class="sliders">
-                    <h4>Managing</h4>
+                    <h4>Marketing </h4>
                     <div class="slider">
                         <div class="row">
                             <div class="col-md-4 slider-low">
                                 I do not have a clearly defined value proposition.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myb1.value" />
+                                @*<input type="hidden" ng-model="myb1.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Mar_Value_Proposition, new { ng_init = string.Format("myb1.value = '{0}'", Model.Vmi_Mar_Value_Proposition), ng_model = "myb1.value" })
                                 <rzslider rz-slider-model="myb1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -173,7 +177,8 @@
                                 I do not have formal marketing materials, a web site or an institutionalized brand.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myb2.value" />
+                                @*<input type="hidden" ng-model="myb2.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Mar_Materials, new { ng_init = string.Format("myb2.value = '{0}'", Model.Vmi_Mar_Materials), ng_model = "myb2.value" })
                                 <rzslider rz-slider-model="myb2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -187,7 +192,8 @@
                                 I do not have a formal marketing plan and do not have a consistent flow of prospects.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myb3.value" />
+                                @*<input type="hidden" ng-model="myb3.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Mar_Plan, new { ng_init = string.Format("myb3.value = '{0}'", Model.Vmi_Mar_Plan), ng_model = "myb3.value" })
                                 <rzslider rz-slider-model="myb3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -201,7 +207,8 @@
                                 I have difficulty evaluating prospects because I have not defined my ideal client.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myb4.value" />
+                                @*<input type="hidden" ng-model="myb4.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Mar_Prospects, new { ng_init = string.Format("myb4.value = '{0}'", Model.Vmi_Mar_Prospects), ng_model = "myb4.value" })
                                 <rzslider rz-slider-model="myb4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -215,7 +222,8 @@
                                 I rarely get new business from client, center of influence or professional referrals
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="myb5.value" />
+                                @*<input type="hidden" ng-model="myb5.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Mar_New_Business, new { ng_init = string.Format("myb5.value = '{0}'", Model.Vmi_Mar_New_Business), ng_model = "myb5.value" })                             
                                 <rzslider rz-slider-model="myb5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -233,7 +241,8 @@
                                 I do not automate processes with technological or outsourced solutions.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="oyo1.value" />
+                                @*<input type="hidden" ng-model="oyo1.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Opt_Automate, new { ng_init = string.Format("oyo1.value = '{0}'", Model.Vmi_Opt_Automate), ng_model = "oyo1.value" })
                                 <rzslider rz-slider-model="oyo1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -247,7 +256,8 @@
                                 I do not have written procedures for my operations and perform tasks using ad hoc processes.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="oyo2.value" />
+                                @*<input type="hidden" ng-model="oyo2.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Opt_Procedures, new { ng_init = string.Format("oyo2.value = '{0}'", Model.Vmi_Opt_Procedures), ng_model = "oyo2.value" })
                                 <rzslider rz-slider-model="oyo2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -261,7 +271,8 @@
                                 I have not segmented my client base, so I do not know how different clients drive revenue.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="oyo3.value" />
+                                @*<input type="hidden" ng-model="oyo3.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Opt_Segment, new { ng_init = string.Format("oyo3.value = '{0}'", Model.Vmi_Opt_Segment), ng_model = "oyo3.value" })
                                 <rzslider rz-slider-model="oyo3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -275,7 +286,8 @@
                                 I do not have a defined client service model and frequently provide non-standardized services.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="oyo4.value" />
+                                @*<input type="hidden" ng-model="oyo4.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Opt_Model, new { ng_init = string.Format("oyo4.value = '{0}'", Model.Vmi_Opt_Model), ng_model = "oyo4.value" })
                                 <rzslider rz-slider-model="oyo4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -289,7 +301,8 @@
                                 I do not have a formal or consistent fee schedule.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="oyo5.value" />
+                                @*<input type="hidden" ng-model="oyo5.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Opt_Schedule, new { ng_init = string.Format("oyo5.value = '{0}'", Model.Vmi_Opt_Schedule), ng_model = "oyo5.value" })
                                 <rzslider rz-slider-model="oyo5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -307,7 +320,8 @@
                                 I have not invested resources in human capital development.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="eyt1.value" />
+                                @*<input type="hidden" ng-model="eyt1.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Human, new { ng_init = string.Format("eyt1.value = '{0}'", Model.Vmi_Emp_Human), ng_model = "eyt1.value" })
                                 <rzslider rz-slider-model="eyt1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -321,7 +335,8 @@
                                 I do not have a formal compensation plan that aligns with industry standards.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="eyt2.value" />
+                                @*<input type="hidden" ng-model="eyt2.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Compensation, new { ng_init = string.Format("eyt2.value = '{0}'", Model.Vmi_Emp_Compensation), ng_model = "eyt2.value" })
                                 <rzslider rz-slider-model="eyt2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -335,7 +350,8 @@
                                 I am responsible for all aspects of client engagement, service and back-office operations.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="eyt3.value" />
+                                @*<input type="hidden" ng-model="eyt3.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Responsibilities, new { ng_init = string.Format("eyt3.value = '{0}'", Model.Vmi_Emp_Responsibilities), ng_model = "eyt3.value" })
                                 <rzslider rz-slider-model="eyt3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -349,7 +365,8 @@
                                 I am not staffed adequately to effectively manage my workload or reach my growth objectives.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="eyt4.value" />
+                                @*<input type="hidden" ng-model="eyt4.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Staff, new { ng_init = string.Format("eyt4.value = '{0}'", Model.Vmi_Emp_Staff), ng_model = "eyt4.value" })
                                 <rzslider rz-slider-model="eyt4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -363,7 +380,8 @@
                                 I have problems with employee retention or have no employees to retain.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="hidden" ng-model="eyt5.value" />
+                              @*  <input type="hidden" ng-model="eyt5.value" />*@
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Emp_Retention, new { ng_init = string.Format("eyt5.value = '{0}'", Model.Vmi_Emp_Emp_Retention), ng_model = "eyt5.value" })
                                 <rzslider rz-slider-model="eyt5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -371,10 +389,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    @Model.Ff_TotalFirmAsset
-                </div>
+                </div>               
                 <div class="row">
                     <div class="col-md-12">
                         <div class="button-container text-center">
