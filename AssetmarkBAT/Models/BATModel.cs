@@ -70,27 +70,27 @@ namespace AssetmarkBAT.Models
         public string Ff_OperatingProfitAnnualized { get; set; }
 
         [Display(Name = "Projected Growth Rate")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid % value")]
         public string Ff_ProjectedGrowthRate { get; set; }
         public string Ff_ProjectedGrowthRateAnnualized { get; set; }
 
         [Display(Name = "Client Relationships")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_ClientRelationships { get; set; }
         public string Ff_ClientRelationshipsAnnualized { get; set; }
 
         [Display(Name = "Full-Time Equivalent Non Advisors")]    
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_FullTimeNonAdvisors { get; set; }
         public string Ff_FullTimeNonAdvisorsAnnualized { get; set; }
 
         [Display(Name = "Full-Time Equivalent Advisors")]       
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_FullTimeAdvisors { get; set; }
         public string Ff_FullTimeAdvisorsAnnualized { get; set; }
 
         [Display(Name = "New Clients")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_NewClients { get; set; }
         public string Ff_NewClientsAnnualized { get; set; }
 

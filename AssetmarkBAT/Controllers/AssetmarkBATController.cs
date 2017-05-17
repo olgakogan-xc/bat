@@ -37,8 +37,23 @@ namespace AssetmarkBAT.Controllers
         private string _Page2QuestionsViewName = "Page2Questions";
         private string _ReportViewName = "Report";
         private string _ValuationOptimizer = "ValuationOptimizer";
-        private string _UserId = string.Empty;
+        private string _EloquaQueryStringParamName = "eloqua";
+        //private string _UserId = string.Empty;
         //public ValuationModel _ValModel = new ValuationModel();
+
+        public string KnownUserId()
+        {
+            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            {
+                return HttpContext.Request.Cookies[_CookieName].Value;
+            }
+            else if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
+            {
+                return Request.QueryString[_EloquaQueryStringParamName];
+            }
+            else
+                return null;
+        }
 
 
         /// <summary>
@@ -55,14 +70,14 @@ namespace AssetmarkBAT.Controllers
             //PdfFixedDocument document = htmlToPdf.Convert(stream);
             //document.Save("C:\\output.pdf");
 
-            string test = GetValuationMetrics("", "", "").ToString();
+            //string test = GetValuationMetrics("", "", "").ToString();
 
             BATModel model = new BATModel();
             InitializeDropDowns(model);
 
-            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            if (!string.IsNullOrEmpty(KnownUserId()))
             {
-                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
+                model.UserId = KnownUserId();
 
                 if (PopulateModelFromDatabase(model))
                 {
@@ -104,11 +119,9 @@ namespace AssetmarkBAT.Controllers
             BATModel model = new BATModel();
             InitializeDropDowns(model);
 
-            if (HttpContext.Request.Cookies[_CookieName] == null || string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            if (string.IsNullOrEmpty(KnownUserId()))
             {
                 model.UserId = Guid.NewGuid().ToString();
-                _UserId = model.UserId;
-
                 HttpCookie assetmarkBATCookie = new HttpCookie(_CookieName);
                 assetmarkBATCookie.Value = model.UserId;
                 assetmarkBATCookie.Expires = DateTime.Now.AddYears(10);
@@ -116,8 +129,7 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
-
+                model.UserId = KnownUserId();
                 PopulateModelFromDatabase(model);
             }
 
@@ -142,8 +154,9 @@ namespace AssetmarkBAT.Controllers
             if (submit == "Save Your Inputs")
             {
                 model.BATValuationModel = new ValuationModel();
-                model.PDFPath = "Just starting";
+                //model.PDFPath = "On save";
                 model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
+                model.Page1Complete = true;
                 PopulateEntityFromModel(model);
                 return View(_Page1QuestionsViewName, model);
             }
@@ -201,9 +214,10 @@ namespace AssetmarkBAT.Controllers
 
             InitializeDropDowns(model);
 
-            if(submit == "Save Your Inputs")
-            {            
+            if (submit == "Save Your Inputs")
+            {
                 model.PDFPath = CreatePdf(model.UserId);
+                model.Page2Complete = true;
                 //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
@@ -493,7 +507,7 @@ namespace AssetmarkBAT.Controllers
 
 
 
-            
+
             //CloudBlockBlob blockBlob = container.GetBlockBlobReference("userPdf.pdf");
             //var memoryStream = new MemoryStream();
             //var memoryStream = System.IO.File.OpenWrite(@"C:\myfile.pdf");
@@ -516,7 +530,7 @@ namespace AssetmarkBAT.Controllers
 
             string filePath = dPath + @"\userFileAgain.pdf";
 
-           //ShowPDF
+            //ShowPDF
             //string fileName = "fileName.pdf";
 
             //var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
@@ -526,80 +540,80 @@ namespace AssetmarkBAT.Controllers
 
             //Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
             //return File(blockBlob.DownloadByteArray(), "application/pdf");
-       
-
-
-
-        //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-        //using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        //{
-        //    Response.AppendHeader("Content-Disposition", "attachment; filename=userFileNew.pdf");
-        //    //var fn = response.Headers["Content-Disposition"].Split(new string[] { "=" }, StringSplitOptions.None)[1];
-        //    string basePath = @"X:\Folder\SubFolder"; // Change accordingly...
-        //    var responseStream = response.GetResponseStream();
-        //    using (var fileStream = System.IO.File.Create(filePath))
-        //    {
-        //        responseStream.CopyTo(fileStream);
-        //    }
-        //}
 
 
 
 
-
-        //foreach (IListBlobItem item in container.ListBlobs(null, false))
-        //{
-        //    if (item.GetType() == typeof(CloudBlockBlob))
-        //    {
-        //        CloudBlockBlob blob1 = (CloudBlockBlob)item;
-
-        //        Console.WriteLine("Block blob of length {0}: {1}", blob1.Properties.Length, blob1.Uri);
-
-        //    }
-        //    else if (item.GetType() == typeof(CloudPageBlob))
-        //    {
-        //        CloudPageBlob pageBlob = (CloudPageBlob)item;
-
-        //        Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
-
-        //    }
-        //    else if (item.GetType() == typeof(CloudBlobDirectory))
-        //    {
-        //        CloudBlobDirectory directory = (CloudBlobDirectory)item;
-
-        //        Console.WriteLine("Directory: {0}", directory.Uri);
-        //    }
-        //}
-
-
-        //string uniqueBlobName = "helloworld.pdf";
-        //CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
-
-        //using (var fileStream = System.IO.File.OpenRead(path))
-        //{
-        //    blob.UploadFromStream(fileStream);
-        //    fileStream.Dispose();
-        //}
+            //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            //using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            //{
+            //    Response.AppendHeader("Content-Disposition", "attachment; filename=userFileNew.pdf");
+            //    //var fn = response.Headers["Content-Disposition"].Split(new string[] { "=" }, StringSplitOptions.None)[1];
+            //    string basePath = @"X:\Folder\SubFolder"; // Change accordingly...
+            //    var responseStream = response.GetResponseStream();
+            //    using (var fileStream = System.IO.File.Create(filePath))
+            //    {
+            //        responseStream.CopyTo(fileStream);
+            //    }
+            //}
 
 
 
 
 
+            //foreach (IListBlobItem item in container.ListBlobs(null, false))
+            //{
+            //    if (item.GetType() == typeof(CloudBlockBlob))
+            //    {
+            //        CloudBlockBlob blob1 = (CloudBlockBlob)item;
 
-        //return path;
+            //        Console.WriteLine("Block blob of length {0}: {1}", blob1.Properties.Length, blob1.Uri);
 
-        //}
-        //catch (Exception e)
-        //{
-        //    Console.WriteLine("Error creating PDF for user " + id, e.Message);
-        //    return string.Empty;
-        //}
+            //    }
+            //    else if (item.GetType() == typeof(CloudPageBlob))
+            //    {
+            //        CloudPageBlob pageBlob = (CloudPageBlob)item;
+
+            //        Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
+
+            //    }
+            //    else if (item.GetType() == typeof(CloudBlobDirectory))
+            //    {
+            //        CloudBlobDirectory directory = (CloudBlobDirectory)item;
+
+            //        Console.WriteLine("Directory: {0}", directory.Uri);
+            //    }
+            //}
 
 
-        webClient.DownloadFile(new Uri(""), filePath);
+            //string uniqueBlobName = "helloworld.pdf";
+            //CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
+
+            //using (var fileStream = System.IO.File.OpenRead(path))
+            //{
+            //    blob.UploadFromStream(fileStream);
+            //    fileStream.Dispose();
+            //}
+
+
+
+
+
+
+            //return path;
+
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("Error creating PDF for user " + id, e.Message);
+            //    return string.Empty;
+            //}
+
+
+            webClient.DownloadFile(new Uri(""), filePath);
 
         }
-        
+
 
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
         {
@@ -638,7 +652,7 @@ namespace AssetmarkBAT.Controllers
             // Saves the document as stream
             document.Save(stream);
 
-            
+
 
             // Converts the PdfDocument object to byte form.
             byte[] docBytes = stream.ToArray();
@@ -656,12 +670,12 @@ namespace AssetmarkBAT.Controllers
             //blockBlob.UploadFromStream(stream);
             blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
 
-           //// using (var fileStream = System.IO.File.OpenRead(@"C:\olga\userPdf.pdf"))
-           //using(var fileStream = new FileStream(docBytes,))
-           // {
-           //     blockBlob.Properties.ContentType = "application/pdf";
-           //     blockBlob.UploadFromStream(docBytes);
-           // }
+            //// using (var fileStream = System.IO.File.OpenRead(@"C:\olga\userPdf.pdf"))
+            //using(var fileStream = new FileStream(docBytes,))
+            // {
+            //     blockBlob.Properties.ContentType = "application/pdf";
+            //     blockBlob.UploadFromStream(docBytes);
+            // }
 
             return blockBlob.StorageUri.PrimaryUri.ToString();
         }
