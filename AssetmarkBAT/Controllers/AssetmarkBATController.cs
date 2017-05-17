@@ -527,7 +527,7 @@ namespace AssetmarkBAT.Controllers
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
         {
             //if params are blank return current with benchmark
-            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000, calculatedmin = 7000000 }, JsonRequestBehavior.AllowGet);
+            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -547,11 +547,11 @@ namespace AssetmarkBAT.Controllers
             darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
             PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
 
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-            page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
-            page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-            page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-            page.Graphics.DrawString("Valuation Rangels========================", helvetica, textBrush, 50, 35);
+            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
+            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
+            //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+            //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+            page.Graphics.DrawString("Under Construction", helvetica, textBrush, 50, 35);
 
             string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
             PdfImage lockImage = new PdfImage(imagePath);

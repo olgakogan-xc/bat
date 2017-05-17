@@ -83,7 +83,8 @@
                             <label for="practiceTypeRadio5">
                                 <input type="radio" name="practiceType" id="practiceTypeRadio5" ng-model="practiceTypeRadio" ng-value="5" ng-click="expandPracticeTypeSelect()" ng-checked="practiceTypeRadio == 5"> Other (please specify): {{practiceTypeOther}}
                             </label>
-                            <input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">
+                            @*<input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">*@
+                            @Html.TextBoxFor(m => Model.PracticeType, new { ng_model = "practiceTypeOther", ng_change = "practiceTypeOtherChange(5)", @id = "practiceTypeOther" })
                         </li>
                     </ul>
                 </div>
