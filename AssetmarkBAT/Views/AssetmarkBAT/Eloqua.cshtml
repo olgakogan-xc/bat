@@ -1,14 +1,11 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Eloqua</title>
+</head>
+<body>
     <style type="text/css" media="screen">
         /* RESET */ .elq-form * {
             margin: 0;
@@ -340,106 +337,6 @@
                 width: 96%;
             }
     </style>
-</head>
-<body>
-    <script type="text/javascript">
-        var elqQ = elqQ || [];
-        _elqQ.push(['elqSetSiteId', '2564']);
-        _elqQ.push(['elqTrackPageView']);
-        (function () {
-            function async_load() {
-                var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://img.en25.com/i/elqCfg.min.js';
-                var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-            }
-            if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
-            else if (window.attachEvent) window.attachEvent('onload', async_load);
-        })();
-    </script>
-
-    <SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript'>
-<!--//
-
-function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName){
-    if (elqForm.elements[strFormFieldName])
-        elqForm.elements[strFormFieldName].value = GetElqContentPersonalizationValue(strContactFieldName);
-}
-
-function SetElqContent(){
-    if (this.GetElqContentPersonalizationValue){
-
-        var elqForm;
-        var blnFound = false;
-        //find the form object from the form HTMLName
-        for (var formIndex = 0; formIndex < document.forms.length; formIndex++)
-        {
-            for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++)
-            {
-                if (document.forms[formIndex].elements[elemIndex].name == "elqFormName")
-                {
-                    if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated")
-                    {
-                        elqForm = document.forms[formIndex];
-                        blnFound = true;
-                        break;
-                    }
-                }
-            }
-            if (blnFound) break;
-        }
-
-        if (elqForm)
-        {
-            setFormFieldValue(elqForm, "sFDCLeadID", "C_SFDCLeadID");
-            setFormFieldValue(elqForm, "brokerDealer1", "C_Broker_Dealer1");
-            setFormFieldValue(elqForm, "iCName1", "C_IC_Name1");
-            setFormFieldValue(elqForm, "lastName", "C_LastName");
-            setFormFieldValue(elqForm, "emailAddress", "C_EmailAddress");
-            setFormFieldValue(elqForm, "busPhone", "C_BusPhone");
-            setFormFieldValue(elqForm, "sFDCLastCampaignID", "C_SFDCLastCampaignID");
-            setFormFieldValue(elqForm, "firstName", "C_FirstName");
-            setFormFieldValue(elqForm, "sFDCContactID", "C_SFDCContactID");
-            setFormFieldValue(elqForm, "rCEmailAddress1", "C_RC_Email_Address1");
-            setFormFieldValue(elqForm, "zipPostal", "C_Zip_Postal");
-        }
-    }
-}
-//--></SCRIPT>
-
-    @*<SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript'>
-            _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'), '<C_EmailAddress>Enter_Email Address_here</C_EmailAddress>']);
-        </SCRIPT>*@
-
-    <script type="text/javascript">
-        // START  MAKE YOUR CHANGES HERE
-        var LookupIdVisitor = "6c81e2c6ec8d40c8a281d4182058de3d"; // LOOKUP A:  The ID of your Visitor Web Data Lookup
-        var LookupIdPrimary = "e087f5d896174b92bdf576c56a10cd3f"; // LOOKUP B:  The ID of your Contact/Datacard/Prospect/Company Web Data Lookup
-        var VisitorUniqueField = "V_Email_Address";     // Unique field's HTML Name from LOOKUP A (usually V_Email_Address)
-        var PrimaryUniqueField = "C_EmailAddress";     // Unique field's HTML Name from LOOKUP B (usually C_EmailAddress)
-        var EloquaFormID = "form945";       // The ID of your Eloqua Form
-        // END  MAKE YOUR CHANGES HERE
-    </script>
-
-    <script type="text/javascript">
-
-        // SetElqContent is triggered by the Data Lookup Scripts automatically.  The "FirstLookup" modification allows for the Visitor Lookup to trigger the second Lookup (Contact/Datacard/Prospect/Company)
-        var FirstLookup = true;
-        function SetElqContent() {
-            if (FirstLookup) {
-                //LOOKUP B:  Eloqua Contact/DataCard/Prospect/Company Data Lookup from Email Address
-                _elqQ.push(['elqDataLookup', escape(LookupIdPrimary), '<' + PrimaryUniqueField +'>' + GetElqContentPersonalizationValue(VisitorUniqueField) + '</' + PrimaryUniqueField + '>']);
-                FirstLookup = false;
-            } else {
-                //This is triggered the after Lookup B fires.  LoadFields starts the field prepoulation process.
-                SetElqContent2();
-            }
-        }
-
-        // LOOKUP A:  Eloqua Visitor Data Lookup from Cookie  -  Ensure VisitorUniqueField is pulled in the Profile View
-        _elqQ.push(['elqDataLookup', escape(LookupIdVisitor), '']);
-
-    </script>
-
-
     <div>
         <form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form1007 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form1007" class="elq-form">
             <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
@@ -708,7 +605,7 @@ function SetElqContent(){
       failureMessage:"This field is required"}
               );
     field2.add(Validate.Format, {
-      pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
+      pattern: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
               );
     var dom3 = document.querySelector('#form1007 #field3');
     var field3 = new LiveValidation(dom3, {
@@ -819,7 +716,98 @@ function SetElqContent(){
         </script>
     </div>
 
-   
+    <SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript'>
+<!--//
+
+function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName){
+    if (elqForm.elements[strFormFieldName])
+        elqForm.elements[strFormFieldName].value = GetElqContentPersonalizationValue(strContactFieldName);
+}
+
+function SetElqContent(){
+    if (this.GetElqContentPersonalizationValue){
+
+        var elqForm;
+        var blnFound = false;
+        //find the form object from the form HTMLName
+        for (var formIndex = 0; formIndex < document.forms.length; formIndex++)
+        {
+            for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++)
+            {
+                if (document.forms[formIndex].elements[elemIndex].name == "elqFormName")
+                {
+                    if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated")
+                    {
+                        elqForm = document.forms[formIndex];
+                        blnFound = true;
+                        break;
+                    }
+                }
+            }
+            if (blnFound) break;
+        }
+
+        if (elqForm)
+        {
+            setFormFieldValue(elqForm, "sFDCLeadID", "C_SFDCLeadID");
+            setFormFieldValue(elqForm, "brokerDealer1", "C_Broker_Dealer1");
+            setFormFieldValue(elqForm, "iCName1", "C_IC_Name1");
+            setFormFieldValue(elqForm, "lastName", "C_LastName");
+            setFormFieldValue(elqForm, "emailAddress", "C_EmailAddress");
+            setFormFieldValue(elqForm, "busPhone", "C_BusPhone");
+            setFormFieldValue(elqForm, "sFDCLastCampaignID", "C_SFDCLastCampaignID");
+            setFormFieldValue(elqForm, "firstName", "C_FirstName");
+            setFormFieldValue(elqForm, "sFDCContactID", "C_SFDCContactID");
+            setFormFieldValue(elqForm, "rCEmailAddress1", "C_RC_Email_Address1");
+            setFormFieldValue(elqForm, "zipPostal", "C_Zip_Postal");
+        }
+    }
+}
+//--></SCRIPT>
+
+
+
+
+
+
+
+    <SCRIPT TYPE='text/javascript' LANGUAGE='JavaScript'>
+<!--//
+
+    _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'),'<C_EmailAddress>Enter_Email Address_here</C_EmailAddress>']);
+
+//--></SCRIPT>
+
+
+
+
+
+
+
+    <script type='text/javascript'>
+<!--//
+var timerId = null, timeout = 5;
+//--></script>
+    <script type='text/javascript'>
+<!--//
+function WaitUntilCustomerGUIDIsRetrieved() {
+if (!!(timerId)) {
+    if (timeout == 0) {
+return;
+}
+if (typeof this.GetElqCustomerGUID === 'function') {
+        document.forms["BAT2017_Survey_Gated"].elements["elqCustomerGUID"].value = GetElqCustomerGUID();
+return;
+}
+timeout -= 1;
+}
+timerId = setTimeout("WaitUntilCustomerGUIDIsRetrieved()", 500);
+return;
+}
+window.onload = WaitUntilCustomerGUIDIsRetrieved;
+_elqQ.push(['elqGetCustomerGUID']);
+//--></script>
+
 
 </body>
 </html>

@@ -55,35 +55,35 @@ namespace AssetmarkBAT.Controllers
             //PdfFixedDocument document = htmlToPdf.Convert(stream);
             //document.Save("C:\\output.pdf");
 
-            BATModel model = new BATModel();
-            InitializeDropDowns(model);
+            //BATModel model = new BATModel();
+            //InitializeDropDowns(model);
 
-            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
-            {
-                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
+            //if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            //{
+            //    model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
 
-                if (PopulateModelFromDatabase(model))
-                {
-                    if (model.Page2Complete)
-                    {
-                        return View(_ValuationOptimizer, model);
-                    }
-                    else if (model.Page1Complete)
-                    {
-                        return View(_Page2QuestionsViewName, model);
-                    }
-                    else
-                    {
-                        return View(_Page1QuestionsViewName, model);
-                    }
-                }
-                else
-                    return View(_TermsViewName);
-            }
+            //    if (PopulateModelFromDatabase(model))
+            //    {
+            //        if (model.Page2Complete)
+            //        {
+            //            return View(_ValuationOptimizer, model);
+            //        }
+            //        else if (model.Page1Complete)
+            //        {
+            //            return View(_Page2QuestionsViewName, model);
+            //        }
+            //        else
+            //        {
+            //            return View(_Page1QuestionsViewName, model);
+            //        }
+            //    }
+            //    else
+            //        return View(_TermsViewName);
+            //}
 
-            return View("Terms");
+            //return View("Terms");
 
-            //return View("Eloqua");
+            return View("Eloqua");
         }
 
         /// <summary>
