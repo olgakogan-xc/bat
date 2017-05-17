@@ -67,9 +67,9 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
 
-                    <div class="graph">
+                    <div class="graph" ng-init="initGraph()">
                         <h6>Firm Valuation Range: Current Value vs. Optimized Value</h6>
-                        <div id="container" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+                        <div id="optimizerGraph" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
                     </div>
 
                     <h6>See how changes impact your firm valuation.</h6>
@@ -77,37 +77,85 @@
                         <small>Use the slider on "Your Firm" to increase or decrease your VMI Score</small><br>
                         <small>Top performing firms</small>
                     </p>
+
                     <div class="optimizer">
                         <div class="title">
                             <h3 class="optimized-label">Projected Annual Growth Rate</h3>
-                            <div class="optimized-value">7%</div>
+                            <div class="optimized-value">{{pagr.value}}%</div>
                         </div>
                         <div class="optimizer-slider">
-                            <input type="text" />
+                            <input type="text" ng-model="pagr.value" />
+                            <div class="slider-ticks">
+                                <rzslider rz-slider-model="pagrTicks.minValue"
+                                          rz-slider-high="pagrTicks.maxValue"
+                                          rz-slider-options="pagrTicks.options"></rzslider>
+                            </div>
+                            <div class="slider-comp">
+                                <rzslider rz-slider-model="pagrComp.minValue"
+                                          rz-slider-high="pagrComp.maxValue"
+                                          rz-slider-options="pagrComp.options"></rzslider>
+                            </div>
+                            <div class="slider-pointer">
+                                <rzslider rz-slider-model="pagr.value"
+                                          rz-slider-options="pagr.options"></rzslider>
+                            </div>
                         </div>
                     </div>
+
                     <div class="optimizer">
                         <div class="title">
                             <h3 class="optimized-label">Profit Margin</h3>
-                            <div class="optimized-value">16%</div>
+                            <div class="optimized-value">{{pm.value}}%</div>
                         </div>
                         <div class="sub-title">
                             <h4 class="optimized-label">Profit is annualized</h4>
                             <div class="optimized-value">$2,054,400</div>
                         </div>
                         <div class="optimizer-slider">
-                            <input type="text" />
+                            <input type="hidden" ng-model="pm.value" />
+                            <div class="slider-ticks">
+                                <rzslider rz-slider-model="pmTicks.minValue"
+                                          rz-slider-high="pmTicks.maxValue"
+                                          rz-slider-options="pmTicks.options"></rzslider>
+                            </div>
+                            <div class="slider-comp">
+                                <rzslider rz-slider-model="pmComp.minValue"
+                                          rz-slider-high="pmComp.maxValue"
+                                          rz-slider-options="pmComp.options"></rzslider>
+                            </div>
+                            <div class="slider-pointer">
+                                <rzslider rz-slider-model="pm.value"
+                                          rz-slider-options="pm.options"></rzslider>
+                            </div>
                         </div>
                     </div>
+
                     <div class="optimizer">
                         <div class="title">
                             <h3 class="optimized-label">Valuation Maximization Index<sup>&trade;</sup></h3>
-                            <div class="optimized-value">210</div>
+                            <div class="optimized-value">{{vmi.value}}</div>
                         </div>
                         <div class="optimizer-slider">
-                            <input type="text" />
+                            <div class="optimizer-slider">
+                                <input type="hidden" ng-model="vmi.value" />
+                                <div class="slider-ticks">
+                                    <rzslider rz-slider-model="vmiTicks.minValue"
+                                              rz-slider-high="vmiTicks.maxValue"
+                                              rz-slider-options="vmiTicks.options"></rzslider>
+                                </div>
+                                <div class="slider-comp">
+                                    <rzslider rz-slider-model="vmiComp.minValue"
+                                              rz-slider-high="vmiComp.maxValue"
+                                              rz-slider-options="vmiComp.options"></rzslider>
+                                </div>
+                                <div class="slider-pointer">
+                                    <rzslider rz-slider-model="vmi.value"
+                                              rz-slider-options="vmi.options"></rzslider>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="button-container text-right">
                         <button>Reset</button>
                     </div>
@@ -117,63 +165,3 @@
     </section>
 
 </main>
-
-
-
-<script src="//code.highcharts.com/highcharts.js"></script>
-<script src="//code.highcharts.com/highcharts-more.js"></script>
-<script>
-    Highcharts.chart('container', {
-
-        chart: {
-            type: 'columnrange',
-            inverted: false
-        },
-
-        yAxis: {
-            labels: {
-                formatter: function () {
-                    return '$' + this.value;
-                }
-            },
-            title: {
-                enabled: false
-            }
-        },
-
-        xAxis: {
-            categories: ['Current Value', 'Optimized Value']
-        },
-
-        tooltip: {
-            enabled: false,
-        },
-
-        plotOptions: {
-            columnrange: {
-                dataLabels: {
-                    enabled: true,
-                    formatter: function () {
-                        return '$' + this.y;
-                    }
-                }
-            }
-        },
-
-        legend: {
-            enabled: false
-        },
-
-        series: [{
-            name: 'Temperatures',
-            data: [
-                [33862000, 45240000],
-                [7089000, 11943000]
-            ]
-        }]
-
-    });
-</script>
-</body>
-</html>
-
