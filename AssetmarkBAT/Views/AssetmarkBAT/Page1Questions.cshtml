@@ -28,139 +28,152 @@
 
 *@
 
-
-
 <main>
+
     <section>
         <div class="container">
             <h1><img src="~/Styles/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
             <h2>Firm Financials</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <p class="no-margin">
-                        Your financial model shows how top-line revenue flows to the bottom line, and consists of multiple components that can work together to ensure the success and stability of your business. In this section, you will enter financial information such as total AUM, direct and indirect expenses, total number of employees, advisors and new clients – creating an overview of your financial model.
-                        The first step is entering your firm’s information. This step is crucial in establishing the framework for accurately measuring your ongoing success. Both your firm financial data and your VMI scores are needed to estimate your firm’s valuation range. Please be sure to provide all the firm financial data below, and then go to the next page to complete the Value Maximization Indicators (VMI).
-
-                    </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet!</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet!</p>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <h4>Additional Resources</h4>
                     <ul>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <i class="icon-pdf"></i></a></li>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <i class="icon-pdf"></i></a></li>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <i class="icon-pdf"></i></a></li>
+                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </section>   
+    </section>
     <section class="grey">
         <div class="container">
             <h3>Enter your firm's financial data in the fields below (all fields are required):</h3>
 
             <div class="fancy-form-row">
-                <div class="fancy-form-label">This information helps us to understand what type of data you are providing. If you are an advisor in a firm, but are providing data for your book of business only please select single advisor practice.</div>
+                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                {{expandPracticeType}}
                 <div class="fancy-form-control">
-                    <ul class="fancy-form-select">
-                        <li>
+                    <span class="fancy-form-select-toggle" ng-click="expandPracticeTypeSelect()"><i ng-class="{'icon-up-open':expandPracticeType,'icon-down-open':!expandPracticeType}"></i></span>
+                    <ul class="fancy-form-select" ng-class="{'expand':expandPracticeType}">
+                        <li ng-class="{'active':practiceTypeRadio == 0}">
+                            <label for="practiceTypeRadio0">
+                                <input type="radio" name="practiceType" id="practiceTypeRadio0" ng-model="practiceTypeRadio" ng-value="0" ng-checked="true" ng-click="expandPracticeTypeSelect()"> Practice Type
+                            </label>
+                        </li>
+                        <li ng-class="{'active':practiceTypeRadio == 1}">
                             <label for="practiceTypeRadio1">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio1"> Single advisor practice: Solo practitioner or providing data on your book of business only
+                                <input type="radio" name="practiceType" id="practiceTypeRadio1" ng-model="practiceTypeRadio" ng-value="1" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{practiceTypeRadio1}}
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':practiceTypeRadio == 2}">
                             <label for="practiceTypeRadio2">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio2"> Multiple advisor practice:  Multiple advisor practice providing firm level data
+                                <input type="radio" name="practiceType" id="practiceTypeRadio2" ng-model="practiceTypeRadio" ng-value="2" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':practiceTypeRadio == 3}">
                             <label for="practiceTypeRadio3">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio3"> Third party: Broker-dealer, wholesaler, consultant 
+                                <input type="radio" name="practiceType" id="practiceTypeRadio3" ng-model="practiceTypeRadio" ng-value="3" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
-                        </li>                      
-                        <li>
+                        </li>
+                        <li ng-class="{'active':practiceTypeRadio == 4}">
+                            <label for="practiceTypeRadio4">
+                                <input type="radio" name="practiceType" id="practiceTypeRadio4" ng-model="practiceTypeRadio" ng-value="4" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                            </label>
+                        </li>
+                        <li ng-class="{'active':practiceTypeRadio == 5}">
                             <label for="practiceTypeRadio5">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio5"> Other (please specify):
+                                <input type="radio" name="practiceType" id="practiceTypeRadio5" ng-model="practiceTypeRadio" ng-value="5" ng-click="expandPracticeTypeSelect()" ng-checked="practiceTypeRadio == 5"> Other (please specify): {{practiceTypeOther}}
                             </label>
-                            <input type="text" id="practiceTypeOther">
+                            <input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">
                         </li>
                     </ul>
                 </div>
             </div>
-
             <div class="fancy-form-row">
-                <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
+                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
                 <div class="fancy-form-control">
-                    <ul class="fancy-form-select">
-                        <li>
+                    <span class="fancy-form-select-toggle" ng-click="expandAffiliationModeSelect()"><i ng-class="{'icon-up-open':expandAffiliationMode,'icon-down-open':!expandAffiliationMode}"></i></span>
+                    <ul class="fancy-form-select" ng-class="{'expand':expandAffiliationMode}">
+                        <li ng-class="{'active':affiliationModeRadio == 0}">
+                            <label for="affiliationModeRadio0">
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio0" ng-model="affiliationModeRadio" ng-value="0" ng-checked="true" ng-click="expandAffiliationModeSelect()"> Affiliation Mode
+                            </label>
+                        </li>
+                        <li ng-class="{'active':affiliationModeRadio == 1}">
                             <label for="affiliationModeRadio1">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio1"> Affiliation Model
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio1" ng-model="affiliationModeRadio" ng-value="1" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{affiliationModeRadio1}}
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':affiliationModeRadio == 2}">
                             <label for="affiliationModeRadio2">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio2"> BD (Broker-Dealer): Affiliated with a full-service BD/wirehouse, independent BD, insurance BD or own BD
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio2" ng-model="affiliationModeRadio" ng-value="2" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':affiliationModeRadio == 3}">
                             <label for="affiliationModeRadio3">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio3"> RIA only (Registered Investment Advisor): Registered as an investment advisor with the SEC or state
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio3" ng-model="affiliationModeRadio" ng-value="3" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':affiliationModeRadio == 4}">
                             <label for="affiliationModeRadio4">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio4"> Hybrid BD/RAI: Have your own RIA, as well as a BD affiliation
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio4" ng-model="affiliationModeRadio" ng-value="4" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':affiliationModeRadio == 5}">
                             <label for="affiliationModeRadio5">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio5"> Other (please specify):
+                                <input type="radio" name="affiliationMode" id="affiliationModeRadio5" ng-model="affiliationModeRadio" ng-value="5" ng-click="expandAffiliationModeSelect()" ng-checked="affiliationModeRadio == 5"> Other (please specify): {{affiliationModeOther}}
                             </label>
-                            <input type="text" id="affiliationModeOther">
+                            <input type="text" id="affiliationModeOther" ng-model="affiliationModeOther" ng-change="affiliationModeOtherChange(5)">
                         </li>
                     </ul>
                 </div>
             </div>
-
             <div class="fancy-form-row">
-                <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
+                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+
                 <div class="fancy-form-control">
-                    <ul class="fancy-form-select">
-                        <li>
+                    <span class="fancy-form-select-toggle" ng-click="expandFirmTypeSelect()"><i ng-class="{'icon-up-open':expandFirmType,'icon-down-open':!expandFirmType}"></i></span>
+                    <ul class="fancy-form-select" ng-class="{'expand':expandFirmType}">
+                        <li ng-class="{'active':firmTypeRadio == 0}">
+                            <label for="firmTypeRadio0">
+                                <input type="radio" name="firmType" id="firmTypeRadio0" ng-model="firmTypeRadio" ng-value="0" ng-checked="true" ng-click="expandFirmTypeSelect()"> Firm Type
+                            </label>
+                        </li>
+                        <li ng-class="{'active':firmTypeRadio == 1}">
                             <label for="firmTypeRadio1">
-                                <input type="radio" name="firmType" id="firmTypeRadio1"> Firm Type
+                                <input type="radio" name="firmType" id="firmTypeRadio1" ng-model="firmTypeRadio" ng-value="1" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{firmTypeRadio1}}
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':firmTypeRadio == 2}">
                             <label for="firmTypeRadio2">
-                                <input type="radio" name="firmType" id="firmTypeRadio2"> Financial Planning Firm: Focused on providing financial planning services / process
+                                <input type="radio" name="firmType" id="firmTypeRadio2" ng-model="firmTypeRadio" ng-value="2" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':firmTypeRadio == 3}">
                             <label for="firmTypeRadio3">
-                                <input type="radio" name="firmType" id="firmTypeRadio3"> Investment Advisory Firm: Focused on providing investment strategy and manager selection
+                                <input type="radio" name="firmType" id="firmTypeRadio3" ng-model="firmTypeRadio" ng-value="3" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
+                        <li ng-class="{'active':firmTypeRadio == 4}">
                             <label for="firmTypeRadio4">
-                                <input type="radio" name="firmType" id="firmTypeRadio4"> Investment Management Firm: Focused on investment recommendations and discretionary investment management of client assets
+                                <input type="radio" name="firmType" id="firmTypeRadio4" ng-model="firmTypeRadio" ng-value="4" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
                             </label>
                         </li>
-                        <li>
-                            <label for="firmTypeRadio4">
-                                <input type="radio" name="firmType" id="firmTypeRadio4"> Wealth Management Firm: Provide holistic advice to clients, including integrated tax, estate and financial planning in addition to investment services
-                            </label>
-                        </li>
-                        <li>
+                        <li ng-class="{'active':firmTypeRadio == 5}">
                             <label for="firmTypeRadio5">
-                                <input type="radio" name="firmType" id="firmTypeRadio5"> Other (please specify):
+                                <input type="radio" name="firmType" id="firmTypeRadio5" ng-model="firmTypeRadio" ng-value="5" ng-click="expandFirmTypeSelect()" ng-checked="firmTypeRadio == 5"> Other (please specify): {{firmTypeOther}}
                             </label>
-                            <input type="text" id="firmTypeOther">
+                            <input type="text" id="firmTypeOther" ng-model="firmTypeOther" ng-change="firmTypeOtherChange(5)">
                         </li>
                     </ul>
                 </div>
-            </div>
 
-        </div>
+            </div>
     </section>
     <section>
         <div class="container">
@@ -170,44 +183,31 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Select time period for your data</label>
-                                <select>
-                                    <option value="YTD">YTD 2017</option>
-                                    <option value="2017">Previous Calendar Year</option>
+                                <select name="timePeriod" ng-model="selectedYear" ng-change="yearSelected()">
+                                    <option value=""></option>
+                                    <option value="2016">YTD 2016</option>
+                                    <option value="2017">YTD 2017</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" ng-class="{'hide' : selectedYear < 1900}">
                             <div class="form-group">
-                                <label for="">Month for YTD entry</label>
-                                <select>
-                                    <option value="January">January</option>
-                                    <option value="February">February</option>
-                                    <option value="March">March</option>
-                                    <option value="April">April</option>
-                                    <option value="May">May</option>
-                                    <option value="June">June</option>
-                                    <option value="July">July</option>
-                                    <option value="August">August</option>
-                                    <option value="September">September</option>
-                                    <option value="October">October</option>
-                                    <option value="November">November</option>
-                                    <option value="December">December</option>
+                                <label for="">Month for YTD entry {{time.period}}</label>
+                                <select name="timeMonth">
+                                    <option ng-repeat="month in shownMonths" value="{{$index+1}}">
+                                        {{month}}
+                                    </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @*<form name="form" class="ng-pristine ng-valid ng-valid-min ng-valid-max">*@
-            <div ng-app="">
-
-                @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post))
-                {
-                    @Html.HiddenFor(m => m.UserId)
-
+            @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.UserId)
+                <form name="form">
                     <fieldset>
-
                         <div class="row field-header">
                             <div class="col-md-5 field-label">
                                 Performance Metric
@@ -221,13 +221,13 @@
                                 Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max">*@
-                                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { @class = "ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max", ng_Model = "assets", ui_money_mask="0" })    
-                                <div class="error ng-hide" ng-hide="!form.assets.$error.min">Please enter a value greater than $1,000,000</div>
-                                <div class="error ng-hide" ng-hide="!form.assets.$error.max">Please enter a value less than $99,000,000</div>
+                                @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets"})
+                                <div class="error" ng-hide="!form.assets.$error.min">Please enter a value greater than $1,000,000</div>
+                                <div class="error" ng-hide="!form.assets.$error.max">Please enter a value less than $99,000,000</div>
                             </div>
-                            <div class="col-md-3 field-value">     
-                                {{ assets | number:0 | currency}}
+                            <div class="col-md-3 field-value">
+                                $105,000,000
                             </div>
                         </div>
                         <div class="row field-row">
@@ -235,7 +235,8 @@
                                 Non-recurring Revenue
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_model = "nonRecurringRevenue", ui_money_mask = "0", max = "10000000" })
                             </div>
                             <div class="col-md-3 field-value">
                                 $2,500
@@ -246,7 +247,8 @@
                                 Recurring Revenue
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_model = "recurringRevenue", ui_money_mask = "0", max = "10000000" })
                             </div>
                             <div class="col-md-3 field-value">
                                 $950,000
@@ -265,10 +267,11 @@
                         </div>
                         <div class="row field-row">
                             <div class="col-md-5 field-label">
-                                Direct Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                                Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", max = "10000000" })
                             </div>
                             <div class="col-md-3 field-value">
                                 $450,000
@@ -279,7 +282,7 @@
                                 Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" max="10000000" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" max="10000000" ui-hide-space>
                             </div>
                             <div class="col-md-3 field-value">
                                 $300,000
@@ -301,7 +304,7 @@
                                 Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" max="20" ui-hide-space="" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" max="20" ui-hide-space>
                             </div>
                             <div class="col-md-3 field-value">
                                 4%
@@ -312,7 +315,7 @@
                                 # Client Relationships
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" max="10000" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" max="10000">
                             </div>
                             <div class="col-md-3 field-value">
                                 97
@@ -323,7 +326,7 @@
                                 # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="2" max="10000" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" max="10000">
                             </div>
                             <div class="col-md-3 field-value">
                                 1.5
@@ -334,7 +337,7 @@
                                 # Full-Time Equivalent Advisors <i class="icon-info"></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="advisors" ng-model="advisors" ui-number-mask="2" max="10000" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" max="10000">
                             </div>
                             <div class="col-md-3 field-value">
                                 2
@@ -345,32 +348,26 @@
                                 # New Clients <i class="icon-info"></i>
                             </div>
                             <div class="col-md-4 field-control">
-                                <input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" max="1000" class="ng-pristine ng-untouched ng-valid ng-valid-max">
+                                <input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" max="1000">
                             </div>
                             <div class="col-md-3 field-value">
                                 3
                             </div>
                         </div>
                     </fieldset>
-
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="button-container text-center">
-                                @*<button class="btn-big">Save Your Inputs</button>
-                                <button class="btn-big">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>*@
-                                <input type="submit" name="submit" value="Save Your Inputs" />
-                                <input type="submit" name="submit" value="VMI Inputs Next" />
+                            <div class="button-container text-center">                              
+                                <input class="btn-big" type="submit" name="submit" value="Save Your Inputs" />
+                                <input class="btn-big" type="submit" name="submit" value="VMI Inputs Next" />
                             </div>
                         </div>
                     </div>
-
-                }
-            </div>
+                </form>
+            }
         </div>
     </section>
 </main>
-
-
 
 
 

@@ -6,22 +6,16 @@
     <meta name="author" content="">
     <meta name="description" content="">
     <title>@RenderSection("Title")</title>
-    <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/ui-bootstrap-tpls.js"></script>
-    <script src="~/Scripts/rzslider.js"></script>
-    <script src="~/Scripts/demo.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.15/angular-locale_en-us.js"></script>
-    <script src="~/Scripts/angular-input-masks.js"></script>
+  
 
-    <script src="//code.highcharts.com/highcharts.js"></script>
-    <script src="//code.highcharts.com/highcharts-more.js"></script>
+    @*<script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="//code.highcharts.com/highcharts-more.js"></script>*@
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    @*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>*@
     <link rel="icon" href="">
     <link rel="stylesheet" href="~/Styles/styles.css">
+    @*<link rel="stylesheet" href="~/Styles/rzslider.css">*@
 </head>
-<body>
+<body ng-controller="MainCtrl">
 
 
 
@@ -61,61 +55,16 @@
     </div>
 
 
-   
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls.js"></script>
+    <script src="~/Scripts/rzslider.js"></script>
+    <script src="~/Scripts/batapp.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.2.15/angular-locale_en-us.js"></script>
+    <script src="~/Scripts/angular-input-masks.js"></script>
 
 
-    <script>
-        Highcharts.chart('container', {
 
-            chart: {
-                type: 'columnrange',
-                inverted: false
-            },
-
-            yAxis: {
-                labels: {
-                    formatter: function () {
-                        return '$' + this.value;
-                    }
-                },
-                title: {
-                    enabled: false
-                }
-            },
-
-            xAxis: {
-                categories: ['Current Value', 'Optimized Value']
-            },
-
-            tooltip: {
-                enabled: false,
-            },
-
-            plotOptions: {
-                columnrange: {
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function () {
-                            return '$' + this.y;
-                        }
-                    }
-                }
-            },
-
-            legend: {
-                enabled: false
-            },
-
-            series: [{
-                name: 'Temperatures',
-                data: [
-                    [33862000, 45240000],
-                    [7089000, 11943000]
-                ]
-            }]
-
-        });
-    </script>
 
 </body>
 </html>

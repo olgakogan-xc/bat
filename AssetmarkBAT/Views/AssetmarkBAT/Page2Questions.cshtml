@@ -46,7 +46,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
-                        <h1><img src="~/Styles/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
+                        <h1><img src="images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
                     </div>
                 </div>
                 <h2>Value Maximization Index<sup>&trade;</sup></h2>
@@ -63,26 +63,28 @@
                         <div class="col-md-3">
                             <div class="score score-calculated">
                                 <h5>Calculated total score</h5>
-                                <h3>765765</h3>
+                                <h3>545</h3>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="score score-submitted">
                                 <h5>Submitted total score</h5>
-                                <h3>876876</h3>
+                                <h3>545</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="sliders">
-                    <h4>Marketing Your Practices</h4>
+                    <h4>Marketing Your Practices==============</h4>
                     <div class="slider">
                         <div class="row">
                             <div class="col-md-4 slider-low">
                                 I do not have a written business plan that drives future (1-, 3-,5+-year) goals
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myp1.value" />
+                                @*<input type="hidden" ng-model="myp1.value" />*@
+                                ********
+                                @Html.HiddenFor(m => m.Vmi_Man_Written_Plan, new { ng_model = "myp1.value" })
                                 <rzslider rz-slider-model="myp1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -96,7 +98,7 @@
                                 I do not track financial business metrics.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myp2.value" />
+                                <input type="hidden" ng-model="myp2.value" />
                                 <rzslider rz-slider-model="myp2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -110,7 +112,7 @@
                                 All of my clients are in the distribution phase of their financial lives.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myp3.value" />
+                                <input type="hidden" ng-model="myp3.value" />
                                 <rzslider rz-slider-model="myp3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -124,7 +126,7 @@
                                 All of my revenue is commission-based.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myp4.value" />
+                                <input type="hidden" ng-model="myp4.value" />
                                 <rzslider rz-slider-model="myp4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -138,7 +140,7 @@
                                 I have an advisor-driven practice that is solely reliant upon me.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myp5.value" />
+                                <input type="hidden" ng-model="myp5.value" />
                                 <rzslider rz-slider-model="myp5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -149,14 +151,14 @@
                 </div>
                 <hr>
                 <div class="sliders">
-                    <h4>Marketing Your Business</h4>
+                    <h4>Managing</h4>
                     <div class="slider">
                         <div class="row">
                             <div class="col-md-4 slider-low">
                                 I do not have a clearly defined value proposition.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myb1.value" />
+                                <input type="hidden" ng-model="myb1.value" />
                                 <rzslider rz-slider-model="myb1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -170,7 +172,7 @@
                                 I do not have formal marketing materials, a web site or an institutionalized brand.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myb2.value" />
+                                <input type="hidden" ng-model="myb2.value" />
                                 <rzslider rz-slider-model="myb2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -184,7 +186,7 @@
                                 I do not have a formal marketing plan and do not have a consistent flow of prospects.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myb3.value" />
+                                <input type="hidden" ng-model="myb3.value" />
                                 <rzslider rz-slider-model="myb3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -198,7 +200,7 @@
                                 I have difficulty evaluating prospects because I have not defined my ideal client.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myb4.value" />
+                                <input type="hidden" ng-model="myb4.value" />
                                 <rzslider rz-slider-model="myb4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -212,7 +214,7 @@
                                 I rarely get new business from client, center of influence or professional referrals
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="myb5.value" />
+                                <input type="hidden" ng-model="myb5.value" />
                                 <rzslider rz-slider-model="myb5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -230,7 +232,7 @@
                                 I do not automate processes with technological or outsourced solutions.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="oyo1.value" />
+                                <input type="hidden" ng-model="oyo1.value" />
                                 <rzslider rz-slider-model="oyo1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -244,7 +246,7 @@
                                 I do not have written procedures for my operations and perform tasks using ad hoc processes.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="oyo2.value" />
+                                <input type="hidden" ng-model="oyo2.value" />
                                 <rzslider rz-slider-model="oyo2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -258,7 +260,7 @@
                                 I have not segmented my client base, so I do not know how different clients drive revenue.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="oyo3.value" />
+                                <input type="hidden" ng-model="oyo3.value" />
                                 <rzslider rz-slider-model="oyo3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -272,7 +274,7 @@
                                 I do not have a defined client service model and frequently provide non-standardized services.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="oyo4.value" />
+                                <input type="hidden" ng-model="oyo4.value" />
                                 <rzslider rz-slider-model="oyo4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -286,7 +288,7 @@
                                 I do not have a formal or consistent fee schedule.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="oyo5.value" />
+                                <input type="hidden" ng-model="oyo5.value" />
                                 <rzslider rz-slider-model="oyo5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -304,7 +306,7 @@
                                 I have not invested resources in human capital development.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="eyt1.value" />
+                                <input type="hidden" ng-model="eyt1.value" />
                                 <rzslider rz-slider-model="eyt1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -318,7 +320,7 @@
                                 I do not have a formal compensation plan that aligns with industry standards.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="eyt2.value" />
+                                <input type="hidden" ng-model="eyt2.value" />
                                 <rzslider rz-slider-model="eyt2.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -332,7 +334,7 @@
                                 I am responsible for all aspects of client engagement, service and back-office operations.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="eyt3.value" />
+                                <input type="hidden" ng-model="eyt3.value" />
                                 <rzslider rz-slider-model="eyt3.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -346,7 +348,7 @@
                                 I am not staffed adequately to effectively manage my workload or reach my growth objectives.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="eyt4.value" />
+                                <input type="hidden" ng-model="eyt4.value" />
                                 <rzslider rz-slider-model="eyt4.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -360,7 +362,7 @@
                                 I have problems with employee retention or have no employees to retain.
                             </div>
                             <div class="col-md-4 slider-control">
-                                <input type="text" ng-model="eyt5.value" />
+                                <input type="hidden" ng-model="eyt5.value" />
                                 <rzslider rz-slider-model="eyt5.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
@@ -376,8 +378,9 @@
                             <button class="btn-big">Save Your Inputs</button>
                             <button class="btn-big btn-secondary">Submit VMI Scores <i class="icon-chevron-right"></i></button>*@
 
-                            <input type="submit" value="Previous" name="submit" />
-                            <input type="submit" value="Next" name="submit" />
+                            <input class="btn-big" type="submit" name="submit" value="Previous Firm Financials" />
+                            <input class="btn-big" type="submit" name="submit" value="Save Your Inputs" />
+                            <input class="btn-big" type="submit" name="submit" value="Submit VMI Scores" />
                         </div>
                     </div>
                 </div>

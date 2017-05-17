@@ -47,43 +47,43 @@ namespace AssetmarkBAT.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            ////FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
-            ////byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
-            ////byte[] byteArray = Encoding.ASCII.GetBytes(contents);
-            ////MemoryStream stream = new MemoryStream(byteArray);
-            ////SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
-            ////PdfFixedDocument document = htmlToPdf.Convert(stream);
-            ////document.Save("C:\\output.pdf");
+            //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
+            //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
+            //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
+            //MemoryStream stream = new MemoryStream(byteArray);
+            //SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
+            //PdfFixedDocument document = htmlToPdf.Convert(stream);
+            //document.Save("C:\\output.pdf");
 
-            //BATModel model = new BATModel();
-            //InitializeDropDowns(model);
+            BATModel model = new BATModel();
+            InitializeDropDowns(model);
 
-            //if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
-            //{
-            //    model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
+            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            {
+                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
 
-            //    if (PopulateModelFromDatabase(model))
-            //    {
-            //        if (model.Page2Complete)
-            //        {
-            //            return View(_ValuationOptimizer, model);
-            //        }
-            //        else if (model.Page1Complete)
-            //        {
-            //            return View(_Page2QuestionsViewName, model);
-            //        }
-            //        else
-            //        {
-            //            return View(_Page1QuestionsViewName, model);
-            //        }
-            //    }
-            //    else
-            //        return View(_TermsViewName);
-            //}
+                if (PopulateModelFromDatabase(model))
+                {
+                    if (model.Page2Complete)
+                    {
+                        return View(_ValuationOptimizer, model);
+                    }
+                    else if (model.Page1Complete)
+                    {
+                        return View(_Page2QuestionsViewName, model);
+                    }
+                    else
+                    {
+                        return View(_Page1QuestionsViewName, model);
+                    }
+                }
+                else
+                    return View(_TermsViewName);
+            }
 
-            //return View("Terms");
+            return View("Terms");
 
-            return View("Eloqua");
+            //return View("Eloqua");
         }
 
         /// <summary>
@@ -199,21 +199,21 @@ namespace AssetmarkBAT.Controllers
 
             InitializeDropDowns(model);
 
-            if (submit == "Next")
-            {
+            if(submit == "Save Your Inputs")
+            {            
                 model.PDFPath = CreatePdf(model.UserId);
                 model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
 
-                return View(_ReportViewName, model);
+                return View(_Page2QuestionsViewName, model);
             }
-            else if (submit == "Previous")
+            else if (submit == "Previous Firm Financials")
             {
                 return View(_Page1QuestionsViewName, model);
             }
             else
-                return View(_Page2QuestionsViewName, model);
+                return View(_ReportViewName, model);
         }
 
         [HttpPost]
