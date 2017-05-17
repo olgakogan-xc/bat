@@ -241,7 +241,6 @@
     <Content Include="Styles\Images\AMK_Wordmark.png" />
     <Content Include="Styles\Images\bg-slider.png" />
     <Content Include="Styles\Images\business_assessment_logo.png" />
-    <Content Include="Styles\rzslider.css" />
     <Content Include="Styles\styles.css" />
     <Content Include="Styles\Images\Lock.PNG" />
     <Content Include="Web.config">
