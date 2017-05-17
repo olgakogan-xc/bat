@@ -16,13 +16,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     $scope.selectedYear = 0;
+    $scope.selectedMonth = 1;
     $scope.shownMonths = [];
 
     $scope.yearSelected = function () {
         if (new Date().getFullYear() == $scope.selectedYear) {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
+            $scope.selectedMonth = $scope.shownMonths.length;
         } else {
             $scope.shownMonths = $scope.months;
+            $scope.selectedMonth = 12;
         }
     };
 

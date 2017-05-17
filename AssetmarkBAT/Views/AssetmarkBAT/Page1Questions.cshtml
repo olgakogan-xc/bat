@@ -180,16 +180,16 @@
                                 <label for="">Select time period for your data</label>
                                 <select name="timePeriod" ng-model="selectedYear" ng-change="yearSelected()">
                                     <option value=""></option>
-                                    <option value="2016">YTD 2016</option>
+                                    <option value="2016">Previous Year</option>
                                     <option value="2017">YTD 2017</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6" ng-class="{'hide' : selectedYear < 1900}">
+                        <div class="col-md-6" ng-class="{'hide' : selectedYear < 2017}">
                             <div class="form-group">
-                                <label for="">Month for YTD entry {{time.period}}</label>
+                                <label for="">Month for YTD entry</label>
                                 <select name="timeMonth" ng-model="selectedMonth">
-                                    <option ng-repeat="month in shownMonths" value="{{$index+1}}">
+                                    <option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
                                         {{month}}
                                     </option>
                                 </select>
@@ -231,7 +231,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = '{0}'", Model.Ff_NonRecurringRevenue), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = '{0}'", Model.Ff_RecurringRevenue), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
@@ -321,7 +321,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
-                            <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ ((growthRate*100)/selectedMonth)*12 }}%</span>
+                            <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ growthRate*100 }}%</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -334,7 +334,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ ((clientRel)/selectedMonth)*12 }}</span>
+                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -347,7 +347,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ ((nonAdvisors)/selectedMonth)*12 }}</span>
+                            <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -360,7 +360,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ ((advisors)/selectedMonth)*12 }}</span>
+                            <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
