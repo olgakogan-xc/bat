@@ -48,7 +48,9 @@
     <section class="grey">
         <div class="container">
             <h3>Enter your firm's financial data in the fields below (all fields are required):</h3>
-            <div class="fancy-form-row">
+            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
+            @Html.TextBoxFor(x => Model.PracticeType)
+            @*<div class="fancy-form-row">
                 <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
                 {{expandPracticeType}}
                 <div class="fancy-form-control">
@@ -83,12 +85,12 @@
                             <label for="practiceTypeRadio5">
                                 <input type="radio" name="practiceType" id="practiceTypeRadio5" ng-model="practiceTypeRadio" ng-value="5" ng-click="expandPracticeTypeSelect()" ng-checked="practiceTypeRadio == 5"> Other (please specify): {{practiceTypeOther}}
                             </label>
-                            @*<input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">*@
-                            @Html.TextBoxFor(m => Model.PracticeType, new { ng_model = "practiceTypeOther", ng_change = "practiceTypeOtherChange(5)", @id = "practiceTypeOther" })
+                            <input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">
+                     
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>*@
             <div class="fancy-form-row">
                 <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
                 <div class="fancy-form-control">
