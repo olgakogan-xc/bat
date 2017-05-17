@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* line 1, ../scss/base/_buttons.scss */
 button, [type='button'], [type='reset'], [type='submit'] {
   appearance: none;
@@ -259,8 +259,8 @@ hr {
 
 @font-face {
   font-family: 'ico';
-  src: url("../fonts/ico.eot?90013916");
-  src: url("../fonts/ico.eot?90013916#iefix") format("embedded-opentype"), url("../fonts/ico.woff2?90013916") format("woff2"), url("../fonts/ico.woff?90013916") format("woff"), url("../fonts/ico.ttf?90013916") format("truetype"), url("../fonts/ico.svg?90013916#ico") format("svg");
+  src: url("fonts/ico.eot?90013916");
+  src: url("fonts/ico.eot?90013916#iefix") format("embedded-opentype"), url("fonts/ico.woff2?90013916") format("woff2"), url("fonts/ico.woff?90013916") format("woff"), url("fonts/ico.ttf?90013916") format("truetype"), url("fonts/ico.svg?90013916#ico") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -270,7 +270,7 @@ hr {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'ico';
-    src: url('../fonts/ico.svg?90013916#ico') format('svg');
+    src: url('fonts/ico.svg?90013916#ico') format('svg');
   }
 }
 */
@@ -1852,7 +1852,7 @@ section.white {
   width: 16px;
   height: 30px;
   border-radius: 0;
-  background: transparent url(../images/bg-slider.png) center center no-repeat;
+  background: transparent url(images/bg-slider.png) center center no-repeat;
   background-size: 16px 30px;
 }
 /* line 48, ../scss/app/modules/_sliders.scss */
@@ -1883,7 +1883,7 @@ section.white {
   width: 32px;
   height: 76px;
   border-radius: 0;
-  background: transparent url(../images/bg-slider.png) center center no-repeat;
+  background: transparent url(images/bg-slider.png) center center no-repeat;
 }
 /* line 86, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:after {
@@ -2378,4 +2378,12 @@ section.white {
 /* line 67, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li input[type="text"] {
   display: block;
+}
+
+/* line 1, ../scss/app/modules/_error.scss */
+.error {
+  line-height: 1.3em;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #c00;
 }
