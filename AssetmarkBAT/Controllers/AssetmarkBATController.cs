@@ -202,7 +202,7 @@ namespace AssetmarkBAT.Controllers
             if(submit == "Save Your Inputs")
             {            
                 model.PDFPath = CreatePdf(model.UserId);
-                model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
+                //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
                 //CalculateVMIScore(model);
 
@@ -605,7 +605,7 @@ namespace AssetmarkBAT.Controllers
             //{
             PdfFixedDocument document = new PdfFixedDocument();
             PdfPage page = document.Pages.Add();
-            //document.Save("empty.pdf");
+            document.Save("empty.pdf");
 
             // Create a standard font with Helvetica face and 24 point size
             PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
@@ -619,7 +619,7 @@ namespace AssetmarkBAT.Controllers
             page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
             page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
             page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-            page.Graphics.DrawString("Valuation Range", helvetica, textBrush, 50, 35);
+            page.Graphics.DrawString("Valuation Rangels========================", helvetica, textBrush, 50, 35);
 
             string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
             PdfImage lockImage = new PdfImage(imagePath);
@@ -629,8 +629,10 @@ namespace AssetmarkBAT.Controllers
             // Saves the document as stream
             document.Save(stream);
 
+            
+
             // Converts the PdfDocument object to byte form.
-            //byte[] docBytes = stream.ToArray();
+            byte[] docBytes = stream.ToArray();
             //Loads the byte array in PdfLoadedDocument
 
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
@@ -640,24 +642,17 @@ namespace AssetmarkBAT.Controllers
             permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
             myContainer.SetPermissions(permissions);
 
-
-            bool a = myContainer.Exists();
-            int numberOfBlobs = myContainer.ListBlobs().Count();
-
-            List<IListBlobItem> blobs = myContainer.ListBlobs().ToList();
-
-            
-
-
-            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference("assetmarkbat/helloworld");
-          
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference("FromFile.pdf");
+            blockBlob.Properties.ContentType = "application/pdf";
             //blockBlob.UploadFromStream(stream);
+            blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
 
-            using (var fileStream = System.IO.File.OpenRead(@"C:\olga\test.txt"))
-            {
-                blockBlob.Properties.ContentType = "text/plain";
-                blockBlob.UploadFromStream(fileStream);
-            }
+           //// using (var fileStream = System.IO.File.OpenRead(@"C:\olga\userPdf.pdf"))
+           //using(var fileStream = new FileStream(docBytes,))
+           // {
+           //     blockBlob.Properties.ContentType = "application/pdf";
+           //     blockBlob.UploadFromStream(docBytes);
+           // }
 
             return blockBlob.StorageUri.PrimaryUri.ToString();
         }
