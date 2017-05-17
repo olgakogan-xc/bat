@@ -62,6 +62,73 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.totalRevenue = 0;
 
+    $scope.fvrGraphValues = [];
+    $scope.fvrGraph = null;
+
+    $scope.getGraphValues = function () {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+            var graphValues = [];
+            graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
+            $scope.fvrGraph.series[0].setData(graphValues);
+        });
+    };
+
+    $scope.updateGraph = function () {
+        $scope.getGraphValues();
+    };
+
+    $scope.initGraph = function () {
+
+        $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
+
+            chart: {
+                type: 'columnrange',
+                inverted: false
+            },
+
+            yAxis: {
+                labels: {
+                    formatter: function () {
+                        return '$' + this.value;
+                    }
+                },
+                title: {
+                    enabled: false
+                }
+            },
+
+            xAxis: {
+                categories: ['Current Value', 'Optimized Value']
+            },
+
+            tooltip: {
+                enabled: false,
+            },
+
+            plotOptions: {
+                columnrange: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function () {
+                            return '$' + this.y;
+                        }
+                    }
+                }
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            series: [{
+                data: [[0, 0], [0, 0]]
+            }]
+
+        });
+
+        $scope.getGraphValues();
+    };
+
     $scope.myp1 = {
         value: 5
     };
@@ -137,7 +204,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
-            hidePointerLabels: true
+            hidePointerLabels: true,
+            onEnd: $scope.updateGraph
         }
     };
 
@@ -212,7 +280,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
-            hidePointerLabels: true
+            hidePointerLabels: true,
+            onEnd: $scope.updateGraph
         }
     };
 
@@ -280,7 +349,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
-            hidePointerLabels: true
+            hidePointerLabels: true,
+            onEnd: $scope.updateGraph
         }
     };
 
@@ -338,32 +408,4 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             draggableRange: true
         }
     };
-    /*
-        $scope.numberWith2Decimals = 0.0;
-        $scope.percentageWithDefaultDecimals = 0.7654;
-    
-        $scope.initializedCpf = '35244457640';
-        $scope.initializedCnpj = '13883875000120';
-        $scope.initializedCpfCnpj1 = '56338332958';
-        $scope.initializedCpfCnpj2 = '23212161000144';
-    
-        $scope.defaultMoney = 153.12;
-        $scope.negativeMoney = -153.12;
-        $scope.moneyStartedWith0 = 0;
-        $scope.moneyInitializedWithString = '3.53';
-    
-        $scope.initializedPhoneNumber = '3133536767';
-    
-        $scope.initializedCep = '30112010';
-    
-        $scope.states = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA',
-            'MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR',
-            'RS','SC','SE','SP','TO'];
-        $scope.fixedStateIE = '0623079040081';
-        $scope.initializedState = 'SP';
-        $scope.initializedIE = 'P3588747709710';
-    
-        $scope.initializedDateMask = new Date();
-        $scope.initializedWithISOStringDateMask = (new Date()).toISOString();
-    */
 });
