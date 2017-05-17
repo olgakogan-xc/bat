@@ -31,7 +31,8 @@ namespace AssetmarkBAT.Controllers
     public class AssetmarkBATController : Controller
     {
 
-        private string _CookieName = "assetmarkBAT";
+        private string _BATCookieName = "assetmarkBAT";
+        private string _EloquaCookieName = "eloquaCookie";
         private string _TermsViewName = "Terms";
         private string _Page1QuestionsViewName = "Page1Questions";
         private string _Page2QuestionsViewName = "Page2Questions";
@@ -43,15 +44,18 @@ namespace AssetmarkBAT.Controllers
 
         public string KnownUserId()
         {
-            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            if (HttpContext.Request.Cookies[_BATCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_BATCookieName].Value))
             {
-                return HttpContext.Request.Cookies[_CookieName].Value;
+                return HttpContext.Request.Cookies[_BATCookieName].Value;
             }
             else if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
             {
                 return Request.QueryString[_EloquaQueryStringParamName];
             }
-            else
+            else if(HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+            {
+                return Request.QueryString[_EloquaCookieName];
+            }
                 return null;
         }
 
@@ -122,7 +126,7 @@ namespace AssetmarkBAT.Controllers
             if (string.IsNullOrEmpty(KnownUserId()))
             {
                 model.UserId = Guid.NewGuid().ToString();
-                HttpCookie assetmarkBATCookie = new HttpCookie(_CookieName);
+                HttpCookie assetmarkBATCookie = new HttpCookie(_BATCookieName);
                 assetmarkBATCookie.Value = model.UserId;
                 assetmarkBATCookie.Expires = DateTime.Now.AddYears(10);
                 HttpContext.Response.Cookies.Add(assetmarkBATCookie);
@@ -229,7 +233,10 @@ namespace AssetmarkBAT.Controllers
                 return View(_Page1QuestionsViewName, model);
             }
             else
-                return View(_ReportViewName, model);
+            {
+                PopulateModelFromDatabase(model);
+                return View(_ReportViewName, model);                
+            }
         }
 
         [HttpPost]
@@ -476,141 +483,42 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
-
-
-        //[HttpGet]
-        //public FileResult DownloadWidgetDataFile(long widgetId)
-        //{
-        //    using (var mem = new MemoryStream())
-        //    {
-        //        // Create spreadsheet based on widgetId...
-        //        // Or get the path for a file on the server...
-
-        //        return File(mem, "application/vnd.ms-excel", "WidgetData.pdf");
-        //    }
-        //}
-
-        //private CloudBlobContainer GetAssetmarkContainer()
-        //{
-        //    CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-        //    CloudBlobClient client = new CloudBlobClient(storageAccount.BlobStorageUri.PrimaryUri);
-
-        //    return client.GetContainerReference("assetmarkbat");
-        //}
-
         private void DownloadUserPdf(string userId)
         {
+            //string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");           
+            //WebClient webClient = new WebClient();
 
-            string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");
-            //document.Save(path);
-            //PdfFile.Save(doc, HttpContext.Current.Server.MapPath(@"~\UserPDF\" + id + ".pdf"));
+            //String dPath = String.Empty;
+            //RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
+            //if (rKey != null)
+            //    dPath = (String)rKey.GetValue("Default Download Directory");
+            //if (String.IsNullOrEmpty(dPath))
+            //    dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
 
+            //string filePath = dPath + @"\userFileAgain.pdf";  
 
+            //webClient.DownloadFile(new Uri(""), filePath);
 
+            // Converts the PdfDocument object to byte form.
+            //byte[] docBytes = stream.ToArray();
+            //Loads the byte array in PdfLoadedDocument
 
-            //CloudBlockBlob blockBlob = container.GetBlockBlobReference("userPdf.pdf");
-            //var memoryStream = new MemoryStream();
-            //var memoryStream = System.IO.File.OpenWrite(@"C:\myfile.pdf");
-            //blockBlob.DownloadToStream(memoryStream);
-            //string test = memoryStream.ToString();
-            //memoryStream.Close();
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+            CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+            var permissions = myContainer.GetPermissions();
+            permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+            myContainer.SetPermissions(permissions);
 
-
-            //string url = blockBlob.StorageUri.PrimaryUri.ToString();
-            // Create an instance of WebClient
-            WebClient webClient = new WebClient();
-
-
-            String dPath = String.Empty;
-            RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
-            if (rKey != null)
-                dPath = (String)rKey.GetValue("Default Download Directory");
-            if (String.IsNullOrEmpty(dPath))
-                dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
-
-            string filePath = dPath + @"\userFileAgain.pdf";
-
-            //ShowPDF
-            //string fileName = "fileName.pdf";
-
-            //var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-            //var blobClient = storageAccount.CreateCloudBlobClient();
-            //var container = blobClient.GetContainerReference("containerName");
-            //var blockBlob = container.GetBlockBlobReference(fileName);
-
-            //Response.AppendHeader("Content-Disposition", "inline; filename=" + fileName);
-            //return File(blockBlob.DownloadByteArray(), "application/pdf");
-
-
-
-
-            //HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            //using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            //{
-            //    Response.AppendHeader("Content-Disposition", "attachment; filename=userFileNew.pdf");
-            //    //var fn = response.Headers["Content-Disposition"].Split(new string[] { "=" }, StringSplitOptions.None)[1];
-            //    string basePath = @"X:\Folder\SubFolder"; // Change accordingly...
-            //    var responseStream = response.GetResponseStream();
-            //    using (var fileStream = System.IO.File.Create(filePath))
-            //    {
-            //        responseStream.CopyTo(fileStream);
-            //    }
-            //}
-
-
-
-
-
-            //foreach (IListBlobItem item in container.ListBlobs(null, false))
-            //{
-            //    if (item.GetType() == typeof(CloudBlockBlob))
-            //    {
-            //        CloudBlockBlob blob1 = (CloudBlockBlob)item;
-
-            //        Console.WriteLine("Block blob of length {0}: {1}", blob1.Properties.Length, blob1.Uri);
-
-            //    }
-            //    else if (item.GetType() == typeof(CloudPageBlob))
-            //    {
-            //        CloudPageBlob pageBlob = (CloudPageBlob)item;
-
-            //        Console.WriteLine("Page blob of length {0}: {1}", pageBlob.Properties.Length, pageBlob.Uri);
-
-            //    }
-            //    else if (item.GetType() == typeof(CloudBlobDirectory))
-            //    {
-            //        CloudBlobDirectory directory = (CloudBlobDirectory)item;
-
-            //        Console.WriteLine("Directory: {0}", directory.Uri);
-            //    }
-            //}
-
-
-            //string uniqueBlobName = "helloworld.pdf";
-            //CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
-
-            //using (var fileStream = System.IO.File.OpenRead(path))
-            //{
-            //    blob.UploadFromStream(fileStream);
-            //    fileStream.Dispose();
-            //}
-
-
-
-
-
-
-            //return path;
-
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("Error creating PDF for user " + id, e.Message);
-            //    return string.Empty;
-            //}
-
-
-            webClient.DownloadFile(new Uri(""), filePath);
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(userId + ".pdf");
+            blockBlob.Properties.ContentType = "application/pdf";
+            //blockBlob.UploadFromStream(stream);
+            //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+            // Save blob contents to a file.
+            using (var fileStream = System.IO.File.OpenWrite(@"C:\" + userId + ".pdf"))
+            {
+                blockBlob.DownloadToStream(fileStream);
+            }
 
         }
 
@@ -665,17 +573,10 @@ namespace AssetmarkBAT.Controllers
             permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
             myContainer.SetPermissions(permissions);
 
-            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference("FromFile.pdf");
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(id + ".pdf");
             blockBlob.Properties.ContentType = "application/pdf";
             //blockBlob.UploadFromStream(stream);
             blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
-
-            //// using (var fileStream = System.IO.File.OpenRead(@"C:\olga\userPdf.pdf"))
-            //using(var fileStream = new FileStream(docBytes,))
-            // {
-            //     blockBlob.Properties.ContentType = "application/pdf";
-            //     blockBlob.UploadFromStream(docBytes);
-            // }
 
             return blockBlob.StorageUri.PrimaryUri.ToString();
         }
@@ -821,241 +722,5 @@ namespace AssetmarkBAT.Controllers
         }
 
         #endregion
-    }
-
-    //public class SimpleHtmlToPdf
-    //{
-    //    // Stack of fonts
-    //    private Stack<PdfFont> fonts = new Stack<PdfFont>();
-
-    //    /// <summary>
-    //    /// Gets the active font.
-    //    /// </summary>
-    //    public PdfFont ActiveFont
-    //    {
-    //        get { return fonts.Peek(); }
-    //    }
-
-    //    private Stack<PdfBrush> textColors = new Stack<PdfBrush>();
-    //    /// <summary>
-    //    /// Gets the active text color.
-    //    /// </summary>
-    //    public PdfBrush ActiveTextColor
-    //    {
-    //        get { return textColors.Peek(); }
-    //    }
-
-    //    /// <summary>
-    //    /// Converts simple XHTML code to a PDF document.
-    //    /// </summary>
-    //    /// <param name="html"></param>
-    //    /// <returns></returns>
-    //    public PdfFixedDocument Convert(Stream html)
-    //    {
-    //        PdfFixedDocument document = new PdfFixedDocument();
-
-    //        PdfFormattedContent fc = ConvertHtmlToFormattedContent(html);
-    //        DrawFormattedContent(document, fc);
-
-    //        return document;
-    //    }
-
-    //    /// <summary>
-    //    /// Converts simple XHTML to a formatted content object.
-    //    /// </summary>
-    //    /// <param name="html"></param>
-    //    /// <returns></returns>
-    //    private PdfFormattedContent ConvertHtmlToFormattedContent(Stream html)
-    //    {
-    //        PdfFormattedContent fc = new PdfFormattedContent();
-    //        PdfFormattedParagraph currentParagraph = null;
-    //        PdfUriAction currentLinkAction = null;
-    //        PdfFormattedTextBlock bullet = null;
-
-    //        // Create a default font.
-    //        fonts.Push(new PdfStandardFont(PdfStandardFontFace.Helvetica, 10));
-    //        // Create a default text color.
-    //        textColors.Push(new PdfBrush(PdfRgbColor.Black));
-
-    //        System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(html);
-    //        xmlReader.MoveToContent();
-
-    //        while (xmlReader.Read())
-    //        {
-    //            switch (xmlReader.NodeType)
-    //            {
-    //                case System.Xml.XmlNodeType.Element:
-    //                    switch (xmlReader.Name)
-    //                    {
-    //                        case "p":
-    //                            currentParagraph = new PdfFormattedParagraph();
-    //                            currentParagraph.SpacingBefore = 3;
-    //                            currentParagraph.SpacingAfter = 3;
-    //                            fc.Paragraphs.Add(currentParagraph);
-    //                            break;
-    //                        case "br":
-    //                            if (currentParagraph.Blocks.Count > 0)
-    //                            {
-    //                                PdfFormattedTextBlock textBlock =
-    //                                    currentParagraph.Blocks[currentParagraph.Blocks.Count - 1] as PdfFormattedTextBlock;
-    //                                textBlock.Text = textBlock.Text + "\r\n";
-    //                            }
-    //                            else
-    //                            {
-    //                                PdfFormattedTextBlock textBlock = new PdfFormattedTextBlock("\r\n", ActiveFont);
-    //                                currentParagraph.Blocks.Add(textBlock);
-    //                            }
-    //                            break;
-    //                        case "a":
-    //                            while (xmlReader.MoveToNextAttribute())
-    //                            {
-    //                                if (xmlReader.Name == "href")
-    //                                {
-    //                                    currentLinkAction = new PdfUriAction();
-    //                                    currentLinkAction.URI = xmlReader.Value;
-    //                                }
-    //                            }
-    //                            break;
-    //                        case "font":
-    //                            while (xmlReader.MoveToNextAttribute())
-    //                            {
-    //                                if (xmlReader.Name == "color")
-    //                                {
-    //                                    PdfBrush color = ActiveTextColor;
-    //                                    string colorCode = xmlReader.Value;
-    //                                    // #RRGGBB
-    //                                    if (colorCode.StartsWith("#") && (colorCode.Length == 7))
-    //                                    {
-    //                                        byte r = byte.Parse(colorCode.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-    //                                        byte g = byte.Parse(colorCode.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-    //                                        byte b = byte.Parse(colorCode.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-    //                                        color = new PdfBrush(new PdfRgbColor(r, g, b));
-    //                                    }
-
-    //                                    textColors.Push(color);
-    //                                }
-    //                            }
-    //                            break;
-    //                        case "ul":
-    //                            bullet = new PdfFormattedTextBlock("\x95 ", ActiveFont);
-    //                            break;
-    //                        case "li":
-    //                            currentParagraph = new PdfFormattedParagraph();
-    //                            currentParagraph.SpacingBefore = 3;
-    //                            currentParagraph.SpacingAfter = 3;
-    //                            currentParagraph.Bullet = bullet;
-    //                            currentParagraph.LeftIndentation = 18;
-    //                            fc.Paragraphs.Add(currentParagraph);
-    //                            break;
-    //                        case "b":
-    //                        case "strong":
-    //                            PdfFont boldFont = CopyFont(ActiveFont);
-    //                            boldFont.Bold = true;
-    //                            fonts.Push(boldFont);
-    //                            break;
-    //                        case "i":
-    //                        case "em":
-    //                            PdfFont italicFont = CopyFont(ActiveFont);
-    //                            italicFont.Italic = true;
-    //                            fonts.Push(italicFont);
-    //                            break;
-    //                        case "u":
-    //                            PdfFont underlineFont = CopyFont(ActiveFont);
-    //                            underlineFont.Underline = true;
-    //                            fonts.Push(underlineFont);
-    //                            break;
-    //                    }
-    //                    break;
-    //                case System.Xml.XmlNodeType.EndElement:
-    //                    switch (xmlReader.Name)
-    //                    {
-    //                        case "a":
-    //                            currentLinkAction = null;
-    //                            break;
-    //                        case "ul":
-    //                            bullet = null;
-    //                            break;
-    //                        case "b":
-    //                        case "strong":
-    //                        case "i":
-    //                        case "em":
-    //                        case "u":
-    //                            fonts.Pop();
-    //                            break;
-    //                        case "font":
-    //                            textColors.Pop();
-    //                            break;
-    //                    }
-    //                    break;
-    //                case System.Xml.XmlNodeType.Text:
-    //                    string text = xmlReader.Value;
-    //                    // Remove spaces from text that do not have meaning in HTML.
-    //                    text = text.Replace("\r", "");
-    //                    text = text.Replace("\n", "");
-    //                    text = text.Replace("\t", " ");
-    //                    PdfFormattedTextBlock block = new PdfFormattedTextBlock(text, ActiveFont);
-    //                    block.TextColor = ActiveTextColor;
-    //                    if (currentLinkAction != null)
-    //                    {
-    //                        block.Action = currentLinkAction;
-    //                        // Make the links blue.
-    //                        block.TextColor = new PdfBrush(PdfRgbColor.Blue);
-    //                    }
-    //                    currentParagraph.Blocks.Add(block);
-    //                    break;
-    //            }
-    //        }
-
-
-
-    //        return fc;
-    //    }
-
-
-
-    //    /// <summary>
-    //    /// Creates a bold copy of the given font.
-    //    /// </summary>
-    //    /// <param name="font"></param>
-    //    /// <returns></returns>
-    //    private PdfFont CopyFont(PdfFont font)
-    //    {
-    //        PdfFont copy = null;
-    //        PdfStandardFont standardFont = font as PdfStandardFont;
-    //        if (standardFont != null)
-    //        {
-    //            copy = new PdfStandardFont(standardFont);
-    //        }
-
-    //        return copy;
-    //    }
-
-    //    /// <summary>
-    //    /// Draws the formatted content on document's pages.
-    //    /// </summary>
-    //    /// <param name="document"></param>
-    //    /// <param name="fc"></param>
-    //    private void DrawFormattedContent(PdfFixedDocument document, PdfFormattedContent fc)
-    //    {
-    //        double leftMargin, topMargin, rightMargin, bottomMargin;
-    //        leftMargin = topMargin = rightMargin = bottomMargin = 36;
-
-    //        PdfPage page = document.Pages.Add();
-    //        PdfFormattedContent fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-    //        while (fragment != null)
-    //        {
-    //            page.Graphics.DrawFormattedContent(fragment,
-    //                leftMargin, topMargin, page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-    //            page.Graphics.CompressAndClose();
-
-    //            fragment = fc.SplitByBox(page.Width - leftMargin - rightMargin, page.Height - topMargin - bottomMargin);
-    //            if (fragment != null)
-    //            {
-    //                page = document.Pages.Add();
-    //            }
-    //        }
-    //    }
-
-
-    //}
+    }    
 }

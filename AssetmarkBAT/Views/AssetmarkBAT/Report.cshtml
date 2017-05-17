@@ -11,6 +11,7 @@
 @using (Html.BeginForm("Optimizer", "AssetmarkBAT", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.DateStarted)
+    @Html.HiddenFor(m => m.PDFPath)
 
     <main>
         <section>
@@ -76,12 +77,13 @@
                         </fieldset>
                         <div class="button-container text-center">
                             @*<button>View Detailed Report</button>*@
-                            <input type="submit" value="View Detailed Report" name="submit" />
+                            <a href="@Model.PDFPath" class="btn" target="_blank">View Complete Report</a>
+                            @*<input type="submit" value="View Complete Report Report" name="submit" />*@
+                            <input type="submit" value="Additional Resources" name="submit" />
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 }
