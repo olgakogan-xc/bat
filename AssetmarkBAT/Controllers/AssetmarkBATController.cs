@@ -206,7 +206,7 @@ namespace AssetmarkBAT.Controllers
         }
 
         /// <summary>
-        /// Action method to handle user input on Page 2 (VMI)
+        /// Action method to handle user input on Page 2 (VMI sliders)
         /// </summary>
         /// <param name="model"></param>
         /// <param name="submit"></param>
@@ -230,6 +230,7 @@ namespace AssetmarkBAT.Controllers
             }
             else if (submit == "Previous Firm Financials")
             {
+                PopulateModelFromDatabase(model);
                 return View(_Page1QuestionsViewName, model);
             }
             else
@@ -345,11 +346,11 @@ namespace AssetmarkBAT.Controllers
                     {
                         UserId = model.UserId,
                         //Firm Financials
-                        Ff_TotalFirmAsset = model.Ff_TotalFirmAsset,
-                        Ff_NonRecurringRevenue = model.Ff_NonRecurringRevenue,
-                        Ff_RecurringRevenue = model.Ff_RecurringRevenue,
-                        Ff_DirectExpenses = model.Ff_DirectExpenses,
-                        Ff_IndirectExpenses = model.Ff_IndirecteExpenses,
+                        Ff_TotalFirmAsset = (model.Ff_TotalFirmAsset != null) ? model.Ff_TotalFirmAsset.Replace("$", "") : model.Ff_TotalFirmAsset,
+                        Ff_NonRecurringRevenue = (model.Ff_NonRecurringRevenue != null) ? model.Ff_NonRecurringRevenue.Replace("$", "") : model.Ff_NonRecurringRevenue,
+                        //Ff_RecurringRevenue = model.Ff_RecurringRevenue.Replace("$", ""),
+                        //Ff_DirectExpenses = model.Ff_DirectExpenses.Replace("$", ""),
+                        //Ff_IndirectExpenses = model.Ff_IndirecteExpenses.Replace("$", ""),
                         Ff_Client_Relationships = model.Ff_ClientRelationships,
                         Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,

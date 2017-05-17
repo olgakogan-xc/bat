@@ -213,7 +213,8 @@
                             </div>
                             <div class="col-md-4 field-control">
                                 @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                                <div>@Model.Ff_TotalFirmAsset</div>
+                               === @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
                             </div>
                             <div class="col-md-3 field-value">
                                 <div class="error" ng-show="form.assets.$error.min">Please enter a value greater than $1,000,000</div>
