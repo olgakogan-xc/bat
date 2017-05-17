@@ -84,8 +84,8 @@
                             </div>
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp1.value" />*@
-                                ********
-                                @Html.HiddenFor(m => m.Vmi_Man_Written_Plan, new { ng_model = "myp1.value" })
+                               
+                                @Html.TextBoxFor(m => m.Vmi_Mar_Plan, new { ng_init = string.Format("myp1.value = '{0}'", Model.Vmi_Mar_Plan), ng_model = "myp1.value" })
                                 <rzslider rz-slider-model="myp1.value"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
