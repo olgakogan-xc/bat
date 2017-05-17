@@ -605,7 +605,7 @@
       failureMessage:"This field is required"}
               );
     field2.add(Validate.Format, {
-      pattern: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
+      pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
               );
     var dom3 = document.querySelector('#form1007 #field3');
     var field3 = new LiveValidation(dom3, {
