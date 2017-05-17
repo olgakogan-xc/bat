@@ -201,7 +201,8 @@
             @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post, new { name = "form", ng_show = "selectedMonth != null" }))
             {
                 @Html.HiddenFor(m => m.UserId)
-                
+                @Html.HiddenFor(m => m.PDFPath)
+
                 <fieldset>
                     <div class="row field-header">
                         <div class="col-md-5 field-label">
@@ -215,9 +216,8 @@
                             Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
-                            <div>@Model.Ff_TotalFirmAsset</div>
-                            === @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                            @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@                           
+                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
@@ -231,7 +231,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_model = "nonRecurringRevenue", @name= "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_model = "recurringRevenue", @name= "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -280,7 +280,8 @@
                             Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            <input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>
+                            @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
@@ -317,7 +318,8 @@
                             Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            <input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="20" ui-hide-space>
+                            @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { @name = "growthRate", ng_model = "growthRate", ui_money_mask = "0", min = "0", max = "25" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
@@ -329,7 +331,8 @@
                             # Client Relationships
                         </div>
                         <div class="col-md-4 field-control">
-                            <input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">
+                            @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { @name = "clientRel", ng_model = "clientRel", ui_money_mask = "0", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
@@ -342,7 +345,8 @@
                             # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            <input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">
+                            @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { @name = "nonAdvisors", ng_model = "nonAdvisors", ui_money_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
@@ -355,7 +359,8 @@
                             # Full-Time Equivalent Advisors <i class="icon-info"></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            <input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">
+                            @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { @name = "advisors", ng_model = "advisors", ui_money_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
@@ -369,6 +374,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             <input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { @name = "newClients", ng_model = "newClients", ui_money_mask = "0", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>

@@ -52,11 +52,11 @@ namespace AssetmarkBAT.Controllers
             {
                 return Request.QueryString[_EloquaQueryStringParamName];
             }
-            else if(HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+            else if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
             {
                 return Request.QueryString[_EloquaCookieName];
             }
-                return null;
+            return null;
         }
 
 
@@ -236,7 +236,7 @@ namespace AssetmarkBAT.Controllers
             else
             {
                 PopulateModelFromDatabase(model);
-                return View(_ReportViewName, model);                
+                return View(_ReportViewName, model);
             }
         }
 
@@ -322,7 +322,17 @@ namespace AssetmarkBAT.Controllers
             batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
         }
 
-
+        private double ConvertToDouble(string input)
+        {
+            try
+            {
+                return Convert.ToDouble(input.Replace("$", "").Replace(",", ""));
+            }
+            catch
+            {
+                return 0;
+            }
+        }
 
         private void PopulateEntityFromModel(BATModel model)
         {
@@ -339,6 +349,8 @@ namespace AssetmarkBAT.Controllers
 
                 model.BATValuationModel.ProfitMargin = 225000;
                 model.BATValuationModel.ProjectedAnnualGrowthRate = 0.04;
+                model.Ff_TotalRevenue = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)).ToString();
+                model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString();
 
                 using (AssetmarkBATEntities db = new AssetmarkBATEntities())
                 {
@@ -348,9 +360,11 @@ namespace AssetmarkBAT.Controllers
                         //Firm Financials
                         Ff_TotalFirmAsset = (model.Ff_TotalFirmAsset != null) ? model.Ff_TotalFirmAsset.Replace("$", "") : model.Ff_TotalFirmAsset,
                         Ff_NonRecurringRevenue = (model.Ff_NonRecurringRevenue != null) ? model.Ff_NonRecurringRevenue.Replace("$", "") : model.Ff_NonRecurringRevenue,
-                        //Ff_RecurringRevenue = model.Ff_RecurringRevenue.Replace("$", ""),
-                        //Ff_DirectExpenses = model.Ff_DirectExpenses.Replace("$", ""),
-                        //Ff_IndirectExpenses = model.Ff_IndirecteExpenses.Replace("$", ""),
+                        Ff_RecurringRevenue = (model.Ff_RecurringRevenue != null) ? model.Ff_RecurringRevenue.Replace("$", "") : model.Ff_RecurringRevenue,
+                        Ff_TotalRevenue = model.Ff_TotalRevenue,
+                        Ff_DirectExpenses = (model.Ff_DirectExpenses != null) ? model.Ff_DirectExpenses.Replace("$", "") : model.Ff_DirectExpenses,
+                        Ff_IndirectExpenses = (model.Ff_IndirecteExpenses != null) ? model.Ff_IndirecteExpenses.Replace("$", "") : model.Ff_IndirecteExpenses,
+                        Ff_OperatingProfit = model.Ff_OperatingProfit,
                         Ff_Client_Relationships = model.Ff_ClientRelationships,
                         Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
@@ -723,5 +737,5 @@ namespace AssetmarkBAT.Controllers
         }
 
         #endregion
-    }    
+    }
 }
