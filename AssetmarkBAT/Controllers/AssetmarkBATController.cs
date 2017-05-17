@@ -55,35 +55,37 @@ namespace AssetmarkBAT.Controllers
             //PdfFixedDocument document = htmlToPdf.Convert(stream);
             //document.Save("C:\\output.pdf");
 
-            //BATModel model = new BATModel();
-            //InitializeDropDowns(model);
+            string test = GetValuationMetrics("", "", "").ToString();
 
-            //if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
-            //{
-            //    model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
+            BATModel model = new BATModel();
+            InitializeDropDowns(model);
 
-            //    if (PopulateModelFromDatabase(model))
-            //    {
-            //        if (model.Page2Complete)
-            //        {
-            //            return View(_ValuationOptimizer, model);
-            //        }
-            //        else if (model.Page1Complete)
-            //        {
-            //            return View(_Page2QuestionsViewName, model);
-            //        }
-            //        else
-            //        {
-            //            return View(_Page1QuestionsViewName, model);
-            //        }
-            //    }
-            //    else
-            //        return View(_TermsViewName);
-            //}
+            if (HttpContext.Request.Cookies[_CookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_CookieName].Value))
+            {
+                model.UserId = HttpContext.Request.Cookies[_CookieName].Value;
 
-            //return View("Terms");
+                if (PopulateModelFromDatabase(model))
+                {
+                    if (model.Page2Complete)
+                    {
+                        return View(_ValuationOptimizer, model);
+                    }
+                    else if (model.Page1Complete)
+                    {
+                        return View(_Page2QuestionsViewName, model);
+                    }
+                    else
+                    {
+                        return View(_Page1QuestionsViewName, model);
+                    }
+                }
+                else
+                    return View(_TermsViewName);
+            }
 
-            return View("Eloqua");
+            return View("Terms");
+
+            //return View("Eloqua");
         }
 
         /// <summary>
@@ -596,6 +598,13 @@ namespace AssetmarkBAT.Controllers
 
         webClient.DownloadFile(new Uri(""), filePath);
 
+        }
+        
+
+        public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
+        {
+            //if params are blank return current with benchmark
+            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000, calculatedmin = 7000000 }, JsonRequestBehavior.AllowGet);
         }
 
 
