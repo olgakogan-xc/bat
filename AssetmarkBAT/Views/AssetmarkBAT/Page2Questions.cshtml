@@ -9,7 +9,7 @@
     AssetMark – BAT – Assessement3
 }
 
-<main ng-cloak>
+<main>
     @using (Html.BeginForm("Report", "AssetmarkBAT", FormMethod.Post))
     {
         @Html.HiddenFor(m => m.UserId)
@@ -53,7 +53,7 @@
                 <h2><span>Value Maximization Index</span><sup>&trade;</sup></h2>
                 <p>The Value Maximization Index® (VMI) assesses your firm’s relative business risk, transferability, sustainability and potential growth. Your VMI is calculated based on your responses to 20 value maximization indicator questions in four key practice management areas: managing your practice, marketing your business, optimizing your operations, and empowering your team. </p>
                 <p>This section will take no more than 10 minutes. Move the sliders to score your firm on each item. For example, if you feel you are 70% of the way to a well-defined business plan, slide the indicator to “7”.</p>
-                <div class="scoreboard">
+                <div class="scoreboard" ng-cloak>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="score score-period">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sliders">
+                <div class="sliders" ng-cloak>
                     <h4>Managing Your Practice</h4>
                     <div class="slider">
                         <div class="row">

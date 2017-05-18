@@ -16,7 +16,7 @@
             <p>Thank you for completing your business assessment. Take a look at the Value Maximization Index® table below to identify which category you scored the lowest in, then click the category links to access resources specific to each category that are designed to help you improve corresponding areas of your business.</p>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <table>
+                    <table ng-cloak>
                         <thead>
                             <tr>
                                 <th>Valuation Categories</th>
@@ -64,7 +64,7 @@
             <h2>Valuation Optimizer</h2>
             <p>Here you see how changes in growth rate, profit margins and Value Maximization Index® can impact your firm’s estimated valuation range. Use the sliders below to visualize how changes to each key area impact your overall range. </p>
 
-            <div class="row">
+            <div class="row" ng-cloak>
                 <div class="col-md-8 col-md-offset-2">
 
                     <div class="graph" ng-init="initGraph()">

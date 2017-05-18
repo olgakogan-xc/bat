@@ -4,7 +4,8 @@ app.run(function (RzSliderOptions) {
     RzSliderOptions.options({
         ceil: 10,
         floor: 0,
-        showTicks: true
+        showTicks: true,
+        showTicksValues: true,
     });
 });
 
@@ -62,11 +63,13 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.totalRevenue = 0;
 
+
     $scope.fvrGraphValues = [];
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+        $.getJSON('http://am-bvs-am-bvs-stage.azurewebsites.net/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+            console.log(data);
             var graphValues = [];
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
             $scope.fvrGraph.series[0].setData(graphValues);
@@ -408,4 +411,44 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             draggableRange: true
         }
     };
+
+    $scope.filterCurrency = function (model) {
+        console.log(value);
+        var filteredValue = value.replace(/[$,.]/g, '');
+        return filteredValue;
+    };
+
+
+
+
+
+
+    /*
+        $scope.numberWith2Decimals = 0.0;
+        $scope.percentageWithDefaultDecimals = 0.7654;
+    
+        $scope.initializedCpf = '35244457640';
+        $scope.initializedCnpj = '13883875000120';
+        $scope.initializedCpfCnpj1 = '56338332958';
+        $scope.initializedCpfCnpj2 = '23212161000144';
+    
+        $scope.defaultMoney = 153.12;
+        $scope.negativeMoney = -153.12;
+        $scope.moneyStartedWith0 = 0;
+        $scope.moneyInitializedWithString = '3.53';
+    
+        $scope.initializedPhoneNumber = '3133536767';
+    
+        $scope.initializedCep = '30112010';
+    
+        $scope.states = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA',
+            'MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR',
+            'RS','SC','SE','SP','TO'];
+        $scope.fixedStateIE = '0623079040081';
+        $scope.initializedState = 'SP';
+        $scope.initializedIE = 'P3588747709710';
+    
+        $scope.initializedDateMask = new Date();
+        $scope.initializedWithISOStringDateMask = (new Date()).toISOString();
+    */
 });
