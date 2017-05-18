@@ -6,24 +6,6 @@
 {
     AssetMark – BAT – Assessement2
 }
-@*@{
-        Layout = null;
-    }
-
-    <style type="text/css">
-        .error{
-            color:red;
-        }
-         label {
-            float: left;
-            width: 300px;
-        }
-         .hidden{
-             display:none;
-         }
-    </style>
-
-*@
 <main>
     <section>
         <div class="container">
@@ -31,15 +13,15 @@
             <h2>Firm Financials</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error impedit aliquid veniam aspernatur maxime vero ea facilis explicabo dolorum quidem velit vel natus, eligendi earum at pariatur vitae asperiores eveniet!</p>
+                    <p>Your financial model shows how top-line revenue flows to the bottom line, and consists of multiple components that can work together to ensure the success and stability of your business. In this section, you will enter financial information such as total AUM, direct and indirect expenses, total number of employees, advisors and new clients – creating an overview of your financial model. </p>
+                    <p>The first step is entering your firm’s information. This step is crucial in establishing the framework for accurately measuring your ongoing success. Both your firm financial data and your VMI scores are needed to estimate your firm’s valuation range. Please be sure to provide all the firm financial data below, and then go to the next page to complete the Value Maximization Indicators (VMI).</p>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <h4>Additional Resources</h4>
                     <ul>
-                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
-                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
-                        <li><a href="#">Sample Valudation <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <i class="icon-file-pdf"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -48,6 +30,9 @@
     <section class="grey">
         <div class="container">
             <h3>Enter your firm's financial data in the fields below (all fields are required):</h3>
+            <p>
+                This information helps us to understand what type of data you are providing. If you are an advisor in a firm, but are providing data for your book of business only please select single advisor practice.
+            </p>
             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
             @Html.TextBoxFor(x => Model.PracticeType)
             @*<div class="fancy-form-row">
@@ -180,8 +165,8 @@
                                 <label for="">Select time period for your data</label>
                                 <select name="timePeriod" ng-model="selectedYear" ng-change="yearSelected()">
                                     <option value=""></option>
-                                    <option value="2016">Previous Year</option>
                                     <option value="2017">YTD 2017</option>
+                                    <option value="2016">Previous Calendar Year</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -213,7 +198,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@                           
@@ -390,8 +375,7 @@
                             <input class="btn-big" type="submit" name="submit" value="VMI Inputs Next" />
                         </div>
                     </div>
-                </div>
-                
+                </div>                
             }
         </div>
     </section>
