@@ -304,7 +304,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
+                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
@@ -317,7 +317,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
@@ -331,7 +331,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
@@ -345,7 +345,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
@@ -359,7 +359,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
