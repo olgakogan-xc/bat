@@ -343,8 +343,9 @@ hr {
 .icon-chevron-left,
 .icon-chevron-right {
   font-size: 0.7em;
+  line-height: 1.0em;
 }
-/* line 69, ../scss/app/core/_fonts.scss */
+/* line 70, ../scss/app/core/_fonts.scss */
 .icon-chevron-left:before,
 .icon-chevron-right:before {
   position: relative;
