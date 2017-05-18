@@ -80,7 +80,7 @@
     </section>
     <section ng-cloak>
         <div class="container">
-            @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post, new { name = "form", ng_show = "selectedMonth != null" }))
+            @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post, new { id = "form", name = "form", ng_show = "selectedMonth != null" }))
             {
                 @Html.HiddenFor(m => m.UserId)
                 @Html.HiddenFor(m => m.PDFPath)

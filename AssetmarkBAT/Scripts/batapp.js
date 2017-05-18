@@ -491,4 +491,8 @@ $(function () {
         });
     });
 
+    $('button[type="submit"').on('click', function (e) {
+        $('#form').submit();
+    });
+
 });
