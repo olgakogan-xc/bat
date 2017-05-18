@@ -17,16 +17,21 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     $scope.selectedYear = 0;
+    $scope.selectedYearLabel = '';
     $scope.selectedMonth = 1;
+    $scope.selectedMonthLabel = '';
     $scope.shownMonths = [];
+
 
     $scope.yearSelected = function () {
         if (new Date().getFullYear() == $scope.selectedYear) {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
             $scope.selectedMonth = $scope.shownMonths.length;
+            $scope.selectedMonthLabel = $scope.months[$scope.shownMonths.length];
         } else {
             $scope.shownMonths = $scope.months;
             $scope.selectedMonth = 12;
+            $scope.selectedMonthLabel = $scope.months[12];
         }
     };
 
@@ -68,7 +73,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+        $.getJSON('http://am-bvs-am-bvs-stage.azurewebsites.net/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
             console.log(data);
             var graphValues = [];
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
@@ -417,38 +422,53 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         var filteredValue = value.replace(/[$,.]/g, '');
         return filteredValue;
     };
+});
 
+$(function () {
+    $('select:not(.exclude)').each(function (e) {
+        var select = $(this);
+        var dropdown = '';
 
+        select.wrap('<div class="fancy-form-control"></div>');
 
+        dropdown += '<ul class="fancy-form-select">';
+        select.find('option').each(function () {
+            var option = $(this);
+            var list = '';
 
+            console.log(option[0].selected);
+            if (option[0].selected) {
+                list += '<li data-value="' + option[0].value + '" class="active"><span>' + option[0].text + '</span></li>';
+            } else {
+                list += '<li data-value="' + option[0].value + '"><span>' + option[0].text + '</span></li>';
+            }
 
+            console.log(option);
 
-    /*
-        $scope.numberWith2Decimals = 0.0;
-        $scope.percentageWithDefaultDecimals = 0.7654;
-    
-        $scope.initializedCpf = '35244457640';
-        $scope.initializedCnpj = '13883875000120';
-        $scope.initializedCpfCnpj1 = '56338332958';
-        $scope.initializedCpfCnpj2 = '23212161000144';
-    
-        $scope.defaultMoney = 153.12;
-        $scope.negativeMoney = -153.12;
-        $scope.moneyStartedWith0 = 0;
-        $scope.moneyInitializedWithString = '3.53';
-    
-        $scope.initializedPhoneNumber = '3133536767';
-    
-        $scope.initializedCep = '30112010';
-    
-        $scope.states = ['AC','AL','AM','AP','BA','CE','DF','ES','GO','MA',
-            'MG','MS','MT','PA','PB','PE','PI','PR','RJ','RN','RO','RR',
-            'RS','SC','SE','SP','TO'];
-        $scope.fixedStateIE = '0623079040081';
-        $scope.initializedState = 'SP';
-        $scope.initializedIE = 'P3588747709710';
-    
-        $scope.initializedDateMask = new Date();
-        $scope.initializedWithISOStringDateMask = (new Date()).toISOString();
-    */
+            dropdown += list;
+        });
+        dropdown += '</ul>';
+
+        $(dropdown).insertAfter(select);
+
+        console.log(select);
+    });
+
+    $('body .fancy-form-select').each(function () {
+        var select = $(this);
+
+        select.on('click', function (e) {
+            select.toggleClass('expand');
+        });
+
+        select.find('li').on('click', function (e) {
+            e.preventDefault();
+            var item = $(this);
+
+            select.prev().find('option').removeAttr('selected');
+            select.prev().find('option').filter('[value="' + item.data('value') + '"]').attr('selected', true);
+
+        });
+    });
+
 });
