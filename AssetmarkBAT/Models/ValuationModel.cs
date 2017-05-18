@@ -67,4 +67,60 @@ namespace AssetmarkBAT.Models
 
 
     }
+
+    public class BenchmarkValuationMOdel
+    {
+        List<BenchmarkGroup> Groups = new List<BenchmarkGroup>
+        {
+                new BenchmarkGroup
+                    { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 318000, ValuationMax = 416000,
+                        RecRevPerClient = 2345, RecRevPerAdvisor = 130333, TotalRevPerClient = 2558, TotalAUMPerClient = 600093,
+                            TotalAUMPerAdvisor = 30773333, ProfitPerClient = 299, ProfitAsPercentOfRevenue = 17.7, ClientsPerAdvisor = 137, RevenutAsPBSOnAssets = 1
+                },
+                new BenchmarkGroup
+                    { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 834000, ValuationMax = 1096000,
+                        RecRevPerClient = 4380, RecRevPerAdvisor = 316373, TotalRevPerClient = 5227, TotalAUMPerClient = 515349,
+                            TotalAUMPerAdvisor = 43081637, ProfitPerClient = 1883, ProfitAsPercentOfRevenue = 39.6, ClientsPerAdvisor = 140, RevenutAsPBSOnAssets = 1
+                },
+                new BenchmarkGroup
+                    { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1011000, ValuationMax = 1282000,
+                        RecRevPerClient = 5452, RecRevPerAdvisor = 450347, TotalRevPerClient = 6167, TotalAUMPerClient = 1023483,
+                            TotalAUMPerAdvisor = 90621951, ProfitPerClient = 2359, ProfitAsPercentOfRevenue = 39.3, ClientsPerAdvisor = 124, RevenutAsPBSOnAssets = 1
+                },
+
+
+
+
+
+
+                new BenchmarkGroup
+                    { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 318000, ValuationMax = 416000,
+                        RecRevPerClient = 2345, RecRevPerAdvisor = 130333, TotalRevPerClient = 2558, TotalAUMPerClient = 600093,
+                            TotalAUMPerAdvisor = 30773333, ProfitPerClient = 299, ProfitAsPercentOfRevenue = 17.7, ClientsPerAdvisor = 137, RevenutAsPBSOnAssets = 1
+                }
+        };
+
+
+
+
+    }
+
+    public class BenchmarkGroup
+    {
+        //Valuation Metrics
+        public double GroupRangeMin;
+        public double GroupRangeMax;
+        public double ValuationMin;
+        public double ValuationMax;
+        //KPI's
+        public double RecRevPerClient;
+        public double RecRevPerAdvisor;
+        public double TotalRevPerClient;
+        public double TotalAUMPerClient;
+        public double TotalAUMPerAdvisor;
+        public double ProfitPerClient;
+        public double ProfitAsPercentOfRevenue;
+        public double ClientsPerAdvisor;
+        public double RevenutAsPBSOnAssets;
+    }
 }
