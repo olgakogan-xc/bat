@@ -71,7 +71,7 @@ namespace AssetmarkBAT.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View("PdfShell");
+            //return View("PdfShell");
 
             //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
             //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
@@ -572,7 +572,10 @@ namespace AssetmarkBAT.Controllers
             //PdfPage page = document.Pages.Add();
             //document.Save("empty.pdf");
 
-            PdfFixedDocument document = Load("C:\\Olga\\PdfTemplate.pdf");
+            
+
+            //PdfFixedDocument document = Load("C:\\Olga\\PdfTemplate.pdf");
+            PdfFixedDocument document = Load(HttpContext.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
             PdfPage page = document.Pages[0];
 
             // Create a standard font with Helvetica face and 24 point size
@@ -590,16 +593,16 @@ namespace AssetmarkBAT.Controllers
 
             PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
             PdfStandardFont largeTitleFont = new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 36);
-            page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
+            //page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
 
             //Blue table header
-            PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
-            page.Graphics.DrawRectangle(darkBlueBrush, 50, 65, 500, 25);
-            PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
-            PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
-            page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
-            page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
-            page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
+            //PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
+            //page.Graphics.DrawRectangle(darkBlueBrush, 50, 65, 500, 25);
+            //PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
+            //PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
+            //page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
+            //page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
+            //page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
 
             if (PopulateModelFromDatabase(model))
             {
@@ -607,9 +610,11 @@ namespace AssetmarkBAT.Controllers
                 BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
 
                 //first row
-                page.Graphics.DrawString("Total Firm Aum", tableRowTextFont, tableRowTextBlueBrush, 50, 95);
-                page.Graphics.DrawString("------", tableRowTextFont, tableRowTextBlueBrush, 100, 95);
-                page.Graphics.DrawString(peerGroup.TotalAUMPerClient.ToString(), tableRowTextFont, tableRowTextBlueBrush, 150, 95);
+                //page.Graphics.DrawString("Total Firm Aum", tableRowTextFont, tableRowTextBlueBrush, 50, 95);
+                //page.Graphics.DrawString("------", tableRowTextFont, tableRowTextBlueBrush, 100, 95);
+                //page.Graphics.DrawString(peerGroup.TotalAUMPerClient.ToString(), tableRowTextFont, tableRowTextBlueBrush, 150, 95);
+
+                page.Graphics.DrawString(peerGroup.GroupRangeMin + " - " + peerGroup.GroupRangeMax, helvetica,darkBlueBrush, 900, 1100);
             }
 
             //string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");

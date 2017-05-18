@@ -276,10 +276,10 @@
     <Content Include="Styles\fonts\ico.woff" />
     <Content Include="Styles\fonts\ico.woff2" />
     <Content Include="Views\AssetmarkBAT\PdfShell.cshtml" />
+    <Content Include="UserPDF\PdfTemplate.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UserPDF\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
