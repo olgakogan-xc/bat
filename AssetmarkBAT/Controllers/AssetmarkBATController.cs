@@ -59,6 +59,11 @@ namespace AssetmarkBAT.Controllers
             return null;
         }
 
+        public ActionResult Pdf()
+        {
+            return View("PdfShell");
+        }
+
 
         /// <summary>
         /// Action Method to initiate the BAT tool
@@ -66,6 +71,8 @@ namespace AssetmarkBAT.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+            return View("PdfShell");
+
             //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
             //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
             //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
@@ -533,8 +540,8 @@ namespace AssetmarkBAT.Controllers
 
 
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
-        {           
-            BATModel model = GetClientValuationRanges();   
+        {
+            BATModel model = GetClientValuationRanges();
             BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
 
             double comparativeValuationMin = peerGroup.ValuationMin;
@@ -544,10 +551,16 @@ namespace AssetmarkBAT.Controllers
             double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
 
-            return Json(new { maxvalue = (maxValueForClient > maxValueForComparative)? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            return Json(new { maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
             //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+        }
+
+        public static PdfFixedDocument Load(string filename)
+        {
+            using (var stream = new FileStream(filename, FileMode.Open))
+                return new PdfFixedDocument(stream);
         }
 
 
@@ -555,9 +568,12 @@ namespace AssetmarkBAT.Controllers
         {
             //try
             //{
-            PdfFixedDocument document = new PdfFixedDocument();
-            PdfPage page = document.Pages.Add();
+            //PdfFixedDocument document = new PdfFixedDocument();
+            //PdfPage page = document.Pages.Add();
             //document.Save("empty.pdf");
+
+            PdfFixedDocument document = Load("C:\\Olga\\PdfTemplate.pdf");
+            PdfPage page = document.Pages[0];
 
             // Create a standard font with Helvetica face and 24 point size
             PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 14);
@@ -571,11 +587,39 @@ namespace AssetmarkBAT.Controllers
             //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
             //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
             //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-            page.Graphics.DrawString(model.Ff_TotalFirmAsset, helvetica, textBrush, 50, 35);
+
+            PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
+            PdfStandardFont largeTitleFont = new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 36);
+            page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
+
+            //Blue table header
+            PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
+            page.Graphics.DrawRectangle(darkBlueBrush, 50, 65, 500, 25);
+            PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
+            PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
+            page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
+            page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
+            page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
+
+            if (PopulateModelFromDatabase(model))
+            {
+                model.BenchmarkModel = new BenchmarksValuationModel();
+                BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+                //first row
+                page.Graphics.DrawString("Total Firm Aum", tableRowTextFont, tableRowTextBlueBrush, 50, 95);
+                page.Graphics.DrawString("------", tableRowTextFont, tableRowTextBlueBrush, 100, 95);
+                page.Graphics.DrawString(peerGroup.TotalAUMPerClient.ToString(), tableRowTextFont, tableRowTextBlueBrush, 150, 95);
+            }
 
             //string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
             //PdfImage lockImage = new PdfImage(imagePath);
             //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+
+
+
+
+
 
             MemoryStream stream = new MemoryStream();
             // Saves the document as stream
