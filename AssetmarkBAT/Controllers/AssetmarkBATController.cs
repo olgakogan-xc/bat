@@ -220,7 +220,7 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Save Your Inputs")
             {
-                model.PDFPath = CreatePdf(model.UserId);
+                model.PDFPath = CreatePdf(model);
                 model.Page2Complete = true;
                 //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
@@ -521,7 +521,7 @@ namespace AssetmarkBAT.Controllers
         }
 
 
-        private string CreatePdf(string id)
+        private string CreatePdf(BATModel model)
         {
             //try
             //{
@@ -541,7 +541,7 @@ namespace AssetmarkBAT.Controllers
             //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
             //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
             //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-            page.Graphics.DrawString("Under Construction", helvetica, textBrush, 50, 35);
+            page.Graphics.DrawString(model.Ff_TotalFirmAsset, helvetica, textBrush, 50, 35);
 
             string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
             PdfImage lockImage = new PdfImage(imagePath);
@@ -564,7 +564,7 @@ namespace AssetmarkBAT.Controllers
             permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
             myContainer.SetPermissions(permissions);
 
-            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(id + ".pdf");
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
             blockBlob.Properties.ContentType = "application/pdf";
             //blockBlob.UploadFromStream(stream);
             blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
