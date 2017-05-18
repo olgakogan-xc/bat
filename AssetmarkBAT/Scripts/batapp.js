@@ -68,7 +68,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('http://am-bvs-am-bvs-stage.azurewebsites.net/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
             console.log(data);
             var graphValues = [];
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);

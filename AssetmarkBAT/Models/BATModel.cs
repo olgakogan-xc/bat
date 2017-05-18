@@ -129,7 +129,9 @@ namespace AssetmarkBAT.Models
 
         public string DateStarted { get; set; }
 
-        public ValuationModel BATValuationModel { get; set; }
+        public ClientValuationModel BATValuationModel { get; set; }
+
+        public BenchmarksValuationModel BenchmarkModel { get; set; }
 
         public string PDFPath { get; set; }
 

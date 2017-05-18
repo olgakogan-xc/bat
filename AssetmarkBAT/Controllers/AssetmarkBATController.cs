@@ -157,7 +157,7 @@ namespace AssetmarkBAT.Controllers
             //{
             if (submit == "Save Your Inputs")
             {
-                model.BATValuationModel = new ValuationModel();
+                model.BATValuationModel = new ClientValuationModel();
                 //model.PDFPath = "On save";
                 model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
                 model.Page1Complete = true;
@@ -344,7 +344,7 @@ namespace AssetmarkBAT.Controllers
 
                 if (model.BATValuationModel == null)
                 {
-                    model.BATValuationModel = new ValuationModel();
+                    model.BATValuationModel = new ClientValuationModel();
                 }
 
                 model.BATValuationModel.ProfitMargin = 225000;
@@ -435,6 +435,7 @@ namespace AssetmarkBAT.Controllers
                     model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
                     model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
                     model.Ff_NewClients = original.Ff_New_Clients;
+                    model.Ff_TotalRevenue = original.Ff_TotalRevenue;
 
                     //VMI's
                     model.Vmi_Man_Phase = original.Vmi_Man_Phase;
@@ -510,14 +511,43 @@ namespace AssetmarkBAT.Controllers
 
         }
 
+        private BATModel GetClientValuationRanges()
+        {
+            BATModel model = new BATModel();
+            model.BATValuationModel = new ClientValuationModel();
+            model.BenchmarkModel = new BenchmarksValuationModel();
+
+            if (!string.IsNullOrEmpty(KnownUserId()))
+            {
+                model.UserId = KnownUserId();
+
+                if (PopulateModelFromDatabase(model))
+                {
+                    model.BATValuationModel.ValuationMin = 3092000;
+                    model.BATValuationModel.ValuationMax = 3618000;
+                }
+            }
+
+            return model;
+        }
+
 
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
-        {
-            if(PM > 20)
-                return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 48000000, calculatedmin = 22000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+        {           
+            BATModel model = GetClientValuationRanges();   
+            BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+            double comparativeValuationMin = peerGroup.ValuationMin;
+            double comparativeValuationMax = peerGroup.ValuationMax;
+
+            //Determine max axis value
+            double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
+            double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
+
+            return Json(new { maxvalue = (maxValueForClient > maxValueForComparative)? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
-            return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
         }
 
 
