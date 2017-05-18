@@ -217,7 +217,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@                           
-                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset).Replace("$","").Replace(",","").Replace(".",""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset).Replace("$","").Replace(",","").Replace(".","").Replace(" ","").Replace("%",""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
@@ -231,7 +231,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = '{0}'", Model.Ff_NonRecurringRevenue), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = '{0}'", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -244,7 +244,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = '{0}'", Model.Ff_RecurringRevenue), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = '{0}'", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
@@ -268,7 +268,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
@@ -281,7 +281,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = '{0}'", Model.Ff_IndirecteExpenses), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = '{0}'", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
@@ -319,7 +319,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate), @name = "growthRate", ng_model = "growthRate", ui_money_mask = "0", min = "0", max = "25" })
+                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "growthRate", ng_model = "growthRate", ui_money_mask = "0", min = "0", max = "25" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
@@ -332,7 +332,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_money_mask = "0", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "clientRel", ng_model = "clientRel", ui_money_mask = "0", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
@@ -346,7 +346,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = '{0}'", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_money_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = '{0}'", Model.Ff_FullTimeNonAdvisors).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_money_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
@@ -360,7 +360,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = '{0}'", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_money_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = '{0}'", Model.Ff_FullTimeAdvisors).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "advisors", ng_model = "advisors", ui_money_mask = "1", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
@@ -374,7 +374,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_money_mask = "0", min = "0", max = "1000" })
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "newClients", ng_model = "newClients", ui_money_mask = "0", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
