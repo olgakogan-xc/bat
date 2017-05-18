@@ -9,8 +9,8 @@
 <main>
     <section>
         <div class="container">
-            <h1><img src="~/Styles/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
-            <h2>Firm Financials</h2>
+            <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
+            <h2><span>Firm Financials</span></h2>
             <div class="row">
                 <div class="col-md-6">
                     <p>Your financial model shows how top-line revenue flows to the bottom line, and consists of multiple components that can work together to ensure the success and stability of your business. In this section, you will enter financial information such as total AUM, direct and indirect expenses, total number of employees, advisors and new clients – creating an overview of your financial model. </p>
@@ -19,9 +19,9 @@
                 <div class="col-md-5 col-md-offset-1">
                     <h4>Additional Resources</h4>
                     <ul>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <i class="icon-file-pdf"></i></a></li>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <i class="icon-file-pdf"></i></a></li>
-                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <i class="icon-file-pdf"></i></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <img src="~/Images/pdf.png" /></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <img src="~/Images/pdf.png" /></a></li>
+                        <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <img src="~/Images/pdf.png" /></a></li>
                     </ul>
                 </div>
             </div>
@@ -33,129 +33,52 @@
             <p>
                 This information helps us to understand what type of data you are providing. If you are an advisor in a firm, but are providing data for your book of business only please select single advisor practice.
             </p>
-            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
-            @Html.TextBoxFor(x => Model.PracticeType)
-            @*<div class="fancy-form-row">
+
+            <div class="fancy-form-row" ng-cloak>
                 <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
-                {{expandPracticeType}}
-                <div class="fancy-form-control">
-                    <span class="fancy-form-select-toggle" ng-click="expandPracticeTypeSelect()"><i ng-class="{'icon-up-open':expandPracticeType,'icon-down-open':!expandPracticeType}"></i></span>
-                    <ul class="fancy-form-select" ng-class="{'expand':expandPracticeType}">
-                        <li ng-class="{'active':practiceTypeRadio == 0}">
-                            <label for="practiceTypeRadio0">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio0" ng-model="practiceTypeRadio" ng-value="0" ng-checked="true" ng-click="expandPracticeTypeSelect()"> Practice Type
-                            </label>
-                        </li>
-                        <li ng-class="{'active':practiceTypeRadio == 1}">
-                            <label for="practiceTypeRadio1">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio1" ng-model="practiceTypeRadio" ng-value="1" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{practiceTypeRadio1}}
-                            </label>
-                        </li>
-                        <li ng-class="{'active':practiceTypeRadio == 2}">
-                            <label for="practiceTypeRadio2">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio2" ng-model="practiceTypeRadio" ng-value="2" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':practiceTypeRadio == 3}">
-                            <label for="practiceTypeRadio3">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio3" ng-model="practiceTypeRadio" ng-value="3" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':practiceTypeRadio == 4}">
-                            <label for="practiceTypeRadio4">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio4" ng-model="practiceTypeRadio" ng-value="4" ng-click="expandPracticeTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':practiceTypeRadio == 5}">
-                            <label for="practiceTypeRadio5">
-                                <input type="radio" name="practiceType" id="practiceTypeRadio5" ng-model="practiceTypeRadio" ng-value="5" ng-click="expandPracticeTypeSelect()" ng-checked="practiceTypeRadio == 5"> Other (please specify): {{practiceTypeOther}}
-                            </label>
-                            <input type="text" id="practiceTypeOther" ng-model="practiceTypeOther" ng-change="practiceTypeOtherChange(5)">
-                     
-                        </li>
-                    </ul>
-                </div>
-            </div>*@
-            <div class="fancy-form-row">
-                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
-                <div class="fancy-form-control">
-                    <span class="fancy-form-select-toggle" ng-click="expandAffiliationModeSelect()"><i ng-class="{'icon-up-open':expandAffiliationMode,'icon-down-open':!expandAffiliationMode}"></i></span>
-                    <ul class="fancy-form-select" ng-class="{'expand':expandAffiliationMode}">
-                        <li ng-class="{'active':affiliationModeRadio == 0}">
-                            <label for="affiliationModeRadio0">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio0" ng-model="affiliationModeRadio" ng-value="0" ng-checked="true" ng-click="expandAffiliationModeSelect()"> Affiliation Mode
-                            </label>
-                        </li>
-                        <li ng-class="{'active':affiliationModeRadio == 1}">
-                            <label for="affiliationModeRadio1">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio1" ng-model="affiliationModeRadio" ng-value="1" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{affiliationModeRadio1}}
-                            </label>
-                        </li>
-                        <li ng-class="{'active':affiliationModeRadio == 2}">
-                            <label for="affiliationModeRadio2">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio2" ng-model="affiliationModeRadio" ng-value="2" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':affiliationModeRadio == 3}">
-                            <label for="affiliationModeRadio3">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio3" ng-model="affiliationModeRadio" ng-value="3" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':affiliationModeRadio == 4}">
-                            <label for="affiliationModeRadio4">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio4" ng-model="affiliationModeRadio" ng-value="4" ng-click="expandAffiliationModeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':affiliationModeRadio == 5}">
-                            <label for="affiliationModeRadio5">
-                                <input type="radio" name="affiliationMode" id="affiliationModeRadio5" ng-model="affiliationModeRadio" ng-value="5" ng-click="expandAffiliationModeSelect()" ng-checked="affiliationModeRadio == 5"> Other (please specify): {{affiliationModeOther}}
-                            </label>
-                            <input type="text" id="affiliationModeOther" ng-model="affiliationModeOther" ng-change="affiliationModeOtherChange(5)">
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })
+                        @Html.TextBoxFor(x => Model.PracticeType, new { ng_class = "{'hide' : practiceType != 'other'}" })
+                    </div>
                 </div>
             </div>
-            <div class="fancy-form-row">
+
+            <div class="fancy-form-row" ng-cloak>
                 <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
-                <div class="fancy-form-control">
-                    <span class="fancy-form-select-toggle" ng-click="expandFirmTypeSelect()"><i ng-class="{'icon-up-open':expandFirmType,'icon-down-open':!expandFirmType}"></i></span>
-                    <ul class="fancy-form-select" ng-class="{'expand':expandFirmType}">
-                        <li ng-class="{'active':firmTypeRadio == 0}">
-                            <label for="firmTypeRadio0">
-                                <input type="radio" name="firmType" id="firmTypeRadio0" ng-model="firmTypeRadio" ng-value="0" ng-checked="true" ng-click="expandFirmTypeSelect()"> Firm Type
-                            </label>
-                        </li>
-                        <li ng-class="{'active':firmTypeRadio == 1}">
-                            <label for="firmTypeRadio1">
-                                <input type="radio" name="firmType" id="firmTypeRadio1" ng-model="firmTypeRadio" ng-value="1" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit {{firmTypeRadio1}}
-                            </label>
-                        </li>
-                        <li ng-class="{'active':firmTypeRadio == 2}">
-                            <label for="firmTypeRadio2">
-                                <input type="radio" name="firmType" id="firmTypeRadio2" ng-model="firmTypeRadio" ng-value="2" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':firmTypeRadio == 3}">
-                            <label for="firmTypeRadio3">
-                                <input type="radio" name="firmType" id="firmTypeRadio3" ng-model="firmTypeRadio" ng-value="3" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':firmTypeRadio == 4}">
-                            <label for="firmTypeRadio4">
-                                <input type="radio" name="firmType" id="firmTypeRadio4" ng-model="firmTypeRadio" ng-value="4" ng-click="expandFirmTypeSelect()"> Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                            </label>
-                        </li>
-                        <li ng-class="{'active':firmTypeRadio == 5}">
-                            <label for="firmTypeRadio5">
-                                <input type="radio" name="firmType" id="firmTypeRadio5" ng-model="firmTypeRadio" ng-value="5" ng-click="expandFirmTypeSelect()" ng-checked="firmTypeRadio == 5"> Other (please specify): {{firmTypeOther}}
-                            </label>
-                            <input type="text" id="firmTypeOther" ng-model="firmTypeOther" ng-change="firmTypeOtherChange(5)">
-                        </li>
-                    </ul>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select data-val="true" data-val-required="Please make a selection" id="AffiliationMode" name="AffiliationMode" ng-model="affiliationMode">
+                            <option value="">Affiliation Mode</option>
+                            <option value="Type 1">Type 1</option>
+                            <option value="Type 2">Type 2</option>
+                            <option value="Type 3">Type 3</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <input id="AffiliationMode" name="AffiliationMode" type="text" value="" ng-class="{'hide' : affiliationMode != 'other'}">
+                    </div>
                 </div>
             </div>
+
+            <div class="fancy-form-row" ng-cloak>
+                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <select data-val="true" data-val-required="Please make a selection" id="FilmType" name="FilmType" ng-model="filmType">
+                            <option value="">Film Type</option>
+                            <option value="Type 1">Type 1</option>
+                            <option value="Type 2">Type 2</option>
+                            <option value="Type 3">Type 3</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <input id="FilmType" name="FilmType" type="text" value="" ng-class="{'hide' : filmType != 'other'}">
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </section>
-    <section>
+    <section ng-cloak>
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
@@ -322,7 +245,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel }}</span>
+                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -341,7 +264,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Advisors <i class="icon-info"></i>
+                            # Full-Time Equivalent Advisors <i class="icon-info tooltip"></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
@@ -355,7 +278,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # New Clients <i class="icon-info"></i>
+                            # New Clients <i class="icon-info tooltip"></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
@@ -364,15 +287,15 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ ((newClients)/selectedMonth)*12 }}</span>
+                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
                         </div>
                     </div>
                 </fieldset>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="button-container text-center">
-                            <input class="btn-big" type="submit" name="submit" value="Save Your Inputs" />
-                            <input class="btn-big" type="submit" name="submit" value="VMI Inputs Next" />
+                            <button class="btn-big" type="submit" name="submit">Save Your Inputs</button>
+                            <button class="btn-big" type="submit" name="submit">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>                

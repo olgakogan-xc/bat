@@ -218,12 +218,19 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\AMK_Wordmark.png" />
+    <Content Include="Images\business_assessment_logo.png" />
+    <Content Include="Images\Lock.PNG" />
+    <Content Include="Images\pdf.png" />
     <Content Include="Scripts\angular-input-masks.js" />
+    <Content Include="Scripts\angular-locale_en-us.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\batapp.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\highcharts-more.js" />
+    <Content Include="Scripts\highcharts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -239,11 +246,9 @@
     <Content Include="Scripts\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Styles\fonts\ico.svg" />
-    <Content Include="Styles\Images\AMK_Wordmark.png" />
-    <Content Include="Styles\Images\bg-slider.png" />
-    <Content Include="Styles\Images\business_assessment_logo.png" />
+    <Content Include="Styles\images\bg-slider-small.png" />
+    <Content Include="Styles\images\bg-slider.png" />
     <Content Include="Styles\styles.css" />
-    <Content Include="Styles\Images\Lock.PNG" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
