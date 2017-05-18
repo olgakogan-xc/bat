@@ -2432,7 +2432,7 @@ section.white {
 .fancy-form-select > li span,
 .fancy-label > li span {
   display: block;
-  padding: 0.5rem 1.0rem;
+  padding: 0.5rem 4.0rem 0.5rem 1.0rem;
   font-size: 1.4rem;
 }
 /* line 63, ../scss/app/modules/_fancyform.scss */
@@ -2448,7 +2448,7 @@ section.white {
 /* line 71, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li:not(.active) span,
 .fancy-label > li:not(.active) span {
-  padding: 1.0rem;
+  padding: 1.0rem 4.0rem 1.0rem 1.0rem;
 }
 /* line 76, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li input[type="text"],
