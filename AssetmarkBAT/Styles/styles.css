@@ -515,6 +515,11 @@ hr {
   border: 0;
 }
 
+/* line 31, ../scss/app/core/_base.scss */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /* line 2, ../scss/app/core/_grid.scss */
 .container {
   margin: 0 auto;
