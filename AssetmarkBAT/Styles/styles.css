@@ -1931,12 +1931,16 @@ section.white {
 .sliders .slider-low {
   text-align: right;
 }
+/* line 70, ../scss/app/modules/_sliders.scss */
+.sliders .slider-control input[type="text"] {
+  display: none;
+}
 
-/* line 77, ../scss/app/modules/_sliders.scss */
+/* line 81, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-bar {
   opacity: 0.01;
 }
-/* line 80, ../scss/app/modules/_sliders.scss */
+/* line 84, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer {
   top: -4px;
   width: 32px;
@@ -1944,67 +1948,67 @@ section.white {
   border-radius: 0;
   background: transparent url(images/bg-slider.png) center center no-repeat;
 }
-/* line 87, ../scss/app/modules/_sliders.scss */
+/* line 91, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:after {
   display: none;
 }
-/* line 91, ../scss/app/modules/_sliders.scss */
+/* line 95, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:focus {
   outline: none;
 }
 
-/* line 99, ../scss/app/modules/_sliders.scss */
+/* line 103, ../scss/app/modules/_sliders.scss */
 .slider-comp .rz-pointer,
 .slider-comp .rz-ticks,
 .slider-comp .rz-bar-wrapper:not(.rz-draggable) {
   opacity: 0.01;
 }
-/* line 106, ../scss/app/modules/_sliders.scss */
+/* line 110, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 111, ../scss/app/modules/_sliders.scss */
+/* line 115, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider[disabled] .rz-bar {
   height: 60px;
   background-color: #b1b1b1;
 }
 
-/* line 120, ../scss/app/modules/_sliders.scss */
+/* line 124, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rz-pointer {
   opacity: 0.01;
 }
-/* line 125, ../scss/app/modules/_sliders.scss */
+/* line 129, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 128, ../scss/app/modules/_sliders.scss */
+/* line 132, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar {
   height: 60px;
   background-color: #ddd;
   box-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-/* line 133, ../scss/app/modules/_sliders.scss */
+/* line 137, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-ticks {
   top: 60px;
 }
-/* line 136, ../scss/app/modules/_sliders.scss */
+/* line 140, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick {
   width: 1px;
   border-radius: 0;
   background-color: #ddd;
 }
-/* line 141, ../scss/app/modules/_sliders.scss */
+/* line 145, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick-legend {
   top: 10px;
   color: #b1b1b1;
 }
 
-/* line 148, ../scss/app/modules/_sliders.scss */
+/* line 152, ../scss/app/modules/_sliders.scss */
 .optimizer-slider {
   position: relative;
   height: 90px;
 }
-/* line 152, ../scss/app/modules/_sliders.scss */
+/* line 156, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer,
 .optimizer-slider .slider-comp,
 .optimizer-slider .slider-ticks {
@@ -2012,7 +2016,7 @@ section.white {
   top: 0;
   width: 100%;
 }
-/* line 159, ../scss/app/modules/_sliders.scss */
+/* line 163, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer .rzslider,
 .optimizer-slider .slider-comp .rzslider,
 .optimizer-slider .slider-ticks .rzslider {
