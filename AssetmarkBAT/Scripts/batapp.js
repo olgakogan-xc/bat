@@ -451,23 +451,43 @@ $(function () {
 
         $(dropdown).insertAfter(select);
 
-        console.log(select);
+        //select.parent().find('li[data-value="Other"]').append(select.parent().siblings('input[type="text"]'));
+        //select.parent().find('li[data-value="Other"]').append('<span class="fancy-close">close</span>');
+
     });
 
     $('body .fancy-form-select').each(function () {
         var select = $(this);
 
         select.on('click', function (e) {
-            select.toggleClass('expand');
+            //e.preventDefault();
+            //if(!select.hasClass('expand')){
+            //  select.addClass('expand');
+            //}
         });
 
         select.find('li').on('click', function (e) {
-            e.preventDefault();
+            //e.preventDefault();
             var item = $(this);
 
+            if (select.hasClass('expand')) {
+                //if(item.data('value') != 'Other'){
+                select.removeClass('expand');
+                //}
+            } else {
+                select.addClass('expand');
+            }
+
+            if (item.data('value') == 'Other') {
+                select.parent().siblings('input[type="text"]').removeClass('hide');
+            } else {
+                select.parent().siblings('input[type="text"]').addClass('hide');
+            }
+
+            item.siblings('li').removeClass('active');
+            item.addClass('active');
             select.prev().find('option').removeAttr('selected');
             select.prev().find('option').filter('[value="' + item.data('value') + '"]').attr('selected', true);
-
         });
     });
 
