@@ -543,9 +543,9 @@ namespace AssetmarkBAT.Controllers
             //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
             page.Graphics.DrawString(model.Ff_TotalFirmAsset, helvetica, textBrush, 50, 35);
 
-            string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
-            PdfImage lockImage = new PdfImage(imagePath);
-            page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+            //string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
+            //PdfImage lockImage = new PdfImage(imagePath);
+            //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
 
             MemoryStream stream = new MemoryStream();
             // Saves the document as stream
