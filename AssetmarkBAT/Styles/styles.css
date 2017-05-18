@@ -259,8 +259,8 @@ hr {
 
 @font-face {
   font-family: 'ico';
-  src: url("fonts/ico.eot?90013916");
-  src: url("fonts/ico.eot?90013916#iefix") format("embedded-opentype"), url("fonts/ico.woff2?90013916") format("woff2"), url("fonts/ico.woff?90013916") format("woff"), url("fonts/ico.ttf?90013916") format("truetype"), url("fonts/ico.svg?90013916#ico") format("svg");
+  src: url("fonts/ico.eot?97334248");
+  src: url("fonts/ico.eot?97334248#iefix") format("embedded-opentype"), url("fonts/ico.woff2?97334248") format("woff2"), url("fonts/ico.woff?97334248") format("woff"), url("fonts/ico.ttf?97334248") format("truetype"), url("fonts/ico.svg?97334248#ico") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -270,7 +270,7 @@ hr {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'ico';
-    src: url('fonts/ico.svg?90013916#ico') format('svg');
+    src: url('fonts/ico.svg?97334248#ico') format('svg');
   }
 }
 */
@@ -304,23 +304,53 @@ hr {
 }
 
 /* line 58, ../scss/app/core/_fonts.scss */
+.icon-phone:before {
+  content: '\e800';
+}
+
+/* '' */
+/* line 59, ../scss/app/core/_fonts.scss */
+.icon-info:before {
+  content: '\e801';
+}
+
+/* '' */
+/* line 60, ../scss/app/core/_fonts.scss */
+.icon-chevron-left:before {
+  content: '\e802';
+}
+
+/* '' */
+/* line 61, ../scss/app/core/_fonts.scss */
+.icon-chevron-right:before {
+  content: '\e803';
+}
+
+/* '' */
+/* line 62, ../scss/app/core/_fonts.scss */
 .icon-down-open:before {
   content: '\f004';
 }
 
 /* '' */
-/* line 59, ../scss/app/core/_fonts.scss */
+/* line 63, ../scss/app/core/_fonts.scss */
 .icon-up-open:before {
   content: '\f005';
 }
 
 /* '' */
-/* line 60, ../scss/app/core/_fonts.scss */
-.icon-file-pdf:before {
-  content: '\f1c1';
+/* line 65, ../scss/app/core/_fonts.scss */
+.icon-chevron-left,
+.icon-chevron-right {
+  font-size: 0.7em;
+}
+/* line 69, ../scss/app/core/_fonts.scss */
+.icon-chevron-left:before,
+.icon-chevron-right:before {
+  position: relative;
+  top: -0.1em;
 }
 
-/* '' */
 /* line 1, ../scss/app/core/_typography.scss */
 strong {
   font-weight: 600;
@@ -348,10 +378,13 @@ h2 {
   margin-bottom: 1.0rem;
   font-size: 2.0rem;
   font-weight: 400;
+}
+/* line 26, ../scss/app/core/_typography.scss */
+h2 span {
   text-decoration: underline;
 }
 
-/* line 27, ../scss/app/core/_typography.scss */
+/* line 31, ../scss/app/core/_typography.scss */
 h3 {
   margin-bottom: 1.0rem;
   font-size: 1.8rem;
@@ -359,85 +392,92 @@ h3 {
   text-decoration: underline;
 }
 
-/* line 34, ../scss/app/core/_typography.scss */
+/* line 38, ../scss/app/core/_typography.scss */
 h4 {
   font-size: 1.6rem;
   font-weight: 400;
   margin-bottom: 1.0rem;
   text-decoration: underline;
 }
-/* line 40, ../scss/app/core/_typography.scss */
+/* line 44, ../scss/app/core/_typography.scss */
 h4.secondary {
   font-weight: 600;
   text-decoration: none;
-  color: #0692c5;
+  color: #007ebb;
 }
 
-/* line 47, ../scss/app/core/_typography.scss */
+/* line 51, ../scss/app/core/_typography.scss */
 h5 {
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 0;
 }
 
-/* line 53, ../scss/app/core/_typography.scss */
+/* line 57, ../scss/app/core/_typography.scss */
 h6 {
+  margin-bottom: 0;
   font-size: 1.2rem;
   font-weight: 500;
+  color: #09395e;
 }
 
 @media (min-width: 585px) {
-  /* line 59, ../scss/app/core/_typography.scss */
+  /* line 65, ../scss/app/core/_typography.scss */
   h1 {
     font-size: 4.8rem;
     margin-bottom: 2.0rem;
   }
 
-  /* line 64, ../scss/app/core/_typography.scss */
+  /* line 70, ../scss/app/core/_typography.scss */
   h2 {
     font-size: 3.6rem;
     margin-bottom: 2.0rem;
   }
 
-  /* line 69, ../scss/app/core/_typography.scss */
+  /* line 75, ../scss/app/core/_typography.scss */
   h3 {
     font-size: 3.0rem;
     margin-bottom: 1.0rem;
   }
 
-  /* line 74, ../scss/app/core/_typography.scss */
+  /* line 80, ../scss/app/core/_typography.scss */
   h4 {
     font-size: 2.4rem;
   }
 
-  /* line 78, ../scss/app/core/_typography.scss */
+  /* line 84, ../scss/app/core/_typography.scss */
   h5 {
     font-size: 2.0rem;
   }
 
-  /* line 82, ../scss/app/core/_typography.scss */
+  /* line 88, ../scss/app/core/_typography.scss */
   h6 {
     font-size: 1.6rem;
   }
 }
-/* line 87, ../scss/app/core/_typography.scss */
+/* line 93, ../scss/app/core/_typography.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 91, ../scss/app/core/_typography.scss */
+/* line 97, ../scss/app/core/_typography.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 95, ../scss/app/core/_typography.scss */
+/* line 101, ../scss/app/core/_typography.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 99, ../scss/app/core/_typography.scss */
+/* line 105, ../scss/app/core/_typography.scss */
 .light {
   font-weight: 200;
+}
+
+/* line 109, ../scss/app/core/_typography.scss */
+small {
+  font-size: 0.7em;
 }
 
 /* line 1, ../scss/app/core/_base.scss */
@@ -470,7 +510,7 @@ hr {
   margin: 3.0rem 0;
   height: 3px;
   color: #09395e;
-  background: #0692c5;
+  background: #007ebb;
   font-size: 0;
   border: 0;
 }
@@ -1509,10 +1549,11 @@ select {
 /* line 21, ../scss/app/core/_forms.scss */
 fieldset {
   position: relative;
+  margin-top: 3.0rem;
   margin-bottom: 3.0rem;
   font-size: 1.8rem;
 }
-/* line 26, ../scss/app/core/_forms.scss */
+/* line 27, ../scss/app/core/_forms.scss */
 fieldset legend {
   display: block;
   margin-bottom: 1.0rem;
@@ -1521,35 +1562,35 @@ fieldset legend {
   font-size: 2.0rem;
   font-weight: 300;
 }
-/* line 35, ../scss/app/core/_forms.scss */
+/* line 36, ../scss/app/core/_forms.scss */
 fieldset .row {
   margin-bottom: 1.0rem;
 }
-/* line 39, ../scss/app/core/_forms.scss */
+/* line 40, ../scss/app/core/_forms.scss */
 fieldset .field-header {
   margin-bottom: 3.0rem;
   font-weight: 600;
   background-color: #d9d8d4;
 }
-/* line 45, ../scss/app/core/_forms.scss */
+/* line 46, ../scss/app/core/_forms.scss */
 fieldset .field-label {
   text-align: right;
 }
-/* line 49, ../scss/app/core/_forms.scss */
+/* line 50, ../scss/app/core/_forms.scss */
 fieldset .field-control {
   text-align: right;
 }
-/* line 52, ../scss/app/core/_forms.scss */
+/* line 53, ../scss/app/core/_forms.scss */
 fieldset .field-control input {
   margin-bottom: 0;
   text-align: right;
 }
-/* line 57, ../scss/app/core/_forms.scss */
+/* line 58, ../scss/app/core/_forms.scss */
 fieldset .field-control span {
   display: block;
   padding: 0.5rem 1.5rem;
 }
-/* line 63, ../scss/app/core/_forms.scss */
+/* line 64, ../scss/app/core/_forms.scss */
 fieldset .field-value {
   font-weight: 600;
 }
@@ -1564,7 +1605,7 @@ fieldset .field-value {
   text-align: center;
   font-weight: 600;
   border-radius: 5.0rem;
-  background-color: #0692c5;
+  background-color: #007ebb;
   color: #fff;
 }
 /* line 13, ../scss/app/core/_buttons.scss */
@@ -1592,6 +1633,11 @@ fieldset .field-value {
 .btn.btn-inline, .button.btn-inline, button.btn-inline, [type='button'].btn-inline, [type='reset'].btn-inline, [type='submit'].btn-inline {
   display: inline-block;
   width: auto;
+}
+
+/* line 42, ../scss/app/core/_buttons.scss */
+.button-container {
+  margin-top: 4.0rem;
 }
 
 /* line 1, ../scss/app/core/_lists.scss */
@@ -1657,46 +1703,48 @@ img.noImg {
 
 /* line 1, ../scss/app/core/_tables.scss */
 table {
+  margin-bottom: 3.0rem;
   table-layout: inherit;
 }
-/* line 4, ../scss/app/core/_tables.scss */
+/* line 5, ../scss/app/core/_tables.scss */
 table thead {
   margin-bottom: 2.0rem;
   background-color: #d9d8d4;
 }
-/* line 8, ../scss/app/core/_tables.scss */
+/* line 9, ../scss/app/core/_tables.scss */
 table thead th {
   padding: 0.5rem;
   border-bottom: none;
 }
-/* line 15, ../scss/app/core/_tables.scss */
+/* line 16, ../scss/app/core/_tables.scss */
 table tbody tr:last-child td {
   border-bottom: none;
 }
-/* line 19, ../scss/app/core/_tables.scss */
+/* line 20, ../scss/app/core/_tables.scss */
 table tbody td {
   padding: 0.5rem;
   border-color: #d9d8d4;
 }
-/* line 24, ../scss/app/core/_tables.scss */
+/* line 25, ../scss/app/core/_tables.scss */
 table tbody:before {
   content: "-";
   display: block;
   line-height: 2em;
   color: transparent;
 }
-/* line 31, ../scss/app/core/_tables.scss */
+/* line 32, ../scss/app/core/_tables.scss */
 table tbody:after {
   content: "-";
   display: block;
   line-height: 2em;
   color: transparent;
 }
-/* line 40, ../scss/app/core/_tables.scss */
+/* line 41, ../scss/app/core/_tables.scss */
 table tfoot td {
   padding: 0.5rem;
   border-top: 1px solid #d9d8d4;
   border-bottom: none;
+  font-weight: 600;
 }
 
 /* line 2, ../scss/app/modules/_nav.scss */
@@ -1707,7 +1755,7 @@ nav > ul {
 /* line 1, ../scss/app/modules/_header.scss */
 .header {
   padding: 2.0rem 0 1.5rem 0;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   background-color: #09395e;
   color: #fff;
 }
@@ -1724,6 +1772,11 @@ nav > ul {
 .header nav .btn {
   margin-bottom: 0;
   border-radius: 0.3rem;
+  font-size: 1.3rem;
+}
+/* line 20, ../scss/app/modules/_header.scss */
+.header nav .icon-phone:before {
+  font-size: 1.5em;
 }
 
 /* line 1, ../scss/app/modules/_footer.scss */
@@ -1801,7 +1854,7 @@ section.white {
 }
 /* line 30, ../scss/app/modules/_scoreboard.scss */
 .scoreboard .score.score-calculated {
-  background-color: #0692c5;
+  background-color: #007ebb;
 }
 /* line 33, ../scss/app/modules/_scoreboard.scss */
 .scoreboard .score.score-submitted {
@@ -1814,7 +1867,7 @@ section.white {
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  color: #0692c5;
+  color: #007ebb;
 }
 /* line 10, ../scss/app/modules/_sliders.scss */
 .sliders .slider {
@@ -1833,51 +1886,52 @@ section.white {
 /* line 26, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-tick {
   width: 1px;
+  margin-left: 7px;
   border-radius: 0;
   background-color: #ddd;
 }
-/* line 31, ../scss/app/modules/_sliders.scss */
+/* line 32, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-tick.rz-selected {
   font-weight: 600;
   color: #1F3445;
 }
-/* line 36, ../scss/app/modules/_sliders.scss */
+/* line 37, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-tick-value {
   top: 10px;
   color: #b1b1b1;
 }
-/* line 40, ../scss/app/modules/_sliders.scss */
+/* line 41, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-pointer {
   top: -13px;
   width: 16px;
   height: 30px;
   border-radius: 0;
-  background: transparent url(images/bg-slider.png) center center no-repeat;
+  background: transparent url(images/bg-slider-small.png) center center no-repeat;
   background-size: 16px 30px;
 }
-/* line 48, ../scss/app/modules/_sliders.scss */
+/* line 49, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-pointer:after {
   display: none;
 }
-/* line 52, ../scss/app/modules/_sliders.scss */
+/* line 53, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-pointer:focus {
   outline: none;
 }
-/* line 59, ../scss/app/modules/_sliders.scss */
+/* line 60, ../scss/app/modules/_sliders.scss */
 .sliders .slider-low,
 .sliders .slider-high {
   line-height: 1.3em;
 }
-/* line 64, ../scss/app/modules/_sliders.scss */
+/* line 65, ../scss/app/modules/_sliders.scss */
 .sliders .slider-low {
   text-align: right;
 }
 
-/* line 76, ../scss/app/modules/_sliders.scss */
+/* line 77, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-bar {
   opacity: 0.01;
 }
-/* line 79, ../scss/app/modules/_sliders.scss */
+/* line 80, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer {
   top: -4px;
   width: 32px;
@@ -1885,67 +1939,67 @@ section.white {
   border-radius: 0;
   background: transparent url(images/bg-slider.png) center center no-repeat;
 }
-/* line 86, ../scss/app/modules/_sliders.scss */
+/* line 87, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:after {
   display: none;
 }
-/* line 90, ../scss/app/modules/_sliders.scss */
+/* line 91, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:focus {
   outline: none;
 }
 
-/* line 98, ../scss/app/modules/_sliders.scss */
+/* line 99, ../scss/app/modules/_sliders.scss */
 .slider-comp .rz-pointer,
 .slider-comp .rz-ticks,
 .slider-comp .rz-bar-wrapper:not(.rz-draggable) {
   opacity: 0.01;
 }
-/* line 105, ../scss/app/modules/_sliders.scss */
+/* line 106, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 110, ../scss/app/modules/_sliders.scss */
+/* line 111, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider[disabled] .rz-bar {
   height: 60px;
   background-color: #b1b1b1;
 }
 
-/* line 119, ../scss/app/modules/_sliders.scss */
+/* line 120, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rz-pointer {
   opacity: 0.01;
 }
-/* line 124, ../scss/app/modules/_sliders.scss */
+/* line 125, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 127, ../scss/app/modules/_sliders.scss */
+/* line 128, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar {
   height: 60px;
   background-color: #ddd;
   box-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-/* line 132, ../scss/app/modules/_sliders.scss */
+/* line 133, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-ticks {
   top: 60px;
 }
-/* line 135, ../scss/app/modules/_sliders.scss */
+/* line 136, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick {
   width: 1px;
   border-radius: 0;
   background-color: #ddd;
 }
-/* line 140, ../scss/app/modules/_sliders.scss */
+/* line 141, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick-legend {
   top: 10px;
   color: #b1b1b1;
 }
 
-/* line 147, ../scss/app/modules/_sliders.scss */
+/* line 148, ../scss/app/modules/_sliders.scss */
 .optimizer-slider {
   position: relative;
   height: 90px;
 }
-/* line 151, ../scss/app/modules/_sliders.scss */
+/* line 152, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer,
 .optimizer-slider .slider-comp,
 .optimizer-slider .slider-ticks {
@@ -1953,7 +2007,7 @@ section.white {
   top: 0;
   width: 100%;
 }
-/* line 158, ../scss/app/modules/_sliders.scss */
+/* line 159, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer .rzslider,
 .optimizer-slider .slider-comp .rzslider,
 .optimizer-slider .slider-ticks .rzslider {
@@ -2299,7 +2353,7 @@ section.white {
 
 /* line 1, ../scss/app/modules/_graph.scss */
 .graph {
-  margin: 4.0rem 0;
+  margin: 3.0rem 0 5.0rem 0;
 }
 
 /* line 1, ../scss/app/modules/_fancyform.scss */
@@ -2386,4 +2440,23 @@ section.white {
   font-size: 1.4rem;
   font-weight: 400;
   color: #c00;
+}
+
+/* line 2, ../scss/app/modules/_tooltip.scss */
+.tooltip:before {
+  color: #007ebb;
+}
+
+/* line 1, ../scss/app/modules/_swatch.scss */
+.swatch {
+  position: relative;
+  top: -0.1em;
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  vertical-align: middle;
+}
+/* line 9, ../scss/app/modules/_swatch.scss */
+.swatch.grey {
+  background-color: #aaa;
 }
