@@ -2459,7 +2459,7 @@ section.white {
 .fancy-form-select.expand,
 .fancy-label.expand {
   z-index: 5;
-  max-height: 2.7rem;
+  max-height: 4.1rem;
 }
 /* line 85, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand:after,
@@ -2471,40 +2471,48 @@ section.white {
 .fancy-label.expand > li {
   background-color: #fff;
   color: #1F3445;
+  border-left: 1px solid #d9d8d4;
+  border-right: 1px solid #d9d8d4;
 }
-/* line 93, ../scss/app/modules/_fancyform.scss */
+/* line 95, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:not(.active),
 .fancy-label.expand > li:not(.active) {
   max-height: 10rem;
 }
-/* line 97, ../scss/app/modules/_fancyform.scss */
+/* line 99, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li.active,
 .fancy-label.expand > li.active {
   background-color: #09395e;
   color: #fff;
 }
-/* line 101, ../scss/app/modules/_fancyform.scss */
+/* line 103, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:hover:not(.active),
 .fancy-label.expand > li:hover:not(.active) {
   background-color: #F7F7F7;
 }
-/* line 104, ../scss/app/modules/_fancyform.scss */
+/* line 106, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li input[type="text"],
 .fancy-label.expand > li input[type="text"] {
   display: block;
 }
-/* line 108, ../scss/app/modules/_fancyform.scss */
+/* line 110, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:first-child,
 .fancy-label.expand > li:first-child {
+  border-top: 1px solid #d9d8d4;
   background-color: #999999;
   color: #1F3445;
 }
-
 /* line 116, ../scss/app/modules/_fancyform.scss */
+.fancy-form-select.expand > li:last-child,
+.fancy-label.expand > li:last-child {
+  border-bottom: 1px solid #d9d8d4;
+}
+
+/* line 123, ../scss/app/modules/_fancyform.scss */
 .fancy-select {
   position: relative;
 }
-/* line 119, ../scss/app/modules/_fancyform.scss */
+/* line 126, ../scss/app/modules/_fancyform.scss */
 .fancy-select:after {
   position: absolute;
   z-index: 1;
@@ -2514,7 +2522,7 @@ section.white {
   content: '\f004';
   color: #fff;
 }
-/* line 129, ../scss/app/modules/_fancyform.scss */
+/* line 136, ../scss/app/modules/_fancyform.scss */
 .fancy-select select {
   position: absolute;
   z-index: 1;
@@ -2525,7 +2533,7 @@ section.white {
   opacity: 0.01;
 }
 
-/* line 140, ../scss/app/modules/_fancyform.scss */
+/* line 147, ../scss/app/modules/_fancyform.scss */
 .fancy-label {
   padding: 0.5rem 1.0rem;
 }
