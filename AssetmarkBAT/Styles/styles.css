@@ -2366,16 +2366,21 @@ section.white {
 }
 
 /* line 1, ../scss/app/modules/_fancyform.scss */
+.fancy-form-row {
+  margin-top: 2.0rem;
+}
+
+/* line 5, ../scss/app/modules/_fancyform.scss */
 .fancy-form-control {
   position: relative;
-  margin-bottom: 2.0rem;
+  margin-bottom: 0.5rem;
 }
-/* line 5, ../scss/app/modules/_fancyform.scss */
+/* line 9, ../scss/app/modules/_fancyform.scss */
 .fancy-form-control select {
   display: none;
 }
 
-/* line 10, ../scss/app/modules/_fancyform.scss */
+/* line 14, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select-toggle {
   position: absolute;
   z-index: 10;
@@ -2384,7 +2389,7 @@ section.white {
   color: #fff;
 }
 
-/* line 19, ../scss/app/modules/_fancyform.scss */
+/* line 23, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select,
 .fancy-label {
   position: relative;
@@ -2393,7 +2398,7 @@ section.white {
   background-color: #09395e;
   color: #fff;
 }
-/* line 27, ../scss/app/modules/_fancyform.scss */
+/* line 31, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select:after,
 .fancy-label:after {
   position: absolute;
@@ -2404,18 +2409,18 @@ section.white {
   content: '\f004';
   color: #fff;
 }
-/* line 37, ../scss/app/modules/_fancyform.scss */
+/* line 41, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li,
 .fancy-label > li {
   overflow: hidden;
   color: #fff;
 }
-/* line 41, ../scss/app/modules/_fancyform.scss */
+/* line 45, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li label,
 .fancy-label > li label {
   margin-bottom: 0;
 }
-/* line 45, ../scss/app/modules/_fancyform.scss */
+/* line 49, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li input[type="radio"],
 .fancy-label > li input[type="radio"] {
   position: absolute;
@@ -2423,83 +2428,83 @@ section.white {
   width: 100%;
   height: 100%;
 }
-/* line 52, ../scss/app/modules/_fancyform.scss */
+/* line 56, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li span,
 .fancy-label > li span {
   display: block;
   padding: 0.5rem 1.0rem;
   font-size: 1.4rem;
 }
-/* line 59, ../scss/app/modules/_fancyform.scss */
+/* line 63, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li.active span,
 .fancy-label > li.active span {
   font-size: 1.8rem;
 }
-/* line 64, ../scss/app/modules/_fancyform.scss */
+/* line 68, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li:not(.active),
 .fancy-label > li:not(.active) {
   max-height: 0;
 }
-/* line 67, ../scss/app/modules/_fancyform.scss */
+/* line 71, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li:not(.active) span,
 .fancy-label > li:not(.active) span {
   padding: 1.0rem;
 }
-/* line 72, ../scss/app/modules/_fancyform.scss */
+/* line 76, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li input[type="text"],
 .fancy-label > li input[type="text"] {
   display: none;
 }
-/* line 77, ../scss/app/modules/_fancyform.scss */
+/* line 81, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand,
 .fancy-label.expand {
   z-index: 5;
   max-height: 2.7rem;
 }
-/* line 81, ../scss/app/modules/_fancyform.scss */
+/* line 85, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand:after,
 .fancy-label.expand:after {
   color: #1F3445;
 }
-/* line 85, ../scss/app/modules/_fancyform.scss */
+/* line 89, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li,
 .fancy-label.expand > li {
   background-color: #fff;
   color: #1F3445;
 }
-/* line 89, ../scss/app/modules/_fancyform.scss */
+/* line 93, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:not(.active),
 .fancy-label.expand > li:not(.active) {
   max-height: 10rem;
 }
-/* line 93, ../scss/app/modules/_fancyform.scss */
+/* line 97, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li.active,
 .fancy-label.expand > li.active {
   background-color: #09395e;
   color: #fff;
 }
-/* line 97, ../scss/app/modules/_fancyform.scss */
+/* line 101, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:hover:not(.active),
 .fancy-label.expand > li:hover:not(.active) {
   background-color: #F7F7F7;
 }
-/* line 100, ../scss/app/modules/_fancyform.scss */
+/* line 104, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li input[type="text"],
 .fancy-label.expand > li input[type="text"] {
   display: block;
 }
-/* line 104, ../scss/app/modules/_fancyform.scss */
+/* line 108, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:first-child,
 .fancy-label.expand > li:first-child {
   background-color: #999999;
   color: #1F3445;
 }
 
-/* line 112, ../scss/app/modules/_fancyform.scss */
+/* line 116, ../scss/app/modules/_fancyform.scss */
 .fancy-select {
   position: relative;
 }
-/* line 115, ../scss/app/modules/_fancyform.scss */
+/* line 119, ../scss/app/modules/_fancyform.scss */
 .fancy-select:after {
   position: absolute;
   z-index: 1;
@@ -2509,7 +2514,7 @@ section.white {
   content: '\f004';
   color: #fff;
 }
-/* line 125, ../scss/app/modules/_fancyform.scss */
+/* line 129, ../scss/app/modules/_fancyform.scss */
 .fancy-select select {
   position: absolute;
   z-index: 1;
@@ -2520,7 +2525,7 @@ section.white {
   opacity: 0.01;
 }
 
-/* line 136, ../scss/app/modules/_fancyform.scss */
+/* line 140, ../scss/app/modules/_fancyform.scss */
 .fancy-label {
   padding: 0.5rem 1.0rem;
 }

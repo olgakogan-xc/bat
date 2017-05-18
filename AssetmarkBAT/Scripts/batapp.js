@@ -479,7 +479,7 @@ $(function () {
             }
 
             if (item.data('value') == 'Other') {
-                select.parent().siblings('input[type="text"]').removeClass('hide');
+                select.parent().siblings('input[type="text"]').removeClass('hide').focus();
             } else {
                 select.parent().siblings('input[type="text"]').addClass('hide');
             }
