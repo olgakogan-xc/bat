@@ -92,9 +92,9 @@
 									<div class="form-group">
 										<label for="">Select time period for your data</label>
 										<div class="fancy-select">
-											<select name="timePeriod" class="exclude" ng-model="selectedYear" ng-change="yearSelected()" ng-init="selectedYear = 2017; selectedYearLabel = 'YTD 2017'">
-												<option value="2016">Previous Year</option>
-												<option value="2017" ng-selected="true">YTD 2017</option>
+											<select name="timePeriod" class="exclude" ng-model="selectedYear" ng-change="yearSelected()" ng-init="selectedYear = 2016; selectedYearLabel = 'Previous Year'">
+												<option value="2016" ng-selected="true">Previous Year</option>
+												<option value="2017">YTD 2017</option>
 											</select>
 											<div class="fancy-label">{{selectedYearLabel}}</div>
 										</div>
