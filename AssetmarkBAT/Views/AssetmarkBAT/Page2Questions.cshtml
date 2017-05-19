@@ -64,7 +64,7 @@
                         <div class="col-md-3">
                             <div class="score score-calculated">
                                 <h5>Calculated total score</h5>
-                                <h3>876</h3>
+                                <h3>{{calculatedTotalScore}}</h3>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -85,7 +85,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp1.value" />*@                               
                                 @Html.TextBoxFor(m => m.Vmi_Man_Written_Plan, new { ng_init = string.Format("myp1.value = '{0}'", Model.Vmi_Man_Written_Plan), ng_model = "myp1.value" })
-                                <rzslider rz-slider-model="myp1.value"></rzslider>
+                                <rzslider rz-slider-model="myp1.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a written business plan that is executed consistently and drives future goals.
@@ -100,7 +100,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp2.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Man_Track, new { ng_init = string.Format("myp2.value = '{0}'", Model.Vmi_Man_Track), ng_model = "myp2.value" })
-                                <rzslider rz-slider-model="myp2.value"></rzslider>
+                                <rzslider rz-slider-model="myp2.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I regularly track financial business metrics and work toward goals based on those metrics.
@@ -115,7 +115,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp3.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Man_Phase, new { ng_init = string.Format("myp3.value = '{0}'", Model.Vmi_Man_Phase), ng_model = "myp3.value" })
-                                <rzslider rz-slider-model="myp3.value"></rzslider>
+                                <rzslider rz-slider-model="myp3.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 All of my clients are in the accumulation stage of their financial lives.
@@ -130,7 +130,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp4.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Man_Revenue, new { ng_init = string.Format("myp4.value = '{0}'", Model.Vmi_Man_Revenue), ng_model = "myp4.value" })
-                                <rzslider rz-slider-model="myp4.value"></rzslider>
+                                <rzslider rz-slider-model="myp4.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 All of my revenue is recurring and fee-based.
@@ -145,7 +145,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myp5.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Man_Practice, new { ng_init = string.Format("myp5.value = '{0}'", Model.Vmi_Man_Practice), ng_model = "myp5.value" })
-                                <rzslider rz-slider-model="myp5.value"></rzslider>
+                                <rzslider rz-slider-model="myp5.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a process-driven, sustainable practice that I can easily transition.
@@ -164,7 +164,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myb1.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Mar_Value_Proposition, new { ng_init = string.Format("myb1.value = '{0}'", Model.Vmi_Mar_Value_Proposition), ng_model = "myb1.value" })
-                                <rzslider rz-slider-model="myb1.value"></rzslider>
+                                <rzslider rz-slider-model="myb1.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a clearly defined value proposition that is aligned with my target market.
@@ -179,7 +179,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myb2.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Mar_Materials, new { ng_init = string.Format("myb2.value = '{0}'", Model.Vmi_Mar_Materials), ng_model = "myb2.value" })
-                                <rzslider rz-slider-model="myb2.value"></rzslider>
+                                <rzslider rz-slider-model="myb2.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have high-quality marketing materials, including a website, with an institutionalized brand.
@@ -194,7 +194,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myb3.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Mar_Plan, new { ng_init = string.Format("myb3.value = '{0}'", Model.Vmi_Mar_Plan), ng_model = "myb3.value" })
-                                <rzslider rz-slider-model="myb3.value"></rzslider>
+                                <rzslider rz-slider-model="myb3.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a formal marketing plan that consistently drives high quality prospects to my practice.
@@ -209,7 +209,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myb4.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Mar_Prospects, new { ng_init = string.Format("myb4.value = '{0}'", Model.Vmi_Mar_Prospects), ng_model = "myb4.value" })
-                                <rzslider rz-slider-model="myb4.value"></rzslider>
+                                <rzslider rz-slider-model="myb4.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I consistently assess prospects using my ideal client profile that aligns with my target market.
@@ -224,7 +224,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="myb5.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Mar_New_Business, new { ng_init = string.Format("myb5.value = '{0}'", Model.Vmi_Mar_New_Business), ng_model = "myb5.value" })                             
-                                <rzslider rz-slider-model="myb5.value"></rzslider>
+                                <rzslider rz-slider-model="myb5.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I consistently get new business from client, center of influence and professional referrals.
@@ -243,7 +243,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="oyo1.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Opt_Automate, new { ng_init = string.Format("oyo1.value = '{0}'", Model.Vmi_Opt_Automate), ng_model = "oyo1.value" })
-                                <rzslider rz-slider-model="oyo1.value"></rzslider>
+                                <rzslider rz-slider-model="oyo1.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I consistently automate processes, utilizing technological and outsourced solutions.
@@ -258,7 +258,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="oyo2.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Opt_Procedures, new { ng_init = string.Format("oyo2.value = '{0}'", Model.Vmi_Opt_Procedures), ng_model = "oyo2.value" })
-                                <rzslider rz-slider-model="oyo2.value"></rzslider>
+                                <rzslider rz-slider-model="oyo2.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have detailed, written procedures for business operations that are performed consistently.
@@ -273,7 +273,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="oyo3.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Opt_Segment, new { ng_init = string.Format("oyo3.value = '{0}'", Model.Vmi_Opt_Segment), ng_model = "oyo3.value" })
-                                <rzslider rz-slider-model="oyo3.value"></rzslider>
+                                <rzslider rz-slider-model="oyo3.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have segmented my client base into tiers and know how they impact revenue and profitability.
@@ -288,7 +288,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="oyo4.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Opt_Model, new { ng_init = string.Format("oyo4.value = '{0}'", Model.Vmi_Opt_Model), ng_model = "oyo4.value" })
-                                <rzslider rz-slider-model="oyo4.value"></rzslider>
+                                <rzslider rz-slider-model="oyo4.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a defined client service model that consistently provides a high-quality client experience.
@@ -303,7 +303,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="oyo5.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Opt_Schedule, new { ng_init = string.Format("oyo5.value = '{0}'", Model.Vmi_Opt_Schedule), ng_model = "oyo5.value" })
-                                <rzslider rz-slider-model="oyo5.value"></rzslider>
+                                <rzslider rz-slider-model="oyo5.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a formal fee schedule that is applied consistently and aligned with the services provided.
@@ -322,7 +322,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="eyt1.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Emp_Human, new { ng_init = string.Format("eyt1.value = '{0}'", Model.Vmi_Emp_Human), ng_model = "eyt1.value" })
-                                <rzslider rz-slider-model="eyt1.value"></rzslider>
+                                <rzslider rz-slider-model="eyt1.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have invested in developing and growing a staff in line with my firm’s strategy and goals.
@@ -337,7 +337,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="eyt2.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Emp_Compensation, new { ng_init = string.Format("eyt2.value = '{0}'", Model.Vmi_Emp_Compensation), ng_model = "eyt2.value" })
-                                <rzslider rz-slider-model="eyt2.value"></rzslider>
+                                <rzslider rz-slider-model="eyt2.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have a formal compensation plan, aligned with industry standards that motivate my team.
@@ -352,7 +352,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="eyt3.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Emp_Responsibilities, new { ng_init = string.Format("eyt3.value = '{0}'", Model.Vmi_Emp_Responsibilities), ng_model = "eyt3.value" })
-                                <rzslider rz-slider-model="eyt3.value"></rzslider>
+                                <rzslider rz-slider-model="eyt3.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I focus only on revenue-producing activities and outsource or use my staff for everything else.
@@ -367,7 +367,7 @@
                             <div class="col-md-4 slider-control">
                                 @*<input type="hidden" ng-model="eyt4.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Emp_Staff, new { ng_init = string.Format("eyt4.value = '{0}'", Model.Vmi_Emp_Staff), ng_model = "eyt4.value" })
-                                <rzslider rz-slider-model="eyt4.value"></rzslider>
+                                <rzslider rz-slider-model="eyt4.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I am staffed optimally to effectively manage my work load and I have capacity for growth.
@@ -382,7 +382,7 @@
                             <div class="col-md-4 slider-control">
                               @*  <input type="hidden" ng-model="eyt5.value" />*@
                                 @Html.TextBoxFor(m => m.Vmi_Emp_Emp_Retention, new { ng_init = string.Format("eyt5.value = '{0}'", Model.Vmi_Emp_Emp_Retention), ng_model = "eyt5.value" })
-                                <rzslider rz-slider-model="eyt5.value"></rzslider>
+                                <rzslider rz-slider-model="eyt5.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
                                 I have no problems with retention and have staff that are in the business for the long term.
@@ -403,7 +403,7 @@
 
                             <input type="submit" class="btn-big" name="submit" value="Previous Firm Financials" />
                             <input type="submit" class="btn-big" name="submit" value="Save Your Inputs" />                            
-                            <input type="submit" class="btn-big" name="submit" value="Submit VMI Scores" />
+                            <input type="submit" class="btn-big btn-secondary" name="submit" value="Submit VMI Scores" ng-disabled="!vmiSliderChanged" />
                         </div>
                     </div>
                 </div>

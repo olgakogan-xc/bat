@@ -22,7 +22,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.selectedMonthLabel = '';
     $scope.shownMonths = [];
 
-
     $scope.yearSelected = function () {
         if (new Date().getFullYear() == $scope.selectedYear) {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
@@ -73,11 +72,21 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('http://am-bvs-am-bvs-stage.azurewebsites.net/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
-            console.log(data);
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
             var graphValues = [];
+
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
+
             $scope.fvrGraph.series[0].setData(graphValues);
+
+            $scope.pagrComp.minValue = data.top_pagr_min;
+            $scope.pagrComp.maxValue = data.top_pagr_max;
+
+            $scope.pmComp.minValue = data.top_pm_min;
+            $scope.pmComp.maxValue = data.top_pm_max;
+
+            $scope.vmiComp.minValue = data.top_vmi_min;
+            $scope.vmiComp.maxValue = data.top_vmi_max;
         });
     };
 
@@ -135,6 +144,26 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         });
 
         $scope.getGraphValues();
+    };
+
+    $scope.calculatedTotalScore = 500;
+    $scope.vmiSliderChanged = false;
+
+    $scope.updateScore = function () {
+        var myp = $scope.myp1.value + $scope.myp2.value + $scope.myp3.value + $scope.myp4.value + $scope.myp5.value;
+        var myb = $scope.myb1.value + $scope.myb2.value + $scope.myb3.value + $scope.myb4.value + $scope.myb5.value;
+        var oyo = $scope.oyo1.value + $scope.oyo2.value + $scope.oyo3.value + $scope.oyo4.value + $scope.oyo5.value;
+        var eyt = $scope.eyt1.value + $scope.eyt2.value + $scope.eyt3.value + $scope.eyt4.value + $scope.eyt5.value;
+
+        $scope.calculatedTotalScore = (myp + myb + oyo + eyt) * 5;
+
+        $scope.vmiSliderChanged = true;
+    };
+
+    $scope.vmiSliders = {
+        options: {
+            onEnd: $scope.updateScore
+        }
     };
 
     $scope.myp1 = {
@@ -203,7 +232,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
 
     $scope.pagr = {
-        value: 6.5,
+        value: 0,
         options: {
             floor: 0,
             ceil: 25.0,
@@ -218,8 +247,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pagrComp = {
-        minValue: 6.2,
-        maxValue: 11.5,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 25.0,
@@ -280,7 +309,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pm = {
-        value: 16,
+        value: 0,
         options: {
             floor: 0,
             ceil: 40,
@@ -294,8 +323,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pmComp = {
-        minValue: 20,
-        maxValue: 25,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 40,
@@ -349,7 +378,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.vmi = {
-        value: 210,
+        value: 0,
         options: {
             floor: 0,
             ceil: 1000,
@@ -363,8 +392,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.vmiComp = {
-        minValue: 700,
-        maxValue: 900,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 1000,
@@ -417,6 +446,12 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         }
     };
 
+    $scope.resetVmiSliders = function () {
+        $scope.pagr.value = $scope.pagr.valueOg;
+        $scope.pm.value = $scope.pm.valueOg;
+        $scope.vmi.value = $scope.vmi.valueOg;
+    };
+
     $scope.filterCurrency = function (model) {
         console.log(value);
         var filteredValue = value.replace(/[$,.]/g, '');
@@ -425,6 +460,14 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 });
 
 $(function () {
+    $('select:not(.exclude)').each(function () {
+        var select = $(this);
+
+        if (select[0].options[0].text === '') {
+            console.log(select.prop('selectedIndex', 1));
+        }
+    });
+
     $('select:not(.exclude)').each(function (e) {
         var select = $(this);
         var dropdown = '';
@@ -436,44 +479,28 @@ $(function () {
             var option = $(this);
             var list = '';
 
-            console.log(option[0].selected);
             if (option[0].selected) {
                 list += '<li data-value="' + option[0].value + '" class="active"><span>' + option[0].text + '</span></li>';
             } else {
                 list += '<li data-value="' + option[0].value + '"><span>' + option[0].text + '</span></li>';
             }
 
-            console.log(option);
-
             dropdown += list;
         });
         dropdown += '</ul>';
 
         $(dropdown).insertAfter(select);
-
-        //select.parent().find('li[data-value="Other"]').append(select.parent().siblings('input[type="text"]'));
-        //select.parent().find('li[data-value="Other"]').append('<span class="fancy-close">close</span>');
-
     });
 
     $('body .fancy-form-select').each(function () {
         var select = $(this);
 
-        select.on('click', function (e) {
-            //e.preventDefault();
-            //if(!select.hasClass('expand')){
-            //  select.addClass('expand');
-            //}
-        });
-
         select.find('li').on('click', function (e) {
-            //e.preventDefault();
+            e.preventDefault();
             var item = $(this);
 
             if (select.hasClass('expand')) {
-                //if(item.data('value') != 'Other'){
                 select.removeClass('expand');
-                //}
             } else {
                 select.addClass('expand');
             }
