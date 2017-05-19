@@ -88,7 +88,7 @@
 								<div class="col-md-6" ng-class="{'hide' : selectedYear != 'YTD 2017'}">
 									<div class="form-group">
 										<label for="">Month for YTD entry {{time.period}}</label>
-                                        @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month) })
+                                        @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month), @class = "hide" })
 										<div class="fancy-select">
                                             @*@Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", @name= "timeMonth", ng_model = "selectedMonth", ng_init = "yearSelected()" })*@
 											<select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
