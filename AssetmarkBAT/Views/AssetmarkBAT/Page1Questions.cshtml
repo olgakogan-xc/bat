@@ -37,45 +37,31 @@
                 </p>
 
             <div class="fancy-form-row" ng-cloak>
-                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                <div class="fancy-form-label"></div>
                 <div class="row">
                     <div class="col-md-6">
                         @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
-                        @*@Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })*@
-                        @Html.TextBoxFor(x => Model.PracticeType, new { ng_class = "{'hide' : practiceType != 'other'}" })
+                        @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'other'}" })
                     </div>
                 </div>
             </div>
 
                 <div class="fancy-form-row" ng-cloak>
-                    <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                    <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
                     <div class="row">
                         <div class="col-md-6">
-                            @*<select data-val="true" data-val-required="Please make a selection" id="AffiliationMode" name="AffiliationMode" ng-model="affiliationMode">
-                                    <option value="">Affiliation Mode</option>
-                                    <option value="Type 1">Financial Planning Firm: Focused on providing financial planning services / process</option>
-                                    <option value="Type 2">Investment Advisory Firm: Focused on providing investment strategy and manager selection</option>
-                                    <option value="Type 3">Wealth Management Firm: Provide holistic advice to clients, including integrated tax, estate and financial planning in addition to investment services</option>
-                                    <option value="Other">Other</option>
-                                </select>*@
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes, new { ng_model = "affiliationMode", @name = "AffiliationMode", @id = "AffiliationMode" })
-                            <input id="AffiliationMode" name="AffiliationMode" type="text" value="" ng-class="{'hide' : affiliationMode != 'other'}">
+                            @Html.TextBoxFor(x => Model.AffiliationModeOther, new { ng_class = "{'hide' : affiliationMode != 'other'}" })
                         </div>
                     </div>
                 </div>
 
                 <div class="fancy-form-row" ng-cloak>
-                    <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                    <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
                     <div class="row">
                         <div class="col-md-6">
-                            <select data-val="true" data-val-required="Please make a selection" id="FilmType" name="FilmType" ng-model="filmType">
-                                <option value="">Film Type</option>
-                                <option value="Type 1">Type 1</option>
-                                <option value="Type 2">Type 2</option>
-                                <option value="Type 3">Type 3</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <input id="FilmType" name="FilmType" type="text" value="" ng-class="{'hide' : filmType != 'other'}">
+                            @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes, new { ng_model = "filmType", @name = "FilmType", @id = "FilmType" })
+                            @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : filmType != 'other'}" })
                         </div>
                     </div>
                 </div>
@@ -107,11 +93,12 @@
                                 <div class="form-group">
                                     <label for="">Month for YTD entry {{time.period}}</label>
                                     <div class="fancy-select">
-                                        <select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
+                                        @Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", ng_model = "selectedMonth", ng_change = "yearSelected()" })
+                                        @*<select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
                                             <option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
                                                 {{month}}
                                             </option>
-                                        </select>
+                                        </select>*@
                                         <div class="fancy-label">{{months[selectedMonth]}}</div>
                                     </div>
                                 </div>

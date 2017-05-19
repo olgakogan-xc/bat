@@ -263,7 +263,6 @@ namespace AssetmarkBAT.Controllers
         private void InitializeDropDowns(BATModel batModel)
         {
             //years
-
             List<SelectListItem> years = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Time Range", Value = "0" },
@@ -271,15 +270,10 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Previous Year", Value = "Previous" }
             };
 
-            batModel.Years = new SelectList(years, "Value", "Text");
+            batModel.Years = new SelectList(years, "Value", "Text");          
 
             //months
-
-            //TODO: return below value later
-            //int fullMonths = DateTime.Now.Month - 1;
-
-            int fullMonths = 9;
-
+            int fullMonths = DateTime.Now.Month - 1;
             List<SelectListItem> months = new List<SelectListItem>();
 
             for (int x = 1; x <= fullMonths; x++)
@@ -288,46 +282,41 @@ namespace AssetmarkBAT.Controllers
                 months.Add(new SelectListItem { Text = monthName, Value = x.ToString() });
             }
 
-
             batModel.Months = new SelectList(months, "Value", "Text");
 
             //Practice Types
-
             List<SelectListItem> types = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Practice Type", Value = "Practice Type" },
-                new SelectListItem { Text = "Type 1", Value = "Type 1" },
-                new SelectListItem { Text = "Type 2", Value = "Type 2" },
-                new SelectListItem { Text = "Type 3", Value = "Type 3" },
-                new SelectListItem { Text = "Type 4", Value = "Type 4" },
+                new SelectListItem { Text = "Single advisor practice: Solo practitioner or providing data on your book of business only1", Value = "Single advisor practice" },
+                new SelectListItem { Text = "Multiple advisor practice:  Multiple advisor practice providing firm level data", Value = "Multiple advisor practice" },
+                new SelectListItem { Text = "Third party: Broker-dealer, wholesaler, consultant ", Value = "Third party" },              
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
             batModel.PracticeTypes = new SelectList(types, "Value", "Text", batModel.PracticeType);
 
             //Affiliation Modes
-
             List<SelectListItem> modes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Affiliation Mode", Value = "N/A" },
-                new SelectListItem { Text = "Mode 1", Value = "Mode 1" },
-                new SelectListItem { Text = "Mode 2", Value = "Mode 2" },
-                new SelectListItem { Text = "Mode 3", Value = "Mode 3" },
-                new SelectListItem { Text = "Mode 4", Value = "Mode 4" },
+                new SelectListItem { Text = "BD (Broker-Dealer): Affiliated with a full-service BD/wirehouse, independent BD, insurance BD or own BD", Value = "BD (Broker-Dealer)" },
+                new SelectListItem { Text = "RIA only (Registered Investment Advisor): Registered as an investment advisor with the SEC or state", Value = "RIA only (Registered Investment Advisor)" },
+                new SelectListItem { Text = "Hybrid BD/RAI: Have your own RIA, as well as a BD affiliation", Value = "Hybrid BD/RAI" },             
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
             batModel.AffiliationModes = new SelectList(modes, "Value", "Text");
 
             // Firm Types
-
             List<SelectListItem> firmTypes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Firm Types", Value = "N/A" },
-                new SelectListItem { Text = "Type 1", Value = "Type 1" },
-                new SelectListItem { Text = "Type 2", Value = "Type 2" },
-                new SelectListItem { Text = "Type 3", Value = "Type 3" },
-                new SelectListItem { Text = "Type 4", Value = "Type 4" }
+                new SelectListItem { Text = "Financial Planning Firm: Focused on providing financial planning services / process", Value = "Financial Planning Firm" },
+                new SelectListItem { Text = "Investment Advisory Firm: Focused on providing investment strategy and manager selection2", Value = "Investment Advisory Firm" },
+                new SelectListItem { Text = "Investment Management Firm: Focused on investment recommendations and discretionary investment management of client assets", Value = "Investment Management Firm" },
+                new SelectListItem { Text = "Wealth Management Firm: Provide holistic advice to clients, including integrated tax, estate and financial planning in addition to investment services", Value = "Wealth Management Firm" },
+                new SelectListItem { Text = "Other", Value = "Other" }
             };
 
             batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
@@ -381,7 +370,10 @@ namespace AssetmarkBAT.Controllers
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
                         Ff_New_Clients = model.Ff_NewClients,
                         Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
-                        PracticeType = model.PracticeType,
+                        PracticeType = (!string.IsNullOrEmpty(model.PracticeTypeOther))? model.PracticeTypeOther : model.PracticeType,
+                        AffiliationModel = (!string.IsNullOrEmpty(model.AffiliationModeOther))? model.AffiliationModeOther : model.AffiliationMode,
+                        FirmType = (!string.IsNullOrEmpty(model.FirmTypeOther))? model.FirmTypeOther : model.FirmType,
+                        TimeRange = (model.Year.Contains("Previous"))? model.Year : "YTD " + model.Month,                        
 
                         //VMI
                         Vmi_Man_Phase = model.Vmi_Man_Phase,
@@ -557,7 +549,7 @@ namespace AssetmarkBAT.Controllers
             double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
 
-            return Json(new { maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            return Json(new { operatingprofit=model.Ff_OperatingProfit, totalrevenue=model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
             //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);

@@ -12,7 +12,7 @@ namespace AssetmarkBAT.Models
     {      
         public string UserId { get; set; }
 
-        public string FirstName { get; set; }
+        public string firstName { get; set; }
 
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]
@@ -25,13 +25,17 @@ namespace AssetmarkBAT.Models
 
         [Required(ErrorMessage = "Please make a selection")]
         public string PracticeType { get; set; }
+
+        public string PracticeTypeOther { get; set; }
         public SelectList PracticeTypes { get; set; }
 
        
         public string AffiliationMode { get; set; }
+        public string AffiliationModeOther { get; set; }
         public SelectList AffiliationModes { get; set; }
 
         public string FirmType { get; set; }
+        public string FirmTypeOther { get; set; }
         public SelectList FirmTypes { get; set; }
 
 
