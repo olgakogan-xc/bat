@@ -36,15 +36,16 @@
                     This information helps us to understand what type of data you are providing. If you are an advisor in a firm, but are providing data for your book of business only please select single advisor practice.
                 </p>
 
-                <div class="fancy-form-row" ng-cloak>
-                    <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })
-                            <input id="PracticeType" name="PracticeType" type="text" value="" ng-class="{'hide' : practiceType != 'other'}">
-                        </div>
+            <div class="fancy-form-row" ng-cloak>
+                <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
+                        @*@Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })*@
+                        @Html.TextBoxFor(x => Model.PracticeType, new { ng_class = "{'hide' : practiceType != 'other'}" })
                     </div>
                 </div>
+            </div>
 
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
