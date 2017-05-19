@@ -195,23 +195,19 @@
                             </div>
                             <div class="col-md-4 field-control">
                                 <span ng-show="
-                                        !form.assets.$error.min
-                                        && !form.assets.$error.max
-                                        && !form.nonRecurringRevenue.$error.max
+                                        !form.nonRecurringRevenue.$error.max
                                         && !form.recurringRevenue.$error.max
                                         && !form.directExpenses.$error.max
                                         && !form.indirectExpenses.$error.max
-                                        ">{{ (((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)) | currency : '$' }}</span>
+                                        ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense) | currency : '$' }}</span>
                             </div>
                             <div class="col-md-3 field-value">
                                 <span ng-show="
-                                        !form.assets.$error.min
-                                        && !form.assets.$error.max
-                                        && !form.nonRecurringRevenue.$error.max
+                                        !form.nonRecurringRevenue.$error.max
                                         && !form.recurringRevenue.$error.max
                                         && !form.directExpenses.$error.max
                                         && !form.indirectExpenses.$error.max
-                                        ">{{ (((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)))/selectedMonth)*12 | currency : '$' }}</span>
+                                        ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense))/selectedMonth)*12 | currency : '$' }}</span>
                             </div>
                         </div>
                         <div class="row field-row">
