@@ -381,7 +381,7 @@
                             </div>
                             <div class="col-md-4 slider-control">
                               @*  <input type="hidden" ng-model="eyt5.value" />*@
-                                @Html.TextBoxFor(m => m.Vmi_Emp_Emp_Retention, new { ng_init = string.Format("eyt5.value = {0}", Model.Vmi_Emp_Emp_Retention), ng_model = "eyt5.value" })
+                                @Html.TextBoxFor(m => m.Vmi_Emp_Emp_Retention, new { ng_init = string.Format("eyt5.value = {0}", m.Vmi_Emp_Emp_Retention), ng_model = "eyt5.value" })
                                 <rzslider rz-slider-model="eyt5.value" rz-slider-options="vmiSliders.options"></rzslider>
                             </div>
                             <div class="col-md-4 slider-high">
