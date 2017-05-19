@@ -38,7 +38,7 @@
                 <div class="fancy-form-label">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, optio quas sapiente, ullam officiis possimus obcaecati, recusandae accusantium molestias tenetur rem laborum necessitatibus porro dicta ut assumenda aperiam molestiae nulla.</div>
                 <div class="row">
                     <div class="col-md-6">
-                        @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })
+                        @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
                         @*@Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_model = "practiceType" })*@
                         @Html.TextBoxFor(x => Model.PracticeType, new { ng_class = "{'hide' : practiceType != 'other'}" })
                     </div>
