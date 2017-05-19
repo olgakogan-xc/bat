@@ -2357,6 +2357,10 @@ section.white {
   position: relative;
   margin-bottom: 0.5rem;
 }
+/* line 9, ../scss/app/modules/_fancyform.scss */
+.fancy-form-control select {
+  display: none;
+}
 
 /* line 14, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select-toggle {
