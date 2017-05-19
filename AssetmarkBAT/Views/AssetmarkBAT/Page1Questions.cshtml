@@ -80,7 +80,7 @@
 									<div class="form-group">
 										<label for="">Select time period for your data</label>
 										<div class="fancy-select">
-                                            @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectedYear = '{0}'", Model.Year) })
+                                            @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectYear('{0}')", Model.Year) })
 											<div class="fancy-label">{{selectedYear}}</div>
 										</div>
 									</div>
