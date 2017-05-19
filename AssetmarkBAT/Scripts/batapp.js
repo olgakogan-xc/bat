@@ -22,6 +22,13 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.selectedMonthLabel = '';
     $scope.shownMonths = [];
 
+    $scope.selectYear = function (year) {
+        console.log(year);
+        if (year === '') {
+            $scope.selectedYear = 'Previous';
+        }
+    };
+
     $scope.yearSelected = function () {
         //if(new Date().getFullYear() == $scope.selectedYear){
         if ($scope.selectedYear == 'YTD 2017') {
