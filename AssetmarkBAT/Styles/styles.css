@@ -370,14 +370,14 @@ h1 sup, h2 sup, h3 sup, h4 sup, h5 sup, h6 sup {
 /* line 14, ../scss/app/core/_typography.scss */
 h1 {
   margin-bottom: 1.0rem;
-  font-size: 2.4rem;
+  font-size: 3.2rem;
   font-weight: 400;
 }
 
 /* line 20, ../scss/app/core/_typography.scss */
 h2 {
   margin-bottom: 1.0rem;
-  font-size: 2.0rem;
+  font-size: 2.4rem;
   font-weight: 400;
 }
 /* line 26, ../scss/app/core/_typography.scss */
@@ -422,61 +422,27 @@ h6 {
   color: #09395e;
 }
 
-@media (min-width: 585px) {
-  /* line 65, ../scss/app/core/_typography.scss */
-  h1 {
-    font-size: 4.8rem;
-    margin-bottom: 2.0rem;
-  }
-
-  /* line 70, ../scss/app/core/_typography.scss */
-  h2 {
-    font-size: 3.6rem;
-    margin-bottom: 2.0rem;
-  }
-
-  /* line 75, ../scss/app/core/_typography.scss */
-  h3 {
-    font-size: 3.0rem;
-    margin-bottom: 1.0rem;
-  }
-
-  /* line 80, ../scss/app/core/_typography.scss */
-  h4 {
-    font-size: 2.4rem;
-  }
-
-  /* line 84, ../scss/app/core/_typography.scss */
-  h5 {
-    font-size: 2.0rem;
-  }
-
-  /* line 88, ../scss/app/core/_typography.scss */
-  h6 {
-    font-size: 1.6rem;
-  }
-}
-/* line 93, ../scss/app/core/_typography.scss */
+/* line 84, ../scss/app/core/_typography.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 97, ../scss/app/core/_typography.scss */
+/* line 88, ../scss/app/core/_typography.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 101, ../scss/app/core/_typography.scss */
+/* line 92, ../scss/app/core/_typography.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 105, ../scss/app/core/_typography.scss */
+/* line 96, ../scss/app/core/_typography.scss */
 .light {
   font-weight: 200;
 }
 
-/* line 109, ../scss/app/core/_typography.scss */
+/* line 100, ../scss/app/core/_typography.scss */
 small {
   font-size: 0.7em;
 }
@@ -491,22 +457,23 @@ html {
 body {
   margin: 0;
   font-family: "Arial", sans-serif;
-  font-size: 1.8em;
+  font-size: 1.4em;
   font-weight: 200;
+  line-height: 1.3em;
   color: #1F3445;
 }
 
-/* line 14, ../scss/app/core/_base.scss */
+/* line 15, ../scss/app/core/_base.scss */
 p {
   margin-bottom: 2.0rem;
 }
 
-/* line 18, ../scss/app/core/_base.scss */
+/* line 19, ../scss/app/core/_base.scss */
 a {
   color: #165485;
 }
 
-/* line 22, ../scss/app/core/_base.scss */
+/* line 23, ../scss/app/core/_base.scss */
 hr {
   margin: 3.0rem 0;
   height: 3px;
@@ -516,7 +483,7 @@ hr {
   border: 0;
 }
 
-/* line 31, ../scss/app/core/_base.scss */
+/* line 32, ../scss/app/core/_base.scss */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -1549,7 +1516,7 @@ input {
 
 /* line 17, ../scss/app/core/_forms.scss */
 select {
-  border: 1px solid #d9d8d4;
+  border: 1px solid #bebbba;
 }
 
 /* line 21, ../scss/app/core/_forms.scss */
@@ -1557,46 +1524,45 @@ fieldset {
   position: relative;
   margin-top: 3.0rem;
   margin-bottom: 3.0rem;
-  font-size: 1.8rem;
 }
-/* line 27, ../scss/app/core/_forms.scss */
+/* line 26, ../scss/app/core/_forms.scss */
 fieldset legend {
   display: block;
   margin-bottom: 1.0rem;
   width: 100%;
-  border-bottom: 1px solid #d9d8d4;
+  border-bottom: 1px solid #bebbba;
   font-size: 2.0rem;
   font-weight: 300;
 }
-/* line 36, ../scss/app/core/_forms.scss */
+/* line 35, ../scss/app/core/_forms.scss */
 fieldset .row {
   margin-bottom: 1.0rem;
 }
-/* line 40, ../scss/app/core/_forms.scss */
+/* line 39, ../scss/app/core/_forms.scss */
 fieldset .field-header {
   margin-bottom: 3.0rem;
   font-weight: 600;
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
-/* line 46, ../scss/app/core/_forms.scss */
+/* line 45, ../scss/app/core/_forms.scss */
 fieldset .field-label {
   text-align: right;
 }
-/* line 50, ../scss/app/core/_forms.scss */
+/* line 49, ../scss/app/core/_forms.scss */
 fieldset .field-control {
   text-align: right;
 }
-/* line 53, ../scss/app/core/_forms.scss */
+/* line 52, ../scss/app/core/_forms.scss */
 fieldset .field-control input {
   margin-bottom: 0;
   text-align: right;
 }
-/* line 58, ../scss/app/core/_forms.scss */
+/* line 57, ../scss/app/core/_forms.scss */
 fieldset .field-control span {
   display: block;
   padding: 0.5rem 1.5rem;
 }
-/* line 64, ../scss/app/core/_forms.scss */
+/* line 63, ../scss/app/core/_forms.scss */
 fieldset .field-value {
   font-weight: 600;
 }
@@ -1657,6 +1623,17 @@ ul.list-inline li, nav > ul li,
 ol.list-inline li {
   display: inline-block;
 }
+/* line 13, ../scss/app/core/_lists.scss */
+ul.additional-resources a,
+ol.additional-resources a {
+  color: #1F3445;
+  font-weight: 600;
+}
+/* line 17, ../scss/app/core/_lists.scss */
+ul.additional-resources a img,
+ol.additional-resources a img {
+  margin-left: 0.5rem;
+}
 
 /* line 1, ../scss/app/core/_helpers.scss */
 .hide {
@@ -1715,7 +1692,7 @@ table {
 /* line 5, ../scss/app/core/_tables.scss */
 table thead {
   margin-bottom: 2.0rem;
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
 /* line 9, ../scss/app/core/_tables.scss */
 table thead th {
@@ -1729,7 +1706,7 @@ table tbody tr:last-child td {
 /* line 20, ../scss/app/core/_tables.scss */
 table tbody td {
   padding: 0.5rem;
-  border-color: #d9d8d4;
+  border-color: #bebbba;
 }
 /* line 25, ../scss/app/core/_tables.scss */
 table tbody:before {
@@ -1748,7 +1725,7 @@ table tbody:after {
 /* line 41, ../scss/app/core/_tables.scss */
 table tfoot td {
   padding: 0.5rem;
-  border-top: 1px solid #d9d8d4;
+  border-top: 1px solid #bebbba;
   border-bottom: none;
   font-weight: 600;
 }
@@ -1803,7 +1780,7 @@ section {
 }
 /* line 4, ../scss/app/modules/_sections.scss */
 section.grey {
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
 /* line 8, ../scss/app/modules/_sections.scss */
 section.white {
@@ -1816,7 +1793,7 @@ section.white {
   overflow-y: scroll;
   margin: 6.0rem;
   padding: 3.0rem;
-  border: 3px solid #d9d8d4;
+  border: 3px solid #bebbba;
   background-color: #fff;
 }
 /* line 9, ../scss/app/modules/_terms.scss */
@@ -2382,11 +2359,10 @@ section.white {
   position: absolute;
   z-index: 10;
   right: 1.0rem;
-  font-size: 1.4em;
   color: #fff;
 }
 
-/* line 23, ../scss/app/modules/_fancyform.scss */
+/* line 22, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select,
 .fancy-label {
   position: relative;
@@ -2395,7 +2371,7 @@ section.white {
   background-color: #09395e;
   color: #fff;
 }
-/* line 31, ../scss/app/modules/_fancyform.scss */
+/* line 30, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select:after,
 .fancy-label:after {
   position: absolute;
@@ -2406,18 +2382,18 @@ section.white {
   content: '\f004';
   color: #fff;
 }
-/* line 41, ../scss/app/modules/_fancyform.scss */
+/* line 40, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li,
 .fancy-label > li {
   overflow: hidden;
   color: #fff;
 }
-/* line 45, ../scss/app/modules/_fancyform.scss */
+/* line 44, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li label,
 .fancy-label > li label {
   margin-bottom: 0;
 }
-/* line 49, ../scss/app/modules/_fancyform.scss */
+/* line 48, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li input[type="radio"],
 .fancy-label > li input[type="radio"] {
   position: absolute;
@@ -2425,91 +2401,85 @@ section.white {
   width: 100%;
   height: 100%;
 }
-/* line 56, ../scss/app/modules/_fancyform.scss */
+/* line 55, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li span,
 .fancy-label > li span {
   display: block;
   padding: 0.5rem 4.0rem 0.5rem 1.0rem;
-  font-size: 1.4rem;
 }
-/* line 63, ../scss/app/modules/_fancyform.scss */
-.fancy-form-select > li.active span,
-.fancy-label > li.active span {
-  font-size: 1.8rem;
-}
-/* line 68, ../scss/app/modules/_fancyform.scss */
+/* line 65, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li:not(.active),
 .fancy-label > li:not(.active) {
   max-height: 0;
 }
-/* line 71, ../scss/app/modules/_fancyform.scss */
+/* line 68, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li:not(.active) span,
 .fancy-label > li:not(.active) span {
   padding: 1.0rem 4.0rem 1.0rem 1.0rem;
 }
-/* line 76, ../scss/app/modules/_fancyform.scss */
+/* line 73, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select > li input[type="text"],
 .fancy-label > li input[type="text"] {
   display: none;
 }
-/* line 81, ../scss/app/modules/_fancyform.scss */
+/* line 78, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand,
 .fancy-label.expand {
   z-index: 5;
   max-height: 4.1rem;
 }
-/* line 85, ../scss/app/modules/_fancyform.scss */
+/* line 82, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand:after,
 .fancy-label.expand:after {
   color: #1F3445;
 }
-/* line 89, ../scss/app/modules/_fancyform.scss */
+/* line 86, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li,
 .fancy-label.expand > li {
   background-color: #fff;
   color: #1F3445;
-  border-left: 1px solid #d9d8d4;
-  border-right: 1px solid #d9d8d4;
+  border-left: 1px solid #bebbba;
+  border-right: 1px solid #bebbba;
 }
-/* line 95, ../scss/app/modules/_fancyform.scss */
+/* line 92, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:not(.active),
 .fancy-label.expand > li:not(.active) {
   max-height: 10rem;
 }
-/* line 99, ../scss/app/modules/_fancyform.scss */
+/* line 96, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li.active,
 .fancy-label.expand > li.active {
   background-color: #09395e;
   color: #fff;
 }
-/* line 103, ../scss/app/modules/_fancyform.scss */
+/* line 100, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:hover:not(.active),
 .fancy-label.expand > li:hover:not(.active) {
   background-color: #F7F7F7;
 }
-/* line 106, ../scss/app/modules/_fancyform.scss */
+/* line 103, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li input[type="text"],
 .fancy-label.expand > li input[type="text"] {
   display: block;
 }
-/* line 110, ../scss/app/modules/_fancyform.scss */
+/* line 107, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:first-child,
 .fancy-label.expand > li:first-child {
-  border-top: 1px solid #d9d8d4;
+  border-top: 1px solid #bebbba;
   background-color: #999999;
   color: #1F3445;
 }
-/* line 116, ../scss/app/modules/_fancyform.scss */
+/* line 113, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:last-child,
 .fancy-label.expand > li:last-child {
-  border-bottom: 1px solid #d9d8d4;
+  border-bottom: 1px solid #bebbba;
 }
 
-/* line 123, ../scss/app/modules/_fancyform.scss */
+/* line 120, ../scss/app/modules/_fancyform.scss */
 .fancy-select {
   position: relative;
 }
-/* line 126, ../scss/app/modules/_fancyform.scss */
+/* line 123, ../scss/app/modules/_fancyform.scss */
 .fancy-select:after {
   position: absolute;
   z-index: 1;
@@ -2519,7 +2489,7 @@ section.white {
   content: '\f004';
   color: #fff;
 }
-/* line 136, ../scss/app/modules/_fancyform.scss */
+/* line 133, ../scss/app/modules/_fancyform.scss */
 .fancy-select select {
   position: absolute;
   z-index: 1;
@@ -2530,7 +2500,7 @@ section.white {
   opacity: 0.01;
 }
 
-/* line 147, ../scss/app/modules/_fancyform.scss */
+/* line 144, ../scss/app/modules/_fancyform.scss */
 .fancy-label {
   padding: 0.5rem 1.0rem;
 }

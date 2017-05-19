@@ -9,7 +9,7 @@
 <main>
     <section>
         <div class="container">
-            <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool"></h1>
+            <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool" width="350"></h1>
             <h2><span>Firm Financials</span></h2>
             <div class="row">
                 <div class="col-md-6">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <h4>Additional Resources</h4>
-                    <ul>
+                    <ul class="additional-resources">
                         <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Report_Sample" target="_blank">Sample Valuation <img src="~/Images/pdf.png" /></a></li>
                         <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <img src="~/Images/pdf.png" /></a></li>
                         <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <img src="~/Images/pdf.png" /></a></li>
@@ -73,226 +73,224 @@
 
                 @Html.HiddenFor(m => m.UserId)
                 @Html.HiddenFor(m => m.PDFPath)
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="">Select time period for your data</label>
-                                    <div class="fancy-select">
-                                        @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_initi= "selectedYear = 2017; selectedYearLabel = 'YTD 2017'" })
-                                        @*<select name="timePeriod" class="exclude" ng-model="selectedYear" ng-change="yearSelected()" ng-init="selectedYear = 2017; selectedYearLabel = 'YTD 2017'">
-                                            <option value="2016">Previous Year</option>
-                                            <option value="2017" ng-selected="true">YTD 2017</option>
-                                        </select>*@
-                                        <div class="fancy-label">{{selectedYearLabel}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6" ng-class="{'hide' : selectedYear < 2017}">
-                                <div class="form-group">
-                                    <label for="">Month for YTD entry {{time.period}}</label>
-                                    <div class="fancy-select">
-                                        @Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", ng_model = "selectedMonth", ng_change = "yearSelected()" })
-                                        @*<select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
-                                            <option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
-                                                {{month}}
-                                            </option>
-                                        </select>*@
-                                        <div class="fancy-label">{{months[selectedMonth]}}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <div class="row">
+						<div class="col-md-7">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="">Select time period for your data</label>
+										<div class="fancy-select">
+											<select name="timePeriod" class="exclude" ng-model="selectedYear" ng-change="yearSelected()" ng-init="selectedYear = 2016; selectedYearLabel = 'Previous Year'">
+												<option value="2016" ng-selected="true">Previous Year</option>
+												<option value="2017">YTD 2017</option>
+											</select>
+											<div class="fancy-label">{{selectedYearLabel}}</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6" ng-class="{'hide' : selectedYear < 2017}">
+									<div class="form-group">
+										<label for="">Month for YTD entry {{time.period}}</label>
+										<div class="fancy-select">
+											<select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
+												<option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
+													{{month}}
+												</option>
+											</select>
+											<div class="fancy-label">{{months[selectedMonth]}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                <fieldset>
-                    <div class="row field-header">
-                        <div class="col-md-5 field-label">
-                            Performance Metric
+                    <fieldset>
+                        <div class="row field-header">
+                            <div class="col-md-5 field-label">
+                                Performance Metric
+                            </div>
+                            <div class="col-md-4 field-control"></div>
+                            <div class="col-md-3 field-value">Annualized Values</div>
                         </div>
-                        <div class="col-md-4 field-control"></div>
-                        <div class="col-md-3 field-value">Annualized Values</div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@                           
+                                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = {0}", Model.Ff_TotalFirmAsset).Replace("$","").Replace(",","").Replace(".","").Replace(" ","").Replace("%",""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
+                                <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
+                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ (assets/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = {0}", Model.Ff_TotalFirmAsset).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Non-recurring Revenue
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = {0}", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
+                                <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
-                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ (assets/selectedMonth)*12 | currency : '$' }}</span>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Recurring Revenue
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = {0}", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
+                                <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Non-recurring Revenue
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                <strong>Total Revenue (Calculated)</strong>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12) | currency : '$' }}</span>
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12))/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = {0}", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = {0}", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
+                                <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = {0}", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
+                                <span ng-show="!form.indirectExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Recurring Revenue
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Operating Profit (Calculated)
+                            </div>
+                            <div class="col-md-4 field-control">
+                                <span ng-show="
+                                        !form.assets.$error.min
+                                        && !form.assets.$error.max
+                                        && !form.nonRecurringRevenue.$error.max
+                                        && !form.recurringRevenue.$error.max
+                                        && !form.directExpenses.$error.max
+                                        && !form.indirectExpenses.$error.max
+                                        ">{{ (((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)) | currency : '$' }}</span>
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <span ng-show="
+                                        !form.assets.$error.min
+                                        && !form.assets.$error.max
+                                        && !form.nonRecurringRevenue.$error.max
+                                        && !form.recurringRevenue.$error.max
+                                        && !form.directExpenses.$error.max
+                                        && !form.indirectExpenses.$error.max
+                                        ">{{ (((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)))/selectedMonth)*12 | currency : '$' }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = {0}", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
+                                @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
+                                <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ growthRate*100 }}%</span>
+                            </div>
                         </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                # Client Relationships
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
+                                @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
+                                <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
+                                <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            <strong>Total Revenue (Calculated)</strong>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
+                                @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
+                                <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
+                                <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-4 field-control">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12) | currency : '$' }}</span>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                # Full-Time Equivalent Advisors <i class="icon-info tooltip"></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
+                                @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
+                                <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
+                                <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
+                            </div>
                         </div>
-                        <div class="col-md-3 field-value">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12))/selectedMonth)*12 | currency : '$' }}</span>
+                        <div class="row field-row">
+                            <div class="col-md-5 field-label">
+                                # New Clients <i class="icon-info tooltip"></i>
+                            </div>
+                            <div class="col-md-4 field-control">
+                                @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
+                                @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                            </div>
+                            <div class="col-md-3 field-value">
+                                <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
+                                <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
+                                <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = {0}", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = {0}", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.indirectExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Operating Profit (Calculated)
-                        </div>
-                        <div class="col-md-4 field-control">
-                            <span ng-show="
-                                  !form.assets.$error.min
-                                  && !form.assets.$error.max
-                                  && !form.nonRecurringRevenue.$error.max
-                                  && !form.recurringRevenue.$error.max
-                                  && !form.directExpenses.$error.max
-                                  && !form.indirectExpenses.$error.max
-                                  ">{{ (((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)) | currency : '$' }}</span>
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <span ng-show="
-                                  !form.assets.$error.min
-                                  && !form.assets.$error.max
-                                  && !form.nonRecurringRevenue.$error.max
-                                  && !form.recurringRevenue.$error.max
-                                  && !form.directExpenses.$error.max
-                                  && !form.indirectExpenses.$error.max
-                                  ">{{ (((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12)) - (((directExpenses/selectedMonth)*12) + ((indirectExpenses/selectedMonth)*12)))/selectedMonth)*12 | currency : '$' }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
-                            <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ growthRate*100 }}%</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            # Client Relationships
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Advisors <i class="icon-info tooltip"></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
-                        </div>
-                    </div>
-                    <div class="row field-row">
-                        <div class="col-md-5 field-label">
-                            # New Clients <i class="icon-info tooltip"></i>
-                        </div>
-                        <div class="col-md-4 field-control">
-                            @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
-                        </div>
-                        <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="button-container text-center">
-                            <input class="btn-big" type="submit" name="submit" value="Save Your Inputs" />
-                            <button class="btn-big" type="submit" name="submit" value="submit" form="form">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
-                            @*<input type="submit" name="submit" value="Save Your Inputs" />
+                    </fieldset>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="button-container text-center">
+                                <input type="submit" name="submit" value="Save Your Inputs" />
+                                <button type="submit" name="submit" value="submit" form="form">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
+                                @*<input type="submit" name="submit" value="Save Your Inputs" />
                                 <input type="submit" name="submit" value="VMI Inputs Next" />*@
                         </div>
                     </div>
