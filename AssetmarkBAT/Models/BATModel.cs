@@ -12,6 +12,8 @@ namespace AssetmarkBAT.Models
     {      
         public string UserId { get; set; }
 
+        public string FirstName { get; set; }
+
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]
         public string Year { get; set; }
