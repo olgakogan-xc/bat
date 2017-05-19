@@ -264,13 +264,15 @@ namespace AssetmarkBAT.Controllers
         {
             //years
             List<SelectListItem> years = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "Time Range", Value = "0" },
-                new SelectListItem { Text = "YTD 2017", Value = "YTD 2017" },
-                new SelectListItem { Text = "Previous Year", Value = "Previous" }
+            {                 
+                new SelectListItem { Text = "Previous Year", Value = "Previous" },
+                new SelectListItem { Text = "YTD 2017", Value = "YTD 2017" }
             };
 
-            batModel.Years = new SelectList(years, "Value", "Text");          
+            batModel.Years = new SelectList(years, "Value", "Text", 0);
+
+            //var selected = years.Where(x => x.Value == "Previous Year").First();
+            //selected.Selected = true;
 
             //months
             int fullMonths = DateTime.Now.Month - 1;
@@ -528,8 +530,8 @@ namespace AssetmarkBAT.Controllers
 
                 if (PopulateModelFromDatabase(model))
                 {
-                    model.BATValuationModel.ValuationMin = 3092000;
-                    model.BATValuationModel.ValuationMax = 3618000;
+                    model.BATValuationModel.ValuationMin = 2092000;
+                    model.BATValuationModel.ValuationMax = 3101000;
                 }
             }
 
@@ -549,6 +551,11 @@ namespace AssetmarkBAT.Controllers
             double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
 
+            if(PAGR < 15)
+            {
+                return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = 5678423, calculatedmin = 4000786, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            }
+
             return Json(new { operatingprofit=model.Ff_OperatingProfit, totalrevenue=model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
@@ -564,86 +571,107 @@ namespace AssetmarkBAT.Controllers
 
         private string CreatePdf(BATModel model)
         {
-            //try
-            //{
-            //PdfFixedDocument document = new PdfFixedDocument();
-            //PdfPage page = document.Pages.Add();
-            //document.Save("empty.pdf");
-
-            
-
-            //PdfFixedDocument document = Load("C:\\Olga\\PdfTemplate.pdf");
-            PdfFixedDocument document = Load(HttpContext.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
-            PdfPage page = document.Pages[0];
-
-            // Create a standard font with Helvetica face and 24 point size
-            PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 12);
-            // Create a solid RGB red brush.
-            PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
-            PdfBrush darkBlueBrush = new PdfBrush();
-            darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
-            PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
-
-            PdfBrush redBrush = new PdfBrush(PdfRgbColor.Red);
-
-            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(50, 700));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(600, 0), new PdfPoint(600, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(700, 0), new PdfPoint(700, 800));
-
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 100), new PdfPoint(800, 100));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 200), new PdfPoint(800, 200));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 300), new PdfPoint(800, 300));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 500), new PdfPoint(800, 500));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 600), new PdfPoint(800, 600));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 700), new PdfPoint(800, 700));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 800), new PdfPoint(800, 800));
-            page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 900), new PdfPoint(800, 900));
-
-
-            //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
-            //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-            //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-
-            PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
-            PdfStandardFont largeTitleFont = new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 36);
-            //page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
-
-            //Blue table header
-            //PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
-            //page.Graphics.DrawLine(redBrush, 0, 0, 100, 90);
-            //page.Graphics.DrawRectangle(redBrush, 0, 100, 100, 90);
-            //page.Graphics.DrawRectangle(redBrush, 0, 200, 100, 90);
-            //page.Graphics.DrawRectangle(redBrush, 0, 300, 100, 90);
-            //page.Graphics.DrawRectangle(redBrush, 0, 400, 100, 90);
-
-            //PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
-            //PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
-            //page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
-            //page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
-            //page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
-
-            if (PopulateModelFromDatabase(model))
+            try
             {
-                model.BenchmarkModel = new BenchmarksValuationModel();
-                BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+                //PdfFixedDocument document = new PdfFixedDocument();
+                //PdfPage page = document.Pages.Add();
+                //document.Save("empty.pdf");
 
-                //first row
-                //page.Graphics.DrawString("Total Firm Aum", tableRowTextFont, tableRowTextBlueBrush, 50, 95);
-                //page.Graphics.DrawString("------", tableRowTextFont, tableRowTextBlueBrush, 100, 95);
-                //page.Graphics.DrawString(peerGroup.TotalAUMPerClient.ToString(), tableRowTextFont, tableRowTextBlueBrush, 150, 95);
 
-                int groupNumber = model.BenchmarkModel.PeerGroups.IndexOf(peerGroup);
 
-                if (groupNumber == 4)
+                //PdfFixedDocument document = Load("C:\\Olga\\PdfTemplate.pdf");
+                PdfFixedDocument document = Load(HttpContext.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
+                PdfPage page = document.Pages[0];
+
+                // Create a standard font with Helvetica face and 24 point size
+                PdfStandardFont helvetica = new PdfStandardFont(PdfStandardFontFace.Helvetica, 12);
+                // Create a solid RGB red brush.
+                PdfBrush backgroundBrush = new PdfBrush(PdfRgbColor.Aqua);
+                PdfBrush darkBlueBrush = new PdfBrush();
+                darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
+                PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
+
+                PdfBrush redBrush = new PdfBrush(PdfRgbColor.Red);
+
+
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(600, 0), new PdfPoint(600, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(700, 0), new PdfPoint(700, 800));
+
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 100), new PdfPoint(800, 100));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 200), new PdfPoint(800, 200));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 300), new PdfPoint(800, 300));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 500), new PdfPoint(800, 500));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 600), new PdfPoint(800, 600));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 700), new PdfPoint(800, 700));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 800), new PdfPoint(800, 800));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 900), new PdfPoint(800, 900));
+
+
+
+
+                //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
+                //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
+                //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
+
+                PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
+                PdfStandardFont largeTitleFont = new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 36);
+                //page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
+
+                //Blue table header
+                //PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
+                //page.Graphics.DrawLine(redBrush, 0, 0, 100, 90);
+                //page.Graphics.DrawRectangle(redBrush, 0, 100, 100, 90);
+                //page.Graphics.DrawRectangle(redBrush, 0, 200, 100, 90);
+                //page.Graphics.DrawRectangle(redBrush, 0, 300, 100, 90);
+                //page.Graphics.DrawRectangle(redBrush, 0, 400, 100, 90);
+
+                //PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
+                //PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
+                //page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
+                //page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
+                //page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
+
+                if (PopulateModelFromDatabase(model))
                 {
-                    page.Graphics.DrawString("$1M - $3M", helvetica, redBrush, 700, 140);
-                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 184);
+                    model.BenchmarkModel = new BenchmarksValuationModel();
+                    BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+                    //first row
+                    //page.Graphics.DrawString("Total Firm Aum", tableRowTextFont, tableRowTextBlueBrush, 50, 95);
+                    //page.Graphics.DrawString("------", tableRowTextFont, tableRowTextBlueBrush, 100, 95);
+                    //page.Graphics.DrawString(peerGroup.TotalAUMPerClient.ToString(), tableRowTextFont, tableRowTextBlueBrush, 150, 95);
+
+                    int groupNumber = model.BenchmarkModel.PeerGroups.IndexOf(peerGroup);
+                    string group = "$0 - $250K";
+
+                    if (groupNumber == 1)
+                    {
+                        group = "$250K - $499K";
+                    }
+                    else if (groupNumber == 2)
+                    {
+                        group = "$500K - $749K";
+                    }
+                    else if (groupNumber == 3)
+                    {
+                        group = "$750K - $999K";
+                    }
+                    else if (groupNumber == 4)
+                    {
+                        group = "$1M - $3M";
+                    }
+
+
+
+                    page.Graphics.DrawString(group, helvetica, redBrush, 700, 135);
+
+                    page.Graphics.DrawString("Bench", helvetica, redBrush, 400, 184);
                     page.Graphics.DrawString("?????", helvetica, redBrush, 400, 210);
                     page.Graphics.DrawString("?????", helvetica, redBrush, 400, 236);
                     page.Graphics.DrawString("?????", helvetica, redBrush, 400, 262);
@@ -651,110 +679,118 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString("?????", helvetica, redBrush, 400, 314);
                     page.Graphics.DrawString("?????", helvetica, redBrush, 400, 340);
 
+                    //Client Metrics
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 184);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 210);
+                    page.Graphics.DrawString(model.Ff_RecurringRevenue, helvetica, redBrush, 240, 236);
+                    page.Graphics.DrawString("$" + string.Format("{0:n0}", model.Ff_TotalRevenue), helvetica, textBrush, 240, 262);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 314);
+                    page.Graphics.DrawString("sdf", helvetica, redBrush, 240, 288);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 340);
+
+
+                    //Client KPI's
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 832);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 858);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 884);
+                    page.Graphics.DrawString("sdfdsf", helvetica, redBrush, 240, 910);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 936);
+                    page.Graphics.DrawString("3345", helvetica, redBrush, 240, 962);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 988);
+                    page.Graphics.DrawString("3345", helvetica, redBrush, 240, 1014);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 240, 1040);
+
+                    //Benchmark KPI's
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 832);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 858);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 884);
+                    page.Graphics.DrawString("sdfdsf", helvetica, redBrush, 400, 910);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 936);
+                    page.Graphics.DrawString("3345", helvetica, redBrush, 400, 962);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 988);
+                    page.Graphics.DrawString("3345", helvetica, redBrush, 400, 1014);
+                    page.Graphics.DrawString("?????", helvetica, redBrush, 400, 1040);
+
+                    //string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
+                    //PdfImage lockImage = new PdfImage(imagePath);
+                    //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
+
+
+
+                    //Graph brushes
+                    PdfBrush graphBrush1 = new PdfBrush((new PdfRgbColor(0, 74, 129))); //#004b81 Darkest
+                    PdfBrush graphBrush2 = new PdfBrush((new PdfRgbColor(0, 126, 187))); // #007ebb
+                    PdfBrush graphBrush3 = new PdfBrush((new PdfRgbColor(109, 198, 233))); //#6dc6e7;
+                    PdfBrush graphBrush4 = new PdfBrush((new PdfRgbColor(176, 216, 235))); //#b0d8eb;
+
+
+
+                    //First Graph - VMI ---------------------------------------------------------------------------------
+                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(50, 420), new PdfPoint(50, 620));
+                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 2), new PdfPoint(50, 620), new PdfPoint(350, 620));
+                    page.Graphics.DrawString("1000", helvetica, textBrush, 20, 425);
+                    page.Graphics.DrawString("0", helvetica, textBrush, 38, 613);
+
+                    page.Graphics.DrawRectangle(graphBrush1, 220, 575, 60, peerGroup.EYT * 200 / 1000);
+                    page.Graphics.DrawRectangle(graphBrush2, 220, 575 - peerGroup.OYO * 200 / 1000, 60, peerGroup.OYO * 200 / 1000);
+                    page.Graphics.DrawRectangle(graphBrush3, 220, 575 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000, 60, peerGroup.MYB * 200 / 1000);
+                    page.Graphics.DrawRectangle(graphBrush4, 220, 575 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000 - peerGroup.MYP * 200 / 1000, 60, peerGroup.MYP * 200 / 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+                    //Second Graph - Valuation ---------------------------------------------------------------------------------
+                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(450, 420), new PdfPoint(450, 620));
+                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 2), new PdfPoint(450, 620), new PdfPoint(750, 620));
+
+                    page.Graphics.DrawString("0", helvetica, textBrush, 440, 613);
+
                 }
-                else
-                {
-                    page.Graphics.DrawString(peerGroup.GroupRangeMin + " - " + peerGroup.GroupRangeMax, helvetica, redBrush, 700, 140);
-                }
-
-                //Client Metrics
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 184);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 210);
-                page.Graphics.DrawString(model.Ff_RecurringRevenue, helvetica, redBrush, 240, 236);
-                page.Graphics.DrawString(model.Ff_TotalRevenue, helvetica, redBrush, 240, 262);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 314);
-                page.Graphics.DrawString("sdf", helvetica, redBrush, 240, 288);               
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 340);
-
-
-                //Client KPI's
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 832);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 858);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 884);
-                page.Graphics.DrawString("sdfdsf", helvetica, redBrush, 240, 910);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 936);
-                page.Graphics.DrawString("3345", helvetica, redBrush, 240, 962);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 988);
-                page.Graphics.DrawString("3345", helvetica, redBrush, 240, 1014);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 240, 1040);
-
-                //Benchmark KPI's
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 832);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 858);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 884);
-                page.Graphics.DrawString("sdfdsf", helvetica, redBrush, 400, 910);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 936);
-                page.Graphics.DrawString("3345", helvetica, redBrush, 400, 962);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 988);
-                page.Graphics.DrawString("3345", helvetica, redBrush, 400, 1014);
-                page.Graphics.DrawString("?????", helvetica, redBrush, 400, 1040);
-
-                //string imagePath = HttpContext.Server.MapPath(@"~\Styles\Images\" + "Lock.png");
-                //PdfImage lockImage = new PdfImage(imagePath);
-                //page.Graphics.DrawImage(lockImage, 50, 100, 25, 25);
-
-                //VMI Graph ------------------------------------------------
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(50, 420), new PdfPoint(50, 620));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 2), new PdfPoint(50, 620), new PdfPoint(350, 620));
-                page.Graphics.DrawString("1000", helvetica, redBrush, 30, 420);
-                page.Graphics.DrawString("0", helvetica, redBrush, 30, 600);
-
-                //Graph brushes
-                PdfBrush graphBrush1 = new PdfBrush((new PdfRgbColor(0, 74, 129))); //#004b81
-                PdfBrush graphBrush2 = new PdfBrush((new PdfRgbColor(0, 126, 187))); // #007ebb
-                PdfBrush graphBrush3 = new PdfBrush((new PdfRgbColor(109, 198, 233))); //#6dc6e7;
-                PdfBrush graphBrush4 = new PdfBrush((new PdfRgbColor(176, 216, 235))); //#b0d8eb;
 
 
 
 
 
-                //Benchmarks
-                page.Graphics.DrawRectangle(graphBrush1, 220, 620, 60, peerGroup.EYT * 200 / 1000);
-                page.Graphics.DrawRectangle(graphBrush2, 220, 620 - peerGroup.OYO * 200 / 1000, 60, peerGroup.OYO * 200 / 1000);
-                page.Graphics.DrawRectangle(graphBrush3, 220, 620 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000, 60, peerGroup.MYB * 200 / 1000);
-                page.Graphics.DrawRectangle(graphBrush4, 220, 580, peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000 - peerGroup.MYP * 200 / 1000, peerGroup.MYP * 200 / 1000);
+
+                MemoryStream stream = new MemoryStream();
+                // Saves the document as stream
+                document.Save(stream);
+
+                //document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
-                //Valuation Graph --------------------------------------------
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(450, 420), new PdfPoint(450, 620));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 2), new PdfPoint(450, 620), new PdfPoint(750, 620));
-              
-                page.Graphics.DrawString("0", helvetica, redBrush, 497, 620);
 
+                // Converts the PdfDocument object to byte form.
+                byte[] docBytes = stream.ToArray();
+                //Loads the byte array in PdfLoadedDocument
+
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                var permissions = myContainer.GetPermissions();
+                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                myContainer.SetPermissions(permissions);
+
+                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                blockBlob.Properties.ContentType = "application/pdf";
+                //blockBlob.UploadFromStream(stream);
+                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+
+                return blockBlob.StorageUri.PrimaryUri.ToString();
+                //return "sdfsdf";
             }
-
-
-
-
-
-
-            MemoryStream stream = new MemoryStream();
-            // Saves the document as stream
-            document.Save(stream);
-
-            document.Save("C:\\Olga\\PdfCustom.pdf");
-
-
-
-            // Converts the PdfDocument object to byte form.
-            byte[] docBytes = stream.ToArray();
-            //Loads the byte array in PdfLoadedDocument
-
-            //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-            //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-            //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-            //var permissions = myContainer.GetPermissions();
-            //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-            //myContainer.SetPermissions(permissions);
-
-            //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-            //blockBlob.Properties.ContentType = "application/pdf";
-            ////blockBlob.UploadFromStream(stream);
-            //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
-
-            //return blockBlob.StorageUri.PrimaryUri.ToString();
-            return "sdfsdf";
+            catch(Exception ex)
+            {
+                return "blah";
+            }
         }
 
         private void CalculateVMIScore(BATModel model)
