@@ -72,11 +72,21 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('http://am-bvs-am-bvs-stage.azurewebsites.net/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
-            console.log(data);
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
             var graphValues = [];
+
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
+
             $scope.fvrGraph.series[0].setData(graphValues);
+
+            $scope.pagrComp.minValue = data.top_pagr_min;
+            $scope.pagrComp.maxValue = data.top_pagr_max;
+
+            $scope.pmComp.minValue = data.top_pm_min;
+            $scope.pmComp.maxValue = data.top_pm_max;
+
+            $scope.vmiComp.minValue = data.top_vmi_min;
+            $scope.vmiComp.maxValue = data.top_vmi_max;
         });
     };
 
@@ -222,7 +232,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
 
     $scope.pagr = {
-        value: 6.5,
+        value: 0,
         options: {
             floor: 0,
             ceil: 25.0,
@@ -237,8 +247,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pagrComp = {
-        minValue: 6.2,
-        maxValue: 11.5,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 25.0,
@@ -299,7 +309,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pm = {
-        value: 16,
+        value: 0,
         options: {
             floor: 0,
             ceil: 40,
@@ -313,8 +323,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.pmComp = {
-        minValue: 20,
-        maxValue: 25,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 40,
@@ -368,7 +378,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.vmi = {
-        value: 210,
+        value: 0,
         options: {
             floor: 0,
             ceil: 1000,
@@ -382,8 +392,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.vmiComp = {
-        minValue: 700,
-        maxValue: 900,
+        minValue: 0,
+        maxValue: 0,
         options: {
             floor: 0,
             ceil: 1000,
@@ -434,6 +444,12 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             hidePointerLabels: true,
             draggableRange: true
         }
+    };
+
+    $scope.resetVmiSliders = function () {
+        $scope.pagr.value = $scope.pagr.valueOg;
+        $scope.pm.value = $scope.pm.valueOg;
+        $scope.vmi.value = $scope.vmi.valueOg;
     };
 
     $scope.filterCurrency = function (model) {

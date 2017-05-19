@@ -83,7 +83,7 @@
                             <h3 class="optimized-label">Projected Annual Growth Rate</h3>
                             <div class="optimized-value">{{pagr.value}}%</div>
                         </div>
-                        <div class="optimizer-slider">
+                        <div class="optimizer-slider" ng-init="pagr.value=1; pagr.valueOg=1">
                             <input type="text" ng-model="pagr.value" />
                             <div class="slider-ticks">
                                 <rzslider rz-slider-model="pagrTicks.minValue"
@@ -111,7 +111,7 @@
                             <h4 class="optimized-label">Profit is annualized</h4>
                             <div class="optimized-value">$2,054,400</div>
                         </div>
-                        <div class="optimizer-slider">
+                        <div class="optimizer-slider" ng-init="pm.value=10; pm.valueOg=10">
                             <input type="hidden" ng-model="pm.value" />
                             <div class="slider-ticks">
                                 <rzslider rz-slider-model="pmTicks.minValue"
@@ -135,7 +135,7 @@
                             <h3 class="optimized-label">Valuation Maximization Index<sup>&trade;</sup></h3>
                             <div class="optimized-value">{{vmi.value}}</div>
                         </div>
-                        <div class="optimizer-slider">
+                        <div class="optimizer-slider" ng-init="vmi.value=200; vmi.valueOg=200">
                             <div class="optimizer-slider">
                                 <input type="hidden" ng-model="vmi.value" />
                                 <div class="slider-ticks">
