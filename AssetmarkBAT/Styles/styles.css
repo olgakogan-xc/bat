@@ -493,20 +493,21 @@ body {
   font-family: "Arial", sans-serif;
   font-size: 1.8em;
   font-weight: 200;
+  line-height: 1.3em;
   color: #1F3445;
 }
 
-/* line 14, ../scss/app/core/_base.scss */
+/* line 15, ../scss/app/core/_base.scss */
 p {
   margin-bottom: 2.0rem;
 }
 
-/* line 18, ../scss/app/core/_base.scss */
+/* line 19, ../scss/app/core/_base.scss */
 a {
   color: #165485;
 }
 
-/* line 22, ../scss/app/core/_base.scss */
+/* line 23, ../scss/app/core/_base.scss */
 hr {
   margin: 3.0rem 0;
   height: 3px;
@@ -516,7 +517,7 @@ hr {
   border: 0;
 }
 
-/* line 31, ../scss/app/core/_base.scss */
+/* line 32, ../scss/app/core/_base.scss */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -1549,7 +1550,7 @@ input {
 
 /* line 17, ../scss/app/core/_forms.scss */
 select {
-  border: 1px solid #d9d8d4;
+  border: 1px solid #bebbba;
 }
 
 /* line 21, ../scss/app/core/_forms.scss */
@@ -1564,7 +1565,7 @@ fieldset legend {
   display: block;
   margin-bottom: 1.0rem;
   width: 100%;
-  border-bottom: 1px solid #d9d8d4;
+  border-bottom: 1px solid #bebbba;
   font-size: 2.0rem;
   font-weight: 300;
 }
@@ -1576,7 +1577,7 @@ fieldset .row {
 fieldset .field-header {
   margin-bottom: 3.0rem;
   font-weight: 600;
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
 /* line 46, ../scss/app/core/_forms.scss */
 fieldset .field-label {
@@ -1657,6 +1658,17 @@ ul.list-inline li, nav > ul li,
 ol.list-inline li {
   display: inline-block;
 }
+/* line 13, ../scss/app/core/_lists.scss */
+ul.additional-resources a,
+ol.additional-resources a {
+  color: #1F3445;
+  font-weight: 600;
+}
+/* line 17, ../scss/app/core/_lists.scss */
+ul.additional-resources a img,
+ol.additional-resources a img {
+  margin-left: 0.5rem;
+}
 
 /* line 1, ../scss/app/core/_helpers.scss */
 .hide {
@@ -1715,7 +1727,7 @@ table {
 /* line 5, ../scss/app/core/_tables.scss */
 table thead {
   margin-bottom: 2.0rem;
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
 /* line 9, ../scss/app/core/_tables.scss */
 table thead th {
@@ -1729,7 +1741,7 @@ table tbody tr:last-child td {
 /* line 20, ../scss/app/core/_tables.scss */
 table tbody td {
   padding: 0.5rem;
-  border-color: #d9d8d4;
+  border-color: #bebbba;
 }
 /* line 25, ../scss/app/core/_tables.scss */
 table tbody:before {
@@ -1748,7 +1760,7 @@ table tbody:after {
 /* line 41, ../scss/app/core/_tables.scss */
 table tfoot td {
   padding: 0.5rem;
-  border-top: 1px solid #d9d8d4;
+  border-top: 1px solid #bebbba;
   border-bottom: none;
   font-weight: 600;
 }
@@ -1803,7 +1815,7 @@ section {
 }
 /* line 4, ../scss/app/modules/_sections.scss */
 section.grey {
-  background-color: #d9d8d4;
+  background-color: #bebbba;
 }
 /* line 8, ../scss/app/modules/_sections.scss */
 section.white {
@@ -1816,7 +1828,7 @@ section.white {
   overflow-y: scroll;
   margin: 6.0rem;
   padding: 3.0rem;
-  border: 3px solid #d9d8d4;
+  border: 3px solid #bebbba;
   background-color: #fff;
 }
 /* line 9, ../scss/app/modules/_terms.scss */
@@ -2468,8 +2480,8 @@ section.white {
 .fancy-label.expand > li {
   background-color: #fff;
   color: #1F3445;
-  border-left: 1px solid #d9d8d4;
-  border-right: 1px solid #d9d8d4;
+  border-left: 1px solid #bebbba;
+  border-right: 1px solid #bebbba;
 }
 /* line 95, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:not(.active),
@@ -2495,14 +2507,14 @@ section.white {
 /* line 110, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:first-child,
 .fancy-label.expand > li:first-child {
-  border-top: 1px solid #d9d8d4;
+  border-top: 1px solid #bebbba;
   background-color: #999999;
   color: #1F3445;
 }
 /* line 116, ../scss/app/modules/_fancyform.scss */
 .fancy-form-select.expand > li:last-child,
 .fancy-label.expand > li:last-child {
-  border-bottom: 1px solid #d9d8d4;
+  border-bottom: 1px solid #bebbba;
 }
 
 /* line 123, ../scss/app/modules/_fancyform.scss */
