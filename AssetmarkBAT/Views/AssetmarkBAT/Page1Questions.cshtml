@@ -157,10 +157,10 @@
                                 <strong>Total Revenue (Calculated)</strong>
                             </div>
                             <div class="col-md-4 field-control">
-                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12) | currency : '$' }}</span>
+                                <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue + recurringRevenue) | currency : '$' }}</span>
                             </div>
                             <div class="col-md-3 field-value">
-                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((((assets/selectedMonth)*12) + ((nonRecurringRevenue/selectedMonth)*12) + ((recurringRevenue/selectedMonth)*12))/selectedMonth)*12 | currency : '$' }}</span>
+                                <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' }}</span>
                             </div>
                         </div>
                         <div class="row field-row">
