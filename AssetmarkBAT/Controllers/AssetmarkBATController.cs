@@ -266,7 +266,8 @@ namespace AssetmarkBAT.Controllers
 
             List<SelectListItem> years = new List<SelectListItem>
             {
-                new SelectListItem { Text = "YTD", Value = "YTD" },
+                new SelectListItem { Text = "Time Range", Value = "0" },
+                new SelectListItem { Text = "YTD 2017", Value = "YTD 2017" },
                 new SelectListItem { Text = "Previous Year", Value = "Previous" }
             };
 
@@ -294,10 +295,12 @@ namespace AssetmarkBAT.Controllers
 
             List<SelectListItem> types = new List<SelectListItem>
             {
+                new SelectListItem { Text = "Practice Type", Value = "Practice Type" },
                 new SelectListItem { Text = "Type 1", Value = "Type 1" },
                 new SelectListItem { Text = "Type 2", Value = "Type 2" },
                 new SelectListItem { Text = "Type 3", Value = "Type 3" },
-                new SelectListItem { Text = "Type 4", Value = "Type 4" }
+                new SelectListItem { Text = "Type 4", Value = "Type 4" },
+                new SelectListItem { Text = "Other", Value = "Other" }
             };
 
             batModel.PracticeTypes = new SelectList(types, "Value", "Text", batModel.PracticeType);
@@ -306,11 +309,12 @@ namespace AssetmarkBAT.Controllers
 
             List<SelectListItem> modes = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Affiliation Mode", Value = "0" },
+                new SelectListItem { Text = "Affiliation Mode", Value = "N/A" },
                 new SelectListItem { Text = "Mode 1", Value = "Mode 1" },
                 new SelectListItem { Text = "Mode 2", Value = "Mode 2" },
                 new SelectListItem { Text = "Mode 3", Value = "Mode 3" },
-                new SelectListItem { Text = "Mode 4", Value = "Mode 4" }
+                new SelectListItem { Text = "Mode 4", Value = "Mode 4" },
+                new SelectListItem { Text = "Other", Value = "Other" }
             };
 
             batModel.AffiliationModes = new SelectList(modes, "Value", "Text");
@@ -319,7 +323,7 @@ namespace AssetmarkBAT.Controllers
 
             List<SelectListItem> firmTypes = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Firm Types", Value = "0" },
+                new SelectListItem { Text = "Firm Types", Value = "N/A" },
                 new SelectListItem { Text = "Type 1", Value = "Type 1" },
                 new SelectListItem { Text = "Type 2", Value = "Type 2" },
                 new SelectListItem { Text = "Type 3", Value = "Type 3" },
@@ -377,6 +381,8 @@ namespace AssetmarkBAT.Controllers
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
                         Ff_New_Clients = model.Ff_NewClients,
                         Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
+                        PracticeType = model.PracticeType,
+
                         //VMI
                         Vmi_Man_Phase = model.Vmi_Man_Phase,
                         Vmi_Man_Practice = model.Vmi_Man_Practice,
@@ -716,6 +722,13 @@ namespace AssetmarkBAT.Controllers
                 page.Graphics.DrawRectangle(graphBrush2, 220, 620 - peerGroup.OYO * 200 / 1000, 60, peerGroup.OYO * 200 / 1000);
                 page.Graphics.DrawRectangle(graphBrush3, 220, 620 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000, 60, peerGroup.MYB * 200 / 1000);
                 page.Graphics.DrawRectangle(graphBrush4, 220, 580, peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000 - peerGroup.MYP * 200 / 1000, peerGroup.MYP * 200 / 1000);
+
+
+                //Valuation Graph --------------------------------------------
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(450, 420), new PdfPoint(450, 620));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 2), new PdfPoint(450, 620), new PdfPoint(750, 620));
+              
+                page.Graphics.DrawString("0", helvetica, redBrush, 497, 620);
 
             }
 
