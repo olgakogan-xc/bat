@@ -18,19 +18,26 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.selectedYear = 0;
     $scope.selectedYearLabel = '';
-    $scope.selectedMonth = 1;
+    $scope.selectedMonth = -1;
     $scope.selectedMonthLabel = '';
     $scope.shownMonths = [];
 
     $scope.yearSelected = function () {
-        if (new Date().getFullYear() == $scope.selectedYear) {
+        //if(new Date().getFullYear() == $scope.selectedYear){
+        if ($scope.selectedYear == 'YTD 2017') {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
-            $scope.selectedMonth = $scope.shownMonths.length;
+            if ($scope.selectedMonth < 0) {
+                $scope.selectedMonth = $scope.shownMonths.length;
+            } else if ($scope.selectedMonth > $scope.shownMonths.length) {
+                $scope.selectedMonth = $scope.shownMonths.length;
+            }
+            console.log($scope.shownMonths.length);
+            console.log($scope.selectedMonth);
             $scope.selectedMonthLabel = $scope.months[$scope.shownMonths.length];
         } else {
             $scope.shownMonths = $scope.months;
             $scope.selectedMonth = 12;
-            $scope.selectedMonthLabel = $scope.months[12];
+            $scope.selectedMonthLabel = $scope.months[11];
         }
     };
 
