@@ -28,6 +28,8 @@ namespace AssetmarkBATDbConnector
         public string AffiliationModel { get; set; }
         public string FirmType { get; set; }
         public string PDF { get; set; }
+        public Nullable<bool> Page1Complete { get; set; }
+        public Nullable<bool> Page2Complete { get; set; }
         public string Ff_TotalFirmAsset { get; set; }
         public string Ff_NonRecurringRevenue { get; set; }
         public string Ff_NonRecurringRevenue_Annualized { get; set; }
@@ -67,7 +69,5 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
         public string VmiIndex { get; set; }
-        public string Page1Complete { get; set; }
-        public string Page2Complete { get; set; }
     }
 }

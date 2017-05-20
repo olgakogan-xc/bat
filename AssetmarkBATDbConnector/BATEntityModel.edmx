@@ -23,6 +23,8 @@
           <Property Name="AffiliationModel" Type="nvarchar" MaxLength="50" />
           <Property Name="FirmType" Type="nvarchar" MaxLength="50" />
           <Property Name="PDF" Type="nvarchar" MaxLength="150" />
+          <Property Name="Page1Complete" Type="bit" />
+          <Property Name="Page2Complete" Type="bit" />
           <Property Name="Ff_TotalFirmAsset" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_NonRecurringRevenue" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_NonRecurringRevenue_Annualized" Type="nvarchar" MaxLength="50" />
@@ -62,8 +64,6 @@
           <Property Name="Vmi_Emp_Staff" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="nvarchar" MaxLength="10" />
           <Property Name="VmiIndex" Type="nvarchar" MaxLength="50" />
-          <Property Name="Page1Complete" Type="nvarchar" MaxLength="50" />
-          <Property Name="Page2Complete" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="am_bvsdatabaseModelStoreContainer">
           <EntitySet Name="am_bat" EntityType="Self.am_bat" Schema="dbo" store:Type="Tables" />
@@ -93,6 +93,8 @@
           <Property Name="AffiliationModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirmType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PDF" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Page1Complete" Type="Boolean" />
+          <Property Name="Page2Complete" Type="Boolean" />
           <Property Name="Ff_TotalFirmAsset" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_NonRecurringRevenue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_NonRecurringRevenue_Annualized" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -132,8 +134,6 @@
           <Property Name="Vmi_Emp_Staff" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="VmiIndex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Page1Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Page2Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -144,8 +144,6 @@
           <EntitySetMapping Name="am_bat">
             <EntityTypeMapping TypeName="am_bvs.databaseModel.am_bat">
               <MappingFragment StoreEntitySet="am_bat">
-                <ScalarProperty Name="Page2Complete" ColumnName="Page2Complete" />
-                <ScalarProperty Name="Page1Complete" ColumnName="Page1Complete" />
                 <ScalarProperty Name="VmiIndex" ColumnName="VmiIndex" />
                 <ScalarProperty Name="Vmi_Emp_Emp_Retention" ColumnName="Vmi_Emp_Emp_Retention" />
                 <ScalarProperty Name="Vmi_Emp_Staff" ColumnName="Vmi_Emp_Staff" />
@@ -185,6 +183,8 @@
                 <ScalarProperty Name="Ff_NonRecurringRevenue_Annualized" ColumnName="Ff_NonRecurringRevenue_Annualized" />
                 <ScalarProperty Name="Ff_NonRecurringRevenue" ColumnName="Ff_NonRecurringRevenue" />
                 <ScalarProperty Name="Ff_TotalFirmAsset" ColumnName="Ff_TotalFirmAsset" />
+                <ScalarProperty Name="Page2Complete" ColumnName="Page2Complete" />
+                <ScalarProperty Name="Page1Complete" ColumnName="Page1Complete" />
                 <ScalarProperty Name="PDF" ColumnName="PDF" />
                 <ScalarProperty Name="FirmType" ColumnName="FirmType" />
                 <ScalarProperty Name="AffiliationModel" ColumnName="AffiliationModel" />

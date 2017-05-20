@@ -51,6 +51,8 @@ namespace AssetmarkBAT.Models
         public double VmiRiskRate { get; set; }
         public double UserPerpetualGrowthRate { get; set; }
 
+        public int VMIScore { get; set; }
+
         //Value Optimizer variables
         public double ProfitMargin { get; set; }
         public double ProjectedAnnualGrowthRate { get; set; }

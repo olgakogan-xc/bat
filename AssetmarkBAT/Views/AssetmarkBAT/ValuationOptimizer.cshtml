@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AssetmarkBAT.Models.BATModel
+
+@{
     Layout = "~/Views/AssetmarkBAT/Shared/_Layout.cshtml";
 }
 
@@ -6,6 +8,16 @@
 {
     AssetMark – BAT – Assessement5
 }
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.setTimeout(function () {
+            var link = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + "@Model.PDFPath";
+            var newTab = window.open(link, '_blank');
+        }, 50);
+    });
+</script>
 
 
 <main>

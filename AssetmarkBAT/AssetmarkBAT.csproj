@@ -262,14 +262,11 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\AssetmarkBAT\Shared\Header.cshtml" />
     <Content Include="Views\AssetmarkBAT\Terms.cshtml" />
     <Content Include="Views\AssetmarkBAT\Page1Questions.cshtml" />
     <Content Include="Views\AssetmarkBAT\Page2Questions.cshtml" />
     <Content Include="Views\AssetmarkBAT\Report.cshtml" />
     <Content Include="Views\AssetmarkBAT\ValuationOptimizer.cshtml" />
-    <Content Include="Views\AssetmarkBAT\Eloqua.cshtml" />
-    <Content Include="Views\AssetmarkBAT\Shared\Footer.cshtml" />
     <Content Include="Views\AssetmarkBAT\Shared\_Layout.cshtml" />
     <Content Include="Styles\fonts\ico.eot" />
     <Content Include="Styles\fonts\ico.ttf" />

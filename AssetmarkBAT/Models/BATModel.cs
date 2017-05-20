@@ -13,6 +13,15 @@ namespace AssetmarkBAT.Models
         public string UserId { get; set; }
 
         public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+
+        public string zip { get; set; }
+        public string brokerorira { get; set; }
+
+        public bool EloquaUser { get; set; }
+
 
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]

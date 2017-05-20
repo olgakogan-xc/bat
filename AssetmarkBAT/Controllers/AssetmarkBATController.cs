@@ -1,36 +1,21 @@
 ﻿using AssetmarkBAT.Models;
 using AssetmarkBATDbConnector;
-using Microsoft.Win32;
 using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.File;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.IO;
-//using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Xfinium.Pdf;
-using Xfinium.Pdf.Actions;
-using Xfinium.Pdf.Core;
 using Xfinium.Pdf.Graphics;
-using Xfinium.Pdf.Graphics.FormattedContent;
-
 
 namespace AssetmarkBAT.Controllers
 {
     public class AssetmarkBATController : Controller
     {
-
         private string _BATCookieName = "assetmarkBAT";
         private string _EloquaCookieName = "eloquaCookie";
         private string _TermsViewName = "Terms";
@@ -39,50 +24,14 @@ namespace AssetmarkBAT.Controllers
         private string _ReportViewName = "Report";
         private string _ValuationOptimizer = "ValuationOptimizer";
         private string _EloquaQueryStringParamName = "eloqua";
-        //private string _UserId = string.Empty;
-        //public ValuationModel _ValModel = new ValuationModel();
 
-        public string KnownUserId()
-        {
-            if (HttpContext.Request.Cookies[_BATCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_BATCookieName].Value))
-            {
-                return HttpContext.Request.Cookies[_BATCookieName].Value;
-            }
-            else if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
-            {
-                return Request.QueryString[_EloquaQueryStringParamName];
-            }
-            else if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
-            {
-                return Request.QueryString[_EloquaCookieName];
-            }
-            return null;
-        }
-
-        public ActionResult Pdf()
-        {
-            return View("PdfShell");
-        }
-
+        #region ActionMethods
 
         /// <summary>
         /// Action Method to initiate the BAT tool
-        /// </summary>
-        /// <returns></returns>
+        /// </summary>     
         public ActionResult Index()
         {
-            //return View("PdfShell");
-
-            //FileStream htmlStream = System.IO.File.OpenRead("C:\\InputShort.html");
-            //byte[] byteArray = Encoding.UTF8.GetBytes("<html><body><p>Some Text Here</p><p><strong><u><font color='#A00000'>DOCUMENT FEATURES></font></u></strong></p><ul><li>Create and load PDF documents from files and streams </li><li>Save PDF files to disk and streams </li><li>Save PDF files in PDF / A - 1B format </li></ul></body></html>");
-            //byte[] byteArray = Encoding.ASCII.GetBytes(contents);
-            //MemoryStream stream = new MemoryStream(byteArray);
-            //SimpleHtmlToPdf htmlToPdf = new SimpleHtmlToPdf();
-            //PdfFixedDocument document = htmlToPdf.Convert(stream);
-            //document.Save("C:\\output.pdf");
-
-            //string test = GetValuationMetrics("", "", "").ToString();
-
             BATModel model = new BATModel();
             InitializeDropDowns(model);
 
@@ -92,33 +41,37 @@ namespace AssetmarkBAT.Controllers
 
                 if (PopulateModelFromDatabase(model))
                 {
-                    if (model.Page2Complete)
-                    {
-                        return View(_ValuationOptimizer, model);
-                    }
-                    else if (model.Page1Complete)
-                    {
-                        return View(_Page2QuestionsViewName, model);
-                    }
-                    else
-                    {
-                        return View(_Page1QuestionsViewName, model);
-                    }
+                    //TODO: uncomment for QA
+
+                    //if (model.Page2Complete)
+                    //{
+                    //    return View(_ValuationOptimizer, model);
+                    //}
+                    //else if (model.Page1Complete)
+                    //{
+                    //    if (model.Page2Complete == false)
+                    //    {
+                    //        PrepopulateVMIs(model);
+                    //    }
+                    //    return View(_Page2QuestionsViewName, model);
+                    //}
+                    //else
+                    //{
+                    //    return View(_Page1QuestionsViewName, model);
+                    //}
+                    return View(_Page1QuestionsViewName, model);
+
                 }
                 else
                     return View(_TermsViewName);
             }
 
             return View("Terms");
-
-            //return View("Eloqua");
         }
 
         /// <summary>
         /// Action method to handle user input on Terms page
-        /// </summary>
-        /// <param name="mymodel"></param>
-        /// <returns></returns>
+        /// </summary>  
         [HttpPost]
         public ActionResult Page1Questions(AgreeToTermsModel mymodel)
         {
@@ -145,13 +98,11 @@ namespace AssetmarkBAT.Controllers
             }
 
             return View(_Page1QuestionsViewName, model);
-        }
+        }        
 
         /// <summary>
         /// Action method to handle user input on Page 1 (Firm Financials)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// </summary>      
         [HttpPost]
         public ActionResult Page2Questions(BATModel model, string submit)
         {
@@ -175,33 +126,10 @@ namespace AssetmarkBAT.Controllers
             {
                 PopulateModelFromDatabase(model);
 
-                if (string.IsNullOrEmpty(model.Vmi_Man_Written_Plan))
+                if (model.Page2Complete == false)
                 {
-                    model.Vmi_Man_Written_Plan = "5";
-                    model.Vmi_Man_Phase = "5";
-                    model.Vmi_Man_Practice = "5";
-                    model.Vmi_Man_Revenue = "5";
-                    model.Vmi_Man_Track = "5";
-
-                    model.Vmi_Mar_Materials = "5";
-                    model.Vmi_Mar_New_Business = "5";
-                    model.Vmi_Mar_Plan = "5";
-                    model.Vmi_Mar_Prospects = "5";
-                    model.Vmi_Mar_Value_Proposition = "5";
-
-                    model.Vmi_Opt_Automate = "5";
-                    model.Vmi_Opt_Model = "5";
-                    model.Vmi_Opt_Procedures = "5";
-                    model.Vmi_Opt_Schedule = "5";
-                    model.Vmi_Opt_Segment = "5";
-
-                    model.Vmi_Emp_Compensation = "5";
-                    model.Vmi_Emp_Emp_Retention = "5";
-                    model.Vmi_Emp_Human = "5";
-                    model.Vmi_Emp_Responsibilities = "5";
-                    model.Vmi_Emp_Staff = "5";
+                    PrepopulateVMIs(model);
                 }
-
 
                 return View(_Page2QuestionsViewName, model);
             }
@@ -214,10 +142,7 @@ namespace AssetmarkBAT.Controllers
 
         /// <summary>
         /// Action method to handle user input on Page 2 (VMI sliders)
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="submit"></param>
-        /// <returns></returns>
+        /// </summary>      
         [HttpPost]
         public ActionResult Report(BATModel model, string submit)
         {
@@ -227,10 +152,14 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Save Your Inputs")
             {
-                model.PDFPath = CreatePdf(model);
+                model.PDFPath = model.UserId + ".pdf";
                 model.Page2Complete = true;
-                //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
                 PopulateEntityFromModel(model);
+                //model.PDFPath = CreatePdf(model);
+                CreatePdf(model);
+                
+                //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
+                
                 //CalculateVMIScore(model);
 
                 return View(_Page2QuestionsViewName, model);
@@ -247,16 +176,50 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
+        /// <summary>
+        /// Action method to handle to proceed to Optimizer page
+        /// </summary>     
         [HttpPost]
         public ActionResult Optimizer(BATModel model)
         {
-            //var errors = ModelState.Values.SelectMany(v => v.Errors);
-
-
-            InitializeDropDowns(model);
-
             return View(_ValuationOptimizer, model);
         }
+
+        /// <summary>
+        /// Service call to be consumed by the front end to get some valuation metrics for graphs
+        /// </summary>       
+        public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
+        {
+            BATModel model = GetClientValuationRanges();
+            BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+            double comparativeValuationMin = peerGroup.ValuationMin;
+            double comparativeValuationMax = peerGroup.ValuationMax;
+
+            //Determine max axis value
+            double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
+            double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
+
+            if (PAGR < 15)
+            {
+                return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = 5678423, calculatedmin = 4000786, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+
+            //if params are blank return current with benchmark
+            //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Not used in tool directly. This is hmtl for conversion to PDF template
+        /// </summary>      
+        public ActionResult Pdf()
+        {
+            return View("PdfShell");
+        }
+
+        #endregion ActionMethods
 
         #region PrivateMethods
 
@@ -324,6 +287,33 @@ namespace AssetmarkBAT.Controllers
             batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
         }
 
+        private void PrepopulateVMIs(BATModel model)
+        {
+            model.Vmi_Man_Written_Plan = "5";
+            model.Vmi_Man_Phase = "5";
+            model.Vmi_Man_Practice = "5";
+            model.Vmi_Man_Revenue = "5";
+            model.Vmi_Man_Track = "5";
+
+            model.Vmi_Mar_Materials = "5";
+            model.Vmi_Mar_New_Business = "5";
+            model.Vmi_Mar_Plan = "5";
+            model.Vmi_Mar_Prospects = "5";
+            model.Vmi_Mar_Value_Proposition = "5";
+
+            model.Vmi_Opt_Automate = "5";
+            model.Vmi_Opt_Model = "5";
+            model.Vmi_Opt_Procedures = "5";
+            model.Vmi_Opt_Schedule = "5";
+            model.Vmi_Opt_Segment = "5";
+
+            model.Vmi_Emp_Compensation = "5";
+            model.Vmi_Emp_Emp_Retention = "5";
+            model.Vmi_Emp_Human = "5";
+            model.Vmi_Emp_Responsibilities = "5";
+            model.Vmi_Emp_Staff = "5";
+        }
+
         private double ConvertToDouble(string input)
         {
             try
@@ -358,7 +348,26 @@ namespace AssetmarkBAT.Controllers
                 {
                     am_bat user = new am_bat()
                     {
+                        //User info
                         UserId = model.UserId,
+                        FirstName = model.firstName,
+                        LastName = model.lastName,
+                        Phone = model.phone,
+                        Email = model.email,
+                        Zip = model.zip,
+                        BrokerOrIRA = model.brokerorira,
+                        EloquaUser = model.EloquaUser,
+
+                        PracticeType = (!string.IsNullOrEmpty(model.PracticeTypeOther)) ? model.PracticeTypeOther : model.PracticeType,
+                        AffiliationModel = (!string.IsNullOrEmpty(model.AffiliationModeOther)) ? model.AffiliationModeOther : model.AffiliationMode,
+                        FirmType = (!string.IsNullOrEmpty(model.FirmTypeOther)) ? model.FirmTypeOther : model.FirmType,
+                        TimeRange = (model.Year.Contains("Previous")) ? model.Year : "YTD " + model.Month,
+
+                        PDF = model.PDFPath,
+                        DateStarted = model.DateStarted,
+                        Page2Complete = model.Page2Complete,
+                        Page1Complete = model.Page1Complete,
+
                         //Firm Financials
                         Ff_TotalFirmAsset = (model.Ff_TotalFirmAsset != null) ? model.Ff_TotalFirmAsset.Replace("$", "") : model.Ff_TotalFirmAsset,
                         Ff_NonRecurringRevenue = (model.Ff_NonRecurringRevenue != null) ? model.Ff_NonRecurringRevenue.Replace("$", "") : model.Ff_NonRecurringRevenue,
@@ -371,11 +380,7 @@ namespace AssetmarkBAT.Controllers
                         Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
                         Ff_New_Clients = model.Ff_NewClients,
-                        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
-                        PracticeType = (!string.IsNullOrEmpty(model.PracticeTypeOther))? model.PracticeTypeOther : model.PracticeType,
-                        AffiliationModel = (!string.IsNullOrEmpty(model.AffiliationModeOther))? model.AffiliationModeOther : model.AffiliationMode,
-                        FirmType = (!string.IsNullOrEmpty(model.FirmTypeOther))? model.FirmTypeOther : model.FirmType,
-                        TimeRange = (model.Year.Contains("Previous"))? model.Year : "YTD " + model.Month,                        
+                        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,                                            
 
                         //VMI
                         Vmi_Man_Phase = model.Vmi_Man_Phase,
@@ -398,9 +403,9 @@ namespace AssetmarkBAT.Controllers
                         Vmi_Opt_Procedures = model.Vmi_Opt_Procedures,
                         Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
                         Vmi_Opt_Segment = model.Vmi_Opt_Segment,
-                        VmiIndex = "1000",
-                        PDF = model.PDFPath,
-                        DateStarted = model.DateStarted
+                        VmiIndex = model.BATValuationModel.VMIScore.ToString(),
+
+                        
                     };
 
                     var original = db.am_bat.Find(user.UserId);
@@ -421,7 +426,7 @@ namespace AssetmarkBAT.Controllers
             {
                 Console.WriteLine("Error saving to Azure database " + model.UserId, e.Message);
             }
-        }
+        }                  
 
         private bool PopulateModelFromDatabase(BATModel model)
         {
@@ -431,6 +436,25 @@ namespace AssetmarkBAT.Controllers
 
                 if (original != null)
                 {
+                    model.firstName = original.FirstName;
+                    model.lastName = original.LastName;
+                    model.email = original.Email;
+                    model.phone = original.Phone;
+                    model.zip = original.Zip;
+                    model.brokerorira = original.BrokerOrIRA;
+                    model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
+                    model.Year = original.TimeRange;
+                    model.PDFPath = original.PDF;
+                    model.DateStarted = original.DateStarted;
+
+                    model.PracticeType = original.PracticeType;
+                    model.AffiliationMode = original.AffiliationModel;
+                    model.FirmType = original.FirmType;
+
+
+                    model.Page2Complete = (original.Page2Complete.HasValue && original.Page2Complete == true) ? true : false;
+                    model.Page1Complete = (original.Page1Complete.HasValue && original.Page1Complete == true) ? true : false;
+
                     //Firm Financials
                     model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
                     model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
@@ -469,8 +493,7 @@ namespace AssetmarkBAT.Controllers
                     model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
                     model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
 
-                    model.PDFPath = original.PDF;
-                    model.DateStarted = original.DateStarted;
+
 
                     return true;
                 }
@@ -479,97 +502,13 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
-        private void DownloadUserPdf(string userId)
-        {
-            //string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");           
-            //WebClient webClient = new WebClient();
-
-            //String dPath = String.Empty;
-            //RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
-            //if (rKey != null)
-            //    dPath = (String)rKey.GetValue("Default Download Directory");
-            //if (String.IsNullOrEmpty(dPath))
-            //    dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
-
-            //string filePath = dPath + @"\userFileAgain.pdf";  
-
-            //webClient.DownloadFile(new Uri(""), filePath);
-
-            // Converts the PdfDocument object to byte form.
-            //byte[] docBytes = stream.ToArray();
-            //Loads the byte array in PdfLoadedDocument
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-            CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-            var permissions = myContainer.GetPermissions();
-            permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-            myContainer.SetPermissions(permissions);
-
-            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(userId + ".pdf");
-            blockBlob.Properties.ContentType = "application/pdf";
-            //blockBlob.UploadFromStream(stream);
-            //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
-            // Save blob contents to a file.
-            using (var fileStream = System.IO.File.OpenWrite(@"C:\" + userId + ".pdf"))
-            {
-                blockBlob.DownloadToStream(fileStream);
-            }
-
-        }
-
-        private BATModel GetClientValuationRanges()
-        {
-            BATModel model = new BATModel();
-            model.BATValuationModel = new ClientValuationModel();
-            model.BenchmarkModel = new BenchmarksValuationModel();
-
-            if (!string.IsNullOrEmpty(KnownUserId()))
-            {
-                model.UserId = KnownUserId();
-
-                if (PopulateModelFromDatabase(model))
-                {
-                    model.BATValuationModel.ValuationMin = 2092000;
-                    model.BATValuationModel.ValuationMax = 3101000;
-                }
-            }
-
-            return model;
-        }
-
-
-        public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
-        {
-            BATModel model = GetClientValuationRanges();
-            BenchmarkGroup peerGroup = model.BenchmarkModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
-
-            double comparativeValuationMin = peerGroup.ValuationMin;
-            double comparativeValuationMax = peerGroup.ValuationMax;
-
-            //Determine max axis value
-            double maxValueForClient = model.BATValuationModel.ValuationMax + (model.BATValuationModel.ValuationMax / 4);
-            double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
-
-            if(PAGR < 15)
-            {
-                return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = 5678423, calculatedmin = 4000786, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { operatingprofit=model.Ff_OperatingProfit, totalrevenue=model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.BATValuationModel.ValuationMax, currentmin = model.BATValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
-
-            //if params are blank return current with benchmark
-            //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
-        }
-
-        public static PdfFixedDocument Load(string filename)
+        private static PdfFixedDocument Load(string filename)
         {
             using (var stream = new FileStream(filename, FileMode.Open))
                 return new PdfFixedDocument(stream);
         }
 
-
-        private string CreatePdf(BATModel model)
+        private void CreatePdf(BATModel model)
         {
             try
             {
@@ -784,13 +723,89 @@ namespace AssetmarkBAT.Controllers
                 //blockBlob.UploadFromStream(stream);
                 blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
 
-                return blockBlob.StorageUri.PrimaryUri.ToString();
+                //return blockBlob.StorageUri.PrimaryUri.ToString();
                 //return "sdfsdf";
             }
             catch(Exception ex)
             {
-                return "blah";
+                //return "blah";
             }
+        }
+
+        private void DownloadUserPdf(string userId)
+        {
+            //string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");           
+            //WebClient webClient = new WebClient();
+
+            //String dPath = String.Empty;
+            //RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
+            //if (rKey != null)
+            //    dPath = (String)rKey.GetValue("Default Download Directory");
+            //if (String.IsNullOrEmpty(dPath))
+            //    dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
+
+            //string filePath = dPath + @"\userFileAgain.pdf";  
+
+            //webClient.DownloadFile(new Uri(""), filePath);
+
+            // Converts the PdfDocument object to byte form.
+            //byte[] docBytes = stream.ToArray();
+            //Loads the byte array in PdfLoadedDocument
+
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+            CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+            var permissions = myContainer.GetPermissions();
+            permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+            myContainer.SetPermissions(permissions);
+
+            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(userId + ".pdf");
+            blockBlob.Properties.ContentType = "application/pdf";
+            //blockBlob.UploadFromStream(stream);
+            //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+            // Save blob contents to a file.
+            using (var fileStream = System.IO.File.OpenWrite(@"C:\" + userId + ".pdf"))
+            {
+                blockBlob.DownloadToStream(fileStream);
+            }
+
+        }
+
+        public string KnownUserId()
+        {
+            if (HttpContext.Request.Cookies[_BATCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_BATCookieName].Value))
+            {
+                return HttpContext.Request.Cookies[_BATCookieName].Value;
+            }
+            else if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
+            {
+                return Request.QueryString[_EloquaQueryStringParamName];
+            }
+            else if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+            {
+                return Request.QueryString[_EloquaCookieName];
+            }
+            return null;
+        }
+
+        private BATModel GetClientValuationRanges()
+        {
+            BATModel model = new BATModel();
+            model.BATValuationModel = new ClientValuationModel();
+            model.BenchmarkModel = new BenchmarksValuationModel();
+
+            if (!string.IsNullOrEmpty(KnownUserId()))
+            {
+                model.UserId = KnownUserId();
+
+                if (PopulateModelFromDatabase(model))
+                {
+                    model.BATValuationModel.ValuationMin = 2092000;
+                    model.BATValuationModel.ValuationMax = 3101000;
+                }
+            }
+
+            return model;
         }
 
         private void CalculateVMIScore(BATModel model)
