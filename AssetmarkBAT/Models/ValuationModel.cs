@@ -46,12 +46,10 @@ namespace AssetmarkBAT.Models
         public double PerpetualGrowthRateCashFlowMax { get; set; }
 
 
-        //VMI  
-        public double ValuationIndex { get; set; }
+        //VMI 
         public double VmiRiskRate { get; set; }
         public double UserPerpetualGrowthRate { get; set; }
-
-        public int VMIScore { get; set; }
+        public double VMIScore { get; set; }
 
         //Value Optimizer variables
         public double ProfitMargin { get; set; }

@@ -29,7 +29,7 @@ namespace AssetmarkBAT.Models
         public SelectList Years { get; set; }
 
        
-        public string Month { get; set; }
+        public int Month { get; set; }
         public SelectList Months { get; set; }
 
         [Required(ErrorMessage = "Please make a selection")]
@@ -144,9 +144,9 @@ namespace AssetmarkBAT.Models
 
         public string DateStarted { get; set; }
 
-        public ClientValuationModel BATValuationModel { get; set; }
+        public ClientValuationModel ClientValuationModel { get; set; }
 
-        public BenchmarksValuationModel BenchmarkModel { get; set; }
+        public BenchmarksValuationModel BenchmarksValuationModel { get; set; }
 
         public string PDFPath { get; set; }
 
