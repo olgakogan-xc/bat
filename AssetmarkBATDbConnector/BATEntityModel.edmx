@@ -44,6 +44,7 @@
           <Property Name="Ff_Fte_Non_Advisors" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_Fte_Advisors" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_New_Clients" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_New_Clients_Annualized" Type="nvarchar" MaxLength="50" />
           <Property Name="Vmi_Man_Written_Plan" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Man_Track" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Man_Phase" Type="nvarchar" MaxLength="10" />
@@ -115,6 +116,7 @@
           <Property Name="Ff_Fte_Non_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_Fte_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_New_Clients" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_New_Clients_Annualized" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Written_Plan" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Track" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Phase" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -167,6 +169,7 @@
                 <ScalarProperty Name="Vmi_Man_Phase" ColumnName="Vmi_Man_Phase" />
                 <ScalarProperty Name="Vmi_Man_Track" ColumnName="Vmi_Man_Track" />
                 <ScalarProperty Name="Vmi_Man_Written_Plan" ColumnName="Vmi_Man_Written_Plan" />
+                <ScalarProperty Name="Ff_New_Clients_Annualized" ColumnName="Ff_New_Clients_Annualized" />
                 <ScalarProperty Name="Ff_New_Clients" ColumnName="Ff_New_Clients" />
                 <ScalarProperty Name="Ff_Fte_Advisors" ColumnName="Ff_Fte_Advisors" />
                 <ScalarProperty Name="Ff_Fte_Non_Advisors" ColumnName="Ff_Fte_Non_Advisors" />

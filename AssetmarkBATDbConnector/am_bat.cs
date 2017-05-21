@@ -49,6 +49,7 @@ namespace AssetmarkBATDbConnector
         public string Ff_Fte_Non_Advisors { get; set; }
         public string Ff_Fte_Advisors { get; set; }
         public string Ff_New_Clients { get; set; }
+        public string Ff_New_Clients_Annualized { get; set; }
         public string Vmi_Man_Written_Plan { get; set; }
         public string Vmi_Man_Track { get; set; }
         public string Vmi_Man_Phase { get; set; }

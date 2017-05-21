@@ -15,6 +15,8 @@
         @Html.HiddenFor(m => m.UserId)
         @Html.HiddenFor(m => m.Year)
         @Html.HiddenFor(m => m.PracticeType)
+        @Html.HiddenFor(m => m.AffiliationMode)
+        @Html.HiddenFor(m => m.FirmType)
 
         @Html.HiddenFor(m => m.Month)
 
@@ -24,6 +26,10 @@
         @Html.HiddenFor(m => m.Ff_NonRecurringRevenueAnnualized)
         @Html.HiddenFor(m => m.Ff_RecurringRevenue)
         @Html.HiddenFor(m => m.Ff_RecurringRevenueAnnualized)
+
+        @Html.HiddenFor(m => m.Ff_TotalRevenue)
+        @Html.HiddenFor(m => m.Ff_TotalRevenueAnnualized)
+
         @Html.HiddenFor(m => m.Ff_DirectExpenses)
         @Html.HiddenFor(m => m.Ff_DirectExpensesAnnualized)
         @Html.HiddenFor(m => m.Ff_IndirecteExpenses)

@@ -482,7 +482,7 @@ namespace AssetmarkBAT.Controllers
                         Vmi_Opt_Procedures = model.Vmi_Opt_Procedures,
                         Vmi_Opt_Schedule = model.Vmi_Opt_Schedule,
                         Vmi_Opt_Segment = model.Vmi_Opt_Segment,
-                        VmiIndex = model.ClientValuationModel.VMIScore,
+                        VmiIndex = model.Vmi_Index,
                     };
 
                     var original = db.am_bat.Find(user.UserId);
@@ -538,17 +538,23 @@ namespace AssetmarkBAT.Controllers
                         //Firm Financials
                         model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
                         model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
+                        model.Ff_NonRecurringRevenueAnnualized = original.Ff_NonRecurringRevenue_Annualized;
                         model.Ff_RecurringRevenue = original.Ff_RecurringRevenue;
+                        model.Ff_RecurringRevenueAnnualized = original.Ff_RecurringRevenue_Annualized;
                         model.Ff_DirectExpenses = original.Ff_DirectExpenses;
+                        model.Ff_DirectExpensesAnnualized = original.Ff_DirectExpenses_Annualized;
                         model.Ff_OperatingProfit = original.Ff_OperatingProfit;
                         model.Ff_OperatingProfitAnnualized = original.Ff_OperaintProfit_Annualized;
                         model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
+                        model.Ff_IndirecteExpensesAnnualized = original.Ff_IndirectExpenses_Annualized;
                         model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
                         model.Ff_ClientRelationships = original.Ff_Client_Relationships;
                         model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
                         model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
                         model.Ff_NewClients = original.Ff_New_Clients;
+                        model.Ff_NewClientsAnnualized = original.Ff_New_Clients_Annualized;
                         model.Ff_TotalRevenue = original.Ff_TotalRevenue;
+                        model.Ff_TotalRevenueAnnualized = original.Ff_TotalRevenue_Annualized;
 
                         //VMI's
                         model.Vmi_Man_Phase = original.Vmi_Man_Phase;
@@ -574,6 +580,8 @@ namespace AssetmarkBAT.Controllers
                         model.Vmi_Emp_Human = original.Vmi_Emp_Human;
                         model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
                         model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
+
+                        model.Vmi_Index = original.VmiIndex.Value;
 
                         return true;
                     }
@@ -619,23 +627,23 @@ namespace AssetmarkBAT.Controllers
                 PdfBrush redBrush = new PdfBrush(PdfRgbColor.Red);
 
 
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(600, 0), new PdfPoint(600, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(700, 0), new PdfPoint(700, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(600, 0), new PdfPoint(600, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(700, 0), new PdfPoint(700, 800));
 
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 100), new PdfPoint(800, 100));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 200), new PdfPoint(800, 200));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 300), new PdfPoint(800, 300));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 500), new PdfPoint(800, 500));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 600), new PdfPoint(800, 600));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 700), new PdfPoint(800, 700));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 800), new PdfPoint(800, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 900), new PdfPoint(800, 900));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 100), new PdfPoint(800, 100));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 200), new PdfPoint(800, 200));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 300), new PdfPoint(800, 300));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 500), new PdfPoint(800, 500));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 600), new PdfPoint(800, 600));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 700), new PdfPoint(800, 700));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 800), new PdfPoint(800, 800));
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 900), new PdfPoint(800, 900));
 
 
 
@@ -787,30 +795,30 @@ namespace AssetmarkBAT.Controllers
 
                 MemoryStream stream = new MemoryStream();
                 // Saves the document as stream
-                document.Save(stream);
+                //document.Save(stream);
 
-                //document.Save("C:\\Olga\\PdfCustom.pdf");
+                document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                // Converts the PdfDocument object to byte form.
-                byte[] docBytes = stream.ToArray();
-                //Loads the byte array in PdfLoadedDocument
+                //// Converts the PdfDocument object to byte form.
+                //byte[] docBytes = stream.ToArray();
+                ////Loads the byte array in PdfLoadedDocument
 
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                var permissions = myContainer.GetPermissions();
-                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                myContainer.SetPermissions(permissions);
+                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                //var permissions = myContainer.GetPermissions();
+                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                //myContainer.SetPermissions(permissions);
 
-                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                blockBlob.Properties.ContentType = "application/pdf";
-                //blockBlob.UploadFromStream(stream);
-                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                //blockBlob.Properties.ContentType = "application/pdf";
+                ////blockBlob.UploadFromStream(stream);
+                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
 
-                //return blockBlob.StorageUri.PrimaryUri.ToString();
-                //return "sdfsdf";
+                ////return blockBlob.StorageUri.PrimaryUri.ToString();
+                ////return "sdfsdf";
             }
             catch (Exception e)
             {
