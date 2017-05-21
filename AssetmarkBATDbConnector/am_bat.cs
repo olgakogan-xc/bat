@@ -23,8 +23,8 @@ namespace AssetmarkBATDbConnector
         public string BrokerOrIRA { get; set; }
         public string DateStarted { get; set; }
         public Nullable<bool> EloquaUser { get; set; }
-        public string TimeRange { get; set; }
         public Nullable<int> Month { get; set; }
+        public string TimeRange { get; set; }
         public string PracticeType { get; set; }
         public string AffiliationModel { get; set; }
         public string FirmType { get; set; }
@@ -69,6 +69,6 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Responsibilities { get; set; }
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
-        public string VmiIndex { get; set; }
+        public Nullable<int> VmiIndex { get; set; }
     }
 }

@@ -109,9 +109,6 @@ namespace AssetmarkBAT.Models
         public string Ff_NewClients { get; set; }
         public string Ff_NewClientsAnnualized { get; set; }
 
-        public string Ff_Complete { get; set; }
-
-
         //Managing section
         public string Vmi_Man_Written_Plan { get; set; }    
         public string Vmi_Man_Track { get; set; }      
@@ -140,7 +137,7 @@ namespace AssetmarkBAT.Models
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
 
-        public string Vmi_Complete { get; set; }
+        public int Vmi_Index { get; set; }
 
         public string DateStarted { get; set; }
 
