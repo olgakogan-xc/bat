@@ -98,7 +98,7 @@ namespace AssetmarkBAT.Controllers
             }
 
             return View(_Page1QuestionsViewName, model);
-        }        
+        }
 
         /// <summary>
         /// Action method to handle user input on Page 1 (Firm Financials)
@@ -115,7 +115,7 @@ namespace AssetmarkBAT.Controllers
             //{
             if (submit == "Save Your Inputs")
             {
-                model.ClientValuationModel = new ClientValuationModel();
+                //model.ClientValuationModel = new ClientValuationModel();
                 //model.PDFPath = "On save";
                 model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
                 model.Page1Complete = true;
@@ -157,9 +157,9 @@ namespace AssetmarkBAT.Controllers
                 PopulateEntityFromModel(model);
                 //model.PDFPath = CreatePdf(model);
                 CreatePdf(model);
-                
+
                 //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
-                
+
                 //CalculateVMIScore(model);
 
                 return View(_Page2QuestionsViewName, model);
@@ -173,12 +173,7 @@ namespace AssetmarkBAT.Controllers
             {
                 PopulateModelFromDatabase(model);
 
-                //Do all calculations here
-                CalculateValuationVariables(model);
-                CalculateNonAdvisorTaxFreeCashFlow(model);
-                CalculateDiscountedCashFlow(model);
-                CalculateValuationRanges(model);
-                //CalculateKPIs(model);
+
 
                 return View(_ReportViewName, model);
             }
@@ -190,6 +185,7 @@ namespace AssetmarkBAT.Controllers
         [HttpPost]
         public ActionResult Optimizer(BATModel model)
         {
+            model = GetClientValuationRanges(model);
             return View(_ValuationOptimizer, model);
         }
 
@@ -198,22 +194,69 @@ namespace AssetmarkBAT.Controllers
         /// </summary>       
         public ActionResult GetValuationMetrics(double PAGR, double PM, double VMI)
         {
-            BATModel model = GetClientValuationRanges();
-            BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+            BATModel model = new BATModel();
+            BATModel comparativeModel = model;
+            double comparativeValuationMin;
+            double comparativeValuationMax;
 
-            double comparativeValuationMin = peerGroup.ValuationMin;
-            double comparativeValuationMax = peerGroup.ValuationMax;
+            if (Request.Url.AbsolutePath.ToLower().Contains("optimizer") && true) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
+            {
+                model = GetClientValuationRanges(null, -1, -1, -1);
 
-            //Determine max axis value
+                CalculateValuationVariables(model, false);
+                CalculateNonAdvisorTaxFreeCashFlow(model);
+                CalculateDiscountedCashFlow(model);
+                CalculateValuationRanges(model);
+                CalculateKPIs(model);
+
+                //Call to recalculate and build comparative range
+                comparativeModel = GetClientValuationRanges(null, PAGR, PM, VMI);
+                comparativeValuationMin = comparativeModel.ClientValuationModel.ValuationMin;
+                comparativeValuationMax = comparativeModel.ClientValuationModel.ValuationMax;
+            }
+            else if (Request.Url.AbsolutePath.ToLower().Contains("optimizer") && false) // call made from Valuation Optimizer page on load. Build comparative range with optimizer values
+            {
+                model = GetClientValuationRanges(null, -1, -1, -1);
+                BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+                comparativeValuationMin = peerGroup.ValuationMin;
+                comparativeValuationMax = peerGroup.ValuationMax;
+            }
+            else //call made from the Report page. Get comparative range from benchmarks
+            {
+                model = GetClientValuationRanges(null, -1, -1, -1);
+                BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+                comparativeValuationMin = peerGroup.ValuationMin;
+                comparativeValuationMax = peerGroup.ValuationMax;
+            }
+            
             double maxValueForClient = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
 
-            if (PAGR < 15)
+            return Json(new
             {
-                return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.ClientValuationModel.ValuationMax, currentmin = model.ClientValuationModel.ValuationMin, calculatedmax = 5678423, calculatedmin = 4000786, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { operatingprofit = model.Ff_OperatingProfit, totalrevenue = model.Ff_TotalRevenue, maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, currentmax = model.ClientValuationModel.ValuationMax, currentmin = model.ClientValuationModel.ValuationMin, calculatedmax = comparativeValuationMax, calculatedmin = comparativeValuationMin, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
+                operatingprofit = model.Ff_OperatingProfitAnnualized,
+                totalrevenue = model.Ff_TotalRevenue,
+                maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
+                //client range
+                currentmax = model.ClientValuationModel.ValuationMax,
+                currentmin = model.ClientValuationModel.ValuationMin,
+                //comparative range (either benchmark or optimized)
+                calculatedmax = comparativeValuationMax,
+                calculatedmin = comparativeValuationMin,
+                //metrics used in calculations
+                pagr = model.ClientValuationModel.ProjectedAnnualGrowthRate,
+                pm = model.ClientValuationModel.ProfitMargin,
+                vmi = model.ClientValuationModel.VMIScore,
+                profitannualized = ConvertToDouble(model.Ff_OperatingProfitAnnualized),
+                top_pagr_max = 11,
+                top_pagr_min = 8,
+                top_pm_max = 23,
+                top_pm_min = 20,
+                top_vmi_max = 90,
+                top_vmi_min = 70
+            }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
             //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
@@ -235,7 +278,7 @@ namespace AssetmarkBAT.Controllers
         {
             //years
             List<SelectListItem> years = new List<SelectListItem>
-            {                 
+            {
                 new SelectListItem { Text = "Previous Year", Value = "Previous" },
                 new SelectListItem { Text = "YTD 2017", Value = "YTD 2017" }
             };
@@ -263,7 +306,7 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Practice Type", Value = "Practice Type" },
                 new SelectListItem { Text = "Single advisor practice: Solo practitioner or providing data on your book of business only1", Value = "Single advisor practice" },
                 new SelectListItem { Text = "Multiple advisor practice:  Multiple advisor practice providing firm level data", Value = "Multiple advisor practice" },
-                new SelectListItem { Text = "Third party: Broker-dealer, wholesaler, consultant ", Value = "Third party" },              
+                new SelectListItem { Text = "Third party: Broker-dealer, wholesaler, consultant ", Value = "Third party" },
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
@@ -275,7 +318,7 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Affiliation Mode", Value = "N/A" },
                 new SelectListItem { Text = "BD (Broker-Dealer): Affiliated with a full-service BD/wirehouse, independent BD, insurance BD or own BD", Value = "BD (Broker-Dealer)" },
                 new SelectListItem { Text = "RIA only (Registered Investment Advisor): Registered as an investment advisor with the SEC or state", Value = "RIA only (Registered Investment Advisor)" },
-                new SelectListItem { Text = "Hybrid BD/RAI: Have your own RIA, as well as a BD affiliation", Value = "Hybrid BD/RAI" },             
+                new SelectListItem { Text = "Hybrid BD/RAI: Have your own RIA, as well as a BD affiliation", Value = "Hybrid BD/RAI" },
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
@@ -342,10 +385,10 @@ namespace AssetmarkBAT.Controllers
                 //model.ClientValuationModel.ProfitMargin = Convert.ToDouble(model.Ff_NonRecurringRevenue) + Convert.ToDouble(model.Ff_RecurringRevenue) - (Convert.ToDouble(model.Ff_DirectExpenses) + Convert.ToDouble(model.Ff_IndirecteExpenses));
                 //model.ClientValuationModel.ProjectedAnnualGrowthRate = Convert.ToInt32(model.Ff_ProjectedGrowthRate);
 
-                if (model.ClientValuationModel == null)
-                {
-                    model.ClientValuationModel = new ClientValuationModel();
-                }
+                //if (model.ClientValuationModel == null)
+                //{
+                //    model.ClientValuationModel = new ClientValuationModel();
+                //}
 
                 model.ClientValuationModel.ProfitMargin = 225000;
                 model.ClientValuationModel.ProjectedAnnualGrowthRate = 0.04;
@@ -353,7 +396,7 @@ namespace AssetmarkBAT.Controllers
                 model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString();
                 //TODO
                 model.Month = 7;
-                model.Ff_OperatingProfitAnnualized = (model.Month < 12)? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString() : model.Ff_OperatingProfit;
+                model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString() : model.Ff_OperatingProfit;
 
                 using (AssetmarkBATEntities db = new AssetmarkBATEntities())
                 {
@@ -395,7 +438,7 @@ namespace AssetmarkBAT.Controllers
                         Ff_Fte_Advisors = model.Ff_FullTimeAdvisors,
                         Ff_Fte_Non_Advisors = model.Ff_FullTimeNonAdvisors,
                         Ff_New_Clients = model.Ff_NewClients,
-                        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,                                            
+                        Ff_Projected_Growth = model.Ff_ProjectedGrowthRate,
 
                         //VMI
                         Vmi_Man_Phase = model.Vmi_Man_Phase,
@@ -420,7 +463,7 @@ namespace AssetmarkBAT.Controllers
                         Vmi_Opt_Segment = model.Vmi_Opt_Segment,
                         VmiIndex = model.ClientValuationModel.VMIScore.ToString(),
 
-                        
+
                     };
 
                     var original = db.am_bat.Find(user.UserId);
@@ -441,82 +484,87 @@ namespace AssetmarkBAT.Controllers
             {
                 Console.WriteLine("Error saving to Azure database " + model.UserId, e.Message);
             }
-        }                  
+        }
 
         private bool PopulateModelFromDatabase(BATModel model)
         {
-            using (AssetmarkBATEntities db = new AssetmarkBATEntities())
+            try
             {
-                var original = db.am_bat.Find(model.UserId);
-
-                if (original != null)
+                using (AssetmarkBATEntities db = new AssetmarkBATEntities())
                 {
-                    model.firstName = original.FirstName;
-                    model.lastName = original.LastName;
-                    model.email = original.Email;
-                    model.phone = original.Phone;
-                    model.zip = original.Zip;
-                    model.brokerorira = original.BrokerOrIRA;
-                    model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
-                    model.Year = original.TimeRange;
-                    //model.Month = original.Month ?? 12; TODO
-                    model.Month = 7;
-                    model.PDFPath = original.PDF;
-                    model.DateStarted = original.DateStarted;
+                    var original = db.am_bat.Find(model.UserId);
 
-                    model.PracticeType = original.PracticeType;
-                    model.AffiliationMode = original.AffiliationModel;
-                    model.FirmType = original.FirmType;
+                    if (original != null)
+                    {
+                        model.firstName = original.FirstName;
+                        model.lastName = original.LastName;
+                        model.email = original.Email;
+                        model.phone = original.Phone;
+                        model.zip = original.Zip;
+                        model.brokerorira = original.BrokerOrIRA;
+                        model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
+                        model.Year = original.TimeRange;
+                        //model.Month = original.Month ?? 12; TODO: change after testing and when front end is ready
+                        model.Month = 7;
+                        model.PDFPath = original.PDF;
+                        model.DateStarted = original.DateStarted;
 
+                        model.PracticeType = original.PracticeType;
+                        model.AffiliationMode = original.AffiliationModel;
+                        model.FirmType = original.FirmType;
 
-                    model.Page2Complete = (original.Page2Complete.HasValue && original.Page2Complete == true) ? true : false;
-                    model.Page1Complete = (original.Page1Complete.HasValue && original.Page1Complete == true) ? true : false;
+                        model.Page2Complete = (original.Page2Complete.HasValue && original.Page2Complete == true) ? true : false;
+                        model.Page1Complete = (original.Page1Complete.HasValue && original.Page1Complete == true) ? true : false;
 
-                    //Firm Financials
-                    model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
-                    model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
-                    model.Ff_RecurringRevenue = original.Ff_RecurringRevenue;
-                    model.Ff_DirectExpenses = original.Ff_DirectExpenses;
-                    model.Ff_OperatingProfit = original.Ff_OperatingProfit;
-                    model.Ff_OperatingProfitAnnualized = original.Ff_OperaintProfit_Annualized;
-                    model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
-                    model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
-                    model.Ff_ClientRelationships = original.Ff_Client_Relationships;
-                    model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
-                    model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
-                    model.Ff_NewClients = original.Ff_New_Clients;
-                    model.Ff_TotalRevenue = original.Ff_TotalRevenue;
+                        //Firm Financials
+                        model.Ff_TotalFirmAsset = original.Ff_TotalFirmAsset;
+                        model.Ff_NonRecurringRevenue = original.Ff_NonRecurringRevenue;
+                        model.Ff_RecurringRevenue = original.Ff_RecurringRevenue;
+                        model.Ff_DirectExpenses = original.Ff_DirectExpenses;
+                        model.Ff_OperatingProfit = original.Ff_OperatingProfit;
+                        model.Ff_OperatingProfitAnnualized = original.Ff_OperaintProfit_Annualized;
+                        model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
+                        model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
+                        model.Ff_ClientRelationships = original.Ff_Client_Relationships;
+                        model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
+                        model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
+                        model.Ff_NewClients = original.Ff_New_Clients;
+                        model.Ff_TotalRevenue = original.Ff_TotalRevenue;
 
-                    //VMI's
-                    model.Vmi_Man_Phase = original.Vmi_Man_Phase;
-                    model.Vmi_Man_Practice = original.Vmi_Man_Practice;
-                    model.Vmi_Man_Revenue = original.Vmi_Man_Revenue;
-                    model.Vmi_Man_Track = original.Vmi_Man_Track;
-                    model.Vmi_Man_Written_Plan = original.Vmi_Man_Written_Plan;
+                        //VMI's
+                        model.Vmi_Man_Phase = original.Vmi_Man_Phase;
+                        model.Vmi_Man_Practice = original.Vmi_Man_Practice;
+                        model.Vmi_Man_Revenue = original.Vmi_Man_Revenue;
+                        model.Vmi_Man_Track = original.Vmi_Man_Track;
+                        model.Vmi_Man_Written_Plan = original.Vmi_Man_Written_Plan;
 
-                    model.Vmi_Mar_Materials = original.Vmi_Mar_Materials;
-                    model.Vmi_Mar_New_Business = original.Vmi_Mar_New_Business;
-                    model.Vmi_Mar_Plan = original.Vmi_Mar_Plan;
-                    model.Vmi_Mar_Prospects = original.Vmi_Mar_Prospects;
-                    model.Vmi_Mar_Value_Proposition = original.Vmi_Mar_Value_Proposition;
+                        model.Vmi_Mar_Materials = original.Vmi_Mar_Materials;
+                        model.Vmi_Mar_New_Business = original.Vmi_Mar_New_Business;
+                        model.Vmi_Mar_Plan = original.Vmi_Mar_Plan;
+                        model.Vmi_Mar_Prospects = original.Vmi_Mar_Prospects;
+                        model.Vmi_Mar_Value_Proposition = original.Vmi_Mar_Value_Proposition;
 
-                    model.Vmi_Opt_Automate = original.Vmi_Opt_Automate;
-                    model.Vmi_Opt_Model = original.Vmi_Opt_Model;
-                    model.Vmi_Opt_Procedures = original.Vmi_Opt_Procedures;
-                    model.Vmi_Opt_Schedule = original.Vmi_Opt_Schedule;
-                    model.Vmi_Opt_Segment = original.Vmi_Opt_Segment;
+                        model.Vmi_Opt_Automate = original.Vmi_Opt_Automate;
+                        model.Vmi_Opt_Model = original.Vmi_Opt_Model;
+                        model.Vmi_Opt_Procedures = original.Vmi_Opt_Procedures;
+                        model.Vmi_Opt_Schedule = original.Vmi_Opt_Schedule;
+                        model.Vmi_Opt_Segment = original.Vmi_Opt_Segment;
 
-                    model.Vmi_Emp_Compensation = original.Vmi_Emp_Compensation;
-                    model.Vmi_Emp_Emp_Retention = original.Vmi_Emp_Emp_Retention;
-                    model.Vmi_Emp_Human = original.Vmi_Emp_Human;
-                    model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
-                    model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
+                        model.Vmi_Emp_Compensation = original.Vmi_Emp_Compensation;
+                        model.Vmi_Emp_Emp_Retention = original.Vmi_Emp_Emp_Retention;
+                        model.Vmi_Emp_Human = original.Vmi_Emp_Human;
+                        model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
+                        model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
 
-
-
-                    return true;
+                        return true;
+                    }
+                    else
+                        return false;
                 }
-
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading from Azure database. ", e.Message);
                 return false;
             }
         }
@@ -745,49 +793,10 @@ namespace AssetmarkBAT.Controllers
                 //return blockBlob.StorageUri.PrimaryUri.ToString();
                 //return "sdfsdf";
             }
-            catch(Exception ex)
+            catch (Exception e)
             {
-                //return "blah";
+                Console.WriteLine("Error creating a PDF document", e.Message);
             }
-        }
-
-        private void DownloadUserPdf(string userId)
-        {
-            //string path = HttpContext.Server.MapPath(@"~\UserPDF\userPdf.pdf");           
-            //WebClient webClient = new WebClient();
-
-            //String dPath = String.Empty;
-            //RegistryKey rKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main");
-            //if (rKey != null)
-            //    dPath = (String)rKey.GetValue("Default Download Directory");
-            //if (String.IsNullOrEmpty(dPath))
-            //    dPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\downloads";
-
-            //string filePath = dPath + @"\userFileAgain.pdf";  
-
-            //webClient.DownloadFile(new Uri(""), filePath);
-
-            // Converts the PdfDocument object to byte form.
-            //byte[] docBytes = stream.ToArray();
-            //Loads the byte array in PdfLoadedDocument
-
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-            CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-            var permissions = myContainer.GetPermissions();
-            permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-            myContainer.SetPermissions(permissions);
-
-            CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(userId + ".pdf");
-            blockBlob.Properties.ContentType = "application/pdf";
-            //blockBlob.UploadFromStream(stream);
-            //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
-            // Save blob contents to a file.
-            using (var fileStream = System.IO.File.OpenWrite(@"C:\" + userId + ".pdf"))
-            {
-                blockBlob.DownloadToStream(fileStream);
-            }
-
         }
 
         public string KnownUserId()
@@ -807,50 +816,81 @@ namespace AssetmarkBAT.Controllers
             return null;
         }
 
-        private BATModel GetClientValuationRanges()
+        /// <summary>
+        /// Called either from Optimizer page with ajax or from Optimizer action method in the controller
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="PAGR"></param>
+        /// <param name="PM"></param>
+        /// <param name="VMI"></param>
+        /// <returns></returns>
+        private BATModel GetClientValuationRanges(BATModel model = null, double PAGR = -1, double PM = -1, double VMI = -1)
         {
-            BATModel model = new BATModel();
-            model.ClientValuationModel = new ClientValuationModel();
-            model.BenchmarksValuationModel = new BenchmarksValuationModel();
-
-            if (!string.IsNullOrEmpty(KnownUserId()))
+            if (model == null)
             {
-                model.UserId = KnownUserId();
-
-                if (PopulateModelFromDatabase(model))
+                if (!string.IsNullOrEmpty(KnownUserId()))
                 {
-                    //model.ClientValuationModel.ValuationMin = 2092000;
-                    //model.ClientValuationModel.ValuationMax = 3101000;
-                    model.ClientValuationModel.ValuationMin = model.ClientValuationModel.ValuationMin;
-                    model.ClientValuationModel.ValuationMax = model.ClientValuationModel.ValuationMax;
+                    model = new BATModel();
+                    model.UserId = KnownUserId();
                 }
+            }
+
+            if (PopulateModelFromDatabase(model))
+            {
+                //any of the Optimizer values can be sent separately and all together, need the check here
+                if (PAGR != -1)
+                    model.ClientValuationModel.ProjectedAnnualGrowthRate = PAGR;
+
+                if (PM != -1)
+                    model.ClientValuationModel.VMIScore = VMI;
+
+                if (VMI != -1)
+                    model.Ff_OperatingProfitAnnualized = (ConvertToDouble(model.Ff_TotalRevenue) * PM).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
+
+
+                //Do all calculations here
+                CalculateValuationVariables(model, false);
+                CalculateNonAdvisorTaxFreeCashFlow(model);
+                CalculateDiscountedCashFlow(model);
+                CalculateValuationRanges(model);
+                CalculateKPIs(model);
+
+                model.ClientValuationModel.ValuationMin = model.ClientValuationModel.ValuationMin;
+                model.ClientValuationModel.ValuationMax = model.ClientValuationModel.ValuationMax;
             }
 
             return model;
         }
 
-        private void CalculateValuationVariables(BATModel model)
+        /// <summary>
+        /// Calculates VMI related values and puts the results in the BAT model
+        /// </summary>
+        /// <param name="model"></param>
+        private void CalculateValuationVariables(BATModel model, bool recalculate)
         {
-            model.ClientValuationModel = new ClientValuationModel();
-            double total = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice) +
-                   Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business) +
-                   Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule) +
-                   Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention));
+            //model.ClientValuationModel = new ClientValuationModel();
 
+            if (!recalculate)
+            {
+                model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
+                model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
+                model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
+                model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+            }
 
-            double temp = total / 2000;
+            double total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
+            double temp = total / 5 / 2000;
 
             model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
-            model.ClientValuationModel.VMIScore = temp * 10000;
+            //model.ClientValuationModel.VMIScore = temp * 10000;
+            model.ClientValuationModel.VMIScore = total;
             model.ClientValuationModel.UserPerpetualGrowthRate = (model.ClientValuationModel.VMIScore >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
-
-            //returned as whole number
         }
 
         private void CalculateNonAdvisorTaxFreeCashFlow(BATModel model)
         {
             model.ClientValuationModel.ProfitMargin = Convert.ToDouble((Convert.ToDouble(model.Ff_NonRecurringRevenue) + Convert.ToDouble(model.Ff_RecurringRevenue)) - (Convert.ToDouble(model.Ff_IndirecteExpenses) + Convert.ToDouble(model.Ff_DirectExpenses)));
-            model.ClientValuationModel.ProjectedAnnualGrowthRate = ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%","").Replace(" ", "")) / 100;
+            model.ClientValuationModel.ProjectedAnnualGrowthRate = ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
 
             //year 1
             if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
@@ -928,48 +968,113 @@ namespace AssetmarkBAT.Controllers
         private void CalculateValuationRanges(BATModel model)
         {
             //Discounted Cash Flow Range
-            model.ClientValuationModel.DiscountedCashFlowMin = model.ClientValuationModel.DiscountedCashFlowYear1Min + model.ClientValuationModel.DiscountedCashFlowYear2Min + model.ClientValuationModel.DiscountedCashFlowYear3Min + model.ClientValuationModel.DiscountedCashFlowYear4Min + model.ClientValuationModel.DiscountedCashFlowYear5Min;
-            model.ClientValuationModel.DiscountedCashFlowMax = model.ClientValuationModel.DiscountedCashFlowYear1Max + model.ClientValuationModel.DiscountedCashFlowYear2Max + model.ClientValuationModel.DiscountedCashFlowYear3Max + model.ClientValuationModel.DiscountedCashFlowYear4Max + model.ClientValuationModel.DiscountedCashFlowYear5Max;
+            model.ClientValuationModel.DiscountedCashFlowMin = Math.Ceiling(model.ClientValuationModel.DiscountedCashFlowYear1Min + model.ClientValuationModel.DiscountedCashFlowYear2Min + model.ClientValuationModel.DiscountedCashFlowYear3Min + model.ClientValuationModel.DiscountedCashFlowYear4Min + model.ClientValuationModel.DiscountedCashFlowYear5Min);
+            model.ClientValuationModel.DiscountedCashFlowMax = Math.Ceiling(model.ClientValuationModel.DiscountedCashFlowYear1Max + model.ClientValuationModel.DiscountedCashFlowYear2Max + model.ClientValuationModel.DiscountedCashFlowYear3Max + model.ClientValuationModel.DiscountedCashFlowYear4Max + model.ClientValuationModel.DiscountedCashFlowYear5Max);
 
             //Perpetual Growth Rate Cash FLow
-            model.ClientValuationModel.PerpetualGrowthRateCashFlowMin = model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel._PerpetualGrowthRateMin) /
+            model.ClientValuationModel.PerpetualGrowthRateCashFlowMin = Math.Ceiling(model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel._PerpetualGrowthRateMin) /
                 ((model.ClientValuationModel.VmiRiskRate + model.ClientValuationModel._ValuationRiskRate) - model.ClientValuationModel._PerpetualGrowthRateMin) /
-                Math.Pow(1 + model.ClientValuationModel.VmiRiskRate + model.ClientValuationModel._ValuationRiskRate, 5);
+                Math.Pow(1 + model.ClientValuationModel.VmiRiskRate + model.ClientValuationModel._ValuationRiskRate, 5));
 
-            model.ClientValuationModel.PerpetualGrowthRateCashFlowMax = model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel.UserPerpetualGrowthRate) /
+            model.ClientValuationModel.PerpetualGrowthRateCashFlowMax = Math.Ceiling(model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel.UserPerpetualGrowthRate) /
                 ((model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate) - model.ClientValuationModel.UserPerpetualGrowthRate) /
-                Math.Pow(1 + model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate, 5);
+                Math.Pow(1 + model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate, 5));
+
+            model.ClientValuationModel.ValuationMin = model.ClientValuationModel.DiscountedCashFlowMin + model.ClientValuationModel.PerpetualGrowthRateCashFlowMin;
+            model.ClientValuationModel.ValuationMax = model.ClientValuationModel.DiscountedCashFlowMax + model.ClientValuationModel.PerpetualGrowthRateCashFlowMax;
 
         }
 
         private void CalculateKPIs(BATModel model)
         {
-            //TODO: blanks for D12 and D18
-            model.ClientValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ?
-                0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
+            //D10 - Total Assets
+            //D12 - RecurringRevenueAnnualized
+            //D18 - ClientRelationships
+            //D20 - FTE Advisors
+            //D13 - Total RevenueAnnualized
+            //D16 - 
 
-            //TODO: blanks for D12  and D20
-            model.ClientValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_FullTimeAdvisorsAnnualized) == 0) ?
-                0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_FullTimeAdvisorsAnnualized);
-
-            //TODO: blanks for D13 and D18 
-            model.ClientValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_TotalRevenueAnnualized) == 0 || Convert.ToDouble(model.Ff_ClientRelationships) == 0) ?
-                0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
-
-
-
-
-
-
-
-
-            //TODO: blanks for D12 
-            model.ClientValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0) ?
-                0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
-
-            //TODO: blanks for D12 
-            model.ClientValuationModel.RecurringRevenuePerClient = (Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) == 0) ?
-                0 : Convert.ToDouble(model.Ff_RecurringRevenueAnnualized) / Convert.ToDouble(model.Ff_ClientRelationships);
+            //D12 and D18 - Recurring Revenue per Client
+            if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+            {
+                model.ClientValuationModel.RecurringRevenuePerClient = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.RecurringRevenuePerClient = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+            }
+            //D12 and D20 - Recurring  Revenue per Advisor
+            if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+            {
+                model.ClientValuationModel.RecurringRevenuePerAdvisor = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.RecurringRevenuePerAdvisor = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+            }
+            //D13 and D18 - Total Revenue per Client
+            if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+            {
+                model.ClientValuationModel.TotalRevenuePerClient = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.TotalRevenuePerClient = (ConvertToDouble(model.Ff_TotalRevenueAnnualized) / ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+            }
+            //D10 and D18 - Total AUM per Client
+            if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+            {
+                model.ClientValuationModel.TotalAUMperClient = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.TotalAUMperClient = (ConvertToDouble(model.Ff_TotalFirmAsset) / ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+            }
+            //D10 and D20 - Total AUM per Advisor
+            if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+            {
+                model.ClientValuationModel.TotalAUMperAdvisor = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.TotalAUMperAdvisor = (ConvertToDouble(model.Ff_TotalFirmAsset) / ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+            }
+            //D16 and D18 - Profit per Client
+            if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+            {
+                model.ClientValuationModel.ProfitPerClient = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.ProfitPerClient = (ConvertToDouble(model.Ff_OperatingProfitAnnualized) / ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+            }
+            //D16 and D13 - Profit per Client
+            if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized))
+            {
+                model.ClientValuationModel.ProfitAsPercentOfRevenut = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.ProfitAsPercentOfRevenut = (ConvertToDouble(model.Ff_OperatingProfitAnnualized) / ConvertToDouble(model.Ff_TotalRevenueAnnualized)).ToString();
+            }
+            //D18 and D20 - Clients per Advisor
+            if (string.IsNullOrEmpty(model.Ff_ClientRelationships) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+            {
+                model.ClientValuationModel.ClientsPerAdvisor = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.ClientsPerAdvisor = (ConvertToDouble(model.Ff_ClientRelationships) / ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+            }
+            //D13 and D10 - Revenue as BPS on Assets
+            if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_TotalFirmAsset))
+            {
+                model.ClientValuationModel.RevenueAsBPSOnAssets = "N/A";
+            }
+            else
+            {
+                model.ClientValuationModel.RevenueAsBPSOnAssets = (ConvertToDouble(model.Ff_TotalRevenueAnnualized) / ConvertToDouble(model.Ff_TotalFirmAsset) * 10000).ToString();
+            }
         }
 
         #endregion

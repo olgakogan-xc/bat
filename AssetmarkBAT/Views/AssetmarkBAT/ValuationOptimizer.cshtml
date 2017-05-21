@@ -9,7 +9,7 @@
     AssetMark – BAT – Assessement5
 }
 
-<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+@*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         window.setTimeout(function () {
@@ -17,7 +17,7 @@
             var newTab = window.open(link, '_blank');
         }, 50);
     });
-</script>
+</script>*@
 
 
 <main>
@@ -38,25 +38,25 @@
                         <tbody>
                             <tr>
                                 <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Managing Your Practice</a></td>
-                                <td>120</td>
+                                <td>@Model.ClientValuationModel.ManagingYourPracticeScore</td>
                             </tr>
                             <tr>
                                 <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Marketing Your Business</a></td>
-                                <td>120</td>
+                                <td>@Model.ClientValuationModel.MarketingYourBusinessScore</td>
                             </tr>
                             <tr>
                                 <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Optimizing Your Operations</a></td>
-                                <td>120</td>
+                                <td>@Model.ClientValuationModel.OptimizingYourOperationsScore</td>
                             </tr>
                             <tr>
                                 <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Empowering Your Team</a></td>
-                                <td>120</td>
+                                <td>@Model.ClientValuationModel.EmpoweringYourTeamScore</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Total VMI Score</td>
-                                <td>470</td>
+                                <td>@Model.ClientValuationModel.VMIScore</td>
                                 <td></td>
                             </tr>
                         </tfoot>

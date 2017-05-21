@@ -155,6 +155,9 @@ namespace AssetmarkBAT.Models
 
         public BATModel()
         {
+            ClientValuationModel = new ClientValuationModel();
+            BenchmarksValuationModel = new BenchmarksValuationModel();
+
             Vmi_Emp_Compensation = null;
             Vmi_Emp_Emp_Retention = null;
             Vmi_Emp_Human = null;
