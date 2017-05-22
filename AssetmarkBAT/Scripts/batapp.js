@@ -159,7 +159,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             series: [{
                 data: [[0, 0], [0, 0]]
-            }]
+            }],
+
+            colors: ['#6dc6e7', '#007ebb']
 
         });
 
