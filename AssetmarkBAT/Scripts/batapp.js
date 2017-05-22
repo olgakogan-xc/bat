@@ -112,6 +112,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.getGraphValues();
     };
 
+    $scope.categories = ['Current Value', 'Optimized Value'];
+
     $scope.initGraph = function () {
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
@@ -133,7 +135,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             },
 
             xAxis: {
-                categories: ['Current Value', 'Optimized Value']
+                categories: $scope.categories
             },
 
             tooltip: {
