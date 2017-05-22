@@ -111,9 +111,7 @@ namespace AssetmarkBAT.Controllers
             if (submit == "Save Your Inputs")
             {
                 model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
-                //TODO: remove after testing
-                model.Month = 7;
-
+               
                 if (!string.IsNullOrEmpty(model.PracticeTypeOther))
                 {
                     model.PracticeType = model.PracticeTypeOther;
@@ -530,9 +528,7 @@ namespace AssetmarkBAT.Controllers
                         model.zipPostal = original.Zip;
                         model.brokerDealer1 = original.BrokerOrIRA;
                         model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
-                        model.Year = original.TimeRange;
-                        //model.Month = original.Month ?? 12; TODO: change after testing and when front end is ready
-                        model.Month = 7;
+                        model.Year = original.TimeRange;                      
                         model.PDFPath = original.PDF;
                         model.DateStarted = original.DateStarted;
 
