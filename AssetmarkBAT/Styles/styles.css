@@ -1913,10 +1913,6 @@ section.white {
 .sliders .slider-low {
   text-align: right;
 }
-/* line 70, ../scss/app/modules/_sliders.scss */
-.sliders .slider-control input[type="text"] {
-  display: none;
-}
 
 /* line 81, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-bar {
@@ -2345,6 +2341,15 @@ section.white {
 /* line 1, ../scss/app/modules/_graph.scss */
 .graph {
   margin: 3.0rem 0 5.0rem 0;
+}
+
+/* line 6, ../scss/app/modules/_graph.scss */
+.highcharts-series .highcharts-point:nth-child(1) {
+  fill: #6dc6e7;
+}
+/* line 9, ../scss/app/modules/_graph.scss */
+.highcharts-series .highcharts-point:nth-child(2) {
+  fill: #007ebb;
 }
 
 /* line 1, ../scss/app/modules/_fancyform.scss */

@@ -24,15 +24,17 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.selectYear = function (year) {
         console.log(year);
-        if (year === '') {
+        if (year === '' || year === 'Previous') {
             $scope.selectedYear = 'Previous';
+        } else {
+            $scope.selectedYear = 'YTD 2017';
         }
     };
 
     $scope.yearSelected = function () {
         //if(new Date().getFullYear() == $scope.selectedYear){
         if ($scope.selectedYear == 'YTD 2017') {
-            $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
+            $scope.shownMonths = $scope.months.slice(0, new Date().getMonth());
             if ($scope.selectedMonth < 0) {
                 $scope.selectedMonth = $scope.shownMonths.length;
             } else if ($scope.selectedMonth > $scope.shownMonths.length) {
@@ -87,6 +89,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.getGraphValues = function () {
         $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+            //$.getJSON('optimizer.json', function(data){
             var graphValues = [];
 
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
@@ -110,6 +113,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.getGraphValues();
     };
 
+    $scope.categories = ['Current Value', 'Optimized Value'];
+
     $scope.initGraph = function () {
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
@@ -131,7 +136,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             },
 
             xAxis: {
-                categories: ['Current Value', 'Optimized Value']
+                categories: $scope.categories
             },
 
             tooltip: {
@@ -139,6 +144,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             },
 
             plotOptions: {
+                column: {
+                    colorByPoint: true
+                },
                 columnrange: {
                     dataLabels: {
                         enabled: true,
