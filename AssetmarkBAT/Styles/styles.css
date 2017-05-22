@@ -1913,6 +1913,10 @@ section.white {
 .sliders .slider-low {
   text-align: right;
 }
+/* line 70, ../scss/app/modules/_sliders.scss */
+.sliders .slider-control input[type="text"] {
+  display: none;
+}
 
 /* line 81, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-bar {
