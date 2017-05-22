@@ -12,15 +12,17 @@ namespace AssetmarkBAT.Models
     {      
         public string UserId { get; set; }
 
+        //Eloqua fields
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string email { get; set; }
-        public string phone { get; set; }
+        public string emailAddress { get; set; }
+        public string busPhone { get; set; }
 
-        public string zip { get; set; }
-        public string brokerorira { get; set; }
+        public string zipPostal { get; set; }
+        public string brokerDealer1 { get; set; }
 
         public bool EloquaUser { get; set; }
+        //End of Eloqua fields
 
 
         //drop downs

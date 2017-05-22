@@ -434,10 +434,10 @@ namespace AssetmarkBAT.Controllers
                         UserId = model.UserId,
                         FirstName = model.firstName,
                         LastName = model.lastName,
-                        Phone = model.phone,
-                        Email = model.email,
-                        Zip = model.zip,
-                        BrokerOrIRA = model.brokerorira,
+                        Phone = model.busPhone,
+                        Email = model.emailAddress,
+                        Zip = model.zipPostal,
+                        BrokerOrIRA = model.brokerDealer1,
                         EloquaUser = model.EloquaUser,
 
                         PracticeType = model.PracticeType,
@@ -529,10 +529,10 @@ namespace AssetmarkBAT.Controllers
                     {
                         model.firstName = original.FirstName;
                         model.lastName = original.LastName;
-                        model.email = original.Email;
-                        model.phone = original.Phone;
-                        model.zip = original.Zip;
-                        model.brokerorira = original.BrokerOrIRA;
+                        model.emailAddress = original.Email;
+                        model.busPhone = original.Phone;
+                        model.zipPostal = original.Zip;
+                        model.brokerDealer1 = original.BrokerOrIRA;
                         model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
                         model.Year = original.TimeRange;
                         //model.Month = original.Month ?? 12; TODO: change after testing and when front end is ready
