@@ -13,6 +13,15 @@ namespace AssetmarkBAT.Models
         public string UserId { get; set; }
 
         public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+
+        public string zip { get; set; }
+        public string brokerorira { get; set; }
+
+        public bool EloquaUser { get; set; }
+
 
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]
@@ -20,7 +29,7 @@ namespace AssetmarkBAT.Models
         public SelectList Years { get; set; }
 
        
-        public string Month { get; set; }
+        public int Month { get; set; }
         public SelectList Months { get; set; }
 
         [Required(ErrorMessage = "Please make a selection")]
@@ -100,9 +109,6 @@ namespace AssetmarkBAT.Models
         public string Ff_NewClients { get; set; }
         public string Ff_NewClientsAnnualized { get; set; }
 
-        public string Ff_Complete { get; set; }
-
-
         //Managing section
         public string Vmi_Man_Written_Plan { get; set; }    
         public string Vmi_Man_Track { get; set; }      
@@ -131,13 +137,13 @@ namespace AssetmarkBAT.Models
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
 
-        public string Vmi_Complete { get; set; }
+        public int Vmi_Index { get; set; }
 
         public string DateStarted { get; set; }
 
-        public ClientValuationModel BATValuationModel { get; set; }
+        public ClientValuationModel ClientValuationModel { get; set; }
 
-        public BenchmarksValuationModel BenchmarkModel { get; set; }
+        public BenchmarksValuationModel BenchmarksValuationModel { get; set; }
 
         public string PDFPath { get; set; }
 
@@ -146,6 +152,9 @@ namespace AssetmarkBAT.Models
 
         public BATModel()
         {
+            ClientValuationModel = new ClientValuationModel();
+            BenchmarksValuationModel = new BenchmarksValuationModel();
+
             Vmi_Emp_Compensation = null;
             Vmi_Emp_Emp_Retention = null;
             Vmi_Emp_Human = null;

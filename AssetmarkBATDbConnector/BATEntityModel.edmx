@@ -18,11 +18,14 @@
           <Property Name="BrokerOrIRA" Type="nvarchar" MaxLength="50" />
           <Property Name="DateStarted" Type="nvarchar" MaxLength="50" />
           <Property Name="EloquaUser" Type="bit" />
+          <Property Name="Month" Type="int" />
           <Property Name="TimeRange" Type="nvarchar" MaxLength="50" />
           <Property Name="PracticeType" Type="nvarchar" MaxLength="50" />
           <Property Name="AffiliationModel" Type="nvarchar" MaxLength="50" />
           <Property Name="FirmType" Type="nvarchar" MaxLength="50" />
           <Property Name="PDF" Type="nvarchar" MaxLength="150" />
+          <Property Name="Page1Complete" Type="bit" />
+          <Property Name="Page2Complete" Type="bit" />
           <Property Name="Ff_TotalFirmAsset" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_NonRecurringRevenue" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_NonRecurringRevenue_Annualized" Type="nvarchar" MaxLength="50" />
@@ -41,6 +44,7 @@
           <Property Name="Ff_Fte_Non_Advisors" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_Fte_Advisors" Type="nvarchar" MaxLength="50" />
           <Property Name="Ff_New_Clients" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ff_New_Clients_Annualized" Type="nvarchar" MaxLength="50" />
           <Property Name="Vmi_Man_Written_Plan" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Man_Track" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Man_Phase" Type="nvarchar" MaxLength="10" />
@@ -61,9 +65,7 @@
           <Property Name="Vmi_Emp_Responsibilities" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Emp_Staff" Type="nvarchar" MaxLength="10" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="nvarchar" MaxLength="10" />
-          <Property Name="VmiIndex" Type="nvarchar" MaxLength="50" />
-          <Property Name="Page1Complete" Type="nvarchar" MaxLength="50" />
-          <Property Name="Page2Complete" Type="nvarchar" MaxLength="50" />
+          <Property Name="VmiIndex" Type="int" />
         </EntityType>
         <EntityContainer Name="am_bvsdatabaseModelStoreContainer">
           <EntitySet Name="am_bat" EntityType="Self.am_bat" Schema="dbo" store:Type="Tables" />
@@ -88,11 +90,14 @@
           <Property Name="BrokerOrIRA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateStarted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EloquaUser" Type="Boolean" />
+          <Property Name="Month" Type="Int32" />
           <Property Name="TimeRange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PracticeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AffiliationModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirmType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PDF" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Page1Complete" Type="Boolean" />
+          <Property Name="Page2Complete" Type="Boolean" />
           <Property Name="Ff_TotalFirmAsset" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_NonRecurringRevenue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_NonRecurringRevenue_Annualized" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -111,6 +116,7 @@
           <Property Name="Ff_Fte_Non_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_Fte_Advisors" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ff_New_Clients" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ff_New_Clients_Annualized" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Written_Plan" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Track" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Man_Phase" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
@@ -131,9 +137,7 @@
           <Property Name="Vmi_Emp_Responsibilities" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Emp_Staff" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Vmi_Emp_Emp_Retention" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="VmiIndex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Page1Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Page2Complete" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VmiIndex" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -144,8 +148,6 @@
           <EntitySetMapping Name="am_bat">
             <EntityTypeMapping TypeName="am_bvs.databaseModel.am_bat">
               <MappingFragment StoreEntitySet="am_bat">
-                <ScalarProperty Name="Page2Complete" ColumnName="Page2Complete" />
-                <ScalarProperty Name="Page1Complete" ColumnName="Page1Complete" />
                 <ScalarProperty Name="VmiIndex" ColumnName="VmiIndex" />
                 <ScalarProperty Name="Vmi_Emp_Emp_Retention" ColumnName="Vmi_Emp_Emp_Retention" />
                 <ScalarProperty Name="Vmi_Emp_Staff" ColumnName="Vmi_Emp_Staff" />
@@ -167,6 +169,7 @@
                 <ScalarProperty Name="Vmi_Man_Phase" ColumnName="Vmi_Man_Phase" />
                 <ScalarProperty Name="Vmi_Man_Track" ColumnName="Vmi_Man_Track" />
                 <ScalarProperty Name="Vmi_Man_Written_Plan" ColumnName="Vmi_Man_Written_Plan" />
+                <ScalarProperty Name="Ff_New_Clients_Annualized" ColumnName="Ff_New_Clients_Annualized" />
                 <ScalarProperty Name="Ff_New_Clients" ColumnName="Ff_New_Clients" />
                 <ScalarProperty Name="Ff_Fte_Advisors" ColumnName="Ff_Fte_Advisors" />
                 <ScalarProperty Name="Ff_Fte_Non_Advisors" ColumnName="Ff_Fte_Non_Advisors" />
@@ -185,11 +188,14 @@
                 <ScalarProperty Name="Ff_NonRecurringRevenue_Annualized" ColumnName="Ff_NonRecurringRevenue_Annualized" />
                 <ScalarProperty Name="Ff_NonRecurringRevenue" ColumnName="Ff_NonRecurringRevenue" />
                 <ScalarProperty Name="Ff_TotalFirmAsset" ColumnName="Ff_TotalFirmAsset" />
+                <ScalarProperty Name="Page2Complete" ColumnName="Page2Complete" />
+                <ScalarProperty Name="Page1Complete" ColumnName="Page1Complete" />
                 <ScalarProperty Name="PDF" ColumnName="PDF" />
                 <ScalarProperty Name="FirmType" ColumnName="FirmType" />
                 <ScalarProperty Name="AffiliationModel" ColumnName="AffiliationModel" />
                 <ScalarProperty Name="PracticeType" ColumnName="PracticeType" />
                 <ScalarProperty Name="TimeRange" ColumnName="TimeRange" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="EloquaUser" ColumnName="EloquaUser" />
                 <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
                 <ScalarProperty Name="BrokerOrIRA" ColumnName="BrokerOrIRA" />

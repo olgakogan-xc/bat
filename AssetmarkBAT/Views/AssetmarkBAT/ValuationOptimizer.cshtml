@@ -1,4 +1,6 @@
-﻿@{
+﻿@model AssetmarkBAT.Models.BATModel
+
+@{
     Layout = "~/Views/AssetmarkBAT/Shared/_Layout.cshtml";
 }
 
@@ -6,6 +8,16 @@
 {
     AssetMark – BAT – Assessement5
 }
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        window.setTimeout(function () {
+            var link = "@Model.PDFPath";
+            var newTab = window.open(link, '_blank');
+        }, 50);
+    });
+</script>*@
 
 
 <main>
@@ -21,35 +33,30 @@
                             <tr>
                                 <th>Valuation Categories</th>
                                 <th>Score</th>
-                                <th class="text-right">PDFs</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Managing Your Practice</td>
-                                <td>120</td>
-                                <td class="text-right"><a href="#"><img src="~/Images/pdf.png" /></a></td>
+                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Managing Your Practice</a></td>
+                                <td>@Model.ClientValuationModel.ManagingYourPracticeScore</td>
                             </tr>
                             <tr>
-                                <td>Marketing Your Business</td>
-                                <td>120</td>
-                                <td class="text-right"><a href="#"><img src="~/Images/pdf.png" /></a></td>
+                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Marketing Your Business</a></td>
+                                <td>@Model.ClientValuationModel.MarketingYourBusinessScore</td>
                             </tr>
                             <tr>
-                                <td>Optimizing Your Operations</td>
-                                <td>120</td>
-                                <td class="text-right"><a href="#"><img src="~/Images/pdf.png" /></a></td>
+                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Optimizing Your Operations</a></td>
+                                <td>@Model.ClientValuationModel.OptimizingYourOperationsScore</td>
                             </tr>
                             <tr>
-                                <td>Empowering Your Team</td>
-                                <td>120</td>
-                                <td class="text-right"><a href="#"><img src="~/Images/pdf.png" /></a></td>
+                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Empowering Your Team</a></td>
+                                <td>@Model.ClientValuationModel.EmpoweringYourTeamScore</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Total VMI Score</td>
-                                <td>470</td>
+                                <td>@Model.ClientValuationModel.VMIScore</td>
                                 <td></td>
                             </tr>
                         </tfoot>

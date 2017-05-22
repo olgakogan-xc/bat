@@ -23,11 +23,14 @@ namespace AssetmarkBATDbConnector
         public string BrokerOrIRA { get; set; }
         public string DateStarted { get; set; }
         public Nullable<bool> EloquaUser { get; set; }
+        public Nullable<int> Month { get; set; }
         public string TimeRange { get; set; }
         public string PracticeType { get; set; }
         public string AffiliationModel { get; set; }
         public string FirmType { get; set; }
         public string PDF { get; set; }
+        public Nullable<bool> Page1Complete { get; set; }
+        public Nullable<bool> Page2Complete { get; set; }
         public string Ff_TotalFirmAsset { get; set; }
         public string Ff_NonRecurringRevenue { get; set; }
         public string Ff_NonRecurringRevenue_Annualized { get; set; }
@@ -46,6 +49,7 @@ namespace AssetmarkBATDbConnector
         public string Ff_Fte_Non_Advisors { get; set; }
         public string Ff_Fte_Advisors { get; set; }
         public string Ff_New_Clients { get; set; }
+        public string Ff_New_Clients_Annualized { get; set; }
         public string Vmi_Man_Written_Plan { get; set; }
         public string Vmi_Man_Track { get; set; }
         public string Vmi_Man_Phase { get; set; }
@@ -66,8 +70,6 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Responsibilities { get; set; }
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
-        public string VmiIndex { get; set; }
-        public string Page1Complete { get; set; }
-        public string Page2Complete { get; set; }
+        public Nullable<int> VmiIndex { get; set; }
     }
 }

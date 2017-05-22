@@ -396,6 +396,7 @@
 {
     @Html.HiddenFor(m => m.DateStarted)
     @Html.HiddenFor(m => m.PDFPath)
+    @Html.HiddenFor(m => m.UserId)
 
     <main>
         <section>
@@ -898,8 +899,8 @@ function SetElqContent2(){
                             </div>
                         </fieldset>
                         <div class="button-container text-center">
-                            <a href="@Model.PDFPath" class="btn" target="_blank">View Complete Report</a>
-                            <input type="submit" value="Additional Resources" name="submit" />
+                            @*<a href="@Model.PDFPath" class="btn" target="_blank" onclick="">View Complete Report</a>*@
+                            <input type="submit" value="View Complete Report" name="submit" />
                         </div>
                     </div>
                 </div>

@@ -29,6 +29,32 @@
     </section>
     @using (Html.BeginForm("Page2Questions", "AssetmarkBAT", FormMethod.Post, new { id = "form", name = "form", ng_show = "selectedMonth != null" }))
     {
+        @Html.HiddenFor(m => m.Vmi_Emp_Compensation)
+        @Html.HiddenFor(m => m.Vmi_Emp_Emp_Retention)
+        @Html.HiddenFor(m => m.Vmi_Emp_Human)
+        @Html.HiddenFor(m => m.Vmi_Emp_Responsibilities)
+        @Html.HiddenFor(m => m.Vmi_Emp_Staff)
+
+        @Html.HiddenFor(m => m.Vmi_Man_Phase)
+        @Html.HiddenFor(m => m.Vmi_Man_Practice)
+        @Html.HiddenFor(m => m.Vmi_Man_Revenue)
+        @Html.HiddenFor(m => m.Vmi_Man_Track)
+        @Html.HiddenFor(m => m.Vmi_Man_Written_Plan)
+        
+        @Html.HiddenFor(m => m.Vmi_Mar_Materials)
+        @Html.HiddenFor(m => m.Vmi_Mar_New_Business)
+        @Html.HiddenFor(m => m.Vmi_Mar_Plan)
+        @Html.HiddenFor(m => m.Vmi_Mar_Prospects)
+        @Html.HiddenFor(m => m.Vmi_Mar_Value_Proposition)
+
+        @Html.HiddenFor(m => m.Vmi_Opt_Automate)
+        @Html.HiddenFor(m => m.Vmi_Opt_Model)
+        @Html.HiddenFor(m => m.Vmi_Opt_Procedures)
+        @Html.HiddenFor(m => m.Vmi_Opt_Schedule)
+        @Html.HiddenFor(m => m.Vmi_Opt_Segment)
+
+        @Html.HiddenFor(m => m.Page2Complete)
+
         <section class="grey">
             <div class="container">
                 <h3>Enter your firm's financial data in the fields below (all fields are required):</h3>
