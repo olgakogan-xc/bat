@@ -32,7 +32,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.yearSelected = function () {
         //if(new Date().getFullYear() == $scope.selectedYear){
         if ($scope.selectedYear == 'YTD 2017') {
-            $scope.shownMonths = $scope.months.slice(0, new Date().getMonth() + 1);
+            $scope.shownMonths = $scope.months.slice(0, new Date().getMonth());
             if ($scope.selectedMonth < 0) {
                 $scope.selectedMonth = $scope.shownMonths.length;
             } else if ($scope.selectedMonth > $scope.shownMonths.length) {
