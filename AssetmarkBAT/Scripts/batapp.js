@@ -24,7 +24,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.selectYear = function (year) {
         console.log(year);
-        if (year === '') {
+        if (year === '' || year === 'Previous') {
             $scope.selectedYear = 'Previous';
         } else {
             $scope.selectedYear = 'YTD 2017';
