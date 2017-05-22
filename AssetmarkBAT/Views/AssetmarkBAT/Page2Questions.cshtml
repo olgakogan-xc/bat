@@ -52,7 +52,7 @@
         @Html.HiddenFor(m => m.Page2Complete)
        
 
-        <section>
+        <section ng-init="vmiSliderChanged = @Model.Page2Complete">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
