@@ -101,6 +101,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             $scope.vmiComp.minValue = data.top_vmi_min;
             $scope.vmiComp.maxValue = data.top_vmi_max;
+
+            $scope.profitAnnualized = data.profitAnnualized;
         });
     };
 
