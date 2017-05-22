@@ -437,10 +437,8 @@ namespace AssetmarkBAT.Controllers
                         PracticeType = model.PracticeType,
                         AffiliationModel = model.AffiliationMode,
                         FirmType = model.FirmType,
-                        TimeRange = model.Year,
-                        //TODO: remove this temporary value
-                        //Month = (model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),
-                        Month = 7,
+                        TimeRange = model.Year,                      
+                        Month = (model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),                       
 
                         PDF = model.PDFPath,
                         DateStarted = model.DateStarted,
@@ -528,7 +526,8 @@ namespace AssetmarkBAT.Controllers
                         model.zipPostal = original.Zip;
                         model.brokerDealer1 = original.BrokerOrIRA;
                         model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
-                        model.Year = original.TimeRange;                      
+                        model.Year = original.TimeRange;
+                        model.Month = original.Month.Value;                   
                         model.PDFPath = original.PDF;
                         model.DateStarted = original.DateStarted;
 
