@@ -89,6 +89,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.getGraphValues = function () {
         $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+            //$.getJSON('optimizer.json', function(data){
             var graphValues = [];
 
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
@@ -144,8 +145,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             plotOptions: {
                 column: {
-                    colorByPoint: true,
-                    colors: ['#6dc6e7', '#007ebb']
+                    colorByPoint: true
                 },
                 columnrange: {
                     dataLabels: {
