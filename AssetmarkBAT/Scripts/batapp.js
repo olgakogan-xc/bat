@@ -123,6 +123,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 inverted: false
             },
 
+            colors: ['#6dc6e7', '#007ebb'],
+
             yAxis: {
                 labels: {
                     formatter: function () {
@@ -143,6 +145,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             },
 
             plotOptions: {
+                column: {
+                    colorByPoint: true
+                },
                 columnrange: {
                     dataLabels: {
                         enabled: true,
@@ -159,9 +164,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             series: [{
                 data: [[0, 0], [0, 0]]
-            }],
-
-            colors: ['#6dc6e7', '#007ebb']
+            }]
 
         });
 
