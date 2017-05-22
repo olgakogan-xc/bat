@@ -49,10 +49,10 @@
         @Html.HiddenFor(m => m.Ff_NewClientsAnnualized)
 
         @Html.HiddenFor(m => m.DateStarted)
-        @Html.HiddenFor(m => m.Page2Complete)
+        @Html.HiddenFor(m => m.Page2Complete, new { ng_init = string.Format("vmiSliderChanged = {0}", Model.Page2Complete)})
        
 
-        <section ng-init="vmiSliderChanged = @Model.Page2Complete">
+        <section>
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
