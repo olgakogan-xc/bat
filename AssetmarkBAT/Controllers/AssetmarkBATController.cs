@@ -155,6 +155,10 @@ namespace AssetmarkBAT.Controllers
                     model.Ff_NewClientsAnnualized = (ConvertToDouble(model.Ff_NewClients)).ToString();
                     model.Page1Complete = true;
                 }
+                else
+                {
+                    model.Page1Complete = false;
+                }
 
                 PopulateEntityFromModel(model);
                 return View(_Page1QuestionsViewName, model);
@@ -163,7 +167,7 @@ namespace AssetmarkBAT.Controllers
             {
                 PopulateModelFromDatabase(model);
 
-                if (model.Page2Complete == false)
+                if (model.Page2Complete == false && model.Page1Complete == false)
                 {
                     PrepopulateVMIs(model);
                 }
@@ -199,6 +203,8 @@ namespace AssetmarkBAT.Controllers
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
                     + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+                model.Page2Complete = true;
+                model.Page1Complete = true;
                 PopulateEntityFromModel(model);
                 CalculateValuation(model, false);
                 CreatePdf(model);
@@ -235,42 +241,32 @@ namespace AssetmarkBAT.Controllers
         /// <summary>
         /// Service call to be consumed by the front end to get some valuation metrics for graphs
         /// </summary>       
-        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI)
+        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate)
         {
             BATModel model = new BATModel();
             BATModel comparativeModel = model;
             double comparativeValuationMin;
             double comparativeValuationMax;
 
-            if (Request.Url.AbsolutePath.ToLower().Contains("optimizer") && true) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
+            if (recalculate) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
             {
-                model = GetClientValuationRanges(null, -1, -1, -1);
-
+                model = GetClientValuationRanges(null, PAGR, PM, VMI);
                 CalculateValuation(model, false);
-
-                //CalculateValuationVariables(model, false);
-                //CalculateNonAdvisorTaxFreeCashFlow(model);
-                //CalculateDiscountedCashFlow(model);
-                //CalculateValuationRanges(model);
-                //CalculateKPIs(model);
 
                 //Call to recalculate and build comparative range
                 comparativeModel = GetClientValuationRanges(null, PAGR, PM, VMI);
                 comparativeValuationMin = comparativeModel.ClientValuationModel.ValuationMin;
                 comparativeValuationMax = comparativeModel.ClientValuationModel.ValuationMax;
             }
-            else if (Request.Url.AbsolutePath.ToLower().Contains("optimizer") && false) // call made from Valuation Optimizer page on load. Build comparative range with optimizer values
+            else //call made from the Report page or Optimizer page on load. Get benchmarks
             {
                 model = GetClientValuationRanges(null, -1, -1, -1);
                 BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
 
-                comparativeValuationMin = peerGroup.ValuationMin;
-                comparativeValuationMax = peerGroup.ValuationMax;
-            }
-            else //call made from the Report page. Get comparative range from benchmarks
-            {
-                model = GetClientValuationRanges(null, -1, -1, -1);
-                BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+                if(peerGroup == null)
+                {
+                    peerGroup = model.BenchmarksValuationModel.PeerGroups.Last();
+                }
 
                 comparativeValuationMin = peerGroup.ValuationMin;
                 comparativeValuationMax = peerGroup.ValuationMax;
@@ -639,8 +635,8 @@ namespace AssetmarkBAT.Controllers
                 PdfBrush redBrush = new PdfBrush(PdfRgbColor.Black);
 
 
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 500));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 500));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 500));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 500));
                 //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 500));
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 500));
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 500));
@@ -686,6 +682,12 @@ namespace AssetmarkBAT.Controllers
                 {
                     model.BenchmarksValuationModel = new BenchmarksValuationModel();
                     BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+
+                    if (peerGroup == null)
+                    {
+                        peerGroup = model.BenchmarksValuationModel.PeerGroups.Last();
+                    }
+
                     int groupNumber = model.BenchmarksValuationModel.PeerGroups.IndexOf(peerGroup);
                     string group = "$0 - $250K";
 
@@ -766,29 +768,48 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(35, 371), new PdfPoint(255, 371));
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(35, 393), new PdfPoint(255, 393));
 
-                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(35, 415), new PdfPoint(205, 415));
+                    page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(35, 415), new PdfPoint(255, 415));
                     page.Graphics.DrawString("1000", helvetica, textBrush, 17, 298);
                     page.Graphics.DrawString("800", helvetica, textBrush, 19, 320);
                     page.Graphics.DrawString("600", helvetica, textBrush, 19, 342);
                     page.Graphics.DrawString("400", helvetica, textBrush, 19, 364);
                     page.Graphics.DrawString("200", helvetica, textBrush, 19, 386);
                     page.Graphics.DrawString("0", helvetica, textBrush, 25, 408);
+                    page.Graphics.DrawString("Your Firm", helvetica, textBlueBrush, 70, 400);
+                    page.Graphics.DrawString("Benchmark Index", helvetica, textBlueBrush, 160, 400);
 
-
-                    //Calculate blocks height
-                    double pixel = 115 / 1000;
+                    //Calculate blocks height for Your Firm
+                    double pixel = 0.115;
                     double firstBlock = model.ClientValuationModel.EmpoweringYourTeamScore * pixel;
                     double secondBlock = model.ClientValuationModel.OptimizingYourOperationsScore * pixel;
                     double thirdBlock = model.ClientValuationModel.MarketingYourBusinessScore * pixel;
                     double fourthBlock = model.ClientValuationModel.ManagingYourPracticeScore * pixel;
 
-                    page.Graphics.DrawRectangle(graphBrush1, 70, 420, 60, firstBlock);
-                    page.Graphics.DrawRectangle(graphBrush2, 70, 420 - firstBlock, 60, secondBlock);
+                    page.Graphics.DrawRectangle(graphBrush1, 70, 390, 55, firstBlock);
+                    page.Graphics.DrawRectangle(graphBrush2, 70, 390 - firstBlock, 55, secondBlock);
+                    page.Graphics.DrawRectangle(graphBrush3, 70, 390 - firstBlock - secondBlock, 55, thirdBlock);
+                    page.Graphics.DrawRectangle(graphBrush4, 70, 390 - firstBlock - secondBlock - thirdBlock + 1, 55, fourthBlock);
 
-                    //page.Graphics.DrawRectangle(graphBrush1, 220, 575, 60, peerGroup.EYT * 200 / 1000);
-                    //page.Graphics.DrawRectangle(graphBrush2, 220, 575 - peerGroup.OYO * 200 / 1000, 60, peerGroup.OYO * 200 / 1000);
-                    //page.Graphics.DrawRectangle(graphBrush3, 220, 575 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000, 60, peerGroup.MYB * 200 / 1000);
-                    //page.Graphics.DrawRectangle(graphBrush4, 220, 575 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000 - peerGroup.MYP * 200 / 1000, 60, peerGroup.MYP * 200 / 1000);
+                    //page.Graphics.DrawString()
+
+                    //Calculate blocks height for Your Firm                    
+                    firstBlock = peerGroup.EYT * pixel;
+                    secondBlock = peerGroup.OYO * pixel;
+                    thirdBlock = peerGroup.MYB * pixel;
+                    fourthBlock = peerGroup.MYP * pixel;
+
+                    page.Graphics.DrawRectangle(graphBrush1, 155, 390, 55, firstBlock);
+                    page.Graphics.DrawRectangle(graphBrush2, 155, 390 - firstBlock, 55, secondBlock);
+                    page.Graphics.DrawRectangle(graphBrush3, 155, 390 - firstBlock - secondBlock, 55, thirdBlock);
+                    page.Graphics.DrawRectangle(graphBrush4, 155, 390 - firstBlock - secondBlock - thirdBlock + 1, 55, fourthBlock);
+
+
+
+
+
+
+
+
 
 
                     //Valuation Range Graph-------------------------------------------------------------------------------- -

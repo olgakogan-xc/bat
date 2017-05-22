@@ -47,36 +47,42 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="First Name">
+                                        @*<input type="text" class="form-control" placeholder="First Name">*@
+                                        @Html.TextBoxFor(m => m.firstName, new { @class= "form-control" })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Last Name">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Phone Number">
+                                        @*<input type="text" class="form-control" placeholder="Last Name">*@
+                                        @Html.TextBoxFor(m => m.lastName, new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Zip or Postal Code">
+                                        @*<input type="text" class="form-control" placeholder="Email">*@
+                                        @Html.TextBoxFor(m => m.emailAddress, new { @class = "form-control" })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Broker-Dealer or RIA Name">
+                                        @*<input type="text" class="form-control" placeholder="Phone Number">*@
+                                        @Html.TextBoxFor(m => m.busPhone, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @*<input type="text" class="form-control" placeholder="Zip or Postal Code">*@
+                                        @Html.TextBoxFor(m => m.zipPostal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @*<input type="text" class="form-control" placeholder="Broker-Dealer or RIA Name">*@
+                                        @Html.TextBoxFor(m => m.brokerDealer1, new { @class = "form-control" })
                                     </div>
                                 </div>
                             </div>

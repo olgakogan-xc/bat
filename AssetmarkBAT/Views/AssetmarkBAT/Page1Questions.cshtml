@@ -340,54 +340,54 @@
 </style>
 
 <script type="text/javascript">
-// START --> MAKE YOUR CHANGES HERE
-		var EloquaSiteID = "2564"; 									// The Site ID of your Eloqua Instance
-		var EloquaScript = "https://img.en25.com/i/elqCfg.min.js"; 	// Path to elqCfg.min.js
-		var LookupIdVisitor = "a3d10de9504d4118af46e9747786db05";	// LOOKUP A:  The ID of your Visitor Web Data Lookup
-		var LookupIdPrimary = "e087f5d896174b92bdf576c56a10cd3f";	// LOOKUP B:  The ID of your Contact/Datacard/Prospect/Company Web Data Lookup
-		var VisitorUniqueField = "V_Email_Address";					// Unique field's HTML Name from LOOKUP A (usually V_Email_Address)
-		var PrimaryUniqueField = "C_EmailAddress";					// Unique field's HTML Name from LOOKUP B (usually C_EmailAddress)
-		var EloquaFormID = "BAT2017_Survey_Gated";							// The ID of your Eloqua Form
-		// END --> MAKE YOUR CHANGES HERE
+    // START --> MAKE YOUR CHANGES HERE
+    var EloquaSiteID = "2564"; 									// The Site ID of your Eloqua Instance
+    var EloquaScript = "https://img.en25.com/i/elqCfg.min.js"; 	// Path to elqCfg.min.js
+    var LookupIdVisitor = "a3d10de9504d4118af46e9747786db05";	// LOOKUP A:  The ID of your Visitor Web Data Lookup
+    var LookupIdPrimary = "e087f5d896174b92bdf576c56a10cd3f";	// LOOKUP B:  The ID of your Contact/Datacard/Prospect/Company Web Data Lookup
+    var VisitorUniqueField = "V_Email_Address";					// Unique field's HTML Name from LOOKUP A (usually V_Email_Address)
+    var PrimaryUniqueField = "C_EmailAddress";					// Unique field's HTML Name from LOOKUP B (usually C_EmailAddress)
+    var EloquaFormID = "BAT2017_Survey_Gated";							// The ID of your Eloqua Form
+    // END --> MAKE YOUR CHANGES HERE
 </script>
 
 <!-- SCRIPT SECTION 2:  Standard Eloqua Asyncronous Tracking Code | The unique values have been placed in Variables (EloquaSiteID and EloquaScript) -->
 <script type="text/javascript">
-        var _elqQ = _elqQ || [];
-        _elqQ.push(['elqSetSiteId', EloquaSiteID]);
-        _elqQ.push(['elqTrackPageView']);
+    var _elqQ = _elqQ || [];
+    _elqQ.push(['elqSetSiteId', EloquaSiteID]);
+    _elqQ.push(['elqTrackPageView']);
 
-        (function () {
-            function async_load() {
-                var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
-                s.src = EloquaScript;
-                var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-            }
-            if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
-            else if (window.attachEvent) window.attachEvent('onload', async_load);
-        })();
+    (function () {
+        function async_load() {
+            var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+            s.src = EloquaScript;
+            var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+        }
+        if (window.addEventListener) window.addEventListener('DOMContentLoaded', async_load, false);
+        else if (window.attachEvent) window.attachEvent('onload', async_load);
+    })();
 </script>
 
 <!-- SCRIPT SECTION 3:  Eloqua Field Functions -->
 <!-- SCRIPT SECTION 4:  Eloqua Web Data Lookups -->
 <script type="text/javascript">
 
-		// SetElqContent is triggered by the Data Lookup Scripts automatically.  The "FirstLookup" modification allows for the Visitor Lookup to trigger the second Lookup (Contact/Datacard/Prospect/Company)
-		var FirstLookup = true;
-        function SetElqContent() {
-            if (FirstLookup) {
-				//LOOKUP B:  Eloqua Contact/DataCard/Prospect/Company Data Lookup from Email Address
-				 _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'),'<C_EmailAddress>' + GetElqContentPersonalizationValue(VisitorUniqueField) + '</C_EmailAddress>']);
-				FirstLookup = false;
-			} else {
-				//This is triggered the after Lookup B fires.  LoadFields starts the field prepoulation process.
-				SetElqContent2();
-			}
-
+    // SetElqContent is triggered by the Data Lookup Scripts automatically.  The "FirstLookup" modification allows for the Visitor Lookup to trigger the second Lookup (Contact/Datacard/Prospect/Company)
+    var FirstLookup = true;
+    function SetElqContent() {
+        if (FirstLookup) {
+            //LOOKUP B:  Eloqua Contact/DataCard/Prospect/Company Data Lookup from Email Address
+            _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'), '<C_EmailAddress>' + GetElqContentPersonalizationValue(VisitorUniqueField) + '</C_EmailAddress>']);
+            FirstLookup = false;
+        } else {
+            //This is triggered the after Lookup B fires.  LoadFields starts the field prepoulation process.
+            SetElqContent2();
         }
 
-		// LOOKUP A:  Eloqua Visitor Data Lookup from Cookie  -  Ensure VisitorUniqueField is pulled in the Profile View
-        _elqQ.push(['elqDataLookup', escape(LookupIdVisitor), '']);
+    }
+
+    // LOOKUP A:  Eloqua Visitor Data Lookup from Cookie  -  Ensure VisitorUniqueField is pulled in the Profile View
+    _elqQ.push(['elqDataLookup', escape(LookupIdVisitor), '']);
 
 </script>
 
@@ -425,7 +425,7 @@
         @Html.HiddenFor(m => m.Vmi_Man_Revenue)
         @Html.HiddenFor(m => m.Vmi_Man_Track)
         @Html.HiddenFor(m => m.Vmi_Man_Written_Plan)
-        
+
         @Html.HiddenFor(m => m.Vmi_Mar_Materials)
         @Html.HiddenFor(m => m.Vmi_Mar_New_Business)
         @Html.HiddenFor(m => m.Vmi_Mar_Plan)
@@ -444,230 +444,230 @@
 
         <div>
             @*<form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form1007 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form1007" class="elq-form">*@
-                <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
-                <input value="2564" type="hidden" name="elqSiteId" />
-                <input name="elqCampaignId" type="hidden" />
-                <input type="hidden" name="elqCustomerGUID" value="">
-                <input type="hidden" name="elqCookieWrite" value="0">
-                <div id="formElement0" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field0" class="label-position top ">
-                                    First Name
-                                    <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                @*<input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
+            <input value="2564" type="hidden" name="elqSiteId" />
+            <input name="elqCampaignId" type="hidden" />
+            <input type="hidden" name="elqCustomerGUID" value="">
+            <input type="hidden" name="elqCookieWrite" value="0">
+            <div id="formElement0" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field0" class="label-position top ">
+                                First Name
+                                <span class="required">
+                                    *
+                                </span>
+                            </label>
+                            @*<input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement1" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field1" class="label-position top ">
-                                    Last Name
-                                    <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                @*<input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement1" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field1" class="label-position top ">
+                                Last Name
+                                <span class="required">
+                                    *
+                                </span>
+                            </label>
+                            @*<input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement2" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field2" class="label-position top ">
-                                    Email Address
-                                    <span class="required">
-                                        *
-                                    </span>
-                                </label>
-                                @*<input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement2" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field2" class="label-position top ">
+                                Email Address
+                                <span class="required">
+                                    *
+                                </span>
+                            </label>
+                            @*<input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement3" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field3" class="label-position top ">
-                                    SFDC ContactID
-                                </label>
-                                <input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement3" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field3" class="label-position top ">
+                                SFDC ContactID
+                            </label>
+                            <input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement4" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field4" class="label-position top ">
-                                    SFDC LeadID
-                                </label>
-                                <input id="field4" name="sFDCLeadID" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement4" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field4" class="label-position top ">
+                                SFDC LeadID
+                            </label>
+                            <input id="field4" name="sFDCLeadID" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement5" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field5" class="label-position top ">
-                                    Business Phone
-                                </label>
-                                @*<input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement5" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field5" class="label-position top ">
+                                Business Phone
+                            </label>
+                            @*<input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement6" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field6" class="label-position top ">
-                                    Zip or Postal Code
-                                </label>
-                                @*<input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement6" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field6" class="label-position top ">
+                                Zip or Postal Code
+                            </label>
+                            @*<input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement7" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field7" class="label-position top ">
-                                    Broker Dealer or RIA
-                                </label>
-                                @*<input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />*@
-                                @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement7" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field7" class="label-position top ">
+                                Broker Dealer or RIA
+                            </label>
+                            @*<input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
+                        </p>
                     </div>
                 </div>
-                <div id="formElement8" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field8" class="label-position top ">
-                                    IC Name
-                                </label>
-                                <input id="field8" name="iCName1" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement8" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field8" class="label-position top ">
+                                IC Name
+                            </label>
+                            <input id="field8" name="iCName1" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement9" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field9" class="label-position top ">
-                                    IC Email Address
-                                </label>
-                                <input id="field9" name="iCEmailAddress1" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement9" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field9" class="label-position top ">
+                                IC Email Address
+                            </label>
+                            <input id="field9" name="iCEmailAddress1" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement10" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field10" class="label-position top ">
-                                    Salesperson
-                                </label>
-                                <input id="field10" name="salesperson" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement10" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field10" class="label-position top ">
+                                Salesperson
+                            </label>
+                            <input id="field10" name="salesperson" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement11" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field11" class="label-position top ">
-                                    RC Email Address
-                                </label>
-                                <input id="field11" name="rCEmailAddress1" type="text" value="" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement11" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field11" class="label-position top ">
+                                RC Email Address
+                            </label>
+                            <input id="field11" name="rCEmailAddress1" type="text" value="" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement12" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <label for="field12" class="label-position top ">
-                                    Last SFDC Campaign ID
-                                </label>
-                                <input id="field12" name="sFDCLastCampaignID" type="text" value="70132000000wp" class="field-size-top-large" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement12" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <label for="field12" class="label-position top ">
+                                Last SFDC Campaign ID
+                            </label>
+                            <input id="field12" name="sFDCLastCampaignID" type="text" value="70132000000wp" class="field-size-top-large" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement13" class="sc-view form-design-field sc-static-layout  sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                <input id="field13" type="hidden" name="results" value="" />
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement13" class="sc-view form-design-field sc-static-layout  sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            <input id="field13" type="hidden" name="results" value="" />
+                        </p>
                     </div>
                 </div>
-                <div id="formElement14" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                    <div class="field-wrapper">
-                    </div>
-                    <div class="individual field-wrapper">
-                        <div class="_100 field-style">
-                            <p class="field-p">
-                                @*<input type="submit" value="Submit" class="submit-button" style="font-size: 100%; height: 24px; width: 100px" />*@
-                            </p>
-                        </div>
+            </div>
+            <div id="formElement14" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+                <div class="field-wrapper">
+                </div>
+                <div class="individual field-wrapper">
+                    <div class="_100 field-style">
+                        <p class="field-p">
+                            @*<input type="submit" value="Submit" class="submit-button" style="font-size: 100%; height: 24px; width: 100px" />*@
+                        </p>
                     </div>
                 </div>
+            </div>
             @*</form>*@
 
             <script src="https://img.en25.com/i/livevalidation_standalone.compressed.js" type="text/javascript">
@@ -698,189 +698,207 @@
                 }
             </style>
             <script type="text/javascript">
-    var dom0 = document.querySelector('#form1007 #field0');
-    var field0 = new LiveValidation(dom0, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    field0.add(Validate.Presence, {
-      failureMessage:"This field is required"}
-              );
-    var dom1 = document.querySelector('#form1007 #field1');
-    var field1 = new LiveValidation(dom1, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    field1.add(Validate.Presence, {
-      failureMessage:"This field is required"}
-              );
-    var dom2 = document.querySelector('#form1007 #field2');
-    var field2 = new LiveValidation(dom2, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    field2.add(Validate.Presence, {
-      failureMessage:"This field is required"}
-              );
-    field2.add(Validate.Format, {
-      pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
-              );
-    var dom3 = document.querySelector('#form1007 #field3');
-    var field3 = new LiveValidation(dom3, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom4 = document.querySelector('#form1007 #field4');
-    var field4 = new LiveValidation(dom4, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom5 = document.querySelector('#form1007 #field5');
-    var field5 = new LiveValidation(dom5, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom6 = document.querySelector('#form1007 #field6');
-    var field6 = new LiveValidation(dom6, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom7 = document.querySelector('#form1007 #field7');
-    var field7 = new LiveValidation(dom7, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom8 = document.querySelector('#form1007 #field8');
-    var field8 = new LiveValidation(dom8, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    field8.add(Validate.Custom, {
-      against: function(value) {
-        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
-      }
-      , failureMessage: "Value must not contain any URL's"}
-              );
-    field8.add(Validate.Length, {
-      tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
-              );
-    var dom9 = document.querySelector('#form1007 #field9');
-    var field9 = new LiveValidation(dom9, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                   );
-    var dom10 = document.querySelector('#form1007 #field10');
-    var field10 = new LiveValidation(dom10, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                    );
-    var dom11 = document.querySelector('#form1007 #field11');
-    var field11 = new LiveValidation(dom11, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                    );
-    field11.add(Validate.Custom, {
-      against: function(value) {
-        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
-      }
-      , failureMessage: "Value must not contain any URL's"}
-               );
-    field11.add(Validate.Length, {
-      tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
-               );
-    var dom12 = document.querySelector('#form1007 #field12');
-    var field12 = new LiveValidation(dom12, {
-      validMessage: "", onlyOnBlur: false, wait: 300}
-                                    );
-    field12.add(Validate.Custom, {
-      against: function(value) {
-        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
-      }
-      , failureMessage: "Value must not contain any URL's"}
-               );
-    field12.add(Validate.Length, {
-      tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
-               );
-    function resetSubmitButton(e){
-      var submitButtons = e.target.form.getElementsByClassName('submit-button');
-      for(var i=0;i<submitButtons.length;i++){
-        submitButtons[i].disabled = false;
-      }
-    }
-    function addChangeHandler(elements){
-      for(var i=0; i<elements.length; i++){
-        elements[i].addEventListener('change', resetSubmitButton);
-      }
-    }
-    var form = document.getElementById('form1007');
-    addChangeHandler(form.getElementsByTagName('input'));
-    addChangeHandler(form.getElementsByTagName('select'));
-    addChangeHandler(form.getElementsByTagName('textarea'));
-    var nodes = document.querySelectorAll('#form1007 input[data-subscription]');
-    if (nodes) {
-      for (i = 0, len = nodes.length; i < len; i++) {
-        var status = nodes[i].dataset ? nodes[i].dataset.subscription : nodes[i].getAttribute('data-subscription');
-        if(status ==='true') {
-          nodes[i].checked = true;
-        }
-      }
-    };
-    var nodes = document.querySelectorAll('#form1007 select[data-value]');
-    if (nodes) {
-      for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
-        var selectedValue = node.dataset ? node.dataset.value : node.getAttribute('data-value');
-        if (selectedValue) {
-          for (var j = 0; j < node.options.length; j++) {
-            if(node.options[j].value === selectedValue) {
-              node.options[j].selected = 'selected';
-              break;
-            }
-          }
-        }
-      }
-    }
-            </script>
-            <script>
-document.getElementById("form1007").onload = function() {setFormFieldValue(elqForm, strFormFieldName, strContactFieldName)};
-
-function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName){
-    if (elqForm.elements[strFormFieldName])
-        elqForm.elements[strFormFieldName].value = GetElqContentPersonalizationValue(strContactFieldName);
-}
-
-function SetElqContent2(){
-    if (this.GetElqContentPersonalizationValue){
-
-        var elqForm;
-        var blnFound = false;
-        //find the form object from the form HTMLName
-        for (var formIndex = 0; formIndex < document.forms.length; formIndex++)
-        {
-            for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++)
-            {
-                if (document.forms[formIndex].elements[elemIndex].name == "elqFormName")
-                {
-                    if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated")
-                    {
-                        elqForm = document.forms[formIndex];
-                        blnFound = true;
-                        break;
+                var dom0 = document.querySelector('#form1007 #field0');
+                var field0 = new LiveValidation(dom0, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                field0.add(Validate.Presence, {
+                    failureMessage: "This field is required"
+                }
+                          );
+                var dom1 = document.querySelector('#form1007 #field1');
+                var field1 = new LiveValidation(dom1, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                field1.add(Validate.Presence, {
+                    failureMessage: "This field is required"
+                }
+                          );
+                var dom2 = document.querySelector('#form1007 #field2');
+                var field2 = new LiveValidation(dom2, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                field2.add(Validate.Presence, {
+                    failureMessage: "This field is required"
+                }
+                          );
+                field2.add(Validate.Format, {
+                    pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"
+                }
+                          );
+                var dom3 = document.querySelector('#form1007 #field3');
+                var field3 = new LiveValidation(dom3, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom4 = document.querySelector('#form1007 #field4');
+                var field4 = new LiveValidation(dom4, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom5 = document.querySelector('#form1007 #field5');
+                var field5 = new LiveValidation(dom5, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom6 = document.querySelector('#form1007 #field6');
+                var field6 = new LiveValidation(dom6, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom7 = document.querySelector('#form1007 #field7');
+                var field7 = new LiveValidation(dom7, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom8 = document.querySelector('#form1007 #field8');
+                var field8 = new LiveValidation(dom8, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                field8.add(Validate.Custom, {
+                    against: function (value) {
+                        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+                    }
+                  , failureMessage: "Value must not contain any URL's"
+                }
+                          );
+                field8.add(Validate.Length, {
+                    tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+                }
+                          );
+                var dom9 = document.querySelector('#form1007 #field9');
+                var field9 = new LiveValidation(dom9, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                               );
+                var dom10 = document.querySelector('#form1007 #field10');
+                var field10 = new LiveValidation(dom10, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                                );
+                var dom11 = document.querySelector('#form1007 #field11');
+                var field11 = new LiveValidation(dom11, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                                );
+                field11.add(Validate.Custom, {
+                    against: function (value) {
+                        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+                    }
+                  , failureMessage: "Value must not contain any URL's"
+                }
+                           );
+                field11.add(Validate.Length, {
+                    tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+                }
+                           );
+                var dom12 = document.querySelector('#form1007 #field12');
+                var field12 = new LiveValidation(dom12, {
+                    validMessage: "", onlyOnBlur: false, wait: 300
+                }
+                                                );
+                field12.add(Validate.Custom, {
+                    against: function (value) {
+                        return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
+                    }
+                  , failureMessage: "Value must not contain any URL's"
+                }
+                           );
+                field12.add(Validate.Length, {
+                    tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+                }
+                           );
+                function resetSubmitButton(e) {
+                    var submitButtons = e.target.form.getElementsByClassName('submit-button');
+                    for (var i = 0; i < submitButtons.length; i++) {
+                        submitButtons[i].disabled = false;
                     }
                 }
-            }
-            if (blnFound) break;
-        }
+                function addChangeHandler(elements) {
+                    for (var i = 0; i < elements.length; i++) {
+                        elements[i].addEventListener('change', resetSubmitButton);
+                    }
+                }
+                var form = document.getElementById('form1007');
+                addChangeHandler(form.getElementsByTagName('input'));
+                addChangeHandler(form.getElementsByTagName('select'));
+                addChangeHandler(form.getElementsByTagName('textarea'));
+                var nodes = document.querySelectorAll('#form1007 input[data-subscription]');
+                if (nodes) {
+                    for (i = 0, len = nodes.length; i < len; i++) {
+                        var status = nodes[i].dataset ? nodes[i].dataset.subscription : nodes[i].getAttribute('data-subscription');
+                        if (status === 'true') {
+                            nodes[i].checked = true;
+                        }
+                    }
+                };
+                var nodes = document.querySelectorAll('#form1007 select[data-value]');
+                if (nodes) {
+                    for (var i = 0; i < nodes.length; i++) {
+                        var node = nodes[i];
+                        var selectedValue = node.dataset ? node.dataset.value : node.getAttribute('data-value');
+                        if (selectedValue) {
+                            for (var j = 0; j < node.options.length; j++) {
+                                if (node.options[j].value === selectedValue) {
+                                    node.options[j].selected = 'selected';
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            </script>
+            <script>
+                document.getElementById("form1007").onload = function () { setFormFieldValue(elqForm, strFormFieldName, strContactFieldName) };
 
-        if (elqForm)
-        {
-            setFormFieldValue(elqForm, "sFDCLeadID", "C_SFDCLeadID");
-            setFormFieldValue(elqForm, "brokerDealer1", "C_Broker_Dealer1");
-            setFormFieldValue(elqForm, "iCName1", "C_IC_Name1");
-            setFormFieldValue(elqForm, "lastName", "C_LastName");
-            setFormFieldValue(elqForm, "emailAddress", "C_EmailAddress");
-            setFormFieldValue(elqForm, "busPhone", "C_BusPhone");
-            setFormFieldValue(elqForm, "sFDCLastCampaignID", "C_SFDCLastCampaignID");
-            setFormFieldValue(elqForm, "firstName", "C_FirstName");
-            setFormFieldValue(elqForm, "sFDCContactID", "C_SFDCContactID");
-            setFormFieldValue(elqForm, "rCEmailAddress1", "C_RC_Email_Address1");
-            setFormFieldValue(elqForm, "zipPostal", "C_Zip_Postal");
-        }
-    }
-}
-//--></script>
+                function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName) {
+                    if (elqForm.elements[strFormFieldName])
+                        elqForm.elements[strFormFieldName].value = GetElqContentPersonalizationValue(strContactFieldName);
+                }
+
+                function SetElqContent2() {
+                    if (this.GetElqContentPersonalizationValue) {
+
+                        var elqForm;
+                        var blnFound = false;
+                        //find the form object from the form HTMLName
+                        for (var formIndex = 0; formIndex < document.forms.length; formIndex++) {
+                            for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++) {
+                                if (document.forms[formIndex].elements[elemIndex].name == "elqFormName") {
+                                    if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated") {
+                                        elqForm = document.forms[formIndex];
+                                        blnFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (blnFound) break;
+                        }
+
+                        if (elqForm) {
+                            setFormFieldValue(elqForm, "sFDCLeadID", "C_SFDCLeadID");
+                            setFormFieldValue(elqForm, "brokerDealer1", "C_Broker_Dealer1");
+                            setFormFieldValue(elqForm, "iCName1", "C_IC_Name1");
+                            setFormFieldValue(elqForm, "lastName", "C_LastName");
+                            setFormFieldValue(elqForm, "emailAddress", "C_EmailAddress");
+                            setFormFieldValue(elqForm, "busPhone", "C_BusPhone");
+                            setFormFieldValue(elqForm, "sFDCLastCampaignID", "C_SFDCLastCampaignID");
+                            setFormFieldValue(elqForm, "firstName", "C_FirstName");
+                            setFormFieldValue(elqForm, "sFDCContactID", "C_SFDCContactID");
+                            setFormFieldValue(elqForm, "rCEmailAddress1", "C_RC_Email_Address1");
+                            setFormFieldValue(elqForm, "zipPostal", "C_Zip_Postal");
+                        }
+                    }
+                }
+                //--></script>
 
         </div>
 
-                        @*------------------------Eloqua Form Finish--------------------*@
+        @*------------------------Eloqua Form Finish--------------------*@
 
         <section class="grey">
             <div class="container">
@@ -889,15 +907,15 @@ function SetElqContent2(){
                     This information helps us to understand what type of data you are providing. If you are an advisor in a firm, but are providing data for your book of business only please select single advisor practice.
                 </p>
 
-            <div class="fancy-form-row" ng-cloak>
-                <div class="fancy-form-label"></div>
-                <div class="row">
-                    <div class="col-md-6">
-                        @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
-                        @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'other'}" })
+                <div class="fancy-form-row" ng-cloak>
+                    <div class="fancy-form-label"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
+                            @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'other'}" })
+                        </div>
                     </div>
                 </div>
-            </div>
 
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
@@ -926,225 +944,224 @@ function SetElqContent2(){
 
                 @Html.HiddenFor(m => m.UserId)
                 @Html.HiddenFor(m => m.PDFPath)
-                    <div class="row">
-						<div class="col-md-7">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label for="">Select time period for your data</label>
-										<div class="fancy-select">
-                                            @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectYear('{0}')", Model.Year) })
-											<div class="fancy-label">{{selectedYear}}</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6" ng-class="{'hide' : selectedYear != 'YTD 2017'}">
-									<div class="form-group">
-										<label for="">Month for YTD entry {{time.period}}</label>
-                                        @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month), @class = "hide" })
-										<div class="fancy-select">
-                                            @*@Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", @name= "timeMonth", ng_model = "selectedMonth", ng_init = "yearSelected()" })*@
-											<select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
-												<option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
-													{{month}}
-												</option>
-											</select>
-											<div class="fancy-label">{{months[selectedMonth]}}</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Select time period for your data</label>
+                                    <div class="fancy-select">
+                                        @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectYear('{0}')", Model.Year) })
+                                        <div class="fancy-label">{{selectedYear}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6" ng-class="{'hide' : selectedYear != 'YTD 2017'}">
+                                <div class="form-group">
+                                    <label for="">Month for YTD entry {{time.period}}</label>
+                                    @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month), @class = "hide" })
+                                    <div class="fancy-select">
+                                        @*@Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", @name= "timeMonth", ng_model = "selectedMonth", ng_init = "yearSelected()" })*@
+                                        <select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
+                                            <option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
+                                                {{month}}
+                                            </option>
+                                        </select>
+                                        <div class="fancy-label">{{months[selectedMonth]}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <fieldset>
-                        <div class="row field-header">
-                            <div class="col-md-5 field-label">
-                                Performance Metric
-                            </div>
-                            <div class="col-md-4 field-control"></div>
-                            <div class="col-md-3 field-value">Annualized Values</div>
+                <fieldset>
+                    <div class="row field-header">
+                        <div class="col-md-5 field-label">
+                            Performance Metric
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@                           
-                                @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = {0}", Model.Ff_TotalFirmAsset).Replace("$","").Replace(",","").Replace(".","").Replace(" ","").Replace("%",""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
-                                <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
-                                <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ (assets/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                        <div class="col-md-4 field-control"></div>
+                        <div class="col-md-3 field-value">Annualized Values</div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Non-recurring Revenue
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = {0}", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                                <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = {0}", Model.Ff_TotalFirmAsset).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Recurring Revenue
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = {0}", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                                <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
+                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ (assets/selectedMonth)*12 | currency : '$' }}</span>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                <strong>Total Revenue (Calculated)</strong>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue + recurringRevenue) | currency : '$' }}</span>
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Non-recurring Revenue
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = {0}", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                                <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = {0}", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = {0}", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                                <span ng-show="!form.indirectExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
+                            <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Operating Profit (Calculated)
-                            </div>
-                            <div class="col-md-4 field-control">
-                                <span ng-show="
-                                        !form.nonRecurringRevenue.$error.max
-                                        && !form.recurringRevenue.$error.max
-                                        && !form.directExpenses.$error.max
-                                        && !form.indirectExpenses.$error.max
-                                        ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense) | currency : '$' }}</span>
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <span ng-show="
-                                        !form.nonRecurringRevenue.$error.max
-                                        && !form.recurringRevenue.$error.max
-                                        && !form.directExpenses.$error.max
-                                        && !form.indirectExpenses.$error.max
-                                        ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense))/selectedMonth)*12 | currency : '$' }}</span>
-                            </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Recurring Revenue
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
-                                @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
-                                <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ growthRate*100 }}%</span>
-                            </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = {0}", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                # Client Relationships
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                                @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
-                                <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
-                                <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
-                            </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
+                            <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                                @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
-                                <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
-                                <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
-                            </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            <strong>Total Revenue (Calculated)</strong>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                # Full-Time Equivalent Advisors <i class="icon-info tooltip"></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                                @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
-                                <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
-                                <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
-                            </div>
+                        <div class="col-md-4 field-control">
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue + recurringRevenue) | currency : '$' }}</span>
                         </div>
-                        <div class="row field-row">
-                            <div class="col-md-5 field-label">
-                                # New Clients <i class="icon-info tooltip"></i>
-                            </div>
-                            <div class="col-md-4 field-control">
-                                @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                                @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
-                            </div>
-                            <div class="col-md-3 field-value">
-                                <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
-                                <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
-                                <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
-                            </div>
+                        <div class="col-md-3 field-value">
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' }}</span>
                         </div>
-                    </fieldset>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="button-container text-center">
-                                <input type="submit" name="submit" value="Save Your Inputs" />
-                                <button type="submit" name="submit" value="submit" form="form">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
-                                @*<input type="submit" name="submit" value="Save Your Inputs" />
-                                <input type="submit" name="submit" value="VMI Inputs Next" />*@
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = {0}", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
+                            <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = {0}", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.indirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
+                            <span ng-show="!form.indirectExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Operating Profit (Calculated)
+                        </div>
+                        <div class="col-md-4 field-control">
+                            <span ng-show="
+                                  !form.nonRecurringRevenue.$error.max
+                                  && !form.recurringRevenue.$error.max
+                                  && !form.directExpenses.$error.max
+                                  && !form.indirectExpenses.$error.max
+                                  ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense) | currency : '$' }}</span>
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <span ng-show="
+                                  !form.nonRecurringRevenue.$error.max
+                                  && !form.recurringRevenue.$error.max
+                                  && !form.directExpenses.$error.max
+                                  && !form.indirectExpenses.$error.max
+                                  ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpense))/selectedMonth)*12 | currency : '$' }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
+                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = {0}", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", "") + "/100", @name = "growthRate", ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "25" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.growthRate.$error.max">Please enter a value less than 20%</div>
+                            <span ng-show="growthRate != null && !form.growthRate.$error.min && !form.growthRate.$error.max">{{ growthRate*100 }}%</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            # Client Relationships
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = {0}", Model.Ff_ClientRelationships), @name = "clientRel", ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
+                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
+                            <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            # Full-Time Equivalent Advisors <i class="icon-info tooltip"></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
+                            <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
+                        </div>
+                    </div>
+                    <div class="row field-row">
+                        <div class="col-md-5 field-label">
+                            # New Clients <i class="icon-info tooltip"></i>
+                        </div>
+                        <div class="col-md-4 field-control">
+                            @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = {0}", Model.Ff_NewClients), @name = "newClients", ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                        </div>
+                        <div class="col-md-3 field-value">
+                            <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
+                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="button-container text-center">
+                            <input type="submit" name="submit" value="Save Your Inputs" />    
+                                <button type="submit" name="submit" value="submit" form="form">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>                              
+                            }
                         </div>
                     </div>
                 </div>
 
             </div>
         </section>
-    }
+                                }
 </main>
