@@ -774,6 +774,17 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString("200", helvetica, textBrush, 19, 386);
                     page.Graphics.DrawString("0", helvetica, textBrush, 25, 408);
 
+
+                    //Calculate blocks height
+                    double pixel = 115 / 1000;
+                    double firstBlock = model.ClientValuationModel.EmpoweringYourTeamScore * pixel;
+                    double secondBlock = model.ClientValuationModel.OptimizingYourOperationsScore * pixel;
+                    double thirdBlock = model.ClientValuationModel.MarketingYourBusinessScore * pixel;
+                    double fourthBlock = model.ClientValuationModel.ManagingYourPracticeScore * pixel;
+
+                    page.Graphics.DrawRectangle(graphBrush1, 70, 420, 60, firstBlock);
+                    page.Graphics.DrawRectangle(graphBrush2, 70, 420 - firstBlock, 60, secondBlock);
+
                     //page.Graphics.DrawRectangle(graphBrush1, 220, 575, 60, peerGroup.EYT * 200 / 1000);
                     //page.Graphics.DrawRectangle(graphBrush2, 220, 575 - peerGroup.OYO * 200 / 1000, 60, peerGroup.OYO * 200 / 1000);
                     //page.Graphics.DrawRectangle(graphBrush3, 220, 575 - peerGroup.OYO * 200 / 1000 - peerGroup.MYB * 200 / 1000, 60, peerGroup.MYB * 200 / 1000);
@@ -914,63 +925,70 @@ namespace AssetmarkBAT.Controllers
 
         private void CalculateNonAdvisorTaxFreeCashFlow(BATModel model)
         {
-            model.ClientValuationModel.ProfitMargin = ((ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)) - (ConvertToDouble(model.Ff_IndirecteExpenses) + ConvertToDouble(model.Ff_DirectExpenses)));
+            try
+            {
+                model.ClientValuationModel.ProfitMargin = ((ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)) - (ConvertToDouble(model.Ff_IndirecteExpenses) + ConvertToDouble(model.Ff_DirectExpenses)));
 
-            model.ClientValuationModel.ProjectedAnnualGrowthRate = ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
+                model.ClientValuationModel.ProjectedAnnualGrowthRate = ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
 
-            //year 1
-            if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
-            {
-                //TODO: blank
-                model.ClientValuationModel.NonAdvisorCashFlowYear1 = 0;
-            }
-            else
-            {
-                model.ClientValuationModel.NonAdvisorCashFlowYear1 = ConvertToDouble(model.Ff_OperatingProfitAnnualized) * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate) * (1 - model.ClientValuationModel._TaxRate);
-            }
+                //year 1
+                if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
+                {
+                    //TODO: blank
+                    model.ClientValuationModel.NonAdvisorCashFlowYear1 = 0;
+                }
+                else
+                {
+                    model.ClientValuationModel.NonAdvisorCashFlowYear1 = ConvertToDouble(model.Ff_OperatingProfitAnnualized) * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate) * (1 - model.ClientValuationModel._TaxRate);
+                }
 
-            //year2
-            if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
-            {
-                //TODO: blank
-                model.ClientValuationModel.NonAdvisorCashFlowYear2 = 0;
-            }
-            else
-            {
-                model.ClientValuationModel.NonAdvisorCashFlowYear2 = model.ClientValuationModel.NonAdvisorCashFlowYear1 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
-            }
+                //year2
+                if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
+                {
+                    //TODO: blank
+                    model.ClientValuationModel.NonAdvisorCashFlowYear2 = 0;
+                }
+                else
+                {
+                    model.ClientValuationModel.NonAdvisorCashFlowYear2 = model.ClientValuationModel.NonAdvisorCashFlowYear1 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                }
 
-            //year3
-            if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
-            {
-                //TODO: blank
-                model.ClientValuationModel.NonAdvisorCashFlowYear3 = 0;
-            }
-            else
-            {
-                model.ClientValuationModel.NonAdvisorCashFlowYear3 = model.ClientValuationModel.NonAdvisorCashFlowYear2 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
-            }
+                //year3
+                if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
+                {
+                    //TODO: blank
+                    model.ClientValuationModel.NonAdvisorCashFlowYear3 = 0;
+                }
+                else
+                {
+                    model.ClientValuationModel.NonAdvisorCashFlowYear3 = model.ClientValuationModel.NonAdvisorCashFlowYear2 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                }
 
-            //year4
-            if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
-            {
-                //TODO: blank
-                model.ClientValuationModel.NonAdvisorCashFlowYear4 = 0;
-            }
-            else
-            {
-                model.ClientValuationModel.NonAdvisorCashFlowYear4 = model.ClientValuationModel.NonAdvisorCashFlowYear3 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
-            }
+                //year4
+                if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
+                {
+                    //TODO: blank
+                    model.ClientValuationModel.NonAdvisorCashFlowYear4 = 0;
+                }
+                else
+                {
+                    model.ClientValuationModel.NonAdvisorCashFlowYear4 = model.ClientValuationModel.NonAdvisorCashFlowYear3 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                }
 
-            //year5
-            if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
-            {
-                //TODO: blank
-                model.ClientValuationModel.NonAdvisorCashFlowYear5 = 0;
+                //year5
+                if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
+                {
+                    //TODO: blank
+                    model.ClientValuationModel.NonAdvisorCashFlowYear5 = 0;
+                }
+                else
+                {
+                    model.ClientValuationModel.NonAdvisorCashFlowYear5 = model.ClientValuationModel.NonAdvisorCashFlowYear4 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                }
             }
-            else
+            catch(Exception e)
             {
-                model.ClientValuationModel.NonAdvisorCashFlowYear5 = model.ClientValuationModel.NonAdvisorCashFlowYear4 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+
             }
         }
 
