@@ -92,7 +92,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraph = null;
 
     $scope.getGraphValues = function () {
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value + '&recalculate=' + $scope.recalculate, function (data) {
             //$.getJSON('optimizer.json', function(data){
             var graphValues = [];
 
@@ -114,11 +114,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.pagr.value = data.pagr;
             $scope.pm.value = data.pm;
             $scope.vmi.value = data.vmi;
+
+            $scope.pagr.valueOg = data.pagr;
+            $scope.pm.valueOg = data.pm;
+            $scope.vmi.valueOg = data.vmi;
         });
     };
 
     $scope.updateGraph = function () {
         $scope.getGraphValues();
+        $scope.recalculate = true;
     };
 
     $scope.categories = ['Current Value', 'Optimized Value'];
