@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h4 class="secondary">Valuation Range<br><span class="light">Firm Relative to Peer Group Benchmark</span></h4>
-                        <div class="graph" ng-init="categories = ['Current Value','Benchmark Index']" ng-cloak>
+                        <div class="graph" ng-init="categories = ['Current Value','Benchmark Index'], recalculate = false" ng-cloak>
                             <div id="optimizerGraph" style="min-width: 310px; height: 300px; margin: 0 auto" ng-init="initGraph()"></div>
                         </div>
                     </div>
