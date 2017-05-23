@@ -111,14 +111,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.vmiComp.maxValue = data.top_vmi_max;
 
             $scope.profitAnnualized = data.profitAnnualized;
+            
+            if (!$scope.recalculate) {
+                $scope.pagr.value = data.pagr;
+                $scope.pm.value = data.pm;
+                $scope.vmi.value = data.vmi;
 
-            $scope.pagr.value = data.pagr;
-            $scope.pm.value = data.pm;
-            $scope.vmi.value = data.vmi;
-
-            $scope.pagr.valueOg = data.pagr;
-            $scope.pm.valueOg = data.pm;
-            $scope.vmi.valueOg = data.vmi;
+                $scope.pagr.valueOg = data.pagr;
+                $scope.pm.valueOg = data.pm;
+                $scope.vmi.valueOg = data.vmi;
+            }
 
             $scope.$broadcast('rzSliderForceRender');
         });
