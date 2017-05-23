@@ -78,7 +78,7 @@ namespace AssetmarkBAT.Controllers
 
             BATModel model = new BATModel();
             InitializeDropDowns(model);
-
+          
             if (string.IsNullOrEmpty(KnownUserId()))
             {
                 model.UserId = Guid.NewGuid().ToString();
@@ -102,60 +102,68 @@ namespace AssetmarkBAT.Controllers
         [HttpPost]
         public ActionResult Page2Questions(BATModel model, string submit)
         {
-            InitializeDropDowns(model);
+            InitializeDropDowns(model);   
 
             if (submit == "Save Your Inputs")
             {
-                model.DateStarted = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
+                model.DateStarted = (string.IsNullOrEmpty(model.DateStarted))? DateTime.Now.ToString("MM/dd/yy H:mm:ss") : model.DateStarted;
 
-                if (!string.IsNullOrEmpty(model.PracticeTypeOther))
+                if(model.PracticeType == "Practice Type")
                 {
-                    model.PracticeType = model.PracticeTypeOther;
-                }
-
-                if (!string.IsNullOrEmpty(model.AffiliationModeOther))
-                {
-                    model.AffiliationMode = model.AffiliationModeOther;
-                }
-
-                if (!string.IsNullOrEmpty(model.FirmTypeOther))
-                {
-                    model.FirmType = model.FirmTypeOther;
-                }
-
-                if (!model.Year.Contains("Previous"))
-                {
-                    model.Year = "YTD " + DateTime.Now.Year;
-                }
-
-                //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
-                if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
-                    && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
-                    && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
-                    && !string.IsNullOrEmpty(model.Ff_NewClients))
-                {
-                    model.Ff_TotalRevenue = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
-
-                    model.Ff_NonRecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_RecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_DirectExpensesAnnualized = (ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_IndirecteExpensesAnnualized = (ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_NewClientsAnnualized = (ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
-                    model.Page1Complete = true;
+                    model.Message = "Practice Type is required";
+                    return View(_Page1QuestionsViewName, model);
                 }
                 else
                 {
-                    model.Page1Complete = false;
-                }
+                    if (!string.IsNullOrEmpty(model.PracticeTypeOther))
+                    {
+                        model.PracticeType = model.PracticeTypeOther;
+                    }
 
-                PopulateEntityFromModel(model);
-                return View(_Page1QuestionsViewName, model);
+                    if (!string.IsNullOrEmpty(model.AffiliationModeOther))
+                    {
+                        model.AffiliationMode = model.AffiliationModeOther;
+                    }
+
+                    if (!string.IsNullOrEmpty(model.FirmTypeOther))
+                    {
+                        model.FirmType = model.FirmTypeOther;
+                    }
+
+                    if (!model.Year.Contains("Previous"))
+                    {
+                        model.Year = "YTD " + DateTime.Now.Year;
+                    }
+
+                    //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
+                    if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
+                        && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
+                        && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
+                        && !string.IsNullOrEmpty(model.Ff_NewClients))
+                    {
+                        model.Ff_TotalRevenue = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                        model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                        model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
+
+                        model.Ff_NonRecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                        model.Ff_RecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                        model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                        model.Ff_DirectExpensesAnnualized = (ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                        model.Ff_IndirecteExpensesAnnualized = (ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                        model.Ff_NewClientsAnnualized = (ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
+                        model.Page1Complete = true;
+                    }
+                    else
+                    {
+                        model.Page1Complete = false;
+                    }
+
+                    PopulateEntityFromModel(model);
+                    return View(_Page1QuestionsViewName, model);
+                }              
             }
             else
             {
@@ -239,16 +247,18 @@ namespace AssetmarkBAT.Controllers
         /// <summary>
         /// Service call to be consumed by the front end to get some valuation metrics for graphs
         /// </summary>       
-        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate = false)
+        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate)
         {
             BATModel model = new BATModel();
             BATModel comparativeModel = model;
             double comparativeValuationMin;
             double comparativeValuationMax;
 
+            model = GetClientValuationRanges(null, -1, -1, -1);
+
             if (recalculate) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
             {
-                model = GetClientValuationRanges(null, PAGR, PM, VMI);
+                //model = GetClientValuationRanges(null, PAGR, PM, VMI);
                 //CalculateValuation(model, false);               
 
                 //Call to recalculate and build comparative range
@@ -258,7 +268,7 @@ namespace AssetmarkBAT.Controllers
             }
             else //call made from the Report page or Optimizer page on load. Get benchmarks
             {
-                model = GetClientValuationRanges(null, -1, -1, -1);
+                
                 BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
 
                 if (peerGroup == null)

@@ -10,14 +10,14 @@
 }
 
 <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         window.setTimeout(function () {
             var link = "@Model.PDFPath";
             var newTab = window.open(link, '_blank');
         }, 50);
     });
-</script>
+</script>*@
 
 
 <main>
@@ -37,26 +37,26 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Managing Your Practice</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice">Managing Your Practice</a></td>
                                 <td>@Model.ClientValuationModel.ManagingYourPracticeScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Marketing Your Business</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness">Marketing Your Business</a></td>
                                 <td>@Model.ClientValuationModel.MarketingYourBusinessScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Optimizing Your Operations</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/OptimizingYourOperations">Optimizing Your Operations</a></td>
                                 <td>@Model.ClientValuationModel.OptimizingYourOperationsScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://preview-www.assetmark.com/business-Assessment-Tool">Empowering Your Team</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/EmpoweringYourTeam">Empowering Your Team</a></td>
                                 <td>@Model.ClientValuationModel.EmpoweringYourTeamScore</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Total VMI Score</td>
-                                <td>@Model.ClientValuationModel.VMIScore</td>
+                                <td>@Model.Vmi_Index</td>
                                 <td></td>
                             </tr>
                         </tfoot>

@@ -50,7 +50,7 @@ namespace AssetmarkBAT.Models
         public SelectList FirmTypes { get; set; }
 
 
-
+        public string Message { get; set; }
 
 
         [Display(Name = "Total Firm Assets Under Management")]
