@@ -1753,15 +1753,19 @@ nav > ul {
 }
 /* line 11, ../scss/app/modules/_header.scss */
 .header nav li {
-  margin-left: 2rem;
+  margin-left: 2.0rem;
 }
 /* line 14, ../scss/app/modules/_header.scss */
+.header nav li a {
+  color: #fff;
+}
+/* line 18, ../scss/app/modules/_header.scss */
 .header nav .btn {
   margin-bottom: 0;
   border-radius: 0.3rem;
   font-size: 1.3rem;
 }
-/* line 20, ../scss/app/modules/_header.scss */
+/* line 24, ../scss/app/modules/_header.scss */
 .header nav .icon-phone:before {
   font-size: 1.5em;
 }
