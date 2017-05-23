@@ -1115,12 +1115,12 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors.number", is_non_advisors, min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.nonAdvisors.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.nonAdvisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="nonAdvisors != null && !form.nonAdvisors.$error.min && !form.nonAdvisors.$error.max">{{ nonAdvisors }}</span>
+                            <div class="error" ng-show="nonAdvisors.number < 0">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="nonAdvisors.number > 10000">Please enter a value less than 10,000</div>
+                            <span ng-show="nonAdvisors.number != null && nonAdvisors.number >= 0 && nonAdvisors.number <= 10000">{{ nonAdvisors.number }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1129,12 +1129,12 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors", ui_number_mask = "1", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors.number", is_advisors, min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.advisors.$error.min">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="form.advisors.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="advisors != null && !form.advisors.$error.min && !form.advisors.$error.max">{{ advisors }}</span>
+                            <div class="error" ng-show="advisors.number < 0">Please enter a value greater than 0</div>
+                            <div class="error" ng-show="advisors.number > 10000">Please enter a value less than 10,000</div>
+                            <span ng-show="advisors.number != null && advisors.number >= 0 && advisors.number <= 10000">{{ nonAdvisors.number }}</span>
                         </div>
                     </div>
                     <div class="row field-row">

@@ -1,3 +1,4 @@
+var $scope;
 var app = angular.module('batApp', ['rzModule', 'ui.bootstrap', 'ui.utils.masks']);
 
 app.run(function (RzSliderOptions) {
@@ -21,6 +22,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.selectedMonth = -1;
     $scope.selectedMonthLabel = '';
     $scope.shownMonths = [];
+
+    $scope.nonAdvisors = { number: null, validity: true };
+    $scope.advisors = { number: null, validity: true };
 
     $scope.selectYear = function (year) {
         console.log(year);
@@ -87,10 +91,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.fvrGraphValues = [];
     $scope.fvrGraph = null;
 
-    $scope.recalculate = false;
-
     $scope.getGraphValues = function () {
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value + '&recalculate=' + $scope.recalculate, function (data) {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value, function (data) {
             //$.getJSON('optimizer.json', function(data){
             var graphValues = [];
 
@@ -112,7 +114,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.updateGraph = function () {
-        $scope.recalculate = true;
         $scope.getGraphValues();
     };
 
@@ -174,7 +175,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.calculatedTotalScore = 500;
-    $scope.vmiSliderChanged = false;
+    $scope.vmiSliderChanged = 'T';
 
     $scope.updateScore = function () {
         var myp = $scope.myp1.value + $scope.myp2.value + $scope.myp3.value + $scope.myp4.value + $scope.myp5.value;
@@ -185,14 +186,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.calculatedTotalScore = (myp + myb + oyo + eyt) * 5;
 
         $scope.vmiSliderChanged = true;
-    };
-
-    $scope.vmiInitSliderChanged = function (boolStr) {
-        if (boolStr == 'True') {
-            $scope.vmiSliderChanged = true;
-        } else {
-            $scope.vmiSliderChanged = false;
-        }
     };
 
     $scope.vmiSliders = {
@@ -428,6 +421,44 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         return filteredValue;
     };
 });
+
+app.directive('isNonAdvisors', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope) {
+            scope.$watch('nonAdvisors.number', function (newValue, oldValue) {
+                console.log('watch');
+                var arr = String(newValue).split("");
+                if (arr.length === 0) return;
+                if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
+                if (arr.length === 2 && newValue === '-.') return;
+                if (isNaN(newValue)) {
+                    scope.nonAdvisors.number = oldValue;
+                }
+            });
+        }
+    };
+});
+
+app.directive('isAdvisors', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope) {
+            scope.$watch('advisors.number', function (newValue, oldValue) {
+                console.log('watch');
+                var arr = String(newValue).split("");
+                if (arr.length === 0) return;
+                if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
+                if (arr.length === 2 && newValue === '-.') return;
+                if (isNaN(newValue)) {
+                    scope.advisors.number = oldValue;
+                }
+            });
+        }
+    };
+});
+
+
 
 $(function () {
     $('select:not(.exclude)').each(function () {
