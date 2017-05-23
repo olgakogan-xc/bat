@@ -41,10 +41,10 @@ namespace AssetmarkBAT.Controllers
 
                 if (PopulateModelFromDatabase(model))
                 {
-                    if (model.Page2Complete)
-                    {
-                        return View(_ValuationOptimizer, model);
-                    }
+                    //if (model.Page2Complete)
+                    //{
+                    //    return View(_ValuationOptimizer, model);
+                    //}
                     //else if (model.Page1Complete)
                     //{
                     //    if (model.Page2Complete == false)
@@ -53,10 +53,10 @@ namespace AssetmarkBAT.Controllers
                     //    }
                     //    return View(_Page2QuestionsViewName, model);
                     //}
-                    else
-                    {
+                    //else
+                    //{
                         return View(_Page1QuestionsViewName, model);
-                    }
+                    //}
                 }
                 else
                     return View(_TermsViewName);
