@@ -912,7 +912,7 @@
                     <div class="fancy-form-label"></div>
                     <div class="row">
                         <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_init = "practiceType = '{0}'", Model.PracticeTypes })
+                            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_init = "practiceType = '{0}'", m.PracticeTypes })
                             @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'Other'}" })
                         </div>
                     </div>
