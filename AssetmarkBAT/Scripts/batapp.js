@@ -119,6 +119,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.pagr.valueOg = data.pagr;
             $scope.pm.valueOg = data.pm;
             $scope.vmi.valueOg = data.vmi;
+
+            $scope.$broadcast('rzSliderForceRender');
         });
     };
 
