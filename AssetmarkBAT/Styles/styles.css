@@ -1570,6 +1570,11 @@ fieldset .field-control span {
 fieldset .field-value {
   font-weight: 600;
 }
+/* line 68, ../scss/app/core/_forms.scss */
+fieldset .field-value > span {
+  display: block;
+  padding: 0.5rem 0;
+}
 
 /* line 1, ../scss/app/core/_buttons.scss */
 .btn, .button, button, [type='button'], [type='reset'], [type='submit'] {
