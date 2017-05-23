@@ -184,6 +184,14 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.vmiSliderChanged = true;
     };
 
+    $scope.vmiInitSliderChanged = function (boolStr) {
+        if (boolStr == 'True') {
+            $scope.vmiSliderChanged = true;
+        } else {
+            $scope.vmiSliderChanged = false;
+        }
+    };
+
     $scope.vmiSliders = {
         options: {
             onEnd: $scope.updateScore
