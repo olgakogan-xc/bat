@@ -116,7 +116,7 @@
                         </div>
                         <div class="sub-title">
                             <h4 class="optimized-label">Profit is annualized</h4>
-                            <div class="optimized-value">{{profitAnnualized}}</div>
+                            <div class="optimized-value">{{profitAnnualized | currency : '$' }}</div>
                         </div>
                         <div class="optimizer-slider">
                             <input type="hidden" ng-model="pm.value" />
