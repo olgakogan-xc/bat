@@ -45,14 +45,14 @@ namespace AssetmarkBAT.Controllers
                     {
                         return View(_ValuationOptimizer, model);
                     }
-                    else if (model.Page1Complete)
-                    {
-                        if (model.Page2Complete == false)
-                        {
-                            PrepopulateVMIs(model);
-                        }
-                        return View(_Page2QuestionsViewName, model);
-                    }
+                    //else if (model.Page1Complete)
+                    //{
+                    //    if (model.Page2Complete == false)
+                    //    {
+                    //        PrepopulateVMIs(model);
+                    //    }
+                    //    return View(_Page2QuestionsViewName, model);
+                    //}
                     else
                     {
                         return View(_Page1QuestionsViewName, model);
@@ -161,7 +161,7 @@ namespace AssetmarkBAT.Controllers
             {
                 PopulateModelFromDatabase(model);
 
-                if (model.Page2Complete == false && model.Page1Complete == false)
+                if (model.Vmi_Index == 0)
                 {
                     PrepopulateVMIs(model);
                 }
@@ -195,14 +195,13 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Save Your Inputs")
             {
-                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
-                model.Page2Complete = true;
+                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";               
                 model.Vmi_Index = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
                     + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
                 model.Page2Complete = true;
-                model.Page1Complete = true;
+                //model.Page1Complete = true;
                 PopulateEntityFromModel(model);
                 //CalculateValuation(model, false);
 
@@ -848,7 +847,7 @@ namespace AssetmarkBAT.Controllers
 
                 MemoryStream stream = new MemoryStream();
                 // Saves the document as stream
-                //document.Save(stream);
+                document.Save(stream);
 
                 //document.Save("C:\\Olga\\PdfCustom.pdf");
 
