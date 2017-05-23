@@ -113,11 +113,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.profitAnnualized = data.profitannualized;
             
             if (!$scope.recalculate) {
-                $scope.pagr.value = data.pagr;
+                $scope.pagr.value = data.pagr*100;
                 $scope.pm.value = data.pm;
                 $scope.vmi.value = data.vmi;
 
-                $scope.pagr.valueOg = data.pagr;
+                $scope.pagr.valueOg = data.pagr*100;
                 $scope.pm.valueOg = data.pm;
                 $scope.vmi.valueOg = data.vmi;
             }
