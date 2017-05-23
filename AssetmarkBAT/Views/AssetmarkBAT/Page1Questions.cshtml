@@ -1106,7 +1106,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.clientRel.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.clientRel.$error.max">Please enter a value less than 10,000</div>
-                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : 2 }}</span>
+                            <span ng-show="clientRel != null && !form.clientRel.$error.min && !form.clientRel.$error.max">{{ clientRel | number : undefined : 2 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1148,7 +1148,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.newClients.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.newClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : 2 }}</span>
+                            <span ng-show="newClients != null && !form.newClients.$error.min && !form.newClients.$error.max">{{ (newClients/selectedMonth)*12 | number : undefined : 2 }}</span>
                         </div>
                     </div>
                 </fieldset>
