@@ -87,9 +87,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.totalRevenue = 0;
 
-
     $scope.fvrGraphValues = [];
     $scope.fvrGraph = null;
+
+    $scope.recalculate = false;
 
     $scope.getGraphValues = function () {
         $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value + '&recalculate=' + $scope.recalculate, function (data) {
