@@ -110,7 +110,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.vmiComp.minValue = data.top_vmi_min;
             $scope.vmiComp.maxValue = data.top_vmi_max;
 
-            $scope.profitAnnualized = data.profitAnnualized;
+            $scope.profitAnnualized = data.profitannualized;
             
             if (!$scope.recalculate) {
                 $scope.pagr.value = data.pagr;
