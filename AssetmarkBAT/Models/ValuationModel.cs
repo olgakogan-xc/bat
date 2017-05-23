@@ -95,9 +95,9 @@ namespace AssetmarkBAT.Models
             {
                 // Peer group $0 - $249K
                     new BenchmarkGroup
-                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 318000, ValuationMax = 416000,
+                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 318000, ValuationMax = 416000, 
                         //Firm Financials
-                        RecurringRevenue = 130333, TotalRevenue = 165333, TotalExpenses = 139350, OperatingProfit = 25983, ProjectedAnnualGrowthRate = 98.6,
+                        RecurringRevenue = 130333, TotalRevenue = 165333, TotalExpenses = 139350, OperatingProfit = 25983, ProjectedAnnualGrowthRate = 98.6, AUM = 30773333, ClientRelationships = 137,
                             //KPI's
                             RecRevPerClient = 2345, RecRevPerAdvisor = 130333, TotalRevPerClient = 2558, TotalAUMPerClient = 600093,
                                 TotalAUMPerAdvisor = 30773333, ProfitPerClient = 299, ProfitAsPercentOfRevenue = 17.7, ClientsPerAdvisor = 137, RevenutAsPBSOnAssets = 1,
@@ -106,9 +106,9 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $250K - $499K
                     new BenchmarkGroup
-                        { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 834000, ValuationMax = 1096000,
+                        { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 834000, ValuationMax = 1096000, 
                          //Firm Financials
-                        RecurringRevenue = 353872, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2,
+                        RecurringRevenue = 353872, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2, AUM = 46414970, ClientRelationships = 147,
                             //KPI's
                             RecRevPerClient = 4380, RecRevPerAdvisor = 316373, TotalRevPerClient = 5227, TotalAUMPerClient = 515349,
                                 TotalAUMPerAdvisor = 43081637, ProfitPerClient = 1883, ProfitAsPercentOfRevenue = 39.6, ClientsPerAdvisor = 140, RevenutAsPBSOnAssets = 1,
@@ -116,9 +116,9 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $500K - $749K
                     new BenchmarkGroup
-                        { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1011000, ValuationMax = 1282000,
+                        { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1011000, ValuationMax = 1282000, 
                          //Firm Financials
-                        RecurringRevenue = 493998, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7,
+                        RecurringRevenue = 493998, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7, AUM = 98935835, ClientRelationships = 150,
                             //KPI's
                             RecRevPerClient = 5452, RecRevPerAdvisor = 450347, TotalRevPerClient = 6167, TotalAUMPerClient = 1023483,
                                 TotalAUMPerAdvisor = 90621951, ProfitPerClient = 2359, ProfitAsPercentOfRevenue = 39.3, ClientsPerAdvisor = 124, RevenutAsPBSOnAssets = 1,
@@ -126,9 +126,9 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $750K - $999K
                     new BenchmarkGroup
-                        { GroupRangeMin = 750000, GroupRangeMax = 999999, ValuationMin = 1091000, ValuationMax = 1309000,
+                        { GroupRangeMin = 750000, GroupRangeMax = 999999, ValuationMin = 1091000, ValuationMax = 1309000, 
                          //Firm Financials
-                        RecurringRevenue = 837839, TotalRevenue = 898792, TotalExpenses = 565360, OperatingProfit = 333432, ProjectedAnnualGrowthRate = 15,
+                        RecurringRevenue = 837839, TotalRevenue = 898792, TotalExpenses = 565360, OperatingProfit = 333432, ProjectedAnnualGrowthRate = 15, AUM = 101028075, ClientRelationships = 200,
                             //KPI's
                             RecRevPerClient = 7022, RecRevPerAdvisor = 662202, TotalRevPerClient = 7182, TotalAUMPerClient = 868398,
                                 TotalAUMPerAdvisor = 82293029, ProfitPerClient = 3204, ProfitAsPercentOfRevenue = 37.4, ClientsPerAdvisor = 173, RevenutAsPBSOnAssets = 1,
@@ -136,9 +136,9 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $1M - $3M
                      new BenchmarkGroup
-                        { GroupRangeMin = 1000000, GroupRangeMax = 3000000, ValuationMin = 3092000, ValuationMax = 3618000,
+                        { GroupRangeMin = 1000000, GroupRangeMax = 3000000, ValuationMin = 3092000, ValuationMax = 3618000, 
                          //Firm Financials
-                        RecurringRevenue = 333432, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9,
+                        RecurringRevenue = 333432, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9, AUM = 276727265, ClientRelationships = 212,
                             //KPI's
                             RecRevPerClient = 25265, RecRevPerAdvisor = 620676, TotalRevPerClient = 25801, TotalAUMPerClient = 4840186,
                                 TotalAUMPerAdvisor = 94938787, ProfitPerClient = 11202, ProfitAsPercentOfRevenue = 42.8, ClientsPerAdvisor = 86, RevenutAsPBSOnAssets = 1,
@@ -156,11 +156,13 @@ namespace AssetmarkBAT.Models
         public double ValuationMin;
         public double ValuationMax;
         //Firm Financials
+        public double AUM;
         public double RecurringRevenue;
         public double TotalRevenue;
         public double TotalExpenses;
         public double OperatingProfit;
         public double ProjectedAnnualGrowthRate;
+        public int ClientRelationships;
         //KPI's
         public double RecRevPerClient;
         public double RecRevPerAdvisor;
