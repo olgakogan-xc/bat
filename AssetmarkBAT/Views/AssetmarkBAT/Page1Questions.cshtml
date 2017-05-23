@@ -912,7 +912,7 @@
                     <div class="fancy-form-label"></div>
                     <div class="row">
                         <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_init = "practiceType = '{0}'", Model.PracticeTypes })
+                            @Html.DropDownListFor(x => Model.PracticeType, new { ng_init = "practiceType = '{0}'", Model.PracticeTypes })
                             @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'Other'}" })
                         </div>
                     </div>
@@ -922,7 +922,7 @@
                     <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
                     <div class="row">
                         <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes, new { ng_init = "affiliationMode = '{0}'", Model.AffiliationModes })
+                            @Html.DropDownListFor(x => Model.AffiliationMode, new { ng_init = "affiliationMode = '{0}'", Model.AffiliationModes })
                             @Html.TextBoxFor(x => Model.AffiliationModeOther, new { ng_class = "{'hide' : affiliationMode != 'Other'}" })
                         </div>
                     </div>
@@ -932,7 +932,7 @@
                     <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
                     <div class="row">
                         <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes, new { ng_init = "filmType = '{0}'", Model.FirmTypes})
+                            @Html.DropDownListFor(x => Model.FirmType, new { ng_init = "filmType = '{0}'", Model.FirmTypes})
                             @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : filmType != 'Other'}" })
                         </div>
                     </div>
@@ -952,7 +952,7 @@
 									<div class="form-group">
 										<label for="">Select time period for your data</label>
 										<div class="fancy-select">
-                                            @Html.DropDownListFor(m => Model.Year, Model.Years, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectYear('{0}')", Model.Year) })
+                                            @Html.DropDownListFor(m => Model.Year, new { @class = "exclude", ng_model = "selectedYear", ng_change = "yearSelected()", ng_init = string.Format("selectYear('{0}')", Model.Year) })
 											<div class="fancy-label">{{selectedYear}}</div>
 										</div>
 									</div>
