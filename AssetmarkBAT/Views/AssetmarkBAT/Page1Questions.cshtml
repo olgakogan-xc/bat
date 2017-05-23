@@ -1115,7 +1115,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors.number", is_non_advisors, min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors = {0}", Model.Ff_FullTimeNonAdvisors), @name = "nonAdvisors", ng_model = "nonAdvisors.number", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="nonAdvisors.number < 0">Please enter a value greater than 0</div>
@@ -1129,7 +1129,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors.number", is_advisors, min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors = {0}", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors.number", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="advisors.number < 0">Please enter a value greater than 0</div>
