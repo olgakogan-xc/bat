@@ -150,6 +150,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.categories = ['Current Value', 'Optimized Value'];
 
     $scope.initGraph = function () {
+        var noData = false;
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
 
@@ -185,7 +186,19 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            return '$' + this.y;
+                            if (this.point.high === 0 && this.point.low === 0) {
+                                if (noData) {
+                                    return '';
+                                } else {
+                                    noData = true;
+                                }
+                            }
+
+                            if (this.point.high === 0 && this.point.low === 0) {
+                                return 'No Data';
+                            } else {
+                                return '$' + this.y;
+                            }
                         }
                     }
                 }
