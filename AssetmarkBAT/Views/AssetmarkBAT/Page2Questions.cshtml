@@ -409,18 +409,9 @@
                                 <button class="btn-big" type="submit" name="submit">Save Your Inputs</button>
                                 <button class="btn-big btn-secondary" type="submit" name="submit">Submit VMI Scores <i class="icon-chevron-right"></i></button>*@
 
-                            <input type="submit" name="submit" value="Previous Firm Financials" />
-                            <input type="submit" name="submit" value="Save Your Inputs" />
-
-                            @if (Model.Vmi_Index == "N/A")
-                            {
-                                <input type="submit" class="btn-secondary" name="submit" value="Submit VMI Scores" disabled="disabled" />
-                            }
-                            else
-                            {
-                                <input type="submit" name="submit" value="Submit VMI Scores" />
-                            }
-
+                            <button type="button" name="submit" value="Previous Firm Financials"><i class="icon-chevron-left"></i> <span class="light">Previous</span> Firm Financials</button>
+                            <input type="submit" name="submit" value="Save Your Inputs" />   
+                            <button class="btn-secondary" type="submit" name="submit" ng-disabled="!(vmiSliderChanged)">Submit VMI Scores <i class="icon-chevron-right"></i></button>
 
                         </div>
                     </div>

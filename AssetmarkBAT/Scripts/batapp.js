@@ -218,7 +218,15 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.calculatedTotalScore = 500;
-    $scope.vmiSliderChanged = 'T';
+    $scope.vmiSliderChanged = false;
+
+    $scope.vmiInitSliderChanged = function (status) {
+        if (status === 'True') {
+            $scope.vmiSliderChanged = true;
+        } else {
+            $scope.vmiSliderChanged = false;
+        }
+    };
 
     $scope.updateScore = function () {
         var myp = $scope.myp1.value + $scope.myp2.value + $scope.myp3.value + $scope.myp4.value + $scope.myp5.value;
@@ -242,7 +250,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 25.0,
-            step: 0.1,
+            step: 1,
             precision: 1,
             showTicks: false,
             showTicksValues: false,
@@ -388,7 +396,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 1000,
-            step: 1,
+            step: 50,
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
