@@ -396,7 +396,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 1000,
-            step: 1,
+            step: 50,
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
@@ -411,7 +411,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 1000,
-            step: 50,
+            step: 1,
             disabled: true,
             showTicks: false,
             showTicksValues: false,
