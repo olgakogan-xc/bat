@@ -218,7 +218,15 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.calculatedTotalScore = 500;
-    $scope.vmiSliderChanged = 'T';
+    $scope.vmiSliderChanged = false;
+
+    $scope.vmiInitSliderChanged = function (status) {
+        if (status === 'True') {
+            $scope.vmiSliderChanged = true;
+        } else {
+            $scope.vmiSliderChanged = false;
+        }
+    };
 
     $scope.updateScore = function () {
         var myp = $scope.myp1.value + $scope.myp2.value + $scope.myp3.value + $scope.myp4.value + $scope.myp5.value;
