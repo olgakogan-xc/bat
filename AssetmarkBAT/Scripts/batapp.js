@@ -185,7 +185,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            return '$' + this.y;
+                            if (this.y > 0) {
+                                return '$' + this.y;
+                            } else {
+                                return 'No Data';
+                            }
                         }
                     }
                 }
