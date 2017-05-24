@@ -933,7 +933,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes, new { ng_init = string.Format("filmType = '{0}'", Model.FirmType) })
-
                             @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : filmType != 'Other'}" })
                         </div>
                     </div>
