@@ -85,6 +85,22 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.practiceTypeRadio = index;
     };
 
+    $scope.setPracticeType = function (type) {
+        if (type != '') {
+            $scope.practiceType = 'Other';
+        }
+    };
+    $scope.setAffiliationMode = function (type) {
+        if (type != '') {
+            $scope.affiliationMode = 'Other';
+        }
+    };
+    $scope.setFirmType = function (type) {
+        if (type != '') {
+            $scope.firmType = 'Other';
+        }
+    };
+
     $scope.totalRevenue = 0;
 
     $scope.fvrGraphValues = [];
