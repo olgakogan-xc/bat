@@ -250,7 +250,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 25.0,
-            step: 0.1,
+            step: 1,
             precision: 1,
             showTicks: false,
             showTicksValues: false,
@@ -411,7 +411,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         options: {
             floor: 0,
             ceil: 1000,
-            step: 1,
+            step: 50,
             disabled: true,
             showTicks: false,
             showTicksValues: false,
