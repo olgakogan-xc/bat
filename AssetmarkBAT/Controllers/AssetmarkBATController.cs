@@ -55,7 +55,7 @@ namespace AssetmarkBAT.Controllers
                     //}
                     //else
                     //{
-                        return View(_Page1QuestionsViewName, model);
+                    return View(_Page1QuestionsViewName, model);
                     //}
                 }
                 else
@@ -78,7 +78,7 @@ namespace AssetmarkBAT.Controllers
 
             BATModel model = new BATModel();
             InitializeDropDowns(model);
-          
+
             if (string.IsNullOrEmpty(KnownUserId()))
             {
                 model.UserId = Guid.NewGuid().ToString();
@@ -102,13 +102,13 @@ namespace AssetmarkBAT.Controllers
         [HttpPost]
         public ActionResult Page2Questions(BATModel model, string submit)
         {
-            InitializeDropDowns(model);   
+            InitializeDropDowns(model);
 
             if (submit == "Save Your Inputs")
             {
-                model.DateStarted = (string.IsNullOrEmpty(model.DateStarted))? DateTime.Now.ToString("MM/dd/yy H:mm:ss") : model.DateStarted;
+                model.DateStarted = (string.IsNullOrEmpty(model.DateStarted)) ? DateTime.Now.ToString("MM/dd/yy H:mm:ss") : model.DateStarted;
 
-                if(model.PracticeType == "Practice Type")
+                if (model.PracticeType == "Practice Type")
                 {
                     model.Message = "Practice Type is required";
                     return View(_Page1QuestionsViewName, model);
@@ -163,7 +163,7 @@ namespace AssetmarkBAT.Controllers
 
                     PopulateEntityFromModel(model);
                     return View(_Page1QuestionsViewName, model);
-                }              
+                }
             }
             else
             {
@@ -203,7 +203,7 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Save Your Inputs")
             {
-                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";               
+                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
                 model.Vmi_Index = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
@@ -268,7 +268,7 @@ namespace AssetmarkBAT.Controllers
             }
             else //call made from the Report page or Optimizer page on load. Get benchmarks
             {
-                
+
                 BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
 
                 if (peerGroup == null)
@@ -637,57 +637,22 @@ namespace AssetmarkBAT.Controllers
                 PdfBrush darkBlueBrush = new PdfBrush();
                 darkBlueBrush.Color = new PdfRgbColor(123, 123, 123);
                 PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
-                PdfBrush whiteBrush = new PdfBrush((PdfRgbColor.Red));
+                PdfBrush whiteBrush = new PdfBrush((PdfRgbColor.White));
                 PdfBrush redBrush = new PdfBrush(PdfRgbColor.Black);
-
-
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(100, 0), new PdfPoint(100, 500));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(200, 0), new PdfPoint(200, 500));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(300, 0), new PdfPoint(300, 500));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 500));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 500));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(600, 0), new PdfPoint(600, 500));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(700, 0), new PdfPoint(700, 500));
-
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 100), new PdfPoint(800, 100));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 200), new PdfPoint(800, 200));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 300), new PdfPoint(800, 300));
-                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 500), new PdfPoint(800, 500));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 600), new PdfPoint(800, 600));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 700), new PdfPoint(800, 700));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 800), new PdfPoint(800, 800));
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 900), new PdfPoint(800, 900));
-
-
-
-
-                //page.Graphics.DrawLine(new PdfPen(), new PdfPoint(50, 70), new PdfPoint(500, 700));
-                //page.Graphics.DrawRectangle(backgroundBrush, 20, 20, 500, 150);
-                //page.Graphics.DrawRectangle(darkBlueBrush, 50, 60, 50, 25);
-
                 PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
                 PdfStandardFont largeTitleFont = new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 36);
-                //page.Graphics.DrawString("Business Assessment Report", largeTitleFont, textBlueBrush, 50, 35);
 
-                //Blue table header
-                //PdfBrush aquaBrush = new PdfBrush((new PdfRgbColor(240, 248, 255)));
-                //page.Graphics.DrawLine(redBrush, 0, 0, 100, 90);
-                //page.Graphics.DrawRectangle(redBrush, 0, 100, 100, 90);
-                //page.Graphics.DrawRectangle(redBrush, 0, 200, 100, 90);
-                //page.Graphics.DrawRectangle(redBrush, 0, 300, 100, 90);
-                //page.Graphics.DrawRectangle(redBrush, 0, 400, 100, 90);
 
-                //PdfBrush tableRowTextBlueBrush = new PdfBrush((new PdfRgbColor(225, 225, 225)));
-                //PdfStandardFont tableRowTextFont = new PdfStandardFont(PdfStandardFontFace.Helvetica, 16);
-                //page.Graphics.DrawString("Firm Financials", tableRowTextFont, tableRowTextBlueBrush, 50, 55);
-                //page.Graphics.DrawString("Your Firm", tableRowTextFont, tableRowTextBlueBrush, 100, 55);
-                //page.Graphics.DrawString("Benchmarks", tableRowTextFont, tableRowTextBlueBrush, 150, 55);
+
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(400, 0), new PdfPoint(400, 500));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Red, 1), new PdfPoint(500, 0), new PdfPoint(500, 500));
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Green, 1), new PdfPoint(0, 400), new PdfPoint(800, 400));
 
                 if (PopulateModelFromDatabase(model))
                 {
+                    CalculateValuation(model, false);
                     model.BenchmarksValuationModel = new BenchmarksValuationModel();
-                    BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+                    BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(b => ConvertToDouble(model.Ff_TotalRevenue) > b.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < b.GroupRangeMax);
 
                     if (peerGroup == null)
                     {
@@ -737,7 +702,7 @@ namespace AssetmarkBAT.Controllers
 
 
                     page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_OperatingProfit) ? model.Ff_OperatingProfit : "N/A", helvetica, redBrush, 170, 219);
-                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) ? model.Ff_ProjectedGrowthRate : "N/A", helvetica, redBrush, 170, 238);
+                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) ? model.Ff_ProjectedGrowthRate : "N/A", helvetica, redBrush, 170, 236);
 
                     page.Graphics.DrawString(peerGroup.AUM.ToString("C"), helvetica, redBrush, 290, 128);
                     page.Graphics.DrawString(peerGroup.ClientRelationships.ToString(), helvetica, redBrush, 290, 147);
@@ -745,27 +710,31 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString(peerGroup.TotalRevenue.ToString("C"), helvetica, redBrush, 290, 183);
                     page.Graphics.DrawString(peerGroup.TotalExpenses.ToString("C"), helvetica, redBrush, 290, 201);
                     page.Graphics.DrawString(peerGroup.OperatingProfit.ToString("C"), helvetica, redBrush, 290, 219);
-                    page.Graphics.DrawString(peerGroup.ProjectedAnnualGrowthRate.ToString() + "%", helvetica, redBrush, 290, 237);
+                    page.Graphics.DrawString(peerGroup.ProjectedAnnualGrowthRate.ToString() + "%", helvetica, redBrush, 290, 236);
 
 
                     //KPI's Table ------------------------------------------------------------ 
-                    page.Graphics.DrawString(model.ClientValuationModel.RecurringRevenuePerClient, helvetica, redBrush, 170, 557);
-                    page.Graphics.DrawString(model.ClientValuationModel.RecurringRevenuePerAdvisor, helvetica, redBrush, 170, 576);
-                    page.Graphics.DrawString(model.ClientValuationModel.TotalRevenuePerClient, helvetica, redBrush, 170, 595);
-                    page.Graphics.DrawString(model.ClientValuationModel.TotalAUMperClient, helvetica, redBrush, 170, 611);
-                    page.Graphics.DrawString(model.ClientValuationModel.TotalAUMperAdvisor, helvetica, redBrush, 170, 625);
-                    page.Graphics.DrawString(model.ClientValuationModel.ProfitPerClient, helvetica, redBrush, 170, 642);
-                    page.Graphics.DrawString(model.ClientValuationModel.ProfitAsPercentOfRevenut + " %", helvetica, redBrush, 170, 661);
-                    page.Graphics.DrawString(model.ClientValuationModel.ClientsPerAdvisor, helvetica, redBrush, 170, 680);
-                    page.Graphics.DrawString(model.ClientValuationModel.RevenueAsBPSOnAssets, helvetica, redBrush, 170, 699);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerClient).ToString("C"), helvetica, redBrush, 170, 557);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerAdvisor).ToString("C"), helvetica, redBrush, 170, 576);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalRevenuePerClient).ToString("C"), helvetica, redBrush, 170, 595);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperClient).ToString("C"), helvetica, redBrush, 170, 611);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C"), helvetica, redBrush, 170, 625);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C"), helvetica, redBrush, 170, 642);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenut).ToString("0.0") + " %", helvetica, redBrush, 170, 661);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ClientsPerAdvisor).ToString("C"), helvetica, redBrush, 170, 680);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RevenueAsBPSOnAssets).ToString("C"), helvetica, redBrush, 170, 699);
 
                     page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerClient).ToString("C"), helvetica, redBrush, 290, 557);
                     page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerAdvisor).ToString("C"), helvetica, redBrush, 290, 576);
                     page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalRevPerClient).ToString("C"), helvetica, redBrush, 290, 595);
                     page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerClient).ToString("C"), helvetica, redBrush, 290, 611);
                     page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerAdvisor).ToString("C"), helvetica, redBrush, 290, 625);
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.ProfitPerClient).ToString("C"), helvetica, redBrush, 290, 642);
-                    page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString() + " %", helvetica, redBrush, 290, 661);
+                    page.Graphics.DrawString(peerGroup.ProfitPerClient.ToString("C"), helvetica, redBrush, 290, 642);
+                    page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString("0.0") + " %", helvetica, redBrush, 290, 661);
+
+                    //page.Graphics.DrawString(((int)Math.Floor(peerGroup.ProfitAsPercentOfRevenue)).ToString() + " %", helvetica, redBrush, 290, 661);
+
+                    //(int)Math.floor(10.99999)
                     page.Graphics.DrawString(peerGroup.ClientsPerAdvisor.ToString(), helvetica, redBrush, 290, 680);
                     page.Graphics.DrawString(peerGroup.RevenutAsPBSOnAssets.ToString(), helvetica, redBrush, 290, 699);
 
@@ -795,10 +764,10 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString("400", helvetica, textBrush, 19, 364);
                     page.Graphics.DrawString("200", helvetica, textBrush, 19, 386);
                     page.Graphics.DrawString("0", helvetica, textBrush, 25, 408);
-                    page.Graphics.DrawString("Your Firm", helvetica, textBlueBrush, 70, 415);
-                    page.Graphics.DrawString("Benchmark Index", helvetica, textBlueBrush, 160, 415);
+                    page.Graphics.DrawString("Your Firm", helvetica, textBlueBrush, 70, 419);
+                    page.Graphics.DrawString("Benchmark Index", helvetica, textBlueBrush, 160, 419);
 
-                    //Calculate blocks height for Your Firm
+                    //Calculate blocks height for Your Firm -------------------------------------------------------------------------------
                     model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
                     model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
                     model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
@@ -809,75 +778,144 @@ namespace AssetmarkBAT.Controllers
                     double thirdBlock = model.ClientValuationModel.MarketingYourBusinessScore * pixel;
                     double fourthBlock = model.ClientValuationModel.ManagingYourPracticeScore * pixel;
 
-                    page.Graphics.DrawRectangle(graphBrush1, 70, 390, 55, firstBlock);
+                    double x = 70;
+                    double y = 403;
 
-                    page.Graphics.DrawRectangle(graphBrush2, 70, 390 - firstBlock, 55, secondBlock);
-                    page.Graphics.DrawRectangle(graphBrush3, 70, 390 - firstBlock - secondBlock, 55, thirdBlock);
-                    page.Graphics.DrawRectangle(graphBrush4, 70, 390 - firstBlock - secondBlock - thirdBlock + 1, 55, fourthBlock);
+                    page.Graphics.DrawRectangle(graphBrush1, x, y, 55, firstBlock);
+
+                    y = y - firstBlock;
+                    page.Graphics.DrawRectangle(graphBrush2, x, y, 55, secondBlock);
+
+                    y = y - secondBlock;
+                    page.Graphics.DrawRectangle(graphBrush3, x, y, 55, thirdBlock);
+
+                    y = y - thirdBlock;
+                    page.Graphics.DrawRectangle(graphBrush4, x, y, 55, fourthBlock);
+
+
+
+
+                    y = 403;
+
+                    page.Graphics.DrawString(model.ClientValuationModel.EmpoweringYourTeamScore.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - firstBlock;
+                    page.Graphics.DrawString(model.ClientValuationModel.OptimizingYourOperationsScore.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - secondBlock;
+                    page.Graphics.DrawString(model.ClientValuationModel.MarketingYourBusinessScore.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - thirdBlock;
+                    page.Graphics.DrawString(model.ClientValuationModel.ManagingYourPracticeScore.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
 
                     //page.Graphics.DrawString()
 
-                    //Calculate blocks height for Benchmarks                    
+                    //Calculate blocks height for Benchmarks    ----------------------------------------------------------------------------                
                     firstBlock = peerGroup.EYT * pixel;
                     secondBlock = peerGroup.OYO * pixel;
                     thirdBlock = peerGroup.MYB * pixel;
                     fourthBlock = peerGroup.MYP * pixel;
 
-                    page.Graphics.DrawRectangle(graphBrush1, 155, 390, 55, firstBlock);
-                    page.Graphics.DrawString(peerGroup.EYT.ToString(), helvetica, whiteBrush, 170, 385); //score
+                    x = 160;
+                    y = 392;
+                    page.Graphics.DrawRectangle(graphBrush1, x, y, 55, firstBlock);
 
-                    page.Graphics.DrawRectangle(graphBrush2, 155, 390 - firstBlock, 55, secondBlock);
-                    page.Graphics.DrawString(peerGroup.OYO.ToString(), helvetica, whiteBrush, 170, 380 - firstBlock - 5); //score
+                    y = y - secondBlock;
+                    page.Graphics.DrawRectangle(graphBrush2, x, y, 55, secondBlock);
 
-                    page.Graphics.DrawRectangle(graphBrush3, 155, 390 - firstBlock - secondBlock, 55, thirdBlock);
-                    page.Graphics.DrawString(peerGroup.MYB.ToString(), helvetica, whiteBrush, 170, 380 - firstBlock - secondBlock - 5); //score
+                    y = y - thirdBlock;
+                    page.Graphics.DrawRectangle(graphBrush3, x, y, 55, thirdBlock);
 
-                    page.Graphics.DrawRectangle(graphBrush4, 155, 390 - firstBlock - secondBlock - thirdBlock + 1, 55, fourthBlock);
-                    page.Graphics.DrawString(peerGroup.MYP.ToString(), helvetica, whiteBrush, 170, 380 - firstBlock - secondBlock - thirdBlock - 5); //score
-
-
-
+                    y = y - fourthBlock;
+                    page.Graphics.DrawRectangle(graphBrush4, x, y, 55, fourthBlock);
 
 
 
 
+                    y = 392;
+                    page.Graphics.DrawString(peerGroup.EYT.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - firstBlock;
+                    page.Graphics.DrawString(peerGroup.OYO.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - secondBlock;
+                    page.Graphics.DrawString(peerGroup.MYB.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
+
+                    y = y - thirdBlock;
+                    page.Graphics.DrawString(peerGroup.MYP.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
 
 
+                    ////////////////////////////////////////////////////////////
+                    /////////////// VALUATION RANGE GRAPH   /////////////////////
+                    ////////////////////////////////////////////////////////////
+                    double axisMax = peerGroup.ValuationMax + (peerGroup.ValuationMax / 4);
+                    pixel = axisMax / 135;
 
-                    //Valuation Range Graph-------------------------------------------------------------------------------- -
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, 300), new PdfPoint(353, 435)); //vertical
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(353, 435), new PdfPoint(550, 435)); //horizontal
-                    page.Graphics.DrawString("??????????", helvetica, textBrush, 320, 300);
-                    page.Graphics.DrawString("0", helvetica, textBrush, 325, 408);
+                   
+                    page.Graphics.DrawString("0", helvetica, textBrush, 330, 428);
 
+                    //Client Valuation Range
+                    if (model.ClientValuationModel.ValuationMax != 0 && model.ClientValuationModel.ValuationMax > peerGroup.ValuationMax)
+                    {
+                        axisMax = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
+                        pixel = axisMax / 135;
+                        firstBlock = (model.ClientValuationModel.ValuationMax - model.ClientValuationModel.ValuationMin) / pixel;    
 
+                        x = 390;
+                        y = 435 - (model.ClientValuationModel.ValuationMin / pixel);
+                        page.Graphics.DrawRectangle(graphBrush2, x, y, 55, firstBlock);
+                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMax.ToString("C"), helvetica, textBrush, x, (y - 9));
+                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMin.ToString("C"), helvetica, textBrush, x, (y + firstBlock + 3));
+                    }
+                    else
+                    {
+                        x = 400;
+                        page.Graphics.DrawString("No Data", helvetica, textBrush, x, 350);
+                    }
 
+                    page.Graphics.DrawString(axisMax.ToString("C"), helvetica, textBrush, (330 - 10), 300);
 
+                    //Benchmark Valuation Range
+
+                    double dollarsInPixel = axisMax / 135;
+                    double range = peerGroup.ValuationMax - peerGroup.ValuationMin;
+                    double height = range / dollarsInPixel; //height in pixels
+
+                    x = 470;
+                    y = peerGroup.ValuationMax / dollarsInPixel;
+                    y = 435 - y; //bottom of range
+
+                    page.Graphics.DrawString(peerGroup.ValuationMax.ToString("C"), helvetica, textBrush, x, (y - 9));
+                    page.Graphics.DrawRectangle(graphBrush3, x, y, 55, height);
+                    page.Graphics.DrawString(peerGroup.ValuationMin.ToString("C"), helvetica, textBrush, x, (y + height + 3));
                 }
 
                 MemoryStream stream = new MemoryStream();
                 // Saves the document as stream
                 document.Save(stream);
 
-                document.Save("C:\\Olga\\PdfCustom.pdf");
+                //document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                //// Converts the PdfDocument object to byte form.
-                //byte[] docBytes = stream.ToArray();
-                ////Loads the byte array in PdfLoadedDocument
+                // Converts the PdfDocument object to byte form.
+                byte[] docBytes = stream.ToArray();
+                //Loads the byte array in PdfLoadedDocument
 
-                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                //var permissions = myContainer.GetPermissions();
-                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                //myContainer.SetPermissions(permissions);
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                var permissions = myContainer.GetPermissions();
+                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                myContainer.SetPermissions(permissions);
 
-                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                //blockBlob.Properties.ContentType = "application/pdf";
-                ////blockBlob.UploadFromStream(stream);
-                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                blockBlob.Properties.ContentType = "application/pdf";
+                //blockBlob.UploadFromStream(stream);
+                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
