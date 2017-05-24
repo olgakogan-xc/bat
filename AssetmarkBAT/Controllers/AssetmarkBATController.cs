@@ -989,8 +989,6 @@ namespace AssetmarkBAT.Controllers
         /// <param name="model"></param>
         private void CalculateValuationVariables(BATModel model, bool recalculate)
         {
-            //model.ClientValuationModel = new ClientValuationModel();
-
             if (!recalculate)
             {
                 model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
@@ -1003,7 +1001,6 @@ namespace AssetmarkBAT.Controllers
             double temp = total / 5 / 2000;
 
             model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
-            //model.ClientValuationModel.VMIScore = temp * 10000;
             model.ClientValuationModel.VMIScore = total;
             model.ClientValuationModel.UserPerpetualGrowthRate = (model.ClientValuationModel.VMIScore >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
         }
@@ -1019,7 +1016,7 @@ namespace AssetmarkBAT.Controllers
                 //year 1
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
                 {
-                    //TODO: blank
+                    //blank
                     model.ClientValuationModel.NonAdvisorCashFlowYear1 = 0;
                 }
                 else
@@ -1030,7 +1027,7 @@ namespace AssetmarkBAT.Controllers
                 //year2
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
                 {
-                    //TODO: blank
+                    //blank
                     model.ClientValuationModel.NonAdvisorCashFlowYear2 = 0;
                 }
                 else
@@ -1041,7 +1038,7 @@ namespace AssetmarkBAT.Controllers
                 //year3
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
                 {
-                    //TODO: blank
+                    //blank
                     model.ClientValuationModel.NonAdvisorCashFlowYear3 = 0;
                 }
                 else
@@ -1052,7 +1049,7 @@ namespace AssetmarkBAT.Controllers
                 //year4
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
                 {
-                    //TODO: blank
+                    //blank
                     model.ClientValuationModel.NonAdvisorCashFlowYear4 = 0;
                 }
                 else
@@ -1063,7 +1060,7 @@ namespace AssetmarkBAT.Controllers
                 //year5
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
                 {
-                    //TODO: blank
+                    //blank
                     model.ClientValuationModel.NonAdvisorCashFlowYear5 = 0;
                 }
                 else
