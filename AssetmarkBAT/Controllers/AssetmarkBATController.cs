@@ -96,6 +96,57 @@ namespace AssetmarkBAT.Controllers
             return View(_Page1QuestionsViewName, model);
         }
 
+        private void SaveAnswers(BATModel model)
+        {
+            if (!string.IsNullOrEmpty(model.PracticeTypeOther))
+            {
+                model.PracticeType = model.PracticeTypeOther;
+            }
+
+            if (!string.IsNullOrEmpty(model.AffiliationModeOther))
+            {
+                model.AffiliationMode = model.AffiliationModeOther;
+            }
+
+            if (!string.IsNullOrEmpty(model.FirmTypeOther))
+            {
+                model.FirmType = model.FirmTypeOther;
+            }
+
+            if (!model.Year.Contains("Previous"))
+            {
+                model.Year = "YTD " + DateTime.Now.Year;
+            }
+
+            //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
+            if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
+                && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
+                && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
+                && !string.IsNullOrEmpty(model.Ff_NewClients))
+            {
+                model.Ff_TotalRevenue = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
+
+                model.Ff_NonRecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                model.Ff_RecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                model.Ff_DirectExpensesAnnualized = (ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                model.Ff_IndirecteExpensesAnnualized = (ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                model.Ff_NewClientsAnnualized = (ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
+                model.Page1Complete = true;
+            }
+            else
+            {
+                model.Page1Complete = false;
+            }
+
+            PopulateEntityFromModel(model);
+        }
+
         /// <summary>
         /// Action method to handle user input on Page 1 (Firm Financials)
         /// </summary>      
@@ -104,72 +155,22 @@ namespace AssetmarkBAT.Controllers
         {
             InitializeDropDowns(model);
 
+            if (model.PracticeType == "Practice Type")
+            {
+                model.Message = "Practice Type is required";
+                return View(_Page1QuestionsViewName, model);
+            }
+
             if (submit == "Save Your Inputs")
             {
-                model.DateStarted = (string.IsNullOrEmpty(model.DateStarted)) ? DateTime.Now.ToString("MM/dd/yy H:mm:ss") : model.DateStarted;
-
-                if (model.PracticeType == "Practice Type")
-                {
-                    model.Message = "Practice Type is required";
-                    return View(_Page1QuestionsViewName, model);
-                }
-                else
-                {
-                    if (!string.IsNullOrEmpty(model.PracticeTypeOther))
-                    {
-                        model.PracticeType = model.PracticeTypeOther;
-                    }
-
-                    if (!string.IsNullOrEmpty(model.AffiliationModeOther))
-                    {
-                        model.AffiliationMode = model.AffiliationModeOther;
-                    }
-
-                    if (!string.IsNullOrEmpty(model.FirmTypeOther))
-                    {
-                        model.FirmType = model.FirmTypeOther;
-                    }
-
-                    if (!model.Year.Contains("Previous"))
-                    {
-                        model.Year = "YTD " + DateTime.Now.Year;
-                    }
-
-                    //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
-                    if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
-                        && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
-                        && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
-                        && !string.IsNullOrEmpty(model.Ff_NewClients))
-                    {
-                        model.Ff_TotalRevenue = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                        model.Ff_OperatingProfit = (ConvertToDouble(model.Ff_NonRecurringRevenue) + ConvertToDouble(model.Ff_RecurringRevenue) - ConvertToDouble(model.Ff_IndirecteExpenses) - ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                        model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
-
-                        model.Ff_NonRecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                        model.Ff_RecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                        model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                        model.Ff_DirectExpensesAnnualized = (ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                        model.Ff_IndirecteExpensesAnnualized = (ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                        model.Ff_NewClientsAnnualized = (ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
-                        model.Page1Complete = true;
-                    }
-                    else
-                    {
-                        model.Page1Complete = false;
-                    }
-
-                    PopulateEntityFromModel(model);
-                    return View(_Page1QuestionsViewName, model);
-                }
+                SaveAnswers(model);
+                return View(_Page1QuestionsViewName, model);
             }
             else
             {
                 PopulateModelFromDatabase(model);
 
-                if (model.Vmi_Index == 0)
+                if (model.Vmi_Index == "N/A")
                 {
                     PrepopulateVMIs(model);
                 }
@@ -204,10 +205,10 @@ namespace AssetmarkBAT.Controllers
             if (submit == "Save Your Inputs")
             {
                 model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
-                model.Vmi_Index = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
+                model.Vmi_Index = ((Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
-                    + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+                    + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5).ToString();
                 model.Page2Complete = true;
                 //model.Page1Complete = true;
                 PopulateEntityFromModel(model);
@@ -288,7 +289,7 @@ namespace AssetmarkBAT.Controllers
                 operatingprofit = model.Ff_OperatingProfitAnnualized,
                 totalrevenue = model.Ff_TotalRevenue,
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
-                //client range
+                                                                                                                      //client range
                 currentmax = model.ClientValuationModel.ValuationMax,
                 currentmin = model.ClientValuationModel.ValuationMin,
                 //comparative range (either benchmark or optimized)
@@ -328,8 +329,8 @@ namespace AssetmarkBAT.Controllers
             //years
             List<SelectListItem> years = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Previous Year", Value = "Previous" },
-                new SelectListItem { Text = "YTD 2017", Value = "YTD 2017" }
+                new SelectListItem { Text = "Previous Year", Value = "Previous Year" },
+                new SelectListItem { Text = "YTD " + DateTime.Now.Year, Value = "YTD " + DateTime.Now.Year }
             };
 
             batModel.Years = new SelectList(years, "Value", "Text", 0);
@@ -595,7 +596,7 @@ namespace AssetmarkBAT.Controllers
                         model.Vmi_Emp_Responsibilities = original.Vmi_Emp_Responsibilities;
                         model.Vmi_Emp_Staff = original.Vmi_Emp_Staff;
 
-                        model.Vmi_Index = original.VmiIndex.Value;
+                        model.Vmi_Index = original.VmiIndex;
 
                         return true;
                     }
@@ -854,7 +855,7 @@ namespace AssetmarkBAT.Controllers
 
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, 300), new PdfPoint(353, 435)); //vertical
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(353, 435), new PdfPoint(550, 435)); //horizontal
-                   
+
                     page.Graphics.DrawString("0", helvetica, textBrush, 330, 428);
 
                     //Client Valuation Range
@@ -862,7 +863,7 @@ namespace AssetmarkBAT.Controllers
                     {
                         axisMax = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
                         pixel = axisMax / 135;
-                        firstBlock = (model.ClientValuationModel.ValuationMax - model.ClientValuationModel.ValuationMin) / pixel;    
+                        firstBlock = (model.ClientValuationModel.ValuationMax - model.ClientValuationModel.ValuationMin) / pixel;
 
                         x = 390;
                         y = 435 - (model.ClientValuationModel.ValuationMin / pixel);

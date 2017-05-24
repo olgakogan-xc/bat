@@ -95,7 +95,7 @@ namespace AssetmarkBAT.Models
             {
                 // Peer group $0 - $249K
                     new BenchmarkGroup
-                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 318000, ValuationMax = 416000, 
+                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 1751000, ValuationMax = 2497000, 
                         //Firm Financials
                         RecurringRevenue = 130333, TotalRevenue = 165333, TotalExpenses = 139350, OperatingProfit = 25983, ProjectedAnnualGrowthRate = 98.6, AUM = 30773333, ClientRelationships = 137,
                             //KPI's
@@ -106,7 +106,7 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $250K - $499K
                     new BenchmarkGroup
-                        { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 834000, ValuationMax = 1096000, 
+                        { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 1487000, ValuationMax = 1955000, 
                          //Firm Financials
                         RecurringRevenue = 353872, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2, AUM = 46414970, ClientRelationships = 147,
                             //KPI's
@@ -116,7 +116,7 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $500K - $749K
                     new BenchmarkGroup
-                        { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1011000, ValuationMax = 1282000, 
+                        { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1842000, ValuationMax = 2342000, 
                          //Firm Financials
                         RecurringRevenue = 493998, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7, AUM = 98935835, ClientRelationships = 150,
                             //KPI's
@@ -126,7 +126,7 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $750K - $999K
                     new BenchmarkGroup
-                        { GroupRangeMin = 750000, GroupRangeMax = 999999, ValuationMin = 1091000, ValuationMax = 1309000, 
+                        { GroupRangeMin = 750000, GroupRangeMax = 999999, ValuationMin = 2247000, ValuationMax = 2711000, 
                          //Firm Financials
                         RecurringRevenue = 837839, TotalRevenue = 898792, TotalExpenses = 565360, OperatingProfit = 333432, ProjectedAnnualGrowthRate = 15, AUM = 101028075, ClientRelationships = 200,
                             //KPI's
@@ -136,7 +136,7 @@ namespace AssetmarkBAT.Models
                     },
                     // Peer group $1M - $3M
                      new BenchmarkGroup
-                        { GroupRangeMin = 1000000, GroupRangeMax = 3000000, ValuationMin = 3092000, ValuationMax = 3618000, 
+                        { GroupRangeMin = 1000000, GroupRangeMax = 3000000, ValuationMin = 4815000, ValuationMax = 5609000, 
                          //Firm Financials
                         RecurringRevenue = 333432, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9, AUM = 276727265, ClientRelationships = 212,
                             //KPI's

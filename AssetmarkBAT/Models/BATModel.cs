@@ -139,7 +139,7 @@ namespace AssetmarkBAT.Models
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
 
-        public int Vmi_Index { get; set; }
+        public string Vmi_Index { get; set; }
 
         public string DateStarted { get; set; }
 

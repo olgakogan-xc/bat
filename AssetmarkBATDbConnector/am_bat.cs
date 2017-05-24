@@ -70,6 +70,6 @@ namespace AssetmarkBATDbConnector
         public string Vmi_Emp_Responsibilities { get; set; }
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
-        public Nullable<int> VmiIndex { get; set; }
+        public string VmiIndex { get; set; }
     }
 }
