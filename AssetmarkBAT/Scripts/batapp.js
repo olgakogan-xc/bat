@@ -143,8 +143,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.updateGraph = function () {
-        $scope.getGraphValues();
         $scope.recalculate = true;
+        $scope.getGraphValues();
     };
 
     $scope.categories = ['Current Value', 'Optimized Value'];
@@ -464,6 +464,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.pagr.value = $scope.pagr.valueOg;
         $scope.pm.value = $scope.pm.valueOg;
         $scope.vmi.value = $scope.vmi.valueOg;
+
+        $scope.updateGraph();
     };
 
     $scope.filterCurrency = function (model) {
