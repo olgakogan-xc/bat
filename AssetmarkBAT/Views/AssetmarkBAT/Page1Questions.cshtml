@@ -911,7 +911,7 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label"></div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" ng-init="setPracticeType('@Model.PracticeTypeOther')">
                             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes, new { ng_init = "practiceType = '{0}'", Model.PracticeType })
                             @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'Other'}" })
                         </div>
@@ -921,7 +921,7 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6" ng-init="setAffiliationMode('@Model.AffiliationModeOther')">
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes, new { ng_init = "affiliationMode = '{0}'", Model.AffiliationMode })
                             @Html.TextBoxFor(x => Model.AffiliationModeOther, new { ng_class = "{'hide' : affiliationMode != 'Other'}" })
                         </div>
@@ -931,9 +931,9 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
                     <div class="row">
-                        <div class="col-md-6">
-                            @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes, new { ng_init = string.Format("filmType = '{0}'", Model.FirmType) })
-                            @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : filmType != 'Other'}" })
+                        <div class="col-md-6" ng-init="setFirmType('@Model.FirmTypeOther')">
+                            @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes })
+                            @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : firmType != 'Other'}" })
                         </div>
                     </div>
                 </div>
