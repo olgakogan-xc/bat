@@ -1927,7 +1927,7 @@ section.white {
 }
 /* line 37, ../scss/app/modules/_sliders.scss */
 .sliders .slider .rzslider .rz-tick-value {
-  top: 10px;
+  top: 15px;
   color: #b1b1b1;
 }
 /* line 41, ../scss/app/modules/_sliders.scss */
@@ -1960,16 +1960,24 @@ section.white {
 .sliders .slider-control input[type="text"] {
   display: none;
 }
-/* line 75, ../scss/app/modules/_sliders.scss */
+/* line 73, ../scss/app/modules/_sliders.scss */
+.sliders .slider-control .rz-bubble:not(.rz-floor):not(.rz-ceil) {
+  visibility: visible !important;
+  z-index: 10;
+  bottom: -34px;
+  font-weight: 600;
+  color: #1F3445;
+}
+/* line 82, ../scss/app/modules/_sliders.scss */
 .sliders .slider-high {
   text-align: left;
 }
 
-/* line 83, ../scss/app/modules/_sliders.scss */
+/* line 90, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-bar {
   opacity: 0.01;
 }
-/* line 86, ../scss/app/modules/_sliders.scss */
+/* line 93, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer {
   top: -4px;
   width: 32px;
@@ -1977,67 +1985,67 @@ section.white {
   border-radius: 0;
   background: transparent url(images/bg-slider.png) center center no-repeat;
 }
-/* line 93, ../scss/app/modules/_sliders.scss */
+/* line 100, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:after {
   display: none;
 }
-/* line 97, ../scss/app/modules/_sliders.scss */
+/* line 104, ../scss/app/modules/_sliders.scss */
 .slider-pointer .rzslider .rz-pointer:focus {
   outline: none;
 }
 
-/* line 105, ../scss/app/modules/_sliders.scss */
+/* line 112, ../scss/app/modules/_sliders.scss */
 .slider-comp .rz-pointer,
 .slider-comp .rz-ticks,
 .slider-comp .rz-bar-wrapper:not(.rz-draggable) {
   opacity: 0.01;
 }
-/* line 112, ../scss/app/modules/_sliders.scss */
+/* line 119, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 117, ../scss/app/modules/_sliders.scss */
+/* line 124, ../scss/app/modules/_sliders.scss */
 .slider-comp .rzslider[disabled] .rz-bar {
   height: 60px;
   background-color: #b1b1b1;
 }
 
-/* line 126, ../scss/app/modules/_sliders.scss */
+/* line 133, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rz-pointer {
   opacity: 0.01;
 }
-/* line 131, ../scss/app/modules/_sliders.scss */
+/* line 138, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar-wrapper {
   height: 60px;
 }
-/* line 134, ../scss/app/modules/_sliders.scss */
+/* line 141, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-bar {
   height: 60px;
   background-color: #ddd;
   box-shadow: inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
-/* line 139, ../scss/app/modules/_sliders.scss */
+/* line 146, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-ticks {
   top: 60px;
 }
-/* line 142, ../scss/app/modules/_sliders.scss */
+/* line 149, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick {
   width: 1px;
   border-radius: 0;
   background-color: #ddd;
 }
-/* line 147, ../scss/app/modules/_sliders.scss */
+/* line 154, ../scss/app/modules/_sliders.scss */
 .slider-ticks .rzslider .rz-tick-legend {
   top: 10px;
   color: #b1b1b1;
 }
 
-/* line 154, ../scss/app/modules/_sliders.scss */
+/* line 161, ../scss/app/modules/_sliders.scss */
 .optimizer-slider {
   position: relative;
   height: 90px;
 }
-/* line 158, ../scss/app/modules/_sliders.scss */
+/* line 165, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer,
 .optimizer-slider .slider-comp,
 .optimizer-slider .slider-ticks {
@@ -2045,7 +2053,7 @@ section.white {
   top: 0;
   width: 100%;
 }
-/* line 165, ../scss/app/modules/_sliders.scss */
+/* line 172, ../scss/app/modules/_sliders.scss */
 .optimizer-slider .slider-pointer .rzslider,
 .optimizer-slider .slider-comp .rzslider,
 .optimizer-slider .slider-ticks .rzslider {
