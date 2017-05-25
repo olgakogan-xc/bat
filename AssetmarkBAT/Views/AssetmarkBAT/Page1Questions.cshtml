@@ -959,7 +959,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6" ng-class="{'hide' : selectedYear != 'YTD 2017'}">
+                            <div class="col-md-6" ng-class="{'hide' : selectedYear != 'YTD ' + currentYear}">
                                 <div class="form-group">
                                     <label for="">Month for YTD entry {{time.period}}</label>
                                     @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month), @class = "hide" })

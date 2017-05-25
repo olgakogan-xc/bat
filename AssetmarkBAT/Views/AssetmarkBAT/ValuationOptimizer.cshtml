@@ -11,6 +11,8 @@
 
 @Html.HiddenFor(m => Model.PDFPath)
 
+<a id="download-pdf" href="@Model.PDFPath" class="hide" target="_blank">Download PDF</a>
+
 @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -114,7 +116,7 @@
                     <div class="optimizer">
                         <div class="title">
                             <h3 class="optimized-label">Profit Margin</h3>
-                            <div class="optimized-value">{{operatingProfit | number:2}}%</div>
+                            <div class="optimized-value">{{operatingProfit*100 | number:2}}%</div>
                         </div>
                         <div class="sub-title">
                             <h4 class="optimized-label">Profit is annualized</h4>
