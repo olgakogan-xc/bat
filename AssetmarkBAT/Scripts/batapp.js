@@ -476,7 +476,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.pm.value = $scope.pm.valueOg;
         $scope.vmi.value = $scope.vmi.valueOg;
 
-        $scope.updateGraph();
+        $scope.recalculate = false;
+
+        $scope.operatingProfit = $scope.pm.value;
+
+        $scope.getGraphValues();
     };
 
     $scope.filterCurrency = function (model) {
