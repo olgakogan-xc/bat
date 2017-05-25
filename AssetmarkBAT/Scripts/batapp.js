@@ -583,6 +583,11 @@ $(function () {
         $('#form').submit();
     });
     
-    $('#download-pdf')[0].click();
+    // will redo
+    try {
+        $('#download-pdf')[0].click();
+    } catch (ex) {
+        console.log(ex);
+    }
 
 });
