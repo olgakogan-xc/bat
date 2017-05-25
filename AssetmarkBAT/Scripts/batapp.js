@@ -146,6 +146,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.updateGraph = function () {
+        $scope.operatingProfit = $scope.pm.value;
         $scope.recalculate = true;
         $scope.getGraphValues();
     };
