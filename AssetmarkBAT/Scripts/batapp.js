@@ -228,14 +228,18 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         }
     };
 
-    $scope.updateScore = function () {
+    $scope.calculateScore = function () {
         var myp = $scope.myp1.value + $scope.myp2.value + $scope.myp3.value + $scope.myp4.value + $scope.myp5.value;
         var myb = $scope.myb1.value + $scope.myb2.value + $scope.myb3.value + $scope.myb4.value + $scope.myb5.value;
         var oyo = $scope.oyo1.value + $scope.oyo2.value + $scope.oyo3.value + $scope.oyo4.value + $scope.oyo5.value;
         var eyt = $scope.eyt1.value + $scope.eyt2.value + $scope.eyt3.value + $scope.eyt4.value + $scope.eyt5.value;
 
         $scope.calculatedTotalScore = (myp + myb + oyo + eyt) * 5;
+    };
 
+
+    $scope.updateScore = function () {
+        $scope.calculateScore();
         $scope.vmiSliderChanged = true;
     };
 
