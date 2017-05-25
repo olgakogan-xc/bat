@@ -18,6 +18,8 @@
         @Html.HiddenFor(m => m.AffiliationMode)
         @Html.HiddenFor(m => m.FirmType)
 
+        @Html.HiddenFor(m => m.Page1Complete)
+
         @Html.HiddenFor(m => m.Month)
 
         @Html.HiddenFor(m => m.Ff_TotalFirmAsset)
@@ -409,10 +411,16 @@
                                 <button class="btn-big" type="submit" name="submit">Save Your Inputs</button>
                                 <button class="btn-big btn-secondary" type="submit" name="submit">Submit VMI Scores <i class="icon-chevron-right"></i></button>*@
 
-                            <button type="button" name="submit" value="Previous Firm Financials"><i class="icon-chevron-left"></i> <span class="light">Previous</span> Firm Financials</button>
+                            <button type="submit" name="submit" value="Previous Firm Financials"><i class="icon-chevron-left"></i> <span class="light">Previous</span> Firm Financials</button>
                             <input type="submit" name="submit" value="Save Your Inputs" />   
-                            <button class="btn-secondary" type="submit" name="submit" ng-disabled="!(vmiSliderChanged)">Submit VMI Scores <i class="icon-chevron-right"></i></button>
-
+                            @if (Model.Vmi_Index == "N/A" || Model.Vmi_Index == null)
+                            {
+                                <button class="btn-secondary" type="submit" name="submit" ng-disabled="!(vmiSliderChanged)">Submit VMI Scores <i class="icon-chevron-right"></i></button>
+                            }
+                            else
+                            {
+                                <button type="submit" name="submit">Submit VMI Scores <i class="icon-chevron-right"></i></button>
+                            }
                         </div>
                     </div>
                 </div>

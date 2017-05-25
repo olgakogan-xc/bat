@@ -180,6 +180,8 @@ namespace AssetmarkBAT.Models
             Vmi_Opt_Procedures = null;
             Vmi_Opt_Schedule = null;
             Vmi_Opt_Segment = null;
+
+            Vmi_Index = "N/A";
         }
     }
 

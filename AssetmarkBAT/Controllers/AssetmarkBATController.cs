@@ -168,9 +168,10 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                PopulateModelFromDatabase(model);
+                //PopulateModelFromDatabase(model);
+                SaveAnswers(model);
 
-                if (model.Vmi_Index == "N/A")
+                if (model.Vmi_Index == null || model.Vmi_Index == "N/A")
                 {
                     PrepopulateVMIs(model);
                 }
@@ -286,7 +287,7 @@ namespace AssetmarkBAT.Controllers
 
             return Json(new
             {
-                operatingprofit = model.Ff_OperatingProfitAnnualized,
+                operatingprofit = (ConvertToDouble(model.Ff_OperatingProfitAnnualized) / ConvertToDouble(model.Ff_TotalRevenueAnnualized)).ToString(),
                 totalrevenue = model.Ff_TotalRevenue,
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
                                                                                                                       //client range
@@ -300,12 +301,12 @@ namespace AssetmarkBAT.Controllers
                 pm = model.ClientValuationModel.ProfitMargin,
                 vmi = model.ClientValuationModel.VMIScore,
                 profitannualized = ConvertToDouble(model.Ff_OperatingProfitAnnualized),
-                top_pagr_max = 11,
+                top_pagr_max = 12,
                 top_pagr_min = 8,
-                top_pm_max = 23,
+                top_pm_max = 25.2,
                 top_pm_min = 20,
-                top_vmi_max = 90,
-                top_vmi_min = 70
+                top_vmi_max = 900,
+                top_vmi_min = 700
             }, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
