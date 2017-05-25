@@ -129,16 +129,19 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             $scope.profitAnnualized = data.profitannualized;
 
+            // on initial load
             if (!$scope.recalculate) {
                 $scope.pagr.value = data.pagr * 100;
                 $scope.pm.value = data.pm;
+                $scope.pm.value = data.operatingprofit * 100
                 $scope.vmi.value = data.vmi;
 
                 $scope.pagr.valueOg = data.pagr * 100;
-                $scope.pm.valueOg = data.pm;
+                //$scope.pm.valueOg = data.pm;
+                $scope.pm.valueOg = data.operatingprofit * 100;
                 $scope.vmi.valueOg = data.vmi;
 
-                $scope.operatingProfit = data.operatingprofit;
+                $scope.operatingProfit = data.operatingprofit*100;
             }
 
             $scope.$broadcast('rzSliderForceRender');
@@ -190,15 +193,15 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            if (this.point.high === 0 && this.point.low === 0) {
+                            /*if (this.point.high < 1 && this.point.low < 1) {
                                 if (noData) {
                                     return '';
                                 } else {
                                     noData = true;
                                 }
-                            }
+                            }*/
 
-                            if (this.point.high === 0 && this.point.low === 0) {
+                            if (this.point.high < 1 && this.point.low < 1) {
                                 return 'No Data';
                             } else {
                                 return '$' + (this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -473,7 +476,11 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.pm.value = $scope.pm.valueOg;
         $scope.vmi.value = $scope.vmi.valueOg;
 
-        $scope.updateGraph();
+        $scope.recalculate = false;
+
+        $scope.operatingProfit = $scope.pm.value;
+
+        $scope.getGraphValues();
     };
 
     $scope.filterCurrency = function (model) {
