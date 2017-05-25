@@ -123,7 +123,7 @@
                             <div class="optimized-value">{{profitAnnualized | currency : '$' }}</div>
                         </div>
                         <div class="optimizer-slider">
-                            <input type="hidden" ng-model="pm.value" />
+                            <input type="text" ng-model="pm.value" />
                             <div class="slider-ticks">
                                 <rzslider rz-slider-model="pmTicks.minValue"
                                           rz-slider-high="pmTicks.maxValue"
@@ -148,7 +148,7 @@
                         </div>
                         <div class="optimizer-slider">
                             <div class="optimizer-slider">
-                                <input type="hidden" ng-model="vmi.value" />
+                                <input type="text" ng-model="vmi.value" />
                                 <div class="slider-ticks">
                                     <rzslider rz-slider-model="vmiTicks.minValue"
                                               rz-slider-high="vmiTicks.maxValue"
