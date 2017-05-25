@@ -193,15 +193,15 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            if (this.point.high === 0 && this.point.low === 0) {
+                            /*if (this.point.high < 1 && this.point.low < 1) {
                                 if (noData) {
                                     return '';
                                 } else {
                                     noData = true;
                                 }
-                            }
+                            }*/
 
-                            if (this.point.high === 0 && this.point.low === 0) {
+                            if (this.point.high < 1 && this.point.low < 1) {
                                 return 'No Data';
                             } else {
                                 return '$' + (this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
