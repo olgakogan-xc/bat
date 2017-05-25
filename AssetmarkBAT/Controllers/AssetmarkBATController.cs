@@ -17,7 +17,7 @@ namespace AssetmarkBAT.Controllers
     public class AssetmarkBATController : Controller
     {
         private string _BATCookieName = "assetmarkBAT";
-        private string _EloquaCookieName = "eloquaCookie";
+        private string _EloquaCookieName = "ELOQUA";
         private string _TermsViewName = "Terms";
         private string _Page1QuestionsViewName = "Page1Questions";
         private string _Page2QuestionsViewName = "Page2Questions";
@@ -119,6 +119,11 @@ namespace AssetmarkBAT.Controllers
             }
 
             model.DateStarted = DateTime.Now.ToString();
+
+            if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+            {
+                model.EloquaId = HttpContext.Request.Cookies[_EloquaCookieName].Value;
+            }
 
             //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
             if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
@@ -449,7 +454,7 @@ namespace AssetmarkBAT.Controllers
                         Email = model.emailAddress,
                         Zip = model.zipPostal,
                         BrokerOrIRA = model.brokerDealer1,
-                        EloquaUser = model.EloquaUser,
+                        EloquaId = model.EloquaId,
 
                         PracticeType = model.PracticeType,
                         AffiliationModel = model.AffiliationMode,
@@ -543,7 +548,7 @@ namespace AssetmarkBAT.Controllers
                         model.busPhone = original.Phone;
                         model.zipPostal = original.Zip;
                         model.brokerDealer1 = original.BrokerOrIRA;
-                        model.EloquaUser = (original.EloquaUser.HasValue) ? true : false;
+                        model.EloquaId = original.EloquaId;
                         model.Year = original.TimeRange;
                         model.Month = original.Month.Value;
                         model.PDFPath = original.PDF;

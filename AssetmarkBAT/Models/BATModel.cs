@@ -21,7 +21,7 @@ namespace AssetmarkBAT.Models
         public string zipPostal { get; set; }
         public string brokerDealer1 { get; set; }
 
-        public bool EloquaUser { get; set; }
+        public string EloquaId { get; set; }
         //End of Eloqua fields
 
 
