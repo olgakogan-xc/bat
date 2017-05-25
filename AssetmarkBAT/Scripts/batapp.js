@@ -137,7 +137,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 $scope.pagr.valueOg = data.pagr * 100;
                 $scope.pm.valueOg = data.pm;
                 $scope.vmi.valueOg = data.vmi;
-
+            } else {
                 $scope.operatingProfit = data.operatingprofit;
             }
 
