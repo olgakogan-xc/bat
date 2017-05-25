@@ -295,10 +295,12 @@ namespace AssetmarkBAT.Controllers
             double COMP_MIN = comparativeValuationMin;
             double COMP_MAX = comparativeValuationMax;
 
+            double AnnualProfit = (ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100));
+
             return Json(new
             {
-                operatingprofit = (ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString(),
-                totalrevenue = clientModel.Ff_TotalRevenue,
+                profitmargin = (ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString(),
+                operatingprofit = (recalculate)? (ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : clientModel.Ff_OperatingProfitAnnualized,
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
                                                                                                                       //client range
                 currentmax = clientModel.ClientValuationModel.ValuationMax,
@@ -313,7 +315,7 @@ namespace AssetmarkBAT.Controllers
                 profitannualized = ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized),
                 top_pagr_max = 12,
                 top_pagr_min = 8,
-                top_pm_max = 25.2,
+                top_pm_max = 25,
                 top_pm_min = 20,
                 top_vmi_max = 900,
                 top_vmi_min = 700
@@ -1000,7 +1002,7 @@ namespace AssetmarkBAT.Controllers
                     model.Ff_ProjectedGrowthRate = PAGR.ToString();
 
                 if (PM != -1)
-                    model.Ff_OperatingProfitAnnualized = (ConvertToDouble(model.Ff_TotalRevenueAnnualized) * (PM / 1000 / 100)).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
+                    model.Ff_OperatingProfitAnnualized = (ConvertToDouble(model.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
                 else
                 {
                     string check = model.Ff_OperatingProfitAnnualized;
