@@ -165,7 +165,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             yAxis: {
                 labels: {
                     formatter: function () {
-                        return '$' + this.value;
+                        return '$' + (this.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
                 },
                 title: {
@@ -200,7 +200,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                             if (this.point.high === 0 && this.point.low === 0) {
                                 return 'No Data';
                             } else {
-                                return '$' + this.y;
+                                return '$' + (this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                             }
                         }
                     }
