@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="score score-calculated" ng-init="calculatedTotalScore = @Model.Vmi_Index">
+                            <div class="score score-calculated">
                                 <h5>Calculated total score</h5>
                                 <h3>{{calculatedTotalScore}}</h3>
                             </div>
@@ -398,7 +398,7 @@
                         </div>
                     </div>
                 </div>               
-                <div class="row">
+                <div class="row" ng-init="updateScore()">
                     <div class="col-md-12">
                         <div class="button-container text-center">
                             @*<button class="btn-big"><i class="icon-chevron-left"></i> <span class="light">Previous</span> Firm Financials</button>
