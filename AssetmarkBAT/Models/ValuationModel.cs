@@ -49,7 +49,7 @@ namespace AssetmarkBAT.Models
         //VMI 
         public double VmiRiskRate { get; set; }
         public double UserPerpetualGrowthRate { get; set; }
-        public int VMIScore { get; set; }
+        //public int VMIScore { get; set; }
 
         public int ManagingYourPracticeScore { get; set; }
         public int MarketingYourBusinessScore { get; set; }
@@ -78,7 +78,7 @@ namespace AssetmarkBAT.Models
 
         public ClientValuationModel()
         {
-            VMIScore = 0;
+            //VMIScore = 0;
 
         }
     }

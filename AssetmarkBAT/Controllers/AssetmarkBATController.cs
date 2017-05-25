@@ -182,7 +182,7 @@ namespace AssetmarkBAT.Controllers
 
         private void CalculateValuation(BATModel model, bool recalculate)
         {
-            CalculateValuationVariables(model, false);
+            CalculateValuationVariables(model, recalculate);
 
             bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model);
             bool discountedCashFlow = CalculateDiscountedCashFlow(model);
@@ -242,7 +242,7 @@ namespace AssetmarkBAT.Controllers
         {
             PopulateModelFromDatabase(model);
             CalculateKPIs(model);
-            CreatePdf(model);
+            DrawPdf(model);
             return View(_ValuationOptimizer, model);
         }
 
@@ -251,12 +251,12 @@ namespace AssetmarkBAT.Controllers
         /// </summary>       
         public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate)
         {
-            BATModel model = new BATModel();
-            BATModel comparativeModel = model;
+            BATModel clientModel = new BATModel();
+            BATModel comparativeModel = clientModel;
             double comparativeValuationMin;
             double comparativeValuationMax;
 
-            model = GetClientValuationRanges(null, -1, -1, -1);
+            clientModel = GetClientValuationRanges(false, null, -1, -1, -1);
 
             if (recalculate) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
             {
@@ -264,43 +264,48 @@ namespace AssetmarkBAT.Controllers
                 //CalculateValuation(model, false);               
 
                 //Call to recalculate and build comparative range
-                comparativeModel = GetClientValuationRanges(null, PAGR, PM, VMI);
+                comparativeModel = GetClientValuationRanges(true, null, PAGR, PM, VMI);
                 comparativeValuationMin = comparativeModel.ClientValuationModel.ValuationMin;
                 comparativeValuationMax = comparativeModel.ClientValuationModel.ValuationMax;
             }
             else //call made from the Report page or Optimizer page on load. Get benchmarks
             {
-
-                BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(model.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(model.Ff_TotalRevenue) < x.GroupRangeMax);
+                BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(clientModel.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(clientModel.Ff_TotalRevenue) < x.GroupRangeMax);
 
                 if (peerGroup == null)
                 {
-                    peerGroup = model.BenchmarksValuationModel.PeerGroups.Last();
+                    peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
                 }
 
                 comparativeValuationMin = peerGroup.ValuationMin;
                 comparativeValuationMax = peerGroup.ValuationMax;
             }
 
-            double maxValueForClient = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
+            double maxValueForClient = clientModel.ClientValuationModel.ValuationMax + (clientModel.ClientValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
+
+            double CLIENT_MIN = clientModel.ClientValuationModel.ValuationMin;
+            double CLIENT_MAX = clientModel.ClientValuationModel.ValuationMax;
+
+            double COMP_MIN = comparativeValuationMin;
+            double COMP_MAX = comparativeValuationMax;
 
             return Json(new
             {
-                operatingprofit = (ConvertToDouble(model.Ff_OperatingProfitAnnualized) / ConvertToDouble(model.Ff_TotalRevenueAnnualized)).ToString(),
-                totalrevenue = model.Ff_TotalRevenue,
+                operatingprofit = (ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString(),
+                totalrevenue = clientModel.Ff_TotalRevenue,
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
                                                                                                                       //client range
-                currentmax = model.ClientValuationModel.ValuationMax,
-                currentmin = model.ClientValuationModel.ValuationMin,
+                currentmax = clientModel.ClientValuationModel.ValuationMax,
+                currentmin = clientModel.ClientValuationModel.ValuationMin,
                 //comparative range (either benchmark or optimized)
                 calculatedmax = comparativeValuationMax,
                 calculatedmin = comparativeValuationMin,
                 //metrics used in calculations
-                pagr = model.ClientValuationModel.ProjectedAnnualGrowthRate,
-                pm = model.ClientValuationModel.ProfitMargin,
-                vmi = model.ClientValuationModel.VMIScore,
-                profitannualized = ConvertToDouble(model.Ff_OperatingProfitAnnualized),
+                pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
+                pm = clientModel.ClientValuationModel.ProfitMargin,
+                vmi = clientModel.Vmi_Index,
+                profitannualized = ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized),
                 top_pagr_max = 12,
                 top_pagr_min = 8,
                 top_pm_max = 25.2,
@@ -564,13 +569,17 @@ namespace AssetmarkBAT.Controllers
                         model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
                         model.Ff_IndirecteExpensesAnnualized = original.Ff_IndirectExpenses_Annualized;
                         model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
+                        //model.Ff_ProjectedGrowthRateAnnualized = original.Ff_OperaintProfit_Annualized;
                         model.Ff_ClientRelationships = original.Ff_Client_Relationships;
+                        //model.Ff_ClientRelationshipsAnnualized = original.Ff_New_Clients_Annualized;
                         model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
                         model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
                         model.Ff_NewClients = original.Ff_New_Clients;
                         model.Ff_NewClientsAnnualized = original.Ff_New_Clients_Annualized;
                         model.Ff_TotalRevenue = original.Ff_TotalRevenue;
                         model.Ff_TotalRevenueAnnualized = original.Ff_TotalRevenue_Annualized;
+
+
 
                         //VMI's
                         model.Vmi_Man_Phase = original.Vmi_Man_Phase;
@@ -618,7 +627,7 @@ namespace AssetmarkBAT.Controllers
                 return new PdfFixedDocument(stream);
         }
 
-        private void CreatePdf(BATModel model)
+        private void DrawPdf(BATModel model)
         {
             try
             {
@@ -684,54 +693,54 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString(group, helvetica, redBrush, 500, 95);
 
                     //Firm Financials Table--------------------------------------------------
-                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) ? model.Ff_TotalFirmAsset : "N/A", helvetica, redBrush, 170, 128);
+                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) ? (ConvertToDouble(model.Ff_TotalFirmAsset)).ToString("C0") : "N/A", helvetica, redBrush, 170, 128);
                     page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ClientRelationships) ? model.Ff_ClientRelationships : "N/A", helvetica, redBrush, 170, 147);
-                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_RecurringRevenue) ? model.Ff_RecurringRevenue : "N/A", helvetica, redBrush, 170, 165);
-                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalRevenue) ? model.Ff_TotalRevenue : "N/A", helvetica, textBrush, 170, 183);
+                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_RecurringRevenue) ? (Convert.ToInt32(ConvertToDouble(model.Ff_RecurringRevenue))).ToString("C0") : "N/A", helvetica, redBrush, 170, 165);
+                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalRevenue) ? (Convert.ToInt32(ConvertToDouble(model.Ff_TotalRevenue))).ToString("C0") : "N/A", helvetica, textBrush, 170, 183);
 
                     if (!string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses))
                     {
-                        page.Graphics.DrawString((ConvertToDouble(model.Ff_DirectExpenses) + ConvertToDouble(model.Ff_IndirecteExpenses)).ToString("C"), helvetica, redBrush, 170, 201);
+                        page.Graphics.DrawString(Convert.ToInt32((ConvertToDouble(model.Ff_DirectExpenses) + ConvertToDouble(model.Ff_IndirecteExpenses))).ToString("C0"), helvetica, redBrush, 170, 201);
                     }
                     else if (string.IsNullOrEmpty(model.Ff_DirectExpenses))
                     {
-                        page.Graphics.DrawString(model.Ff_IndirecteExpenses, helvetica, redBrush, 170, 201);
+                        page.Graphics.DrawString((Convert.ToInt32(ConvertToDouble(model.Ff_IndirecteExpenses)).ToString("C0")), helvetica, redBrush, 170, 201);
                     }
                     else
                     {
-                        page.Graphics.DrawString(model.Ff_DirectExpenses, helvetica, redBrush, 170, 201);
+                        page.Graphics.DrawString((Convert.ToInt32(ConvertToDouble(model.Ff_DirectExpenses)).ToString("C0")), helvetica, redBrush, 170, 201);
                     }
 
 
-                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_OperatingProfit) ? model.Ff_OperatingProfit : "N/A", helvetica, redBrush, 170, 219);
+                    page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_OperatingProfit) ? Convert.ToInt32(ConvertToDouble(model.Ff_OperatingProfit)).ToString("C0") : "N/A", helvetica, redBrush, 170, 219);
                     page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) ? model.Ff_ProjectedGrowthRate : "N/A", helvetica, redBrush, 170, 236);
 
-                    page.Graphics.DrawString(peerGroup.AUM.ToString("C"), helvetica, redBrush, 290, 128);
+                    page.Graphics.DrawString(peerGroup.AUM.ToString("C0"), helvetica, redBrush, 290, 128);
                     page.Graphics.DrawString(peerGroup.ClientRelationships.ToString(), helvetica, redBrush, 290, 147);
-                    page.Graphics.DrawString(peerGroup.RecurringRevenue.ToString("C"), helvetica, redBrush, 290, 165);
-                    page.Graphics.DrawString(peerGroup.TotalRevenue.ToString("C"), helvetica, redBrush, 290, 183);
-                    page.Graphics.DrawString(peerGroup.TotalExpenses.ToString("C"), helvetica, redBrush, 290, 201);
-                    page.Graphics.DrawString(peerGroup.OperatingProfit.ToString("C"), helvetica, redBrush, 290, 219);
+                    page.Graphics.DrawString(peerGroup.RecurringRevenue.ToString("C0"), helvetica, redBrush, 290, 165);
+                    page.Graphics.DrawString(peerGroup.TotalRevenue.ToString("C0"), helvetica, redBrush, 290, 183);
+                    page.Graphics.DrawString(peerGroup.TotalExpenses.ToString("C0"), helvetica, redBrush, 290, 201);
+                    page.Graphics.DrawString(peerGroup.OperatingProfit.ToString("C0"), helvetica, redBrush, 290, 219);
                     page.Graphics.DrawString(peerGroup.ProjectedAnnualGrowthRate.ToString() + "%", helvetica, redBrush, 290, 236);
 
 
                     //KPI's Table ------------------------------------------------------------ 
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerClient).ToString("C"), helvetica, redBrush, 170, 557);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerAdvisor).ToString("C"), helvetica, redBrush, 170, 576);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalRevenuePerClient).ToString("C"), helvetica, redBrush, 170, 595);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperClient).ToString("C"), helvetica, redBrush, 170, 611);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C"), helvetica, redBrush, 170, 625);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C"), helvetica, redBrush, 170, 642);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerClient).ToString("c0"), helvetica, redBrush, 170, 557);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RecurringRevenuePerAdvisor).ToString("C0"), helvetica, redBrush, 170, 576);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalRevenuePerClient).ToString("C0"), helvetica, redBrush, 170, 595);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperClient).ToString("C0"), helvetica, redBrush, 170, 611);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C0"), helvetica, redBrush, 170, 626);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C0"), helvetica, redBrush, 170, 644);
                     page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenut).ToString("0.0") + " %", helvetica, redBrush, 170, 661);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ClientsPerAdvisor).ToString("C"), helvetica, redBrush, 170, 680);
-                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RevenueAsBPSOnAssets).ToString("C"), helvetica, redBrush, 170, 699);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.ClientsPerAdvisor).ToString("C0"), helvetica, redBrush, 170, 680);
+                    page.Graphics.DrawString(ConvertToDouble(model.ClientValuationModel.RevenueAsBPSOnAssets).ToString("C0"), helvetica, redBrush, 170, 699);
 
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerClient).ToString("C"), helvetica, redBrush, 290, 557);
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerAdvisor).ToString("C"), helvetica, redBrush, 290, 576);
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalRevPerClient).ToString("C"), helvetica, redBrush, 290, 595);
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerClient).ToString("C"), helvetica, redBrush, 290, 611);
-                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerAdvisor).ToString("C"), helvetica, redBrush, 290, 625);
-                    page.Graphics.DrawString(peerGroup.ProfitPerClient.ToString("C"), helvetica, redBrush, 290, 642);
+                    page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerClient).ToString("C0"), helvetica, redBrush, 290, 557);
+                    page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerAdvisor).ToString("C0"), helvetica, redBrush, 290, 576);
+                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalRevPerClient).ToString("C0"), helvetica, redBrush, 290, 595);
+                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerClient).ToString("C0"), helvetica, redBrush, 290, 611);
+                    page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerAdvisor).ToString("C0"), helvetica, redBrush, 290, 626);
+                    page.Graphics.DrawString(peerGroup.ProfitPerClient.ToString("C0"), helvetica, redBrush, 290, 644);
                     page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString("0.0") + " %", helvetica, redBrush, 290, 661);
 
                     //page.Graphics.DrawString(((int)Math.Floor(peerGroup.ProfitAsPercentOfRevenue)).ToString() + " %", helvetica, redBrush, 290, 661);
@@ -848,29 +857,35 @@ namespace AssetmarkBAT.Controllers
                     page.Graphics.DrawString(peerGroup.MYP.ToString(), helvetica, whiteBrush, x + 20, y + 3); //score
 
 
-                    ////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     /////////////// VALUATION RANGE GRAPH   /////////////////////
-                    ////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     double axisMax = peerGroup.ValuationMax + (peerGroup.ValuationMax / 4);
                     pixel = axisMax / 135;
 
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, 300), new PdfPoint(353, 435)); //vertical
                     page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(353, 435), new PdfPoint(550, 435)); //horizontal
+                    //page.Graphics.DrawString();
 
-                    page.Graphics.DrawString("0", helvetica, textBrush, 330, 428);
+                    
 
                     //Client Valuation Range
-                    if (model.ClientValuationModel.ValuationMax != 0 && model.ClientValuationModel.ValuationMax > peerGroup.ValuationMax)
+                    if (model.ClientValuationModel.ValuationMax != 0 && model.ClientValuationModel.ValuationMin != 0)
                     {
-                        axisMax = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
-                        pixel = axisMax / 135;
+                        if(model.ClientValuationModel.ValuationMax > peerGroup.ValuationMax)
+                        {
+                            axisMax = model.ClientValuationModel.ValuationMax + (model.ClientValuationModel.ValuationMax / 4);
+                            pixel = axisMax / 135;
+                        }
+                       
                         firstBlock = (model.ClientValuationModel.ValuationMax - model.ClientValuationModel.ValuationMin) / pixel;
+                        
 
                         x = 390;
-                        y = 435 - (model.ClientValuationModel.ValuationMin / pixel);
+                        y = 435 - (model.ClientValuationModel.ValuationMax / pixel);
                         page.Graphics.DrawRectangle(graphBrush2, x, y, 55, firstBlock);
-                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMax.ToString("C"), helvetica, textBrush, x, (y - 9));
-                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMin.ToString("C"), helvetica, textBrush, x, (y + firstBlock + 3));
+                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMax.ToString("C0"), helvetica, textBrush, x, (y - 9));
+                        page.Graphics.DrawString(model.ClientValuationModel.ValuationMin.ToString("C0"), helvetica, textBrush, x, (y + firstBlock + 3));
                     }
                     else
                     {
@@ -878,7 +893,7 @@ namespace AssetmarkBAT.Controllers
                         page.Graphics.DrawString("No Data", helvetica, textBrush, x, 350);
                     }
 
-                    page.Graphics.DrawString(axisMax.ToString("C"), helvetica, textBrush, (330 - 10), 300);
+                   
 
                     //Benchmark Valuation Range
 
@@ -890,34 +905,54 @@ namespace AssetmarkBAT.Controllers
                     y = peerGroup.ValuationMax / dollarsInPixel;
                     y = 435 - y; //bottom of range
 
-                    page.Graphics.DrawString(peerGroup.ValuationMax.ToString("C"), helvetica, textBrush, x, (y - 9));
+                    page.Graphics.DrawString(peerGroup.ValuationMax.ToString("C0"), helvetica, textBrush, x, (y - 9));
                     page.Graphics.DrawRectangle(graphBrush3, x, y, 55, height);
-                    page.Graphics.DrawString(peerGroup.ValuationMin.ToString("C"), helvetica, textBrush, x, (y + height + 3));
+                    page.Graphics.DrawString(peerGroup.ValuationMin.ToString("C0"), helvetica, textBrush, x, (y + height + 3));
+
+                    //Axis values
+                    PdfStringLayoutOptions layout = new PdfStringLayoutOptions() { HorizontalAlign = PdfStringHorizontalAlign.Right, X = 351, Y = 300 };
+                    PdfPen pen = new PdfPen(PdfRgbColor.Black, 0.1);
+                    PdfStringAppearanceOptions appearance = new PdfStringAppearanceOptions(helvetica, pen, textBrush);
+                   
+                    page.Graphics.DrawString("0", helvetica, textBrush, 346, 430);
+                    page.Graphics.DrawString((Convert.ToInt32(axisMax)).ToString("C0"), appearance, layout);
+
+                    double incrementHeight = 135 / 4;
+                    double incrementValue = axisMax / 4;
+
+                    layout.Y = layout.Y + incrementHeight;
+                    page.Graphics.DrawString((axisMax - incrementValue).ToString("C0"), appearance, layout);
+
+                    layout.Y = layout.Y + incrementHeight;
+                    page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
+
+                    layout.Y = layout.Y + incrementHeight;
+                    page.Graphics.DrawString((axisMax - (incrementValue * 3)).ToString("C0"), appearance, layout);
                 }
 
                 MemoryStream stream = new MemoryStream();
                 // Saves the document as stream
                 document.Save(stream);
 
-                //document.Save("C:\\Olga\\PdfCustom.pdf");
+                document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                // Converts the PdfDocument object to byte form.
-                byte[] docBytes = stream.ToArray();
-                //Loads the byte array in PdfLoadedDocument
+                //// Converts the PdfDocument object to byte form.
+                //byte[] docBytes = stream.ToArray();
+                ////Loads the byte array in PdfLoadedDocument
 
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                var permissions = myContainer.GetPermissions();
-                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                myContainer.SetPermissions(permissions);
+                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                //var permissions = myContainer.GetPermissions();
+                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                //myContainer.SetPermissions(permissions);
 
-                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                blockBlob.Properties.ContentType = "application/pdf";
-                //blockBlob.UploadFromStream(stream);
-                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                //blockBlob.Properties.ContentType = "application/pdf";
+                ////blockBlob.UploadFromStream(stream);
+                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
@@ -942,15 +977,7 @@ namespace AssetmarkBAT.Controllers
             return null;
         }
 
-        /// <summary>
-        /// Called either from Optimizer page with ajax or from Optimizer action method in the controller
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="PAGR"></param>
-        /// <param name="PM"></param>
-        /// <param name="VMI"></param>
-        /// <returns></returns>
-        private BATModel GetClientValuationRanges(BATModel model = null, double PAGR = -1, double PM = -1, int VMI = -1)
+        private BATModel GetClientValuationRanges(bool recalculate, BATModel model = null, double PAGR = -1, double PM = -1, int VMI = -1)
         {
             if (model == null)
             {
@@ -965,21 +992,25 @@ namespace AssetmarkBAT.Controllers
             {
                 //any of the Optimizer values can be sent separately and all together, need the check here
                 if (PAGR != -1)
-                    model.ClientValuationModel.ProjectedAnnualGrowthRate = PAGR;
+                    model.Ff_ProjectedGrowthRate = PAGR.ToString();
 
                 if (PM != -1)
-                    model.ClientValuationModel.VMIScore = VMI;
+                    model.Ff_OperatingProfitAnnualized = (ConvertToDouble(model.Ff_TotalRevenueAnnualized) * (PM / 1000 / 100)).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
+                else
+                {
+                    string check = model.Ff_OperatingProfitAnnualized;
+                }
 
                 if (VMI != -1)
-                    model.Ff_OperatingProfitAnnualized = (ConvertToDouble(model.Ff_TotalRevenue) * PM).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
+                    model.Vmi_Index = VMI.ToString();
 
 
                 //Do all calculations here
-                CalculateValuation(model, true);
+                CalculateValuation(model, recalculate);
                 CalculateKPIs(model);
 
-                model.ClientValuationModel.ValuationMin = model.ClientValuationModel.ValuationMin;
-                model.ClientValuationModel.ValuationMax = model.ClientValuationModel.ValuationMax;
+                //model.ClientValuationModel.ValuationMin = model.ClientValuationModel.ValuationMin;
+                //model.ClientValuationModel.ValuationMax = model.ClientValuationModel.ValuationMax;
             }
 
             return model;
@@ -997,14 +1028,19 @@ namespace AssetmarkBAT.Controllers
                 model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
                 model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
                 model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+
+                int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
+                double temp = total / 5 / 2000;
+
+                model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
+                model.Vmi_Index = total.ToString();
+                model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
             }
-
-            int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
-            double temp = total / 5 / 2000;
-
-            model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
-            model.ClientValuationModel.VMIScore = total;
-            model.ClientValuationModel.UserPerpetualGrowthRate = (model.ClientValuationModel.VMIScore >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+            else
+            {
+                model.ClientValuationModel.VmiRiskRate = 0.15 - (Convert.ToInt32(model.Vmi_Index) / 5 / 2000);
+                model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+            }
         }
 
         private bool CalculateNonAdvisorTaxFreeCashFlow(BATModel model)

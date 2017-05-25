@@ -11,7 +11,7 @@
 
 @Html.HiddenFor(m => Model.PDFPath)
 
-<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+@*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         window.setTimeout(function () {
@@ -19,7 +19,7 @@
             var newTab = window.open(link, '_blank');
         }, 50);
     });
-</script>
+</script>*@
 
 
 <main>
@@ -39,19 +39,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice">Managing Your Practice</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice" target="_blank">Managing Your Practice</a></td>
                                 <td>@Model.ClientValuationModel.ManagingYourPracticeScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness">Marketing Your Business</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness" target="_blank">Marketing Your Business</a></td>
                                 <td>@Model.ClientValuationModel.MarketingYourBusinessScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/OptimizingYourOperations">Optimizing Your Operations</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/OptimizingYourOperations" target="_blank">Optimizing Your Operations</a></td>
                                 <td>@Model.ClientValuationModel.OptimizingYourOperationsScore</td>
                             </tr>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/EmpoweringYourTeam">Empowering Your Team</a></td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/EmpoweringYourTeam" target="_blank">Empowering Your Team</a></td>
                                 <td>@Model.ClientValuationModel.EmpoweringYourTeamScore</td>
                             </tr>
                         </tbody>

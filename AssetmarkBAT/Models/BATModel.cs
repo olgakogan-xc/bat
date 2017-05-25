@@ -56,7 +56,7 @@ namespace AssetmarkBAT.Models
         [Display(Name = "Total Firm Assets Under Management")]
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
         public string Ff_TotalFirmAsset { get; set; }
-        public string Ff_TotalFirmAssetAnnualized { get; set; }
+        //public string Ff_TotalFirmAssetAnnualized { get; set; }
 
         [Display(Name = "Non-Recurring Revenue")]      
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
@@ -89,22 +89,22 @@ namespace AssetmarkBAT.Models
         [Display(Name = "Projected Growth Rate")]      
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid % value")]
         public string Ff_ProjectedGrowthRate { get; set; }
-        public string Ff_ProjectedGrowthRateAnnualized { get; set; }
+        //public string Ff_ProjectedGrowthRateAnnualized { get; set; }
 
         [Display(Name = "Client Relationships")]      
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_ClientRelationships { get; set; }
-        public string Ff_ClientRelationshipsAnnualized { get; set; }
+        //public string Ff_ClientRelationshipsAnnualized { get; set; }
 
         [Display(Name = "Full-Time Equivalent Non Advisors")]    
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_FullTimeNonAdvisors { get; set; }
-        public string Ff_FullTimeNonAdvisorsAnnualized { get; set; }
+        //public string Ff_FullTimeNonAdvisorsAnnualized { get; set; }
 
         [Display(Name = "Full-Time Equivalent Advisors")]       
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_FullTimeAdvisors { get; set; }
-        public string Ff_FullTimeAdvisorsAnnualized { get; set; }
+        //public string Ff_FullTimeAdvisorsAnnualized { get; set; }
 
         [Display(Name = "New Clients")]      
         [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
