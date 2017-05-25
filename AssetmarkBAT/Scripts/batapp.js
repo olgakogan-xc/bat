@@ -137,15 +137,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 $scope.pagr.valueOg = data.pagr * 100;
                 $scope.pm.valueOg = data.pm;
                 $scope.vmi.valueOg = data.vmi;
-            }
 
-            $scope.operatingProfit = data.operatingprofit;
+                $scope.operatingProfit = data.operatingprofit;
+            }
 
             $scope.$broadcast('rzSliderForceRender');
         });
     };
 
     $scope.updateGraph = function () {
+        $scope.operatingProfit = $scope.pm.value;
         $scope.recalculate = true;
         $scope.getGraphValues();
     };
@@ -583,6 +584,11 @@ $(function () {
         $('#form').submit();
     });
     
-    $('#download-pdf')[0].click();
+    // will redo
+    try {
+        $('#download-pdf')[0].click();
+    } catch (ex) {
+        console.log(ex);
+    }
 
 });
