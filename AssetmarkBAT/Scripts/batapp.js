@@ -138,7 +138,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 $scope.vmi.valueOg = data.vmi;
             }
 
-            $scope.operatingProfit = data.operatingProfit;
+            $scope.operatingProfit = data.operatingprofit;
 
             $scope.$broadcast('rzSliderForceRender');
         });
