@@ -170,7 +170,6 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                //PopulateModelFromDatabase(model);
                 SaveAnswers(model);
 
                 if (model.Vmi_Index == null || model.Vmi_Index == "N/A")
@@ -200,9 +199,7 @@ namespace AssetmarkBAT.Controllers
         /// </summary>      
         [HttpPost]
         public ActionResult Report(BATModel model, string submit)
-        {
-            //var errors = ModelState.Values.SelectMany(v => v.Errors);
-
+        {  
             InitializeDropDowns(model);
 
             if (submit == "Save Your Inputs")
@@ -213,12 +210,7 @@ namespace AssetmarkBAT.Controllers
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
                     + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5).ToString();
                 model.Page2Complete = true;
-                //model.Page1Complete = true;
-                PopulateEntityFromModel(model);
-                //CalculateValuation(model, false);
-
-
-                //model.PDFPath = HttpContext.Server.MapPath(@"~\UserPDF\");
+                PopulateEntityFromModel(model); 
 
                 return View(_Page2QuestionsViewName, model);
             }
@@ -229,8 +221,14 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
+                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
+                model.Vmi_Index = ((Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
+                    + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
+                    + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
+                    + Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5).ToString();
+                model.Page2Complete = true;
+                PopulateEntityFromModel(model);
                 PopulateModelFromDatabase(model);
-                //CalculateValuation(model, false);
                 CalculateKPIs(model);
                 return View(_ReportViewName, model);
             }
@@ -936,25 +934,25 @@ namespace AssetmarkBAT.Controllers
                 // Saves the document as stream
                 document.Save(stream);
 
-                document.Save("C:\\Olga\\PdfCustom.pdf");
+                //document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                //// Converts the PdfDocument object to byte form.
-                //byte[] docBytes = stream.ToArray();
-                ////Loads the byte array in PdfLoadedDocument
+                // Converts the PdfDocument object to byte form.
+                byte[] docBytes = stream.ToArray();
+                //Loads the byte array in PdfLoadedDocument
 
-                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                //var permissions = myContainer.GetPermissions();
-                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                //myContainer.SetPermissions(permissions);
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                var permissions = myContainer.GetPermissions();
+                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                myContainer.SetPermissions(permissions);
 
-                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                //blockBlob.Properties.ContentType = "application/pdf";
-                ////blockBlob.UploadFromStream(stream);
-                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                blockBlob.Properties.ContentType = "application/pdf";
+                //blockBlob.UploadFromStream(stream);
+                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
