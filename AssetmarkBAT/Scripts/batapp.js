@@ -129,6 +129,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             $scope.profitAnnualized = data.profitannualized;
 
+            // on initial load
             if (!$scope.recalculate) {
                 $scope.pagr.value = data.pagr * 100;
                 $scope.pm.value = data.pm;
@@ -137,16 +138,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 $scope.pagr.valueOg = data.pagr * 100;
                 $scope.pm.valueOg = data.pm;
                 $scope.vmi.valueOg = data.vmi;
-            }
 
-            $scope.operatingProfit = data.operatingprofit;
+                $scope.operatingProfit = data.operatingprofit*100;
+            }
 
             $scope.$broadcast('rzSliderForceRender');
         });
     };
 
     $scope.updateGraph = function () {
-        //$scope.operatingProfit = $scope.pm.value;
+        $scope.operatingProfit = $scope.pm.value;
         $scope.recalculate = true;
         $scope.getGraphValues();
     };
