@@ -442,7 +442,6 @@
         @Html.HiddenFor(m => m.Page2Complete)
 
         @*------------------------Eloqua Form Start--------------------*@
-
         <div class="hide">
             @*<form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form1007 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form1007" class="elq-form">*@
             <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
@@ -898,7 +897,6 @@
                 //--></script>
 
         </div>
-
         @*------------------------Eloqua Form Finish--------------------*@
 
         <section class="grey">
@@ -1041,7 +1039,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            Direct Expenses <i class="icon-info tooltip" data-tooltip="TODO"></i>
+                            Direct Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are directly related to revenue generating activities or professionals, including benefits and payroll costs for owner advisors. These expenses should be normalized. Click here for more on normalization of expenses."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
@@ -1054,7 +1052,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            Indirect Expenses <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            Indirect Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are not directly related to revenue generating activities or professionals. These expenses typically relate operating expenses, such as to non-advisor staffing compensation, rent, technology, insurance, and marketing."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
@@ -1088,7 +1086,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="The anticipated or average growth rate of the firm in the near-term, typically 3-5 years."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
@@ -1115,7 +1113,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of &quote;1&quote; would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@

@@ -82,13 +82,13 @@
                         <div class="col-md-6">
                             <label for="cbTerms">
                                 @*<input type="checkbox" id="cbTerms" ng-model="terms" class="ng-valid ng-dirty ng-valid-parse ng-touched"> Agree to the terms of use*@
-                                @Html.CheckBoxFor(m => Model.AgreedToTerms, new { ng_Model = "terms", @class = "ng-valid ng-dirty ng-valid-parse ng-touched", @id = "cbTerms" })Agree to the terms of use
-                                @Html.ValidationMessageFor(x => Model.AgreedToTerms)
+                                <div class="error">@Html.ValidationMessageFor(x => Model.AgreedToTerms)</div>
+                                @Html.CheckBoxFor(m => Model.AgreedToTerms, new { ng_Model = "terms", @id = "cbTerms" })Agree to the terms of use
                             </label>
                         </div>
                         <div class="col-md-6 text-right">
                             @*<a href="page2.html" class="btn" ng-class="{'hide': !terms}">Get Started</a>*@
-                            <input type="submit" value="Get Started" />
+                            <input type="submit" value="Get Started" ng-disabled="!(terms)" />
                         </div>
                     </div>
 
