@@ -583,4 +583,6 @@ $(function () {
         $('#form').submit();
     });
 
+    $('.download-pdf').trigger('click');
+
 });
