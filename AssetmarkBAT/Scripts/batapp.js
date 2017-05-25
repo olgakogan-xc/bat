@@ -582,7 +582,7 @@ $(function () {
     $('button[type="submit"').on('click', function (e) {
         $('#form').submit();
     });
-
-    $('#download-pdf')[0].trigger('click');
+    
+    $('#download-pdf')[0].click();
 
 });
