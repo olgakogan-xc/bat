@@ -89,7 +89,7 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                model.UserId = KnownUserId();
+                model.UserId = KnownUserId();                
                 PopulateModelFromDatabase(model);
             }
 
@@ -117,6 +117,8 @@ namespace AssetmarkBAT.Controllers
             {
                 model.Year = "YTD " + DateTime.Now.Year;
             }
+
+            model.DateStarted = DateTime.Now.ToString();
 
             //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
             if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
@@ -155,7 +157,7 @@ namespace AssetmarkBAT.Controllers
         {
             InitializeDropDowns(model);
 
-            if (model.PracticeType == "Practice Type")
+            if (string.IsNullOrEmpty(model.PracticeTypeOther) && model.PracticeType == "Practice Type")
             {
                 model.Message = "Practice Type is required";
                 return View(_Page1QuestionsViewName, model);
