@@ -16,6 +16,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.firmTypeRadio = 0;
 
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    $scope.currentYear = new Date().getFullYear();
 
     $scope.selectedYear = 0;
     $scope.selectedYearLabel = '';
@@ -28,16 +29,16 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.selectYear = function (year) {
         console.log(year);
-        if (year === '' || year === 'Previous') {
-            $scope.selectedYear = 'Previous';
+        if (year === '' || year === 'Previous Year') {
+            $scope.selectedYear = 'Previous Year';
         } else {
-            $scope.selectedYear = 'YTD 2017';
+            $scope.selectedYear = 'YTD ' + $scope.currentYear;
         }
     };
 
     $scope.yearSelected = function () {
         //if(new Date().getFullYear() == $scope.selectedYear){
-        if ($scope.selectedYear == 'YTD 2017') {
+        if ($scope.selectedYear == 'YTD ' + $scope.currentYear) {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth());
             if ($scope.selectedMonth < 0) {
                 $scope.selectedMonth = $scope.shownMonths.length;
@@ -127,13 +128,13 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.vmiComp.maxValue = data.top_vmi_max;
 
             $scope.profitAnnualized = data.profitannualized;
-            
+
             if (!$scope.recalculate) {
-                $scope.pagr.value = data.pagr*100;
+                $scope.pagr.value = data.pagr * 100;
                 $scope.pm.value = data.pm;
                 $scope.vmi.value = data.vmi;
 
-                $scope.pagr.valueOg = data.pagr*100;
+                $scope.pagr.valueOg = data.pagr * 100;
                 $scope.pm.valueOg = data.pm;
                 $scope.vmi.valueOg = data.vmi;
             }
