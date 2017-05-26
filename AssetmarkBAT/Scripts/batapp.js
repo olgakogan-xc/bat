@@ -602,6 +602,16 @@ $(function () {
     $('body .fancy-form-select').each(function () {
         var select = $(this);
 
+        // display other text input if selected is other on load
+        select.find('li.active').each(function (e) {
+            var item = $(this);
+            if (item.data('value') == 'Other') {
+                select.parent().siblings('input[type="text"]').removeClass('hide').focus();
+            } else {
+                select.parent().siblings('input[type="text"]').addClass('hide');
+            }
+        });
+
         select.find('li').on('click', function (e) {
             e.preventDefault();
             var item = $(this);

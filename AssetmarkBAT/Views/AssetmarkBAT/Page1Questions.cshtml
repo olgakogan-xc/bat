@@ -915,7 +915,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setPracticeType('@Model.PracticeTypeOther')">
                             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
-                            @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'Other'}" })
+                            @Html.TextBoxFor(x => Model.PracticeTypeOther)
                         </div>
                     </div>
                 </div>
@@ -925,7 +925,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setAffiliationMode('@Model.AffiliationModeOther')">
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes)
-                            @Html.TextBoxFor(x => Model.AffiliationModeOther, new { ng_class = "{'hide' : affiliationMode != 'Other'}" })
+                            @Html.TextBoxFor(x => Model.AffiliationModeOther)
                         </div>
                     </div>
                 </div>
@@ -935,7 +935,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setFirmType('@Model.FirmTypeOther')">
                             @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes)
-                            @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : firmType != 'Other'}" })
+                            @Html.TextBoxFor(x => Model.FirmTypeOther)
                         </div>
                     </div>
                 </div>
@@ -1031,7 +1031,7 @@
                             <strong>Total Revenue (Calculated)</strong>
                         </div>
                         <div class="col-md-4 field-control">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue/1 + recurringRevenue/1) | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue/1 + recurringRevenue/1) | currency : '$' : 0 }}</span>
                         </div>
                         <div class="col-md-3 field-value">
                             <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue/1 + recurringRevenue/1)/selectedMonth)*12 | currency : '$' : 0 }}</span>
