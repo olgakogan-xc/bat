@@ -13,16 +13,6 @@
 
 <a id="download-pdf" href="@Model.PDFPath" class="hide" target="_blank">Download PDF</a>
 
-@*<script src="~/Scripts/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        window.setTimeout(function () {
-            var link = "@Model.PDFPath";
-            var newTab = window.open(link, '_blank');
-        }, 50);
-    });
-</script>*@
-
 
 <main>
     <section>
@@ -67,7 +57,7 @@
                     </table>
                 </div>
             </div>
-            <p><strong>To adjust your inputs you can <a href="/">return to the beginning</a></strong></p>
+            <p><strong>To adjust your inputs you can <a href="/?redo=1">return to the beginning</a></strong></p>
         </div>
     </section>
     <section class="white">
