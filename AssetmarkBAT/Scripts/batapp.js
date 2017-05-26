@@ -28,7 +28,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.advisors = { number: null, validity: true };
 
     $scope.selectYear = function (year) {
-        console.log(year);
         if (year === '' || year === 'Previous Year') {
             $scope.selectedYear = 'Previous Year';
         } else {
@@ -37,7 +36,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.yearSelected = function () {
-        //if(new Date().getFullYear() == $scope.selectedYear){
         if ($scope.selectedYear == 'YTD ' + $scope.currentYear) {
             $scope.shownMonths = $scope.months.slice(0, new Date().getMonth());
             if ($scope.selectedMonth < 0) {
@@ -45,8 +43,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             } else if ($scope.selectedMonth > $scope.shownMonths.length) {
                 $scope.selectedMonth = $scope.shownMonths.length;
             }
-            console.log($scope.shownMonths.length);
-            console.log($scope.selectedMonth);
             $scope.selectedMonthLabel = $scope.months[$scope.shownMonths.length];
         } else {
             $scope.shownMonths = $scope.months;
@@ -109,6 +105,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.recalculate = false;
 
+    $scope.graphNoData = false;
+
     $scope.getGraphValues = function () {
         // need to sent raw values if unchanged since percents are rounded and vmi ticks increment by 50
 
@@ -120,9 +118,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         }
 
         $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function (data) {
-            //$.getJSON('optimizer.json?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function(data){
+        //$.getJSON('optimizer.json?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function (data) {
             var graphValues = [];
 
+            $scope.graphNoData = false;
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
 
             $scope.fvrGraph.series[0].setData(graphValues);
@@ -183,7 +182,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.categories = ['Current Value', 'Optimized Value'];
 
     $scope.initGraph = function () {
-        var noData = false;
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
 
@@ -219,20 +217,20 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            if (this.point.high < 1 && this.point.low < 1) {
-                                if (noData) {
-                                    return '';
-                                } else {
-                                    noData = true;
-                                }
-                            }
+                            var label = '';
 
                             if (this.point.high < 1 && this.point.low < 1) {
-                                return 'No Data';
+                                if ($scope.graphNoData) {
+                                    label = '';
+                                } else {
+                                    label = 'No Data';
+                                    $scope.graphNoData = true;
+                                }
                             } else {
-                                //return '$' + (this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                return '$' + (Math.round(this.y / 1000) * 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                label = '$' + (Math.round(this.y / 1000) * 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                             }
+
+                            return label;
                         }
                     }
                 }
@@ -527,7 +525,6 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.filterCurrency = function (model) {
-        console.log(value);
         var filteredValue = value.replace(/[$,.]/g, '');
         return filteredValue;
     };
@@ -538,7 +535,6 @@ app.directive('isNonAdvisors', function () {
         require: 'ngModel',
         link: function (scope) {
             scope.$watch('nonAdvisors.number', function (newValue, oldValue) {
-                console.log('watch');
                 var arr = String(newValue).split("");
                 if (arr.length === 0) return;
                 if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
@@ -556,7 +552,6 @@ app.directive('isAdvisors', function () {
         require: 'ngModel',
         link: function (scope) {
             scope.$watch('advisors.number', function (newValue, oldValue) {
-                console.log('watch');
                 var arr = String(newValue).split("");
                 if (arr.length === 0) return;
                 if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
@@ -576,7 +571,7 @@ $(function () {
         var select = $(this);
 
         if (select[0].options[0].text === '') {
-            console.log(select.prop('selectedIndex', 1));
+            select.prop('selectedIndex', 1);
         }
     });
 
@@ -638,7 +633,7 @@ $(function () {
     try {
         $('#download-pdf')[0].click();
     } catch (ex) {
-        console.log(ex);
+        //console.log(ex);
     }
 
 });
