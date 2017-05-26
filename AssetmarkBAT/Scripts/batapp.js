@@ -134,15 +134,15 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 // display actual vmi value since slider tick increment by 50
                 $scope.vmiDisplayed = data.vmi;
 
-                $scope.pagr.value = data.pagr * 100;
-                $scope.pm.value = data.pm;
-                $scope.pm.value = data.profitmarginannual * 100;
-                $scope.vmi.value = data.vmi;
-
-                $scope.pagr.valueOg = data.pagr * 100;
-                //$scope.pm.valueOg = data.pm;
-                $scope.pm.valueOg = data.profitmarginannual * 100;
+                // set raw values
+                $scope.pagr.valueOg = data.pagr;
+                $scope.pm.valueOg = data.profitmarginannual;
                 $scope.vmi.valueOg = data.vmi;
+
+                $scope.pagr.value = $scope.pagr.valueOg * 100;
+                $scope.pm.value = data.pm;
+                $scope.pm.value = $scope.pm.valueOg * 100;
+                $scope.vmi.value = data.vmi;
 
                 $scope.operatingProfit = data.profitmarginannual * 100;
             }
@@ -151,8 +151,12 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         });
     };
 
-    $scope.updateGraph = function () {
-        $scope.vmiDisplayed = $scope.vmi.value;
+    $scope.updateGraph = function (slider) {
+        // need to check if this slider was changed first
+        if (slider == 'vmi') {
+            $scope.vmiDisplayed = $scope.vmi.value;
+        }
+
         $scope.operatingProfit = $scope.pm.value;
         $scope.recalculate = true;
         $scope.getGraphValues();
@@ -272,7 +276,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicksValues: false,
             hideLimitLabels: true,
             hidePointerLabels: true,
-            onEnd: $scope.updateGraph
+            onEnd: function () {
+                $scope.updateGraph('pagr');
+            }
         }
     };
 
@@ -348,7 +354,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicksValues: false,
             hideLimitLabels: true,
             hidePointerLabels: true,
-            onEnd: $scope.updateGraph
+            onEnd: function () {
+                $scope.updateGraph('pm');
+            }
         }
     };
 
@@ -417,7 +425,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             showTicksValues: false,
             hideLimitLabels: true,
             hidePointerLabels: true,
-            onEnd: $scope.updateGraph
+            onEnd: function () {
+                $scope.updateGraph('vmi');
+            }
         }
     };
 
