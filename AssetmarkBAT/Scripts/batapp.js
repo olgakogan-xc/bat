@@ -131,6 +131,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             // on initial load
             if (!$scope.recalculate) {
+                // display actual vmi value since slider tick increment by 50
+                $scope.vmiDisplayed = data.vmi;
+
                 $scope.pagr.value = data.pagr * 100;
                 $scope.pm.value = data.pm;
                 $scope.pm.value = data.operatingprofitannual * 100
@@ -149,6 +152,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     };
 
     $scope.updateGraph = function () {
+        $scope.vmiDisplayed = $scope.vmi.value;
         $scope.operatingProfit = $scope.pm.value;
         $scope.recalculate = true;
         $scope.getGraphValues();

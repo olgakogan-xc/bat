@@ -106,11 +106,11 @@
                     <div class="optimizer">
                         <div class="title">
                             <h3 class="optimized-label">Profit Margin</h3>
-                            <div class="optimized-value">{{operatingProfit | number:2}}%</div>
+                            <div class="optimized-value">{{operatingProfit | number:0}}%</div>
                         </div>
                         <div class="sub-title">
                             <h4 class="optimized-label">Profit is annualized</h4>
-                            <div class="optimized-value">{{profitAnnualized | currency : '$' : 0 }}</div>
+                            <div class="optimized-value">{{profitAnnualized | currency:'$':0 }}</div>
                         </div>
                         <div class="optimizer-slider">
                             <input type="text" ng-model="pm.value" />
