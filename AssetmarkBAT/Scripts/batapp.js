@@ -127,7 +127,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.vmiComp.minValue = data.top_vmi_min;
             $scope.vmiComp.maxValue = data.top_vmi_max;
 
-            $scope.profitAnnualized = data.profitmarginannual;
+            $scope.profitAnnualized = data.operatingprofitannual;
 
             // on initial load
             if (!$scope.recalculate) {
@@ -141,7 +141,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 $scope.pm.valueOg = data.operatingprofit * 100;
                 $scope.vmi.valueOg = data.vmi;
 
-                $scope.operatingProfit = data.operatingprofitannual * 100;
+                $scope.operatingProfit = data.profitmarginannual * 100;
             }
 
             $scope.$broadcast('rzSliderForceRender');
