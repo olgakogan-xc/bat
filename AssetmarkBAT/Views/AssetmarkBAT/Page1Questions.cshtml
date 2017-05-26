@@ -1031,10 +1031,10 @@
                             <strong>Total Revenue (Calculated)</strong>
                         </div>
                         <div class="col-md-4 field-control">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue + recurringRevenue) | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue/1 + recurringRevenue/1) | currency : '$' }}</span>
                         </div>
                         <div class="col-md-3 field-value">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' : 0 }}</span>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue/1 + recurringRevenue/1)/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1073,7 +1073,7 @@
                                   && !form.recurringRevenue.$error.max
                                   && !form.directExpenses.$error.max
                                   && !form.indirectExpenses.$error.max
-                                  ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses) | currency : '$' : 0 }}</span>
+                                  ">{{ (nonRecurringRevenue/1 + recurringRevenue/1) - (directExpenses/1 + indirectExpenses/1) | currency : '$' : 0 }}</span>
                         </div>
                         <div class="col-md-3 field-value">
                             <span ng-show="
@@ -1081,7 +1081,7 @@
                                   && !form.recurringRevenue.$error.max
                                   && !form.directExpenses.$error.max
                                   && !form.indirectExpenses.$error.max
-                                  ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses))/selectedMonth)*12 | currency : '$' : 0 }}</span>
+                                  ">{{ (((nonRecurringRevenue/1 + recurringRevenue/1) - (directExpenses/1 + indirectExpenses/1))/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
