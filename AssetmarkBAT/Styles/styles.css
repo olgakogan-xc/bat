@@ -1608,31 +1608,32 @@ fieldset .field-value > span {
 /* line 16, ../scss/app/core/_buttons.scss */
 .btn.btn-secondary:hover, .button.btn-secondary:hover, button.btn-secondary:hover, [type='button'].btn-secondary:hover, [type='reset'].btn-secondary:hover, [type='submit'].btn-secondary:hover {
   background-color: #ffa133;
+  text-decoration: none;
 }
-/* line 21, ../scss/app/core/_buttons.scss */
+/* line 22, ../scss/app/core/_buttons.scss */
 .btn.btn-small, .button.btn-small, button.btn-small, [type='button'].btn-small, [type='reset'].btn-small, [type='submit'].btn-small {
   padding: 0.5rem 1.5rem;
   font-size: 1.4rem;
 }
-/* line 26, ../scss/app/core/_buttons.scss */
+/* line 27, ../scss/app/core/_buttons.scss */
 .btn.btn-big, .button.btn-big, button.btn-big, [type='button'].btn-big, [type='reset'].btn-big, [type='submit'].btn-big {
   padding: 1.0rem 4.0rem;
   font-size: 2.4rem;
 }
-/* line 32, ../scss/app/core/_buttons.scss */
+/* line 33, ../scss/app/core/_buttons.scss */
 .btn.btn-arrow i, .button.btn-arrow i, button.btn-arrow i, [type='button'].btn-arrow i, [type='reset'].btn-arrow i, [type='submit'].btn-arrow i {
   position: relative;
   top: 0.05em;
   margin-left: 1.0rem;
   font-size: 2.0rem;
 }
-/* line 40, ../scss/app/core/_buttons.scss */
+/* line 41, ../scss/app/core/_buttons.scss */
 .btn.btn-inline, .button.btn-inline, button.btn-inline, [type='button'].btn-inline, [type='reset'].btn-inline, [type='submit'].btn-inline {
   display: inline-block;
   width: auto;
 }
 
-/* line 46, ../scss/app/core/_buttons.scss */
+/* line 47, ../scss/app/core/_buttons.scss */
 .button-container {
   margin-top: 4.0rem;
 }
@@ -1655,6 +1656,11 @@ ol.additional-resources a {
   font-weight: 600;
 }
 /* line 17, ../scss/app/core/_lists.scss */
+ul.additional-resources a:hover,
+ol.additional-resources a:hover {
+  color: #007dbd;
+}
+/* line 21, ../scss/app/core/_lists.scss */
 ul.additional-resources a img,
 ol.additional-resources a img {
   margin-left: 0.5rem;
@@ -1813,6 +1819,10 @@ nav > ul {
 /* line 13, ../scss/app/modules/_footer.scss */
 .footer p:last-child {
   margin-bottom: 0;
+}
+/* line 17, ../scss/app/modules/_footer.scss */
+.footer a {
+  color: #fff;
 }
 
 /* line 1, ../scss/app/modules/_sections.scss */
