@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Xfinium.Pdf;
 using Xfinium.Pdf.Graphics;
 
@@ -138,7 +139,7 @@ namespace AssetmarkBAT.Controllers
 
                 model.Ff_NonRecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
                 model.Ff_RecurringRevenueAnnualized = ((ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_RecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                model.Ff_TotalRevenueAnnualized = (ConvertToDouble(model.Ff_NonRecurringRevenueAnnualized) + ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
 
                 model.Ff_DirectExpensesAnnualized = (ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
                 model.Ff_IndirecteExpensesAnnualized = (ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
@@ -289,37 +290,47 @@ namespace AssetmarkBAT.Controllers
             double maxValueForClient = clientModel.ClientValuationModel.ValuationMax + (clientModel.ClientValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
 
-            double CLIENT_MIN = clientModel.ClientValuationModel.ValuationMin;
-            double CLIENT_MAX = clientModel.ClientValuationModel.ValuationMax;
+            Optimizer optimizerModel = new Optimizer();           
+            optimizerModel.operatingprofitannual = (recalculate) ? (ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString();
+            optimizerModel.profitmarginannual = (ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString();
+            optimizerModel.maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient.ToString() : maxValueForComparative.ToString(); //Determine max axis values       
+            optimizerModel.currentmin = clientModel.ClientValuationModel.ValuationMin.ToString();
+            optimizerModel.currentmax = clientModel.ClientValuationModel.ValuationMax.ToString();
+            //comparative range (either benchmark or optimized)
+            optimizerModel.calculatedmin = comparativeValuationMin.ToString();
+            optimizerModel.calculatedmax = comparativeValuationMax.ToString();
+            //metrics used in calculations
+            optimizerModel.pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate.ToString(); //entered on page 1
+            optimizerModel.vmi = clientModel.Vmi_Index;
+           
+         
 
-            double COMP_MIN = comparativeValuationMin;
-            double COMP_MAX = comparativeValuationMax;
+            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return Json(optimizerModel, JsonRequestBehavior.AllowGet);
 
-            double AnnualProfit = (ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100));
+            //return Json(new
+            //{
+            //    profitmargin = ,
+            //    operatingprofit = ,
+            //    maxvalue = 
+            //    currentmax = ,
+            //    currentmin = ,
+                
+            //    calculatedmax = ,
+            //    calculatedmin = ,
+                
+            //    pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
+            //    pm = ,
+            //    vmi = ,
+            //    profitannualized = ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized),
 
-            return Json(new
-            {
-                profitmargin = (ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString(),
-                operatingprofit = (recalculate)? (ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : clientModel.Ff_OperatingProfitAnnualized,
-                maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient : maxValueForComparative, //Determine max axis values
-                                                                                                                      //client range
-                currentmax = clientModel.ClientValuationModel.ValuationMax,
-                currentmin = clientModel.ClientValuationModel.ValuationMin,
-                //comparative range (either benchmark or optimized)
-                calculatedmax = comparativeValuationMax,
-                calculatedmin = comparativeValuationMin,
-                //metrics used in calculations
-                pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
-                pm = clientModel.ClientValuationModel.ProfitMargin,
-                vmi = clientModel.Vmi_Index,
-                profitannualized = ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized),
-                top_pagr_max = 12,
-                top_pagr_min = 8,
-                top_pm_max = 25,
-                top_pm_min = 20,
-                top_vmi_max = 900,
-                top_vmi_min = 700
-            }, JsonRequestBehavior.AllowGet);
+            //    top_pagr_max = 12,
+            //    top_pagr_min = 8,
+            //    top_pm_max = 25,
+            //    top_pm_min = 20,
+            //    top_vmi_max = 900,
+            //    top_vmi_min = 700
+            //}, JsonRequestBehavior.AllowGet);
 
             //if params are blank return current with benchmark
             //return Json(new { maxvalue = 60000000, currentmax = 46678564, currentmin = 33567234, calculatedmax = 13000000, calculatedmin = 7000000, top_pagr_max = 11, top_pagr_min = 8, top_pm_max = 23, top_pm_min = 20, top_vmi_max = 90, top_vmi_min = 70 }, JsonRequestBehavior.AllowGet);
