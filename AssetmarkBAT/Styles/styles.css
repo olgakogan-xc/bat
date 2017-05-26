@@ -1632,8 +1632,13 @@ fieldset .field-value > span {
   display: inline-block;
   width: auto;
 }
+/* line 46, ../scss/app/core/_buttons.scss */
+.btn:disabled, .btn[disabled], .button:disabled, .button[disabled], button:disabled, button[disabled], [type='button']:disabled, [type='button'][disabled], [type='reset']:disabled, [type='reset'][disabled], [type='submit']:disabled, [type='submit'][disabled] {
+  background-color: #d9d8d4;
+  color: #fff;
+}
 
-/* line 47, ../scss/app/core/_buttons.scss */
+/* line 53, ../scss/app/core/_buttons.scss */
 .button-container {
   margin-top: 4.0rem;
 }
