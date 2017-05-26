@@ -997,7 +997,7 @@
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
                             <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ assets | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ assets | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1010,7 +1010,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NonRecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_NonRecurringRevenue.$error.max">{{ (nonRecurringRevenue/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1023,7 +1023,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_RecurringRevenue.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_RecurringRevenue.$error.max">{{ (recurringRevenue/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1034,12 +1034,12 @@
                             <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ (nonRecurringRevenue + recurringRevenue) | currency : '$' }}</span>
                         </div>
                         <div class="col-md-3 field-value">
-                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_TotalFirmAsset.$error.max && !form.Ff_NonRecurringRevenue.$error.max && !form.Ff_RecurringRevenue.$error.max">{{ ((nonRecurringRevenue + recurringRevenue)/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            Direct Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are directly related to revenue generating activities or professionals, including benefits and payroll costs for owner advisors. These expenses should be normalized. Click here for more on normalization of expenses."></i>
+                            Direct Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are directly related to revenue generating activities or professionals, including benefits and payroll costs for owner advisors. These expenses should be normalized."></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
@@ -1047,7 +1047,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_DirectExpenses.$error.max">{{ (directExpenses/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1060,7 +1060,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_IndirecteExpenses.$error.max">Please enter a value less than $10,000,000</div>
-                            <span ng-show="!form.Ff_IndirecteExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' }}</span>
+                            <span ng-show="!form.Ff_IndirecteExpenses.$error.max">{{ (indirectExpenses/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1073,7 +1073,7 @@
                                   && !form.recurringRevenue.$error.max
                                   && !form.directExpenses.$error.max
                                   && !form.indirectExpenses.$error.max
-                                  ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses) | currency : '$' }}</span>
+                                  ">{{ (nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses) | currency : '$' : 0 }}</span>
                         </div>
                         <div class="col-md-3 field-value">
                             <span ng-show="
@@ -1081,7 +1081,7 @@
                                   && !form.recurringRevenue.$error.max
                                   && !form.directExpenses.$error.max
                                   && !form.indirectExpenses.$error.max
-                                  ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses))/selectedMonth)*12 | currency : '$' }}</span>
+                                  ">{{ (((nonRecurringRevenue + recurringRevenue) - (directExpenses + indirectExpenses))/selectedMonth)*12 | currency : '$' : 0 }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1113,7 +1113,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip="The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of &quote;1&quote; would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons."></i>
+                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip='The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of "1" would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons.'></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
@@ -1127,7 +1127,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Advisors <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            # Full-Time Equivalent Advisors</i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
@@ -1141,7 +1141,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # New Clients <i class="icon-info tooltip" data-tooltip="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, quod, ipsa! Atque eveniet perspiciatis voluptatem libero, blanditiis dolorem veritatis delectus, ad, consequatur aliquid nisi temporibus officiis. Eius iure error culpa."></i>
+                            # New Clients</i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@

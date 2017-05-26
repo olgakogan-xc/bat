@@ -204,7 +204,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                             if (this.point.high < 1 && this.point.low < 1) {
                                 return 'No Data';
                             } else {
-                                return '$' + (this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                return '$' + Math.round(parseInt((this.y).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","))/1000)*1000;
                             }
                         }
                     }
