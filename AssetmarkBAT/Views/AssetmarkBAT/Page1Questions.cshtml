@@ -915,7 +915,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setPracticeType('@Model.PracticeTypeOther')">
                             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
-                            @Html.TextBoxFor(x => Model.PracticeTypeOther)
+                            @Html.TextBoxFor(x => Model.PracticeTypeOther, new { ng_class = "{'hide' : practiceType != 'Other'}" })
                         </div>
                     </div>
                 </div>
@@ -925,7 +925,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setAffiliationMode('@Model.AffiliationModeOther')">
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes)
-                            @Html.TextBoxFor(x => Model.AffiliationModeOther)
+                            @Html.TextBoxFor(x => Model.AffiliationModeOther, new { ng_class = "{'hide' : affiliationMode != 'Other'}" })
                         </div>
                     </div>
                 </div>
@@ -935,7 +935,7 @@
                     <div class="row">
                         <div class="col-md-6" ng-init="setFirmType('@Model.FirmTypeOther')">
                             @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes)
-                            @Html.TextBoxFor(x => Model.FirmTypeOther)
+                            @Html.TextBoxFor(x => Model.FirmTypeOther, new { ng_class = "{'hide' : firmType != 'Other'}" })
                         </div>
                     </div>
                 </div>
