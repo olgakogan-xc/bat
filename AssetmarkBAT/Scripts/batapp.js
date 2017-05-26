@@ -110,8 +110,17 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
     $scope.recalculate = false;
 
     $scope.getGraphValues = function () {
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.value + '&pm=' + $scope.pm.value + '&vmi=' + $scope.vmi.value + '&recalculate=' + $scope.recalculate, function (data) {
-            //$.getJSON('optimizer.json', function(data){
+        // need to sent raw values if unchanged since percents are rounded and vmi ticks increment by 50
+
+        if ($scope.recalculate) {
+
+            $scope.pagr.trans = $scope.pagr.changed ? $scope.pagr.value : $scope.pagr.valueOg;
+            $scope.pm.trans = $scope.pm.changed ? $scope.pm.value : $scope.pm.valueOg;
+            $scope.vmi.trans = $scope.vmi.changed ? $scope.vmi.value : $scope.vmi.valueOg;
+        }
+
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function (data) {
+            //$.getJSON('optimizer.json?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function(data){
             var graphValues = [];
 
             graphValues.push([data.currentmin, data.currentmax], [data.calculatedmin, data.calculatedmax]);
@@ -153,11 +162,20 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
     $scope.updateGraph = function (slider) {
         // need to check if this slider was changed first
-        if (slider == 'vmi') {
-            $scope.vmiDisplayed = $scope.vmi.value;
+        if (slider == 'pagr') {
+            $scope.pagr.changed = true;
         }
 
-        $scope.operatingProfit = $scope.pm.value;
+        if (slider == 'pm') {
+            $scope.pm.changed = true;
+            $scope.operatingProfit = $scope.pm.value;
+        }
+
+        if (slider == 'vmi') {
+            $scope.vmiDisplayed = $scope.vmi.value;
+            $scope.vmi.changed = true;
+        }
+
         $scope.recalculate = true;
         $scope.getGraphValues();
     };
@@ -279,7 +297,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             onEnd: function () {
                 $scope.updateGraph('pagr');
             }
-        }
+        },
+        trans: 0,
+        changed: false
     };
 
     $scope.pagrComp = {
@@ -357,7 +377,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             onEnd: function () {
                 $scope.updateGraph('pm');
             }
-        }
+        },
+        trans: 0,
+        changed: false
     };
 
     $scope.pmComp = {
@@ -428,7 +450,9 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             onEnd: function () {
                 $scope.updateGraph('vmi');
             }
-        }
+        },
+        trans: 0,
+        changed: false
     };
 
     $scope.vmiComp = {
@@ -490,6 +514,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         $scope.pagr.value = $scope.pagr.valueOg;
         $scope.pm.value = $scope.pm.valueOg;
         $scope.vmi.value = $scope.vmi.valueOg;
+
+        $scope.pagr.trans = $scope.pagr.valueOg;
+        $scope.pm.trans = $scope.pm.valueOg;
+        $scope.vmi.trans = $scope.vmi.valueOg;
 
         $scope.recalculate = false;
 
