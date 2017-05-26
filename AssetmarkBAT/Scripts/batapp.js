@@ -136,12 +136,12 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
                 $scope.pagr.value = data.pagr * 100;
                 $scope.pm.value = data.pm;
-                $scope.pm.value = data.operatingprofitannual * 100
+                $scope.pm.value = data.profitmarginannual;
                 $scope.vmi.value = data.vmi;
 
                 $scope.pagr.valueOg = data.pagr * 100;
                 //$scope.pm.valueOg = data.pm;
-                $scope.pm.valueOg = data.operatingprofitannual * 100;
+                $scope.pm.valueOg = data.profitmarginannual;
                 $scope.vmi.valueOg = data.vmi;
 
                 $scope.operatingProfit = data.profitmarginannual * 100;
