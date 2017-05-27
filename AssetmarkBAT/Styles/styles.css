@@ -1608,37 +1608,38 @@ fieldset .field-value > span {
 /* line 16, ../scss/app/core/_buttons.scss */
 .btn.btn-secondary:hover, .button.btn-secondary:hover, button.btn-secondary:hover, [type='button'].btn-secondary:hover, [type='reset'].btn-secondary:hover, [type='submit'].btn-secondary:hover {
   background-color: #ffa133;
+  color: #fff;
   text-decoration: none;
 }
-/* line 22, ../scss/app/core/_buttons.scss */
+/* line 23, ../scss/app/core/_buttons.scss */
 .btn.btn-small, .button.btn-small, button.btn-small, [type='button'].btn-small, [type='reset'].btn-small, [type='submit'].btn-small {
   padding: 0.5rem 1.5rem;
   font-size: 1.4rem;
 }
-/* line 27, ../scss/app/core/_buttons.scss */
+/* line 28, ../scss/app/core/_buttons.scss */
 .btn.btn-big, .button.btn-big, button.btn-big, [type='button'].btn-big, [type='reset'].btn-big, [type='submit'].btn-big {
   padding: 1.0rem 4.0rem;
   font-size: 2.4rem;
 }
-/* line 33, ../scss/app/core/_buttons.scss */
+/* line 34, ../scss/app/core/_buttons.scss */
 .btn.btn-arrow i, .button.btn-arrow i, button.btn-arrow i, [type='button'].btn-arrow i, [type='reset'].btn-arrow i, [type='submit'].btn-arrow i {
   position: relative;
   top: 0.05em;
   margin-left: 1.0rem;
   font-size: 2.0rem;
 }
-/* line 41, ../scss/app/core/_buttons.scss */
+/* line 42, ../scss/app/core/_buttons.scss */
 .btn.btn-inline, .button.btn-inline, button.btn-inline, [type='button'].btn-inline, [type='reset'].btn-inline, [type='submit'].btn-inline {
   display: inline-block;
   width: auto;
 }
-/* line 46, ../scss/app/core/_buttons.scss */
+/* line 47, ../scss/app/core/_buttons.scss */
 .btn:disabled, .btn[disabled], .button:disabled, .button[disabled], button:disabled, button[disabled], [type='button']:disabled, [type='button'][disabled], [type='reset']:disabled, [type='reset'][disabled], [type='submit']:disabled, [type='submit'][disabled] {
   background-color: #d9d8d4;
   color: #fff;
 }
 
-/* line 53, ../scss/app/core/_buttons.scss */
+/* line 54, ../scss/app/core/_buttons.scss */
 .button-container {
   margin-top: 4.0rem;
 }
@@ -1827,6 +1828,7 @@ nav > ul {
 }
 /* line 17, ../scss/app/modules/_footer.scss */
 .footer a {
+  font-weight: 600;
   color: #fff;
 }
 
