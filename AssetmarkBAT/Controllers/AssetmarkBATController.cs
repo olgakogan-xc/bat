@@ -292,7 +292,7 @@ namespace AssetmarkBAT.Controllers
             }
             else //call made from the Report page or Optimizer page on load. Get benchmarks
             {
-                BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(clientModel.Ff_TotalRevenue) > x.GroupRangeMin && ConvertToDouble(clientModel.Ff_TotalRevenue) < x.GroupRangeMax);
+                BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
 
                 if (peerGroup == null)
                 {
