@@ -476,12 +476,14 @@ namespace AssetmarkBAT.Controllers
                     {
                         //User info
                         UserId = model.UserId,
+                        //Eloqua Data
                         FirstName = model.firstName,
                         LastName = model.lastName,
                         Phone = model.busPhone,
                         Email = model.emailAddress,
                         Zip = model.zipPostal,
                         BrokerOrIRA = model.brokerDealer1,
+                        SalesforceId = model.sFDCContactID,
                         EloquaId = model.EloquaId,
 
                         PracticeType = model.PracticeType,
@@ -576,6 +578,7 @@ namespace AssetmarkBAT.Controllers
                         model.busPhone = original.Phone;
                         model.zipPostal = original.Zip;
                         model.brokerDealer1 = original.BrokerOrIRA;
+                        model.sFDCContactID = original.SalesforceId;
                         model.EloquaId = original.EloquaId;
                         model.Year = original.TimeRange;
                         model.Month = original.Month.Value;

@@ -23,6 +23,7 @@ namespace AssetmarkBATDbConnector
         public string BrokerOrIRA { get; set; }
         public string DateStarted { get; set; }
         public string EloquaId { get; set; }
+        public string SalesforceId { get; set; }
         public Nullable<int> Month { get; set; }
         public string TimeRange { get; set; }
         public string PracticeType { get; set; }
