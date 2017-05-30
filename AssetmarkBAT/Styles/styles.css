@@ -1598,53 +1598,54 @@ fieldset .field-value > span {
   text-align: center;
   font-weight: 600;
   border-radius: 5.0rem;
-  background-color: #007ebb;
+  background-color: #004985;
   color: #fff;
 }
 /* line 13, ../scss/app/core/_buttons.scss */
 .btn:hover, .button:hover, button:hover, [type='button']:hover, [type='reset']:hover, [type='submit']:hover {
+  background-color: #008fd6;
   color: #fff;
   text-decoration: none;
 }
-/* line 18, ../scss/app/core/_buttons.scss */
+/* line 19, ../scss/app/core/_buttons.scss */
 .btn.btn-secondary, .button.btn-secondary, button.btn-secondary, [type='button'].btn-secondary, [type='reset'].btn-secondary, [type='submit'].btn-secondary {
   background-color: #f7911a;
 }
-/* line 21, ../scss/app/core/_buttons.scss */
+/* line 22, ../scss/app/core/_buttons.scss */
 .btn.btn-secondary:hover, .button.btn-secondary:hover, button.btn-secondary:hover, [type='button'].btn-secondary:hover, [type='reset'].btn-secondary:hover, [type='submit'].btn-secondary:hover {
   background-color: #ffa133;
   color: #fff;
   text-decoration: none;
 }
-/* line 28, ../scss/app/core/_buttons.scss */
+/* line 29, ../scss/app/core/_buttons.scss */
 .btn.btn-small, .button.btn-small, button.btn-small, [type='button'].btn-small, [type='reset'].btn-small, [type='submit'].btn-small {
   padding: 0.5rem 1.5rem;
   font-size: 1.4rem;
 }
-/* line 33, ../scss/app/core/_buttons.scss */
+/* line 34, ../scss/app/core/_buttons.scss */
 .btn.btn-big, .button.btn-big, button.btn-big, [type='button'].btn-big, [type='reset'].btn-big, [type='submit'].btn-big {
   padding: 1.0rem 4.0rem;
   font-size: 2.4rem;
 }
-/* line 39, ../scss/app/core/_buttons.scss */
+/* line 40, ../scss/app/core/_buttons.scss */
 .btn.btn-arrow i, .button.btn-arrow i, button.btn-arrow i, [type='button'].btn-arrow i, [type='reset'].btn-arrow i, [type='submit'].btn-arrow i {
   position: relative;
   top: 0.05em;
   margin-left: 1.0rem;
   font-size: 2.0rem;
 }
-/* line 47, ../scss/app/core/_buttons.scss */
+/* line 48, ../scss/app/core/_buttons.scss */
 .btn.btn-inline, .button.btn-inline, button.btn-inline, [type='button'].btn-inline, [type='reset'].btn-inline, [type='submit'].btn-inline {
   display: inline-block;
   width: auto;
 }
-/* line 52, ../scss/app/core/_buttons.scss */
+/* line 53, ../scss/app/core/_buttons.scss */
 .btn:disabled, .btn[disabled], .button:disabled, .button[disabled], button:disabled, button[disabled], [type='button']:disabled, [type='button'][disabled], [type='reset']:disabled, [type='reset'][disabled], [type='submit']:disabled, [type='submit'][disabled] {
   background-color: #d9d8d4;
   color: #fff;
 }
 
-/* line 59, ../scss/app/core/_buttons.scss */
+/* line 60, ../scss/app/core/_buttons.scss */
 .button-container {
   margin-top: 4.0rem;
 }
