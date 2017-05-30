@@ -294,9 +294,13 @@ namespace AssetmarkBAT.Controllers
             {
                 BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
 
-                if (peerGroup == null)
+                if (peerGroup == null && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > 0)
                 {
                     peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
+                }
+                else if (peerGroup == null && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) == 0)
+                {
+                    peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.First();
                 }
 
                 comparativeValuationMin = peerGroup.ValuationMin;
@@ -472,12 +476,14 @@ namespace AssetmarkBAT.Controllers
                     {
                         //User info
                         UserId = model.UserId,
+                        //Eloqua Data
                         FirstName = model.firstName,
                         LastName = model.lastName,
                         Phone = model.busPhone,
                         Email = model.emailAddress,
                         Zip = model.zipPostal,
                         BrokerOrIRA = model.brokerDealer1,
+                        SalesforceId = model.sFDCContactID,
                         EloquaId = model.EloquaId,
 
                         PracticeType = model.PracticeType,
@@ -572,6 +578,7 @@ namespace AssetmarkBAT.Controllers
                         model.busPhone = original.Phone;
                         model.zipPostal = original.Zip;
                         model.brokerDealer1 = original.BrokerOrIRA;
+                        model.sFDCContactID = original.SalesforceId;
                         model.EloquaId = original.EloquaId;
                         model.Year = original.TimeRange;
                         model.Month = original.Month.Value;

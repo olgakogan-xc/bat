@@ -24,6 +24,8 @@ namespace AssetmarkBAT.Models
         public string EloquaId { get; set; }
         //End of Eloqua fields
 
+        public string sFDCContactID { get; set; }
+
 
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]

@@ -18,6 +18,7 @@
           <Property Name="BrokerOrIRA" Type="nvarchar" MaxLength="50" />
           <Property Name="DateStarted" Type="nvarchar" MaxLength="50" />
           <Property Name="EloquaId" Type="nvarchar" MaxLength="100" />
+          <Property Name="SalesforceId" Type="nvarchar" MaxLength="50" />
           <Property Name="Month" Type="int" />
           <Property Name="TimeRange" Type="nvarchar" MaxLength="50" />
           <Property Name="PracticeType" Type="nvarchar" MaxLength="50" />
@@ -90,6 +91,7 @@
           <Property Name="BrokerOrIRA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateStarted" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EloquaId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SalesforceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Month" Type="Int32" />
           <Property Name="TimeRange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PracticeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -196,6 +198,7 @@
                 <ScalarProperty Name="PracticeType" ColumnName="PracticeType" />
                 <ScalarProperty Name="TimeRange" ColumnName="TimeRange" />
                 <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="SalesforceId" ColumnName="SalesforceId" />
                 <ScalarProperty Name="EloquaId" ColumnName="EloquaId" />
                 <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
                 <ScalarProperty Name="BrokerOrIRA" ColumnName="BrokerOrIRA" />
