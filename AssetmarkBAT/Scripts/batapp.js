@@ -185,6 +185,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
 
+            credits: {
+                enabled: false
+            },
+            
             chart: {
                 type: 'columnrange',
                 inverted: false
@@ -242,11 +246,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
             series: [{
                 data: [[0, 0], [0, 0]]
-            }],
-            
-            credits: {
-                enabled: false
-            }
+            }]
 
         });
 
