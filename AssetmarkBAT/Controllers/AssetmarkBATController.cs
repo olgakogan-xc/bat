@@ -294,9 +294,13 @@ namespace AssetmarkBAT.Controllers
             {
                 BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
 
-                if (peerGroup == null)
+                if (peerGroup == null && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > 0)
                 {
                     peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
+                }
+                else if (peerGroup == null && ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) == 0)
+                {
+                    peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.First();
                 }
 
                 comparativeValuationMin = peerGroup.ValuationMin;
