@@ -646,5 +646,5 @@ $(function () {
         //console.log(ex);
     }
         
-    console.log(Cookies.get('ELOQUA'));
+    console.log(Cookies.get());
 });
