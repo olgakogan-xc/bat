@@ -185,6 +185,10 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
 
         $scope.fvrGraph = Highcharts.chart('optimizerGraph', {
 
+            credits: {
+                enabled: false
+            },
+            
             chart: {
                 type: 'columnrange',
                 inverted: false
