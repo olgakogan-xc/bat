@@ -1,9 +1,5 @@
 ﻿using AssetmarkBAT.Utilities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AssetmarkBAT.Models
@@ -17,21 +13,16 @@ namespace AssetmarkBAT.Models
         public string lastName { get; set; }
         public string emailAddress { get; set; }
         public string busPhone { get; set; }
-
         public string zipPostal { get; set; }
         public string brokerDealer1 { get; set; }
-
         public string EloquaId { get; set; }
-        //End of Eloqua fields
-
         public string sFDCContactID { get; set; }
-
-
+        //End of Eloqua fields
+        
         //drop downs
         [Required(ErrorMessage = "Please make a selection")]
         public string Year { get; set; }
         public SelectList Years { get; set; }
-
        
         public int Month { get; set; }
         public SelectList Months { get; set; }
@@ -41,7 +32,6 @@ namespace AssetmarkBAT.Models
 
         public string PracticeTypeOther { get; set; }
         public SelectList PracticeTypes { get; set; }
-
        
         public string AffiliationMode { get; set; }
         public string AffiliationModeOther { get; set; }
@@ -51,65 +41,53 @@ namespace AssetmarkBAT.Models
         public string FirmTypeOther { get; set; }
         public SelectList FirmTypes { get; set; }
 
-
+        public string DateStarted { get; set; }
         public string Message { get; set; }
+        public string PDFPath { get; set; }
+        public bool Page1Complete { get; set; }
+        public bool Page2Complete { get; set; }
 
 
         [Display(Name = "Total Firm Assets Under Management")]
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
         public string Ff_TotalFirmAsset { get; set; }
-        //public string Ff_TotalFirmAssetAnnualized { get; set; }
 
-        [Display(Name = "Non-Recurring Revenue")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [Display(Name = "Non-Recurring Revenue")]    
         public string Ff_NonRecurringRevenue { get; set; }
         public string Ff_NonRecurringRevenueAnnualized { get; set; }
 
-        [Display(Name = "Recurring Revenue")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [Display(Name = "Recurring Revenue")]   
         public string Ff_RecurringRevenue { get; set; }
         public string Ff_RecurringRevenueAnnualized { get; set; }
 
-        //**********Calculated************
+        
         public string Ff_TotalRevenue { get; set; }
         public string Ff_TotalRevenueAnnualized { get; set; }
 
-        [Display(Name = "Direct Expenses")]       
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [Display(Name = "Direct Expenses")]             
         public string Ff_DirectExpenses { get; set; }
         public string Ff_DirectExpensesAnnualized { get; set; }
 
-        [Display(Name = "Indirect Expenses")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid dollar value")]
+        [Display(Name = "Indirect Expenses")]        
         public string Ff_IndirecteExpenses { get; set; }
         public string Ff_IndirecteExpensesAnnualized { get; set; }
 
-        //**********Calculated************
+        
         public string Ff_OperatingProfit { get; set; }
         public string Ff_OperatingProfitAnnualized { get; set; }
 
-        [Display(Name = "Projected Growth Rate")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a valid % value")]
+        [Display(Name = "Projected Growth Rate")]     
         public string Ff_ProjectedGrowthRate { get; set; }
-        //public string Ff_ProjectedGrowthRateAnnualized { get; set; }
 
-        [Display(Name = "Client Relationships")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
+        [Display(Name = "Client Relationships")]  
         public string Ff_ClientRelationships { get; set; }
-        //public string Ff_ClientRelationshipsAnnualized { get; set; }
 
-        [Display(Name = "Full-Time Equivalent Non Advisors")]    
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
+        [Display(Name = "Full-Time Equivalent Non Advisors")]  
         public string Ff_FullTimeNonAdvisors { get; set; }
-        //public string Ff_FullTimeNonAdvisorsAnnualized { get; set; }
 
-        [Display(Name = "Full-Time Equivalent Advisors")]       
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
+        [Display(Name = "Full-Time Equivalent Advisors")]    
         public string Ff_FullTimeAdvisors { get; set; }
-        //public string Ff_FullTimeAdvisorsAnnualized { get; set; }
 
         [Display(Name = "New Clients")]      
-        [RegularExpression(@"^[0-9]*$", ErrorMessage = "Please enter a whole number")]
         public string Ff_NewClients { get; set; }
         public string Ff_NewClientsAnnualized { get; set; }
 
@@ -141,18 +119,11 @@ namespace AssetmarkBAT.Models
         public string Vmi_Emp_Staff { get; set; }
         public string Vmi_Emp_Emp_Retention { get; set; }
 
-        public string Vmi_Index { get; set; }
-
-        public string DateStarted { get; set; }
+        public string Vmi_Index { get; set; }       
 
         public ClientValuationModel ClientValuationModel { get; set; }
 
-        public BenchmarksValuationModel BenchmarksValuationModel { get; set; }
-
-        public string PDFPath { get; set; }
-
-        public bool Page1Complete { get; set; }
-        public bool Page2Complete { get; set; }
+        public BenchmarksValuationModel BenchmarksValuationModel { get; set; }       
 
         public BATModel()
         {

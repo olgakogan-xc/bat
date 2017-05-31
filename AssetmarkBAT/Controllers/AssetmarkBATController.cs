@@ -64,6 +64,11 @@ namespace AssetmarkBAT.Controllers
                         }
                         else
                         {
+                            if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+                            {
+                                model.Message = "Eloqua: " + HttpContext.Request.Cookies[_EloquaCookieName].Value;
+                            }
+
                             return View(_Page1QuestionsViewName, model);
                         }
                     }
@@ -183,7 +188,10 @@ namespace AssetmarkBAT.Controllers
             if (submit == "Save Your Inputs")
             {
                 SaveAnswers(model);
-                return View(_Page1QuestionsViewName, model);
+
+               
+
+                    return View(_Page1QuestionsViewName, model);
             }
             else
             {
