@@ -9,6 +9,17 @@ namespace AssetmarkBAT.Utilities
 {
     public class Helpers
     {
+        public double ConvertToDouble(string input)
+        {
+            try
+            {
+                return Convert.ToDouble(input.Replace("$", "").Replace(",", "").Replace(" ", ""));
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 
     public class BooleanRequiredAttribute : ValidationAttribute, IClientValidatable
