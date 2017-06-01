@@ -122,20 +122,20 @@ namespace AssetmarkBAT.Controllers
 
         private void SaveAnswers(BATModel model)
         {    
-            if (!string.IsNullOrEmpty(model.PracticeTypeOther))
-            {
-                model.PracticeType = model.PracticeTypeOther;
-            }
+            //if (!string.IsNullOrEmpty(model.PracticeTypeOther))
+            //{
+            //    model.PracticeType = model.PracticeTypeOther;
+            //}
 
-            if (!string.IsNullOrEmpty(model.AffiliationModeOther))
-            {
-                model.AffiliationMode = model.AffiliationModeOther;
-            }
+            //if (!string.IsNullOrEmpty(model.AffiliationModeOther))
+            //{
+            //    model.AffiliationMode = model.AffiliationModeOther;
+            //}
 
-            if (!string.IsNullOrEmpty(model.FirmTypeOther))
-            {
-                model.FirmType = model.FirmTypeOther;
-            }
+            //if (!string.IsNullOrEmpty(model.FirmTypeOther))
+            //{
+            //    model.FirmType = model.FirmTypeOther;
+            //}
 
             if (!model.Year.Contains("Previous"))
             {
@@ -506,8 +506,11 @@ namespace AssetmarkBAT.Controllers
                         EloquaId = model.EloquaId,
 
                         PracticeType = model.PracticeType,
+                        PracticeTypeOther = model.PracticeTypeOther,
                         AffiliationModel = model.AffiliationMode,
+                        AffiliationModeOther = model.AffiliationModeOther,
                         FirmType = model.FirmType,
+                        FirmTypeOther = model.FirmTypeOther,
                         TimeRange = model.Year,
                         Month = (model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),
 
@@ -605,8 +608,11 @@ namespace AssetmarkBAT.Controllers
                         model.DateStarted = original.DateStarted;
 
                         model.PracticeType = original.PracticeType;
+                        model.PracticeTypeOther = original.PracticeTypeOther;
                         model.AffiliationMode = original.AffiliationModel;
+                        model.AffiliationModeOther = original.AffiliationModeOther;
                         model.FirmType = original.FirmType;
+                        model.FirmTypeOther = original.FirmTypeOther;
 
                         model.Page2Complete = (original.Page2Complete.HasValue && original.Page2Complete == true) ? true : false;
                         model.Page1Complete = (original.Page1Complete.HasValue && original.Page1Complete == true) ? true : false;

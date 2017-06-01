@@ -22,8 +22,11 @@
           <Property Name="Month" Type="int" />
           <Property Name="TimeRange" Type="nvarchar" MaxLength="50" />
           <Property Name="PracticeType" Type="nvarchar" MaxLength="50" />
+          <Property Name="PracticeTypeOther" Type="nvarchar" MaxLength="50" />
           <Property Name="AffiliationModel" Type="nvarchar" MaxLength="50" />
+          <Property Name="AffiliationModeOther" Type="nvarchar" MaxLength="50" />
           <Property Name="FirmType" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirmTypeOther" Type="nvarchar" MaxLength="50" />
           <Property Name="PDF" Type="nvarchar" MaxLength="150" />
           <Property Name="Page1Complete" Type="bit" />
           <Property Name="Page2Complete" Type="bit" />
@@ -95,8 +98,11 @@
           <Property Name="Month" Type="Int32" />
           <Property Name="TimeRange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PracticeType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PracticeTypeOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AffiliationModel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AffiliationModeOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FirmType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirmTypeOther" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PDF" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Page1Complete" Type="Boolean" />
           <Property Name="Page2Complete" Type="Boolean" />
@@ -193,8 +199,11 @@
                 <ScalarProperty Name="Page2Complete" ColumnName="Page2Complete" />
                 <ScalarProperty Name="Page1Complete" ColumnName="Page1Complete" />
                 <ScalarProperty Name="PDF" ColumnName="PDF" />
+                <ScalarProperty Name="FirmTypeOther" ColumnName="FirmTypeOther" />
                 <ScalarProperty Name="FirmType" ColumnName="FirmType" />
+                <ScalarProperty Name="AffiliationModeOther" ColumnName="AffiliationModeOther" />
                 <ScalarProperty Name="AffiliationModel" ColumnName="AffiliationModel" />
+                <ScalarProperty Name="PracticeTypeOther" ColumnName="PracticeTypeOther" />
                 <ScalarProperty Name="PracticeType" ColumnName="PracticeType" />
                 <ScalarProperty Name="TimeRange" ColumnName="TimeRange" />
                 <ScalarProperty Name="Month" ColumnName="Month" />

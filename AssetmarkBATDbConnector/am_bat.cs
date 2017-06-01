@@ -27,8 +27,11 @@ namespace AssetmarkBATDbConnector
         public Nullable<int> Month { get; set; }
         public string TimeRange { get; set; }
         public string PracticeType { get; set; }
+        public string PracticeTypeOther { get; set; }
         public string AffiliationModel { get; set; }
+        public string AffiliationModeOther { get; set; }
         public string FirmType { get; set; }
+        public string FirmTypeOther { get; set; }
         public string PDF { get; set; }
         public Nullable<bool> Page1Complete { get; set; }
         public Nullable<bool> Page2Complete { get; set; }

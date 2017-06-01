@@ -19,7 +19,7 @@ namespace AssetmarkBAT.Services
         {
             try
             {
-                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
+                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfTemplateNew.pdf"));
                 PdfPage page = document.Pages[0];
 
                 // Fonts and Brushes
@@ -291,14 +291,14 @@ namespace AssetmarkBAT.Services
                 PdfPen pen = new PdfPen(PdfRgbColor.Black, 0.007);
                 PdfStringAppearanceOptions appearance = new PdfStringAppearanceOptions(helvetica, pen, textBrush);
 
-                page.Graphics.DrawString("$0", helvetica, textBrush, 345, 430);
+                page.Graphics.DrawString("$0", helvetica, textBrush, 344, 430);
                 page.Graphics.DrawString((Convert.ToInt32(axisMax)).ToString("C0"), appearance, layout);
 
                 double incrementHeight = 135 / 4;
                 double incrementValue = axisMax / 4;
 
                 layout.Y = layout.Y + incrementHeight;
-                page.Graphics.DrawString((axisMax - incrementValue).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawString((axisMax - incrementValue).RoundDouble(1000).ToString("C0"), appearance, layout);
 
                 layout.Y = layout.Y + incrementHeight;
                 page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
@@ -312,25 +312,25 @@ namespace AssetmarkBAT.Services
                 MemoryStream stream = new MemoryStream();
                 document.Save(stream);
 
-                //document.Save("C:\\Olga\\PdfCustom.pdf");
+                document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                // Converts the PdfDocument object to byte form.
-                byte[] docBytes = stream.ToArray();
-                //Loads the byte array in PdfLoadedDocument
+                //// Converts the PdfDocument object to byte form.
+                //byte[] docBytes = stream.ToArray();
+                ////Loads the byte array in PdfLoadedDocument
 
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                var permissions = myContainer.GetPermissions();
-                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                myContainer.SetPermissions(permissions);
+                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                //var permissions = myContainer.GetPermissions();
+                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                //myContainer.SetPermissions(permissions);
 
-                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                blockBlob.Properties.ContentType = "application/pdf";
-                //blockBlob.UploadFromStream(stream);
-                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                //blockBlob.Properties.ContentType = "application/pdf";
+                ////blockBlob.UploadFromStream(stream);
+                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
@@ -343,5 +343,23 @@ namespace AssetmarkBAT.Services
             using (var stream = new FileStream(filename, FileMode.Open))
                 return new PdfFixedDocument(stream);
         }
+
+        //public static int RoundInt(this int i, int nearest)
+        //{
+        //    if (nearest <= 0 || nearest % 10 != 0)
+        //        throw new ArgumentOutOfRangeException("nearest", "Must round to a positive multiple of 10");
+
+        //    return (i + 5 * nearest / 10) / nearest * nearest;
+        //}
+
+        //public static int RoundDouble(this double d, int nearest)
+        //{
+        //    int i = Convert.ToInt32(d);
+
+        //    if (nearest <= 0 || nearest % 10 != 0)
+        //        throw new ArgumentOutOfRangeException("nearest", "Must round to a positive multiple of 10");
+
+        //    return (i + 5 * nearest / 10) / nearest * nearest;
+        //}
     }
 }
