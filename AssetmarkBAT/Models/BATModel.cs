@@ -6,6 +6,7 @@ namespace AssetmarkBAT.Models
 {
     public class BATModel
     {      
+        public bool AgreedToTerms { get; set; }
         public string UserId { get; set; }
 
         //Eloqua fields

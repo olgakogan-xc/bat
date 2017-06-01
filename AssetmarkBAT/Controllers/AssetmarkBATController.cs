@@ -39,12 +39,22 @@ namespace AssetmarkBAT.Controllers
             BATModel model = new BATModel();
             InitializeDropDowns(model);
 
+            //Eloqua ID            
+            if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
+            {
+                model.EloquaId = Request.QueryString[_EloquaQueryStringParamName];
+            }
+            else if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+            {
+                model.EloquaId = Request.QueryString[_EloquaCookieName];
+            }
+
             if (!string.IsNullOrEmpty(KnownUserId()))
             {
-                model.UserId = KnownUserId();
+                model.UserId = KnownUserId();               
 
                 if (PopulateModelFromDatabase(model))
-                {
+                {                    
                     if (Request.QueryString["redo"] != null && !string.IsNullOrEmpty(Request.QueryString["redo"]) && PopulateModelFromDatabase(model))
                     {                        
                         return View(_Page1QuestionsViewName, model);
@@ -63,6 +73,11 @@ namespace AssetmarkBAT.Controllers
                         }
                         else if (model.Page1Complete)
                         {
+                            if (model.Vmi_Index == null || model.Vmi_Index == "N/A")
+                            {
+                                PrepopulateVMIs(model);
+                            }
+
                             return View(_Page2QuestionsViewName, model);
                         }
                         else
@@ -72,24 +87,26 @@ namespace AssetmarkBAT.Controllers
                     }
                 }
                 else
-                    return View(_TermsViewName);
+                {                   
+                    return View(_TermsViewName, model);
+                }                    
             }
 
-            return View(_TermsViewName);
+            return View(_TermsViewName, model);
         }
 
         /// <summary>
         /// Action method to handle user input on Terms page
         /// </summary>  
         [HttpPost]
-        public ActionResult Page1Questions(AgreeToTermsModel mymodel)
+        public ActionResult Page1Questions(BATModel model)
         {
-            if (!mymodel.AgreedToTerms)
+            if (!model.AgreedToTerms)
             {
                 return View(_TermsViewName);
             }
 
-            BATModel model = new BATModel();
+            //BATModel model = new BATModel();
             InitializeDropDowns(model);
 
             if (string.IsNullOrEmpty(KnownUserId()))
@@ -110,7 +127,7 @@ namespace AssetmarkBAT.Controllers
         }
 
         private void SaveAnswers(BATModel model)
-        {
+        {    
             if (!string.IsNullOrEmpty(model.PracticeTypeOther))
             {
                 model.PracticeType = model.PracticeTypeOther;
@@ -401,7 +418,7 @@ namespace AssetmarkBAT.Controllers
             List<SelectListItem> types = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Practice Type", Value = "Practice Type" },
-                new SelectListItem { Text = "Single advisor practice: Solo practitioner or providing data on your book of business only1", Value = "Single advisor practice" },
+                new SelectListItem { Text = "Single advisor practice: Solo practitioner or providing data on your book of business only", Value = "Single advisor practice" },
                 new SelectListItem { Text = "Multiple advisor practice:  Multiple advisor practice providing firm level data", Value = "Multiple advisor practice" },
                 new SelectListItem { Text = "Third party: Broker-dealer, wholesaler, consultant ", Value = "Third party" },
                 new SelectListItem { Text = "Other", Value = "Other" }
@@ -426,7 +443,7 @@ namespace AssetmarkBAT.Controllers
             {
                 new SelectListItem { Text = "Firm Types", Value = "N/A" },
                 new SelectListItem { Text = "Financial Planning Firm: Focused on providing financial planning services / process", Value = "Financial Planning Firm" },
-                new SelectListItem { Text = "Investment Advisory Firm: Focused on providing investment strategy and manager selection2", Value = "Investment Advisory Firm" },
+                new SelectListItem { Text = "Investment Advisory Firm: Focused on providing investment strategy and manager selection", Value = "Investment Advisory Firm" },
                 new SelectListItem { Text = "Investment Management Firm: Focused on investment recommendations and discretionary investment management of client assets", Value = "Investment Management Firm" },
                 new SelectListItem { Text = "Wealth Management Firm: Provide holistic advice to clients, including integrated tax, estate and financial planning in addition to investment services", Value = "Wealth Management Firm" },
                 new SelectListItem { Text = "Other", Value = "Other" }
@@ -672,14 +689,6 @@ namespace AssetmarkBAT.Controllers
             if (HttpContext.Request.Cookies[_BATCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_BATCookieName].Value))
             {
                 return HttpContext.Request.Cookies[_BATCookieName].Value;
-            }
-            else if (Request.Url.AbsoluteUri.Contains(_EloquaQueryStringParamName))
-            {
-                return Request.QueryString[_EloquaQueryStringParamName];
-            }
-            else if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
-            {
-                return Request.QueryString[_EloquaCookieName];
             }
             return null;
         }

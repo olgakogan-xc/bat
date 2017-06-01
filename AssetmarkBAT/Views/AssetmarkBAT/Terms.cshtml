@@ -1,4 +1,4 @@
-﻿@model AssetmarkBAT.Models.AgreeToTermsModel
+﻿@model AssetmarkBAT.Models.BATModel
 
 @{
     Layout = "~/Views/AssetmarkBAT/Shared/_Layout.cshtml";
@@ -59,6 +59,8 @@
 
             @using (Html.BeginForm("Page1Questions", "AssetmarkBAT", FormMethod.Post))
             {
+                @Html.HiddenFor(m => m.EloquaId)
+
                 <div class="terms">
                     Business Assessment Tool - Terms of Use <br /><br />
                     As of 5/9/17 <br /><br />

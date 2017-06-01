@@ -25,6 +25,7 @@ namespace AssetmarkBAT.Services
 
                 PdfBrush textBrush = new PdfBrush((PdfRgbColor.Black));
                 PdfBrush whiteBrush = new PdfBrush((PdfRgbColor.White));
+                PdfBrush grayBrush = new PdfBrush((PdfRgbColor.Gray));
                 PdfBrush blackBrush = new PdfBrush(PdfRgbColor.Black);
                 PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));              
 
@@ -121,8 +122,8 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C0"), helvetica, blackBrush, 170, 627);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C0"), helvetica, blackBrush, 170, 644);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenut).ToString("0.0") + " %", helvetica, blackBrush, 170, 661);
-                page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ClientsPerAdvisor).ToString("C0"), helvetica, blackBrush, 170, 680);
-                page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.RevenueAsBPSOnAssets).ToString("C0"), helvetica, blackBrush, 170, 699);
+                page.Graphics.DrawString(model.ClientValuationModel.ClientsPerAdvisor, helvetica, blackBrush, 170, 680);
+                page.Graphics.DrawString(model.ClientValuationModel.RevenueAsBPSOnAssets, helvetica, blackBrush, 170, 699);
 
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerClient).ToString("C0"), helvetica, blackBrush, 290, 557);
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerAdvisor).ToString("C0"), helvetica, blackBrush, 290, 576);
@@ -131,8 +132,8 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerAdvisor).ToString("C0"), helvetica, blackBrush, 290, 627);
                 page.Graphics.DrawString(peerGroup.ProfitPerClient.ToString("C0"), helvetica, blackBrush, 290, 644);
                 page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString("0.0") + " %", helvetica, blackBrush, 290, 661);
-                page.Graphics.DrawString("$" + peerGroup.ClientsPerAdvisor.ToString(), helvetica, blackBrush, 290, 680);
-                page.Graphics.DrawString("$" + peerGroup.RevenutAsPBSOnAssets.ToString(), helvetica, blackBrush, 290, 699);
+                page.Graphics.DrawString(peerGroup.ClientsPerAdvisor.ToString(), helvetica, blackBrush, 290, 680);
+                page.Graphics.DrawString(peerGroup.RevenueAsPBSOnAssets.ToString(), helvetica, blackBrush, 290, 699);
 
 
 
@@ -182,6 +183,8 @@ namespace AssetmarkBAT.Services
                 double x = 70;
                 double y = 415 - (firstBlock + secondBlock + thirdBlock + fourthBlock);
 
+                page.Graphics.DrawString(model.Vmi_Index , helvetica, grayBrush, x + 20, y - 15); //VMI Index
+
                 page.Graphics.DrawRectangle(graphBrush4, x, y, 55, fourthBlock);
                 page.Graphics.DrawString(model.ClientValuationModel.ManagingYourPracticeScore.ToString(), helvetica, whiteBrush, x + 20, y + ((fourthBlock / 2) - 2)); //score
 
@@ -208,6 +211,8 @@ namespace AssetmarkBAT.Services
 
                 x = 160;
                 y = 415 - (firstBlock + secondBlock + thirdBlock + fourthBlock);
+
+                page.Graphics.DrawString((peerGroup.MYB + peerGroup.MYP + peerGroup.EYT + peerGroup.OYO).ToString(), helvetica, grayBrush, x + 20, y - 15); //VMI Index
 
                 page.Graphics.DrawRectangle(graphBrush4, x, y, 55, fourthBlock);
                 page.Graphics.DrawString(peerGroup.MYP.ToString(), helvetica, whiteBrush, x + 20, y + ((fourthBlock / 2) - 2)); //score
@@ -283,7 +288,7 @@ namespace AssetmarkBAT.Services
                 PdfPen pen = new PdfPen(PdfRgbColor.Black, 0.007);
                 PdfStringAppearanceOptions appearance = new PdfStringAppearanceOptions(helvetica, pen, textBrush);
 
-                page.Graphics.DrawString("$0", helvetica, textBrush, 346, 430);
+                page.Graphics.DrawString("$0", helvetica, textBrush, 345, 430);
                 page.Graphics.DrawString((Convert.ToInt32(axisMax)).ToString("C0"), appearance, layout);
 
                 double incrementHeight = 135 / 4;

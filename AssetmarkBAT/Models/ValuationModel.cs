@@ -100,7 +100,7 @@ namespace AssetmarkBAT.Models
                         RecurringRevenue = 130333, TotalRevenue = 165333, TotalExpenses = 139350, OperatingProfit = 25983, ProjectedAnnualGrowthRate = 98.6, AUM = 30773333, ClientRelationships = 137,
                             //KPI's
                             RecRevPerClient = 2345, RecRevPerAdvisor = 130333, TotalRevPerClient = 2558, TotalAUMPerClient = 600093,
-                                TotalAUMPerAdvisor = 30773333, ProfitPerClient = 299, ProfitAsPercentOfRevenue = 17.7, ClientsPerAdvisor = 137, RevenutAsPBSOnAssets = 1,
+                                TotalAUMPerAdvisor = 30773333, ProfitPerClient = 299, ProfitAsPercentOfRevenue = 17.7, ClientsPerAdvisor = 137, RevenueAsPBSOnAssets = 70,
                                 //VMI's
                                 MYP = 180, MYB = 185, OYO = 170, EYT = 165
                     },
@@ -111,7 +111,7 @@ namespace AssetmarkBAT.Models
                         RecurringRevenue = 353872, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2, AUM = 46414970, ClientRelationships = 147,
                             //KPI's
                             RecRevPerClient = 4380, RecRevPerAdvisor = 316373, TotalRevPerClient = 5227, TotalAUMPerClient = 515349,
-                                TotalAUMPerAdvisor = 43081637, ProfitPerClient = 1883, ProfitAsPercentOfRevenue = 39.6, ClientsPerAdvisor = 140, RevenutAsPBSOnAssets = 1,
+                                TotalAUMPerAdvisor = 43081637, ProfitPerClient = 1883, ProfitAsPercentOfRevenue = 39.6, ClientsPerAdvisor = 140, RevenueAsPBSOnAssets = 105,
                                 MYP = 185, MYB = 190, OYO = 185, EYT = 170
                     },
                     // Peer group $500K - $749K
@@ -121,7 +121,7 @@ namespace AssetmarkBAT.Models
                         RecurringRevenue = 493998, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7, AUM = 98935835, ClientRelationships = 150,
                             //KPI's
                             RecRevPerClient = 5452, RecRevPerAdvisor = 450347, TotalRevPerClient = 6167, TotalAUMPerClient = 1023483,
-                                TotalAUMPerAdvisor = 90621951, ProfitPerClient = 2359, ProfitAsPercentOfRevenue = 39.3, ClientsPerAdvisor = 124, RevenutAsPBSOnAssets = 1,
+                                TotalAUMPerAdvisor = 90621951, ProfitPerClient = 2359, ProfitAsPercentOfRevenue = 39.3, ClientsPerAdvisor = 124, RevenueAsPBSOnAssets = 67,
                                 MYP = 190, MYB = 200, OYO = 195, EYT = 185
                     },
                     // Peer group $750K - $999K
@@ -131,7 +131,7 @@ namespace AssetmarkBAT.Models
                         RecurringRevenue = 837839, TotalRevenue = 898792, TotalExpenses = 565360, OperatingProfit = 333432, ProjectedAnnualGrowthRate = 15, AUM = 101028075, ClientRelationships = 200,
                             //KPI's
                             RecRevPerClient = 7022, RecRevPerAdvisor = 662202, TotalRevPerClient = 7182, TotalAUMPerClient = 868398,
-                                TotalAUMPerAdvisor = 82293029, ProfitPerClient = 3204, ProfitAsPercentOfRevenue = 37.4, ClientsPerAdvisor = 173, RevenutAsPBSOnAssets = 1,
+                                TotalAUMPerAdvisor = 82293029, ProfitPerClient = 3204, ProfitAsPercentOfRevenue = 37.4, ClientsPerAdvisor = 173, RevenueAsPBSOnAssets = 91,
                                 MYP = 200, MYB = 225, OYO = 215, EYT = 205
                     },
                     // Peer group $1M - $3M
@@ -141,7 +141,7 @@ namespace AssetmarkBAT.Models
                         RecurringRevenue = 333432, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9, AUM = 276727265, ClientRelationships = 212,
                             //KPI's
                             RecRevPerClient = 25265, RecRevPerAdvisor = 620676, TotalRevPerClient = 25801, TotalAUMPerClient = 4840186,
-                                TotalAUMPerAdvisor = 94938787, ProfitPerClient = 11202, ProfitAsPercentOfRevenue = 42.8, ClientsPerAdvisor = 86, RevenutAsPBSOnAssets = 1,
+                                TotalAUMPerAdvisor = 94938787, ProfitPerClient = 11202, ProfitAsPercentOfRevenue = 42.8, ClientsPerAdvisor = 86, RevenueAsPBSOnAssets = 75,
                                 MYP = 220, MYB = 230, OYO = 230, EYT = 220
                     }
             };
@@ -172,7 +172,7 @@ namespace AssetmarkBAT.Models
         public double ProfitPerClient;
         public double ProfitAsPercentOfRevenue;
         public double ClientsPerAdvisor;
-        public double RevenutAsPBSOnAssets;
+        public double RevenueAsPBSOnAssets;
         //VMI's
         public int MYP;
         public int MYB;
