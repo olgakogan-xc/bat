@@ -312,25 +312,25 @@ namespace AssetmarkBAT.Services
                 MemoryStream stream = new MemoryStream();
                 document.Save(stream);
 
-                document.Save("C:\\Olga\\PdfCustom.pdf");
+                //document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                //// Converts the PdfDocument object to byte form.
-                //byte[] docBytes = stream.ToArray();
-                ////Loads the byte array in PdfLoadedDocument
+                // Converts the PdfDocument object to byte form.
+                byte[] docBytes = stream.ToArray();
+                //Loads the byte array in PdfLoadedDocument
 
-                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                //var permissions = myContainer.GetPermissions();
-                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                //myContainer.SetPermissions(permissions);
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                var permissions = myContainer.GetPermissions();
+                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                myContainer.SetPermissions(permissions);
 
-                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                //blockBlob.Properties.ContentType = "application/pdf";
-                ////blockBlob.UploadFromStream(stream);
-                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                blockBlob.Properties.ContentType = "application/pdf";
+                //blockBlob.UploadFromStream(stream);
+                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
