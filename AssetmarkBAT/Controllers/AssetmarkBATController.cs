@@ -2,17 +2,11 @@
 using AssetmarkBAT.Services;
 using AssetmarkBAT.Utilities;
 using AssetmarkBATDbConnector;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
-using Xfinium.Pdf.Graphics;
 
 namespace AssetmarkBAT.Controllers
 {
