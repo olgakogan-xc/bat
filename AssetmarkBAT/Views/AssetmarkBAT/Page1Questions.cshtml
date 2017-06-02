@@ -1104,7 +1104,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_ProjectedGrowthRate.$error.max">Please enter a value less than 20%</div>
-                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate*100 : 0 }}%</span>
+                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate*100 | number : undefined : 0 }}%</span>
                         </div>
                     </div>
                     <div class="row field-row">
