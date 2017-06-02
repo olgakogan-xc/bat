@@ -568,6 +568,23 @@ app.directive('isAdvisors', function () {
     };
 });
 
+app.directive('isNewClients', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope) {
+            scope.$watch('newClients.number', function (newValue, oldValue) {
+                var arr = String(newValue).split("");
+                if (arr.length === 0) return;
+                if (arr.length === 1 && (arr[0] == '-' || arr[0] === '.')) return;
+                if (arr.length === 2 && newValue === '-.') return;
+                if (isNaN(newValue)) {
+                    scope.newClients.number = oldValue;
+                }
+            });
+        }
+    };
+});
+
 
 
 $(function () {

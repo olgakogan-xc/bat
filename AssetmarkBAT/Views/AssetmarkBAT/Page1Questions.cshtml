@@ -1155,11 +1155,11 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients.number = '{0}'", Model.Ff_NewClients), ng_model = "newClients.number", is_newclients = "", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NewClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.Ff_NewClients.$error.max">{{ (newClients/selectedMonth)*12 | number : undefined : 2 }}</span>
+                            <span ng-show="newClients.number != null && newClients.number >= 0 && newClients.number <= 1000">{{ (newClients.number/selectedMonth)*12 | number : undefined : 2 }}</span>
                         </div>
                     </div>
                 </fieldset>
@@ -1167,7 +1167,7 @@
                     <div class="col-md-12">
                         <div class="button-container text-center">
                             <input type="submit" name="submit" value="Save Your Inputs" />
-                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="assets == '' || nonRecurringRevenue == '' || recurringRevenue == '' || directExpenses == '' || indirectExpenses == '' || growthRate == '' || clientRel == '' || nonAdvisors.number == '' || advisors.number == '' || newClients < 0 || newClients == null">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
+                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="assets == '' || nonRecurringRevenue == '' || recurringRevenue == '' || directExpenses == '' || indirectExpenses == '' || growthRate == '' || clientRel == '' || nonAdvisors.number == '' || advisors.number == '' || newClients == ''">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
