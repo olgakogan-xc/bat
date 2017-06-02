@@ -110,7 +110,7 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(peerGroup.TotalRevenue.ToString("C0"), helvetica, blackBrush, 290, 183);
                 page.Graphics.DrawString(peerGroup.TotalExpenses.ToString("C0"), helvetica, blackBrush, 290, 201);
                 page.Graphics.DrawString(peerGroup.OperatingProfit.ToString("C0"), helvetica, blackBrush, 290, 218);
-                page.Graphics.DrawString(peerGroup.ProjectedAnnualGrowthRate.ToString() + "%", helvetica, blackBrush, 290, 236);
+                page.Graphics.DrawString(peerGroup.ProjectedAnnualGrowthRate.ToString("0") + "%", helvetica, blackBrush, 290, 236);
 
 
                 //============================================================== KPI's Table =============================================================    

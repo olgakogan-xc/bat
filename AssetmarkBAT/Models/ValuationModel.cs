@@ -108,7 +108,7 @@ namespace AssetmarkBAT.Models
                     new BenchmarkGroup
                         { GroupRangeMin = 250000, GroupRangeMax = 499000, ValuationMin = 1487000, ValuationMax = 1955000, 
                          //Firm Financials
-                        RecurringRevenue = 353872, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2, AUM = 46414970, ClientRelationships = 147,
+                        RecurringRevenue = 353873, TotalRevenue = 414670, TotalExpenses = 245453, OperatingProfit = 169217, ProjectedAnnualGrowthRate = 25.2, AUM = 46414970, ClientRelationships = 147,
                             //KPI's
                             RecRevPerClient = 4380, RecRevPerAdvisor = 316373, TotalRevPerClient = 5227, TotalAUMPerClient = 515349,
                                 TotalAUMPerAdvisor = 43081637, ProfitPerClient = 1883, ProfitAsPercentOfRevenue = 39.6, ClientsPerAdvisor = 140, RevenueAsPBSOnAssets = 105,
@@ -118,7 +118,7 @@ namespace AssetmarkBAT.Models
                     new BenchmarkGroup
                         { GroupRangeMin = 500000, GroupRangeMax = 749000, ValuationMin = 1842000, ValuationMax = 2342000, 
                          //Firm Financials
-                        RecurringRevenue = 493998, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7, AUM = 98935835, ClientRelationships = 150,
+                        RecurringRevenue = 493999, TotalRevenue = 616152, TotalExpenses = 366423, OperatingProfit = 249729, ProjectedAnnualGrowthRate = 18.7, AUM = 98935835, ClientRelationships = 150,
                             //KPI's
                             RecRevPerClient = 5452, RecRevPerAdvisor = 450347, TotalRevPerClient = 6167, TotalAUMPerClient = 1023483,
                                 TotalAUMPerAdvisor = 90621951, ProfitPerClient = 2359, ProfitAsPercentOfRevenue = 39.3, ClientsPerAdvisor = 124, RevenueAsPBSOnAssets = 67,
@@ -138,7 +138,7 @@ namespace AssetmarkBAT.Models
                      new BenchmarkGroup
                         { GroupRangeMin = 1000000, GroupRangeMax = 3000000, ValuationMin = 4815000, ValuationMax = 5609000, 
                          //Firm Financials
-                        RecurringRevenue = 333432, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9, AUM = 276727265, ClientRelationships = 212,
+                        RecurringRevenue = 1582760, TotalRevenue = 1675328, TotalExpenses = 985392, OperatingProfit = 689936, ProjectedAnnualGrowthRate = 14.9, AUM = 276727265, ClientRelationships = 212,
                             //KPI's
                             RecRevPerClient = 25265, RecRevPerAdvisor = 620676, TotalRevPerClient = 25801, TotalAUMPerClient = 4840186,
                                 TotalAUMPerAdvisor = 94938787, ProfitPerClient = 11202, ProfitAsPercentOfRevenue = 42.8, ClientsPerAdvisor = 86, RevenueAsPBSOnAssets = 75,

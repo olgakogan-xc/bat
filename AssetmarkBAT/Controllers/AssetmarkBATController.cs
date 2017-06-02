@@ -237,6 +237,11 @@ namespace AssetmarkBAT.Controllers
         {
             CalculateValuationVariables(model, recalculate);
 
+            string pgr = model.Ff_ProjectedGrowthRate;
+            string vmi = model.Vmi_Index;
+            string profit = model.Ff_OperatingProfit;
+            string profilAnnual = model.Ff_OperatingProfitAnnualized;
+
             bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model);
             bool discountedCashFlow = CalculateDiscountedCashFlow(model);
 
@@ -311,7 +316,7 @@ namespace AssetmarkBAT.Controllers
         /// <summary>
         /// Service call to be consumed by the front end to get some valuation metrics for graphs
         /// </summary>       
-        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate)
+        public ActionResult GetValuationMetrics(double PAGR, double PM, int VMI, bool recalculate, bool report)
         {
             BATModel clientModel = new BATModel();
             BATModel comparativeModel = clientModel;
@@ -322,52 +327,39 @@ namespace AssetmarkBAT.Controllers
 
             if (recalculate) //call made from Valuation Optimizer page after slider(s) selections. Build comparative range with optimizer values
             {
-                //model = GetClientValuationRanges(null, PAGR, PM, VMI);
-                //CalculateValuation(model, false);               
-
                 //Call to recalculate and build comparative range
                 comparativeModel = GetClientValuationRanges(true, null, PAGR, PM, VMI);
                 comparativeValuationMin = comparativeModel.ClientValuationModel.ValuationMin;
                 comparativeValuationMax = comparativeModel.ClientValuationModel.ValuationMax;
             }
-            else //call made from the Report page or Optimizer page on load. Get benchmarks
+            else 
             {
-                BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
-
-                if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > 0)
+                if(report) //call made from the report page. Build comparative range from benchmarks
                 {
-                    peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
-                }
-                else if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) == 0)
-                {
-                    peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.First();
-                }
+                    BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
 
-                comparativeValuationMin = peerGroup.ValuationMin;
-                comparativeValuationMax = peerGroup.ValuationMax;
+                    if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > 0)
+                    {
+                        peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
+                    }
+                    else if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) == 0)
+                    {
+                        peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.First();
+                    }
+
+                    comparativeValuationMin = peerGroup.ValuationMin;
+                    comparativeValuationMax = peerGroup.ValuationMax;
+                }
+                else //call from the optimizer page on load. Build comparative range identical to client range
+                {
+                    comparativeValuationMin = clientModel.ClientValuationModel.ValuationMin;
+                    comparativeValuationMax = clientModel.ClientValuationModel.ValuationMax;
+                }                
             }
 
             double maxValueForClient = clientModel.ClientValuationModel.ValuationMax + (clientModel.ClientValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
-
-            //Optimizer optimizerModel = new Optimizer();           
-            //optimizerModel.operatingprofitannual = (recalculate) ? (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : _Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString();
-            //optimizerModel.profitmarginannual = (_Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)).ToString();
-            //optimizerModel.maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient.ToString() : maxValueForComparative.ToString(); //Determine max axis values       
-            //optimizerModel.currentmin = clientModel.ClientValuationModel.ValuationMin.ToString();
-            //optimizerModel.currentmax = clientModel.ClientValuationModel.ValuationMax.ToString();
-            ////comparative range (either benchmark or optimized)
-            //optimizerModel.calculatedmin = comparativeValuationMin.ToString();
-            //optimizerModel.calculatedmax = comparativeValuationMax.ToString();
-            ////metrics used in calculations
-            //optimizerModel.pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate.ToString(); //entered on page 1
-            //optimizerModel.vmi = clientModel.Vmi_Index;
-
-
-
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
-            //return Json(optimizerModel, JsonRequestBehavior.AllowGet);
-
+                     
             return Json(new
             {
                 operatingprofitannual = (recalculate) ? (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : _Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString(),
@@ -732,7 +724,7 @@ namespace AssetmarkBAT.Controllers
                     model.Ff_ProjectedGrowthRate = PAGR.ToString();
 
                 if (PM != -1)
-                    model.Ff_OperatingProfitAnnualized = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
+                    model.Ff_OperatingProfitAnnualized = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) * PM).ToString(); //Operating Profit $ = Total Revenue*0.25 (I.E.)
                 else
                 {
                     string check = model.Ff_OperatingProfitAnnualized;
@@ -776,7 +768,7 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                model.ClientValuationModel.VmiRiskRate = 0.15 - (Convert.ToInt32(model.Vmi_Index) / 5 / 2000);
+                model.ClientValuationModel.VmiRiskRate = 0.15 - (Convert.ToInt32(model.Vmi_Index) / 10000.00);
                 model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
             }
         }
