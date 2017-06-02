@@ -394,12 +394,9 @@
 <main>
     <section>
         <div class="container">
-            <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool" width="350"></h1>
-            <h2><span>Firm Financials</span></h2>
             <div class="row">
                 <div class="col-md-6">
-                    <p>Your financial model shows how top-line revenue flows to the bottom line, and consists of multiple components that can work together to ensure the success and stability of your business. In this section, you will enter financial information such as total AUM, direct and indirect expenses, total number of employees, advisors and new clients – creating an overview of your financial model. </p>
-                    <p>The first step is entering your firm’s information. This step is crucial in establishing the framework for accurately measuring your ongoing success. Both your firm financial data and your VMI scores are needed to estimate your firm’s valuation range. Please be sure to provide all the firm financial data below, and then go to the next page to complete the Value Maximization Indicators (VMI).</p>
+                    <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool" width="350"></h1>
                 </div>
                 <div class="col-md-5 col-md-offset-1">
                     <h4><span>Additional Resources</span></h4>
@@ -408,6 +405,13 @@
                         <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Business_Assessment_Getting_Started_Checklist" target="_blank">Getting Started Checklist <img src="~/Images/pdf.png" /></a></li>
                         <li><a href="https://www.assetmark.com/~/media/assetmark/files/business_assessment/Value_Maximization_Index_Questions" target="_blank">Sample VMI Questions <img src="~/Images/pdf.png" /></a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><span>Firm Financials</span></h2>
+                    <p>Your financial model shows how top-line revenue flows to the bottom line, and consists of multiple components that can work together to ensure the success and stability of your business. In this section, you will enter financial information such as total AUM, direct and indirect expenses, total number of employees, advisors and new clients – creating an overview of your financial model. </p>
+                    <p>The first step is entering your firm’s information. This step is crucial in establishing the framework for accurately measuring your ongoing success. Both your firm financial data and your VMI scores are needed to estimate your firm’s valuation range. Please be sure to provide all the firm financial data below, and then go to the next page to complete the Value Maximization Indicators (VMI).</p>
                 </div>
             </div>
         </div>
@@ -998,11 +1002,11 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "assets", min = "1000000", max = "99000000", ui_money_mask = "0", @name = "assets" })
+                            @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "assets", min = "1000000", max = "99000000000", ui_money_mask = "0", @name = "assets" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.min">Please enter a value greater than $1,000,000</div>
-                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000</div>
+                            <div class="error" ng-show="form.Ff_TotalFirmAsset.$error.max">Please enter a value less than $99,000,000,000</div>
                             <span ng-show="!form.Ff_TotalFirmAsset.$error.min && !form.Ff_TotalFirmAsset.$error.max">{{ assets | currency : '$' : 0 }}</span>
                         </div>
                     </div>
@@ -1094,7 +1098,7 @@
                         <div class="col-md-5 field-label">
                             Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="The anticipated or average growth rate of the firm in the near-term, typically 3-5 years."></i>
                         </div>
-                        <div class="col-md-4 field-control">
+                        <div class="col-md-4 field-control percentage">
                             @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", ""), ng_model = "growthRate", ui_number_mask = "0", min = "0", max = "20" })
                         </div>
@@ -1105,7 +1109,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Client Relationships
+                            Number of Client Relationships
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
@@ -1119,7 +1123,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip='The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of "1" would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons.'></i>
+                            Number of Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip='The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of "1" would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons.'></i>
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
@@ -1133,7 +1137,7 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # Full-Time Equivalent Advisors
+                            Number of Full-Time Equivalent Advisors
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
@@ -1147,16 +1151,15 @@
                     </div>
                     <div class="row field-row">
                         <div class="col-md-5 field-label">
-                            # New Clients
+                            Number of New Clients
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients.number = '{0}'", Model.Ff_NewClients), ng_model = "newClients.number", is_newclients = "", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_NewClients.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.Ff_NewClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.Ff_NewClients.$error.min && !form.Ff_NewClients.$error.max">{{ (newClients/selectedMonth)*12 | number : undefined : 2 }}</span>
+                            <span ng-show="newClients.number != null && newClients.number >= 0 && newClients.number <= 1000">{{ (newClients.number/selectedMonth)*12 | number : undefined : 2 }}</span>
                         </div>
                     </div>
                 </fieldset>
@@ -1164,7 +1167,7 @@
                     <div class="col-md-12">
                         <div class="button-container text-center">
                             <input type="submit" name="submit" value="Save Your Inputs" />
-                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="assets == '' || nonRecurringRevenue == '' || recurringRevenue == '' || directExpenses == '' || indirectExpenses == '' || growthRate == '' || clientRel == '' || nonAdvisors.number == '' || advisors.number == '' || newClients == ''">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
+                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="assets == '' || nonRecurringRevenue == '' || recurringRevenue == '' || directExpenses == '' || indirectExpenses == '' || growthRate == '' || clientRel == '' || nonAdvisors.number == '' || advisors.number == '' || newClients.number == ''">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>

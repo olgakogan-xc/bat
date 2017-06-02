@@ -1579,10 +1579,21 @@ fieldset .field-control span {
   padding: 0.5rem 1.5rem;
 }
 /* line 65, ../scss/app/core/_forms.scss */
+fieldset .field-control.percentage:after {
+  content: '%';
+  position: absolute;
+  right: 1.5rem;
+  top: 0.35em;
+}
+/* line 72, ../scss/app/core/_forms.scss */
+fieldset .field-control.percentage input[type="text"] {
+  padding-right: 2.0em;
+}
+/* line 78, ../scss/app/core/_forms.scss */
 fieldset .field-value {
   font-weight: 600;
 }
-/* line 68, ../scss/app/core/_forms.scss */
+/* line 81, ../scss/app/core/_forms.scss */
 fieldset .field-value > span {
   display: block;
   padding: 0.5rem 0;
@@ -1859,9 +1870,9 @@ section.white {
 
 /* line 1, ../scss/app/modules/_terms.scss */
 .terms {
-  max-height: 90.0rem;
+  max-height: 45.0rem;
   overflow-y: scroll;
-  margin: 6.0rem;
+  margin: 3.0rem 6.0rem;
   padding: 3.0rem;
   border: 3px solid #bebbba;
   background-color: #fff;
