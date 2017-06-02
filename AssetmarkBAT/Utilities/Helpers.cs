@@ -20,6 +20,32 @@ namespace AssetmarkBAT.Utilities
                 return 0;
             }
         }
+
+        public int RountDouble(double number)
+        {
+            if (number >= 0 && number <= 100)
+            {
+                return (int)Math.Round(number);
+            }
+            else if (number > 100 && number <= 10000)
+            {
+                return (int)Math.Round(number / 100) * 100;
+            }
+            else if (number > 10000)
+            {
+                return (int)Math.Round(number / 1000) * 1000;
+            }
+            else if (number > 100000)
+            {
+                return (int)Math.Round(number / 10000) * 10000;
+            }
+            else if (number > 1000000)
+            {
+                return (int)Math.Round(number / 100000) * 100000;
+            }
+            else
+                return 0;
+        }
     }
 
     public class BooleanRequiredAttribute : ValidationAttribute, IClientValidatable

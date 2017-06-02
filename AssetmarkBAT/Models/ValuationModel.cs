@@ -68,7 +68,7 @@ namespace AssetmarkBAT.Models
         public string TotalAUMperClient { get; set; }
         public string TotalAUMperAdvisor { get; set; }
         public string ProfitPerClient { get; set; }
-        public string ProfitAsPercentOfRevenut { get; set; }
+        public string ProfitAsPercentOfRevenue { get; set; }
         public string ClientsPerAdvisor { get; set; }
         public string RevenueAsBPSOnAssets { get; set; }
 

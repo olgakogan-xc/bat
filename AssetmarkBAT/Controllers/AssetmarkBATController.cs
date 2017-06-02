@@ -110,6 +110,7 @@ namespace AssetmarkBAT.Controllers
                 assetmarkBATCookie.Value = model.UserId;
                 assetmarkBATCookie.Expires = DateTime.Now.AddYears(10);
                 HttpContext.Response.Cookies.Add(assetmarkBATCookie);
+                SaveAnswers(model);
             }
             else
             {
@@ -157,7 +158,7 @@ namespace AssetmarkBAT.Controllers
 
 
 
-            if (!model.Year.Contains("Previous"))
+            if (model.Year != null && !model.Year.Contains("Previous"))
             {
                 model.Year = "YTD " + DateTime.Now.Year;
             }
@@ -532,7 +533,7 @@ namespace AssetmarkBAT.Controllers
                         FirmType = model.FirmType,
                         FirmTypeOther = model.FirmTypeOther,
                         TimeRange = model.Year,
-                        Month = (model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),
+                        Month = (model.Year != null && model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),
 
                         PDF = model.PDFPath,
                         DateStarted = model.DateStarted,
@@ -970,11 +971,11 @@ namespace AssetmarkBAT.Controllers
             //D16 and D13 - Profit per Client
             if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized))
             {
-                model.ClientValuationModel.ProfitAsPercentOfRevenut = "N/A";
+                model.ClientValuationModel.ProfitAsPercentOfRevenue = "N/A";
             }
             else
             {
-                model.ClientValuationModel.ProfitAsPercentOfRevenut = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized)).ToString();
+                model.ClientValuationModel.ProfitAsPercentOfRevenue = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) * 100).ToString();
             }
             //D18 and D20 - Clients per Advisor
             if (string.IsNullOrEmpty(model.Ff_ClientRelationships) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))

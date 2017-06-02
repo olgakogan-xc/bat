@@ -19,7 +19,7 @@ namespace AssetmarkBAT.Services
         {
             try
             {
-                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfTemplateNew.pdf"));
+                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
                 PdfPage page = document.Pages[0];
 
                 // Fonts and Brushes
@@ -124,7 +124,7 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.TotalAUMperClient).ToString("C0"), helvetica, blackBrush, 170, 611);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C0"), helvetica, blackBrush, 170, 627);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C0"), helvetica, blackBrush, 170, 644);
-                page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenut).ToString("0.0") + " %", helvetica, blackBrush, 170, 661);
+                page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenue).ToString("0") + " %", helvetica, blackBrush, 170, 661);
                 page.Graphics.DrawString(model.ClientValuationModel.ClientsPerAdvisor, helvetica, blackBrush, 170, 680);
                 page.Graphics.DrawString(model.ClientValuationModel.RevenueAsBPSOnAssets, helvetica, blackBrush, 170, 699);
 
@@ -134,7 +134,7 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerClient).ToString("C0"), helvetica, blackBrush, 290, 611);
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.TotalAUMPerAdvisor).ToString("C0"), helvetica, blackBrush, 290, 627);
                 page.Graphics.DrawString(peerGroup.ProfitPerClient.ToString("C0"), helvetica, blackBrush, 290, 644);
-                page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString("0.0") + " %", helvetica, blackBrush, 290, 661);
+                page.Graphics.DrawString(peerGroup.ProfitAsPercentOfRevenue.ToString("0") + " %", helvetica, blackBrush, 290, 661);
                 page.Graphics.DrawString(peerGroup.ClientsPerAdvisor.ToString(), helvetica, blackBrush, 290, 680);
                 page.Graphics.DrawString(peerGroup.RevenueAsPBSOnAssets.ToString(), helvetica, blackBrush, 290, 699);
 
@@ -298,7 +298,7 @@ namespace AssetmarkBAT.Services
                 double incrementValue = axisMax / 4;
 
                 layout.Y = layout.Y + incrementHeight;
-                //page.Graphics.DrawString((axisMax - incrementValue).RoundDouble(1000).ToString("C0"), appearance, layout);
+                page.Graphics.DrawString(_Helpers.RountDouble((axisMax - incrementValue)).ToString("C0"), appearance, layout);
 
                 layout.Y = layout.Y + incrementHeight;
                 page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
