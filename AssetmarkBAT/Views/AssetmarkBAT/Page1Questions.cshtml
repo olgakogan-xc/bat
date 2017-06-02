@@ -1100,11 +1100,11 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", ""), ng_model = "growthRate", ui_percentage_mask = "0", min = "0", max = "20" })
+                            @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { @class = "percentage", ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", ""), ng_model = "growthRate", ui_number_mask = "0", min = "0", max = "20" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_ProjectedGrowthRate.$error.max">Please enter a value less than 20%</div>
-                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate*100 | number : undefined : 0 }}%</span>
+                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate }}%</span>
                         </div>
                     </div>
                     <div class="row field-row">

@@ -1520,26 +1520,30 @@ input {
   font-family: "Arial", sans-serif;
   font-weight: 200;
 }
-
 /* line 11, ../scss/app/core/_forms.scss */
+input.percentage:after {
+  content: '%';
+}
+
+/* line 17, ../scss/app/core/_forms.scss */
 [type='color'], [type='date'], [type='datetime'], [type='datetime-local'], [type='email'], [type='month'], [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='time'], [type='url'], [type='week'], input:not([type]), textarea {
   height: auto;
   padding: 0.5rem 1.5rem;
   line-height: 1em;
 }
 
-/* line 17, ../scss/app/core/_forms.scss */
+/* line 23, ../scss/app/core/_forms.scss */
 select {
   border: 1px solid #bebbba;
 }
 
-/* line 21, ../scss/app/core/_forms.scss */
+/* line 27, ../scss/app/core/_forms.scss */
 fieldset {
   position: relative;
   margin-top: 3.0rem;
   margin-bottom: 3.0rem;
 }
-/* line 26, ../scss/app/core/_forms.scss */
+/* line 32, ../scss/app/core/_forms.scss */
 fieldset legend {
   display: block;
   margin-bottom: 1.0rem;
@@ -1548,11 +1552,11 @@ fieldset legend {
   font-size: 2.0rem;
   font-weight: 300;
 }
-/* line 35, ../scss/app/core/_forms.scss */
+/* line 41, ../scss/app/core/_forms.scss */
 fieldset .row {
   margin-bottom: 1.0rem;
 }
-/* line 39, ../scss/app/core/_forms.scss */
+/* line 45, ../scss/app/core/_forms.scss */
 fieldset .field-header {
   padding: 0.5rem 0;
   margin-bottom: 3.0rem;
@@ -1560,29 +1564,29 @@ fieldset .field-header {
   background-color: #d9d8d4;
   color: #6c6c6c;
 }
-/* line 47, ../scss/app/core/_forms.scss */
+/* line 53, ../scss/app/core/_forms.scss */
 fieldset .field-label {
   text-align: right;
 }
-/* line 51, ../scss/app/core/_forms.scss */
+/* line 57, ../scss/app/core/_forms.scss */
 fieldset .field-control {
   text-align: right;
 }
-/* line 54, ../scss/app/core/_forms.scss */
+/* line 60, ../scss/app/core/_forms.scss */
 fieldset .field-control input {
   margin-bottom: 0;
   text-align: right;
 }
-/* line 59, ../scss/app/core/_forms.scss */
+/* line 65, ../scss/app/core/_forms.scss */
 fieldset .field-control span {
   display: block;
   padding: 0.5rem 1.5rem;
 }
-/* line 65, ../scss/app/core/_forms.scss */
+/* line 71, ../scss/app/core/_forms.scss */
 fieldset .field-value {
   font-weight: 600;
 }
-/* line 68, ../scss/app/core/_forms.scss */
+/* line 74, ../scss/app/core/_forms.scss */
 fieldset .field-value > span {
   display: block;
   padding: 0.5rem 0;
