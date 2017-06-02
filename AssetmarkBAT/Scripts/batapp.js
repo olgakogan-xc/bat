@@ -208,7 +208,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             },
 
             xAxis: {
-                categories: $scope.categories
+                categories: $scope.categories,
+                min: 0
             },
 
             tooltip: {
