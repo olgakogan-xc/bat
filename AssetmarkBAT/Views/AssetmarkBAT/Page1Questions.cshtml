@@ -1104,7 +1104,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_ProjectedGrowthRate.$error.max">Please enter a value less than 20%</div>
-                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate }}%</span>
+                            <span ng-show="growthRate != null && !form.Ff_ProjectedGrowthRate.$error.min && !form.Ff_ProjectedGrowthRate.$error.max">{{ growthRate*100 : 0 }}%</span>
                         </div>
                     </div>
                     <div class="row field-row">
@@ -1155,7 +1155,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
-                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
+                            @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), ng_model = "newClients", ui_number_mask = "0", min = "1", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_NewClients.$error.min">Please enter a value greater than 0</div>
