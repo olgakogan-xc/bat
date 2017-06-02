@@ -1861,7 +1861,7 @@ section.white {
 .terms {
   max-height: 90.0rem;
   overflow-y: scroll;
-  margin: 6.0rem;
+  margin: 3.0rem 6.0rem;
   padding: 3.0rem;
   border: 3px solid #bebbba;
   background-color: #fff;
