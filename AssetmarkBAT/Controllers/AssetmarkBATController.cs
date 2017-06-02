@@ -163,7 +163,7 @@ namespace AssetmarkBAT.Controllers
                 model.Year = "YTD " + DateTime.Now.Year;
             }
 
-            model.DateStarted = DateTime.Now.ToString();
+            model.DateStarted = DateTime.Now.ToString("d");
 
             if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
             {

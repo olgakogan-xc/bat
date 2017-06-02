@@ -30,9 +30,19 @@ namespace AssetmarkBAT.Services
                 PdfBrush whiteBrush = new PdfBrush((PdfRgbColor.White));
                 PdfBrush grayBrush = new PdfBrush((PdfRgbColor.Gray));
                 PdfBrush blackBrush = new PdfBrush(PdfRgbColor.Black);
-                PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));              
+                PdfBrush textBlueBrush = new PdfBrush((new PdfRgbColor(5, 79, 124)));
 
-              
+                string timeRange = "Previous Year";
+
+                if (!model.Year.ToLower().Contains("previous"))
+                {
+                    timeRange = "YTD " + DateTime.Now.Year;
+                }
+
+                page.Graphics.DrawString(model.firstName + " " + model.lastName, new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 16), textBlueBrush, 21, 20);
+                page.Graphics.DrawString(timeRange + ", " + "Created on " + model.DateStarted, new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 12.5), textBlueBrush, 370, 70);
+
+
                 model.BenchmarksValuationModel = new BenchmarksValuationModel();
                 BenchmarkGroup peerGroup = model.BenchmarksValuationModel.PeerGroups.FirstOrDefault(p => _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) > p.GroupRangeMin && _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) < p.GroupRangeMax);
 
@@ -291,46 +301,50 @@ namespace AssetmarkBAT.Services
                 PdfPen pen = new PdfPen(PdfRgbColor.Black, 0.007);
                 PdfStringAppearanceOptions appearance = new PdfStringAppearanceOptions(helvetica, pen, textBrush);
 
-                page.Graphics.DrawString("$0", helvetica, textBrush, 344, 430);
+                page.Graphics.DrawString("$0", helvetica, textBrush, 342, 430);
                 page.Graphics.DrawString((Convert.ToInt32(axisMax)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 double incrementHeight = 135 / 4;
                 double incrementValue = axisMax / 4;
 
                 layout.Y = layout.Y + incrementHeight;
                 page.Graphics.DrawString(_Helpers.RountDouble((axisMax - incrementValue)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
                 page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
                 page.Graphics.DrawString((axisMax - (incrementValue * 3)).ToString("C0"), appearance, layout);
-               
+                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
+
 
 
                 //Upload the PDF to Azure storage
                 MemoryStream stream = new MemoryStream();
                 document.Save(stream);
 
-                //document.Save("C:\\Olga\\PdfCustom.pdf");
+                document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                // Converts the PdfDocument object to byte form.
-                byte[] docBytes = stream.ToArray();
-                //Loads the byte array in PdfLoadedDocument
+                //// Converts the PdfDocument object to byte form.
+                //byte[] docBytes = stream.ToArray();
+                ////Loads the byte array in PdfLoadedDocument
 
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                var permissions = myContainer.GetPermissions();
-                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                myContainer.SetPermissions(permissions);
+                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                //var permissions = myContainer.GetPermissions();
+                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                //myContainer.SetPermissions(permissions);
 
-                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                blockBlob.Properties.ContentType = "application/pdf";
-                //blockBlob.UploadFromStream(stream);
-                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                //blockBlob.Properties.ContentType = "application/pdf";
+                ////blockBlob.UploadFromStream(stream);
+                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
