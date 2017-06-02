@@ -1158,9 +1158,8 @@
                             @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients = '{0}'", Model.Ff_NewClients), ng_model = "newClients", ui_number_mask = "0", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">
-                            <div class="error" ng-show="form.Ff_NewClients.$error.min">Please enter a value greater than 0</div>
                             <div class="error" ng-show="form.Ff_NewClients.$error.max">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients != null && !form.Ff_NewClients.$error.min && !form.Ff_NewClients.$error.max">{{ (newClients/selectedMonth)*12 | number : undefined : 2 }}</span>
+                            <span ng-show="newClients != null && !form.Ff_NewClients.$error.max">{{ (newClients/selectedMonth)*12 | number : undefined : 2 }}</span>
                         </div>
                     </div>
                 </fieldset>
