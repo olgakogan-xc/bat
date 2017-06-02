@@ -119,7 +119,7 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
             $scope.vmi.trans = $scope.vmi.changed ? $scope.vmi.value : $scope.vmi.valueOg;
         }
 
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + Math.round($scope.pagr.trans*100)/100 + '&pm=' + Math.round($scope.pm.trans*100)/100 + '&vmi=' + Math.round($scope.vmi.trans*100)/100 + '&recalculate=' + $scope.recalculate + '&report=' + $scope.report, function (data) {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + Math.round($scope.pagr.trans*100) + '&pm=' + Math.round($scope.pm.trans*100) + '&vmi=' + $scope.vmi.trans*100 + '&recalculate=' + $scope.recalculate + '&report=' + $scope.report, function (data) {
         //$.getJSON('optimizer.json?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function (data) {
             var graphValues = [];
 
