@@ -121,21 +121,41 @@ namespace AssetmarkBAT.Controllers
         }
 
         private void SaveAnswers(BATModel model)
-        {    
+        {
             //if (!string.IsNullOrEmpty(model.PracticeTypeOther))
             //{
-            //    model.PracticeType = model.PracticeTypeOther;
+            //    model.PracticeType = null;
             //}
 
             //if (!string.IsNullOrEmpty(model.AffiliationModeOther))
             //{
-            //    model.AffiliationMode = model.AffiliationModeOther;
+            //    model.AffiliationMode = null;
             //}
 
             //if (!string.IsNullOrEmpty(model.FirmTypeOther))
             //{
-            //    model.FirmType = model.FirmTypeOther;
+            //    model.FirmType = null;
             //}
+
+            //////////////////////
+
+            if(!string.IsNullOrEmpty(model.PracticeType) && model.PracticeType != "Other")
+            {
+                model.PracticeTypeOther = null;
+            }
+
+
+            if (!string.IsNullOrEmpty(model.AffiliationMode) && model.AffiliationMode != "Other")
+            {
+                model.AffiliationModeOther = null;
+            }
+
+            if(!string.IsNullOrEmpty(model.FirmType) && model.FirmType != "Other")
+            {
+                model.FirmTypeOther = null;
+            }
+
+
 
             if (!model.Year.Contains("Previous"))
             {

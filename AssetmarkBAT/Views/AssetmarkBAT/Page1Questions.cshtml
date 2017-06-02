@@ -920,6 +920,7 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label"></div>
                     <div class="row">
+                        @*<div>PT: @Model.PracticeType </div> <div>PTO: @Model.PracticeTypeOther</div>*@
                         <div class="col-md-6" ng-init="setPracticeType('@Model.PracticeTypeOther')">
                             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
                             @Html.TextBoxFor(x => Model.PracticeTypeOther, new { @class = "hide" })
@@ -930,6 +931,7 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
                     <div class="row">
+                        @*<div>PT: @Model.AffiliationMode </div> <div>PTO: @Model.AffiliationModeOther</div>*@
                         <div class="col-md-6" ng-init="setAffiliationMode('@Model.AffiliationModeOther')">
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes)
                             @Html.TextBoxFor(x => Model.AffiliationModeOther, new { @class = "hide" })
@@ -940,6 +942,7 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
                     <div class="row">
+                        @*<div>PT: @Model.FirmType </div> <div>PTO: @Model.FirmTypeOther</div>*@
                         <div class="col-md-6" ng-init="setFirmType('@Model.FirmTypeOther')">
                             @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes)
                             @Html.TextBoxFor(x => Model.FirmTypeOther, new { @class = "hide" })
