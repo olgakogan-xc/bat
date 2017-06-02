@@ -278,10 +278,6 @@
     <Content Include="Styles\fonts\ico.woff" />
     <Content Include="Styles\fonts\ico.woff2" />
     <Content Include="Views\AssetmarkBAT\PdfShell.cshtml" />
-    <Content Include="UserPDF\PdfTemplateOriginal.pdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="UserPDF\PdfTemplateOld.pdf" />
     <Content Include="UserPDF\PdfTemplate.pdf" />
   </ItemGroup>
   <ItemGroup>
