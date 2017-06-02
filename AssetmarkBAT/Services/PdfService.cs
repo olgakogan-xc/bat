@@ -135,8 +135,8 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.TotalAUMperAdvisor).ToString("C0"), helvetica, blackBrush, 170, 627);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitPerClient).ToString("C0"), helvetica, blackBrush, 170, 644);
                 page.Graphics.DrawString(_Helpers.ConvertToDouble(model.ClientValuationModel.ProfitAsPercentOfRevenue).ToString("0") + " %", helvetica, blackBrush, 170, 661);
-                page.Graphics.DrawString(model.ClientValuationModel.ClientsPerAdvisor, helvetica, blackBrush, 170, 680);
-                page.Graphics.DrawString(model.ClientValuationModel.RevenueAsBPSOnAssets, helvetica, blackBrush, 170, 699);
+                page.Graphics.DrawString(((int)_Helpers.ConvertToDouble(model.ClientValuationModel.ClientsPerAdvisor)).ToString(), helvetica, blackBrush, 170, 680);
+                page.Graphics.DrawString(((int)_Helpers.ConvertToDouble(model.ClientValuationModel.RevenueAsBPSOnAssets)).ToString(), helvetica, blackBrush, 170, 699);
 
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerClient).ToString("C0"), helvetica, blackBrush, 290, 557);
                 page.Graphics.DrawString(Math.Ceiling(peerGroup.RecRevPerAdvisor).ToString("C0"), helvetica, blackBrush, 290, 576);
@@ -272,8 +272,8 @@ namespace AssetmarkBAT.Services
                     x = 390;
                     y = 435 - (model.ClientValuationModel.ValuationMax / pixel);
                     page.Graphics.DrawRectangle(graphBrush2, x, y, 55, firstBlock);
-                    page.Graphics.DrawString(model.ClientValuationModel.ValuationMax.ToString("C0"), helvetica, textBrush, x, (y - 9));
-                    page.Graphics.DrawString(model.ClientValuationModel.ValuationMin.ToString("C0"), helvetica, textBrush, x, (y + firstBlock + 3));
+                    page.Graphics.DrawString(((int)Math.Round(model.ClientValuationModel.ValuationMax / 1000) * 1000).ToString("C0"), helvetica, textBrush, x, (y - 9));
+                    page.Graphics.DrawString(((int)Math.Round(model.ClientValuationModel.ValuationMin / 1000) * 1000).ToString("C0"), helvetica, textBrush, x, (y + firstBlock + 3));
                 }
                 else
                 {
@@ -301,23 +301,26 @@ namespace AssetmarkBAT.Services
                 PdfPen pen = new PdfPen(PdfRgbColor.Black, 0.007);
                 PdfStringAppearanceOptions appearance = new PdfStringAppearanceOptions(helvetica, pen, textBrush);
 
-                page.Graphics.DrawString("$0", helvetica, textBrush, 342, 430);
-                page.Graphics.DrawString((Convert.ToInt32(axisMax)).ToString("C0"), appearance, layout);
+                page.Graphics.DrawString("$0", helvetica, textBrush, 342, 430);              
+                page.Graphics.DrawString(((int)Math.Round(axisMax / 1000) * 1000).ToString("C0"), appearance, layout);
                 //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 double incrementHeight = 135 / 4;
                 double incrementValue = axisMax / 4;
 
                 layout.Y = layout.Y + incrementHeight;
-                page.Graphics.DrawString(_Helpers.RountDouble((axisMax - incrementValue)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawString(_Helpers.RountDouble((axisMax - incrementValue)).ToString("C0"), appearance, layout);
+                page.Graphics.DrawString(((int)Math.Round((axisMax - incrementValue) / 1000) * 1000).ToString("C0"), appearance, layout);
                 //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
-                page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
+                page.Graphics.DrawString(((int)Math.Round((axisMax / 2) / 1000) * 1000).ToString("C0"), appearance, layout);
                 //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
-                page.Graphics.DrawString((axisMax - (incrementValue * 3)).ToString("C0"), appearance, layout);
+                //page.Graphics.DrawString((axisMax - (incrementValue * 3)).ToString("C0"), appearance, layout);
+                page.Graphics.DrawString(((int)Math.Round((axisMax - (incrementValue * 3)) / 1000) * 1000).ToString("C0"), appearance, layout);
                 //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
 
@@ -326,25 +329,25 @@ namespace AssetmarkBAT.Services
                 MemoryStream stream = new MemoryStream();
                 document.Save(stream);
 
-                document.Save("C:\\Olga\\PdfCustom.pdf");
+                //document.Save("C:\\Olga\\PdfCustom.pdf");
 
 
 
-                //// Converts the PdfDocument object to byte form.
-                //byte[] docBytes = stream.ToArray();
-                ////Loads the byte array in PdfLoadedDocument
+                // Converts the PdfDocument object to byte form.
+                byte[] docBytes = stream.ToArray();
+                //Loads the byte array in PdfLoadedDocument
 
-                //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
-                //CloudBlobClient client = storageAccount.CreateCloudBlobClient();
-                //CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
-                //var permissions = myContainer.GetPermissions();
-                //permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
-                //myContainer.SetPermissions(permissions);
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
+                CloudBlobClient client = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
+                var permissions = myContainer.GetPermissions();
+                permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
+                myContainer.SetPermissions(permissions);
 
-                //CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
-                //blockBlob.Properties.ContentType = "application/pdf";
-                ////blockBlob.UploadFromStream(stream);
-                //blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
+                CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
+                blockBlob.Properties.ContentType = "application/pdf";
+                //blockBlob.UploadFromStream(stream);
+                blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
             {
