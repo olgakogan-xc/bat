@@ -113,13 +113,12 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         // need to sent raw values if unchanged since percents are rounded and vmi ticks increment by 50
 
         if ($scope.recalculate) {
-
             $scope.pagr.trans = $scope.pagr.changed ? $scope.pagr.value : $scope.pagr.valueOg;
             $scope.pm.trans = $scope.pm.changed ? $scope.pm.value : $scope.pm.valueOg;
             $scope.vmi.trans = $scope.vmi.changed ? $scope.vmi.value : $scope.vmi.valueOg;
         }
 
-        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + Math.round($scope.pagr.trans*100) + '&pm=' + Math.round($scope.pm.trans*100) + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate + '&report=' + $scope.report, function (data) {
+        $.getJSON('/assetmarkBAT/getvaluationmetrics?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate + '&report=' + $scope.report, function (data) {
         //$.getJSON('optimizer.json?pagr=' + $scope.pagr.trans + '&pm=' + $scope.pm.trans + '&vmi=' + $scope.vmi.trans + '&recalculate=' + $scope.recalculate, function (data) {
             var graphValues = [];
 
