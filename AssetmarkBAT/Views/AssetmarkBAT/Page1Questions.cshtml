@@ -1113,7 +1113,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), ng_model = "clientRel", ui_number_mask = "0", min = "0", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_ClientRelationships.$error.min">Please enter a value greater than 0</div>
