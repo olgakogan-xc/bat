@@ -89,7 +89,7 @@
                         </fieldset>
                         <div class="button-container text-center">
                             @*<a href="@Model.PDFPath" class="btn" target="_blank" onclick="">View Complete Report</a>*@
-                            <input type="submit" value="View Complete Report" name="submit" ng-disabled="lead.firstName == null || lead.lastName == null || lead.email == null || lead.phone == null || lead.zip == null" />
+                            <input type="submit" value="View Complete Report" name="submit" ng-disabled="lead.firstName == '' || lead.lastName == '' || lead.email == '' || lead.phone == '' || lead.zip == ''" />
                         </div>
                     </div>
                 </div>
