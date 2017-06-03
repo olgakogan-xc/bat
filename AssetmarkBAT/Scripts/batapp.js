@@ -113,8 +113,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         // need to sent raw values if unchanged since percents are rounded and vmi ticks increment by 50
 
         if ($scope.recalculate) {
-            $scope.pagr.trans = $scope.pagr.changed ? $scope.pagr.value : $scope.pagr.valueOg;
-            $scope.pm.trans = $scope.pm.changed ? $scope.pm.value : $scope.pm.valueOg;
+            $scope.pagr.trans = $scope.pagr.changed ? $scope.pagr.value/100 : $scope.pagr.valueOg;
+            $scope.pm.trans = $scope.pm.changed ? $scope.pm.value/100 : $scope.pm.valueOg;
             $scope.vmi.trans = $scope.vmi.changed ? $scope.vmi.value : $scope.vmi.valueOg;
         }
 
