@@ -242,7 +242,7 @@ namespace AssetmarkBAT.Controllers
             string profit = model.Ff_OperatingProfit;
             string profilAnnual = model.Ff_OperatingProfitAnnualized;
 
-            bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model);
+            bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model, recalculate);
             bool discountedCashFlow = CalculateDiscountedCashFlow(model);
 
             if (nonAdvisorCashFlow && discountedCashFlow)
@@ -297,7 +297,9 @@ namespace AssetmarkBAT.Controllers
         [HttpPost]
         public ActionResult Optimizer(BATModel model)
         {
-            if(PopulateModelFromDatabase(model))
+            //SaveAnswers(model);
+
+            if (PopulateModelFromDatabase(model))
             {
                 model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
                 model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
@@ -306,6 +308,9 @@ namespace AssetmarkBAT.Controllers
 
                 CalculateKPIs(model);
                 CalculateValuation(model, false);
+
+                
+
                 _PdfService.DrawPdf(model);
             }
             
@@ -359,10 +364,13 @@ namespace AssetmarkBAT.Controllers
 
             double maxValueForClient = clientModel.ClientValuationModel.ValuationMax + (clientModel.ClientValuationModel.ValuationMax / 4);
             double maxValueForComparative = comparativeValuationMax + (comparativeValuationMax / 4);
-                     
+
+            string opProfAnnual = (recalculate) ? (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * PM).ToString() : _Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString();
+
+
             return Json(new
             {
-                operatingprofitannual = (recalculate) ? (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * (PM / 100)).ToString() : _Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString(),
+                operatingprofitannual = (recalculate) ? (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * PM).ToString() : _Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized).ToString(),
                 profitmarginannual = (_Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)),
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient.ToString() : maxValueForComparative.ToString(),
                 currentmin = clientModel.ClientValuationModel.ValuationMin,
@@ -371,7 +379,8 @@ namespace AssetmarkBAT.Controllers
                 calculatedmax = comparativeValuationMax,
                 calculatedmin = comparativeValuationMin,
 
-                pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
+                //pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
+                pagr = _Helpers.ConvertToDouble(clientModel.Ff_ProjectedGrowthRate) / 100,
                 vmi = clientModel.Vmi_Index,
 
                 top_pagr_max = 12,
@@ -773,13 +782,21 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
-        private bool CalculateNonAdvisorTaxFreeCashFlow(BATModel model)
+        private bool CalculateNonAdvisorTaxFreeCashFlow(BATModel model, bool recalculate)
         {
             try
             {
                 model.ClientValuationModel.ProfitMargin = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)) - (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) + _Helpers.ConvertToDouble(model.Ff_DirectExpenses)));
 
-                model.ClientValuationModel.ProjectedAnnualGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
+                //0.12
+                //model.ClientValuationModel.ProjectedAnnualGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
+
+                //model.Ff_ProjectedGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
+
+                //if(recalculate)
+                //{
+                //    model.ClientValuationModel.ProjectedAnnualGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", ""));
+                //}
 
                 //year 1
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
@@ -789,7 +806,7 @@ namespace AssetmarkBAT.Controllers
                 }
                 else
                 {
-                    model.ClientValuationModel.NonAdvisorCashFlowYear1 = _Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate) * (1 - model.ClientValuationModel._TaxRate);
+                    model.ClientValuationModel.NonAdvisorCashFlowYear1 = _Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) * (1 + _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate) / 100) * (1 - model.ClientValuationModel._TaxRate);
                 }
 
                 //year2
@@ -800,7 +817,7 @@ namespace AssetmarkBAT.Controllers
                 }
                 else
                 {
-                    model.ClientValuationModel.NonAdvisorCashFlowYear2 = model.ClientValuationModel.NonAdvisorCashFlowYear1 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                    model.ClientValuationModel.NonAdvisorCashFlowYear2 = model.ClientValuationModel.NonAdvisorCashFlowYear1 * (1 + _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate) / 100);
                 }
 
                 //year3
@@ -811,7 +828,7 @@ namespace AssetmarkBAT.Controllers
                 }
                 else
                 {
-                    model.ClientValuationModel.NonAdvisorCashFlowYear3 = model.ClientValuationModel.NonAdvisorCashFlowYear2 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                    model.ClientValuationModel.NonAdvisorCashFlowYear3 = model.ClientValuationModel.NonAdvisorCashFlowYear2 * (1 + _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate) / 100);
                 }
 
                 //year4
@@ -822,7 +839,7 @@ namespace AssetmarkBAT.Controllers
                 }
                 else
                 {
-                    model.ClientValuationModel.NonAdvisorCashFlowYear4 = model.ClientValuationModel.NonAdvisorCashFlowYear3 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                    model.ClientValuationModel.NonAdvisorCashFlowYear4 = model.ClientValuationModel.NonAdvisorCashFlowYear3 * (1 + _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate) / 100);
                 }
 
                 //year5
@@ -833,7 +850,7 @@ namespace AssetmarkBAT.Controllers
                 }
                 else
                 {
-                    model.ClientValuationModel.NonAdvisorCashFlowYear5 = model.ClientValuationModel.NonAdvisorCashFlowYear4 * (1 + model.ClientValuationModel.ProjectedAnnualGrowthRate);
+                    model.ClientValuationModel.NonAdvisorCashFlowYear5 = model.ClientValuationModel.NonAdvisorCashFlowYear4 * (1 + _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate) / 100);
                 }
 
                 return true;

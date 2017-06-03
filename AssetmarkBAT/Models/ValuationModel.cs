@@ -59,7 +59,7 @@ namespace AssetmarkBAT.Models
 
         //Value Optimizer variables
         public double ProfitMargin { get; set; }
-        public double ProjectedAnnualGrowthRate { get; set; }
+        //public double ProjectedAnnualGrowthRate { get; set; }
 
         //KPI's
         public string RecurringRevenuePerClient { get; set; }
