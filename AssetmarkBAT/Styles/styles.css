@@ -2428,7 +2428,7 @@ section.white {
 }
 /* line 24, ../scss/app/modules/_optimizer.scss */
 .optimizer .sub-title .optimized-label {
-  font-size: 2.0rem;
+  font-size: 1.5rem;
 }
 /* line 27, ../scss/app/modules/_optimizer.scss */
 .optimizer .sub-title .optimized-value {
