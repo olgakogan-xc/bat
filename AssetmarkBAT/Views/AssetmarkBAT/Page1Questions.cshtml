@@ -1132,7 +1132,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="nonAdvisors.number < 0">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="nonAdvisors.number > 10000">Please enter a value less than 10,000</div>
+                            <div class="error" ng-show="nonAdvisors.number >= 10000">Please enter a value less than 10,000</div>
                             <span ng-show="nonAdvisors.number != null && nonAdvisors.number >= 0 && nonAdvisors.number <= 10000">{{ nonAdvisors.number }}</span>
                         </div>
                     </div>
@@ -1146,8 +1146,8 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="advisors.number < 1">Please enter a value greater than 0</div>
-                            <div class="error" ng-show="advisors.number > 10000">Please enter a value less than 10,000</div>
-                            <span ng-show="advisors.number != null && advisors.number >= 0 && advisors.number <= 10000">{{ advisors.number }}</span>
+                            <div class="error" ng-show="advisors.number >= 10000">Please enter a value less than 10,000</div>
+                            <span ng-show="advisors.number != null && advisors.number >= 1 && advisors.number <= 10000">{{ advisors.number }}</span>
                         </div>
                     </div>
                     <div class="row field-row">
