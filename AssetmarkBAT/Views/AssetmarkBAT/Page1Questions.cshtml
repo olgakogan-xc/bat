@@ -1053,7 +1053,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
-                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
+                            @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "1", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_DirectExpenses.$error.max">Please enter a value less than $10,000,000</div>
@@ -1113,7 +1113,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), ng_model = "clientRel", ui_number_mask = "0", min = "0", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="form.Ff_ClientRelationships.$error.min">Please enter a value greater than 0</div>
@@ -1127,7 +1127,7 @@
                         </div>
                         <div class="col-md-4 field-control">
                             @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
-                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors.number = '{0}'", Model.Ff_FullTimeNonAdvisors), ng_model = "nonAdvisors.number", is_non_advisors = "", min = "1", max = "10000" })
+                            @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors.number = '{0}'", Model.Ff_FullTimeNonAdvisors), ng_model = "nonAdvisors.number", is_non_advisors = "", min = "0", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="nonAdvisors.number < 0">Please enter a value greater than 0</div>
@@ -1167,7 +1167,7 @@
                     <div class="col-md-12">
                         <div class="button-container text-center">
                             <input type="submit" name="submit" value="Save Your Inputs" />
-                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="!(assets !== '' && nonRecurringRevenue !== '' && recurringRevenue !== '' && directExpenses !== '' && indirectExpenses !== '' && growthRate !== '' && clientRel !== '' && nonAdvisors.number !== '' && advisors.number !== '' && newClients.number !== '')">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
+                            <button type="submit" name="submit" value="submit" form="form" ng-disabled="!(assets >= 1000000 && assets <= 99000000000 && assets !== '' && nonRecurringRevenue !== '' && nonRecurringRevenue <= 10000000 && recurringRevenue !== '' && recurringRevenue <= 10000000 && directExpenses !== '' && directExpenses >= 1 && directExpenses <= 10000000 && indirectExpenses !== '' && indirectExpenses <= 10000000 && growthRate !== '' && growthRate >= 1 && growthRate <= 20 && clientRel !== '' && clientRel >= 1 && clientRel <= 10000 && nonAdvisors.number !== '' && nonAdvisors.number <= 10000 && advisors.number !== '' && advisors.number >= 1 && advisors.number <= 10000 && newClients.number !== '' && newClients.number <= 1000)">VMI Inputs <span class="light">Next</span> <i class="icon-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
