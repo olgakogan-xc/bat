@@ -391,13 +391,13 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
         maxValue: 0,
         options: {
             floor: 0,
-            ceil: 40,
+            ceil: 100,
             step: 1,
             disabled: true,
             showTicks: false,
             showTicksValues: false,
             hideLimitLabels: true,
-            ticksArray: [0, 10, 20, 30, 40],
+            ticksArray: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
             hidePointerLabels: true,
             draggableRange: true
         }
