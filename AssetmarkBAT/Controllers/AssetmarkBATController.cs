@@ -130,82 +130,66 @@ namespace AssetmarkBAT.Controllers
 
         private void SaveAnswers(BATModel model)
         {
-            //if (!string.IsNullOrEmpty(model.PracticeTypeOther))
-            //{
-            //    model.PracticeType = null;
-            //}
-
-            //if (!string.IsNullOrEmpty(model.AffiliationModeOther))
-            //{
-            //    model.AffiliationMode = null;
-            //}
-
-            //if (!string.IsNullOrEmpty(model.FirmTypeOther))
-            //{
-            //    model.FirmType = null;
-            //}
-
-            //////////////////////
-
-            if (!string.IsNullOrEmpty(model.PracticeType) && model.PracticeType != "Other")
+            try
             {
-                model.PracticeTypeOther = null;
+                if (!string.IsNullOrEmpty(model.PracticeType) && model.PracticeType != "Other") { model.PracticeTypeOther = null; }
+
+                if (!string.IsNullOrEmpty(model.AffiliationMode) && model.AffiliationMode != "Other") { model.AffiliationModeOther = null; }
+
+                if (!string.IsNullOrEmpty(model.FirmType) && model.FirmType != "Other") { model.FirmTypeOther = null; }
+
+
+                if (model.Year != null && !model.Year.Contains("Previous"))
+                {
+                    model.Year = "YTD " + DateTime.Now.Year;
+                }
+
+
+                             
+                TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+
+                model.DateStarted = pacificTime.ToString();
+
+                if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+                {
+                    model.EloquaId = HttpContext.Request.Cookies[_EloquaCookieName].Value;
+                }
+
+                //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
+                if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
+                    && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
+                    && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
+                    && !string.IsNullOrEmpty(model.Ff_NewClients))
+                {
+                    model.Ff_TotalRevenue = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_OperatingProfit = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue) - _Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) - _Helpers.ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (_Helpers.ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
+
+                    model.Ff_NonRecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_RecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_TotalRevenueAnnualized = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenueAnnualized) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_DirectExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_IndirecteExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_NewClientsAnnualized = (_Helpers.ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
+                    model.Page1Complete = true;
+                }
+                else
+                {
+                    model.Page1Complete = false;
+                }
+
+
+
+                PopulateEntityFromModel(model);
             }
-
-
-            if (!string.IsNullOrEmpty(model.AffiliationMode) && model.AffiliationMode != "Other")
+            catch (Exception ex)
             {
-                model.AffiliationModeOther = null;
+                Console.WriteLine("Error saving to Azure database " + model.UserId, ex.Message);
             }
-
-            if (!string.IsNullOrEmpty(model.FirmType) && model.FirmType != "Other")
-            {
-                model.FirmTypeOther = null;
-            }
-
-
-
-            if (model.Year != null && !model.Year.Contains("Previous"))
-            {
-                model.Year = "YTD " + DateTime.Now.Year;
-            }
-
-            model.DateStarted = DateTime.Now.ToString("d");
-
-            if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
-            {
-                model.EloquaId = HttpContext.Request.Cookies[_EloquaCookieName].Value;
-            }
-
-            //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
-            if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
-                && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
-                && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
-                && !string.IsNullOrEmpty(model.Ff_NewClients))
-            {
-                model.Ff_TotalRevenue = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                model.Ff_OperatingProfit = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue) - _Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) - _Helpers.ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (_Helpers.ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
-
-                model.Ff_NonRecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                model.Ff_RecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                model.Ff_TotalRevenueAnnualized = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenueAnnualized) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                model.Ff_DirectExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                model.Ff_IndirecteExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                model.Ff_NewClientsAnnualized = (_Helpers.ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
-                model.Page1Complete = true;
-            }
-            else
-            {
-                model.Page1Complete = false;
-            }
-
-
-
-            PopulateEntityFromModel(model);
         }
 
         /// <summary>
@@ -304,7 +288,6 @@ namespace AssetmarkBAT.Controllers
         [HttpPost]
         public ActionResult Optimizer(BATModel model)
         {
-            //SaveAnswers(model);
             BATModel savedModel = new BATModel(){ UserId = model.UserId };
 
             if (PopulateModelFromDatabase(savedModel))
@@ -316,44 +299,7 @@ namespace AssetmarkBAT.Controllers
                 savedModel.emailAddress = model.emailAddress;
                 savedModel.brokerDealer1 = model.brokerDealer1;
 
-
                 SaveAnswers(savedModel);
-                //try
-                //{
-                //    using (AssetmarkBATEntities db = new AssetmarkBATEntities())
-                //    {
-                //        am_bat user = new am_bat()
-                //        {
-                //            UserId = model.UserId,
-                //            //Eloqua Data
-                //            FirstName = model.firstName,
-                //            LastName = model.lastName,
-                //            Phone = model.busPhone,
-                //            Email = model.emailAddress,
-                //            Zip = model.zipPostal,
-                //            BrokerOrIRA = model.brokerDealer1,
-                //            SalesforceId = model.sFDCContactID,
-                //            EloquaId = model.EloquaId,
-                //        };
-
-                //        var original = db.am_bat.Find(user.UserId);
-
-                //        if (original != null)
-                //        {
-                //            db.Entry(original).CurrentValues.SetValues(user);
-                //        }
-                //        else
-                //        {
-                //            db.am_bat.Add(user);
-                //        }
-
-                //        db.SaveChanges();
-                //    }
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine("Error saving to Azure database " + model.UserId, e.Message);
-                //}
 
                 savedModel.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(savedModel.Vmi_Man_Written_Plan) + Convert.ToInt32(savedModel.Vmi_Man_Track) + Convert.ToInt32(savedModel.Vmi_Man_Phase) + Convert.ToInt32(savedModel.Vmi_Man_Revenue) + Convert.ToInt32(savedModel.Vmi_Man_Practice)) * 5;
                 savedModel.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(savedModel.Vmi_Mar_Value_Proposition) + Convert.ToInt32(savedModel.Vmi_Mar_Materials) + Convert.ToInt32(savedModel.Vmi_Mar_Plan) + Convert.ToInt32(savedModel.Vmi_Mar_Prospects) + Convert.ToInt32(savedModel.Vmi_Mar_New_Business)) * 5;
@@ -365,24 +311,6 @@ namespace AssetmarkBAT.Controllers
 
                 _PdfService.DrawPdf(savedModel);
             }
-
-           
-
-            //if (PopulateModelFromDatabase(model))
-            //{
-            //model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
-            //model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
-            //model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
-            //model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
-
-            //CalculateKPIs(model);
-            //CalculateValuation(model, false);
-
-
-
-            //_PdfService.DrawPdf(model);
-            //}
-
 
             return View(_ValuationOptimizer, savedModel);
         }
@@ -452,8 +380,6 @@ namespace AssetmarkBAT.Controllers
 
                 calculatedmax = comparativeValuationMax,
                 calculatedmin = comparativeValuationMin,
-
-                //pagr = clientModel.ClientValuationModel.ProjectedAnnualGrowthRate,
                 pagr = _Helpers.ConvertToDouble(clientModel.Ff_ProjectedGrowthRate) / 100,
                 vmi = clientModel.Vmi_Index,
 
@@ -480,32 +406,31 @@ namespace AssetmarkBAT.Controllers
 
         private void InitializeDropDowns(BATModel batModel)
         {
-            //years
-            List<SelectListItem> years = new List<SelectListItem>
+            try
+            {
+                //years
+                List<SelectListItem> years = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Previous Year", Value = "Previous Year" },
                 new SelectListItem { Text = "YTD " + DateTime.Now.Year, Value = "YTD " + DateTime.Now.Year }
             };
 
-            batModel.Years = new SelectList(years, "Value", "Text", 0);
+                batModel.Years = new SelectList(years, "Value", "Text", 0);
 
-            //var selected = years.Where(x => x.Value == "Previous Year").First();
-            //selected.Selected = true;
+                //months
+                int fullMonths = DateTime.Now.Month - 1;
+                List<SelectListItem> months = new List<SelectListItem>();
 
-            //months
-            int fullMonths = DateTime.Now.Month - 1;
-            List<SelectListItem> months = new List<SelectListItem>();
+                for (int x = 1; x <= fullMonths; x++)
+                {
+                    string monthName = new DateTime(2010, x, 1).ToString("MMM");
+                    months.Add(new SelectListItem { Text = monthName, Value = x.ToString() });
+                }
 
-            for (int x = 1; x <= fullMonths; x++)
-            {
-                string monthName = new DateTime(2010, x, 1).ToString("MMM");
-                months.Add(new SelectListItem { Text = monthName, Value = x.ToString() });
-            }
+                batModel.Months = new SelectList(months, "Value", "Text");
 
-            batModel.Months = new SelectList(months, "Value", "Text");
-
-            //Practice Types
-            List<SelectListItem> types = new List<SelectListItem>
+                //Practice Types
+                List<SelectListItem> types = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Practice Type", Value = "Practice Type" },
                 new SelectListItem { Text = "Single advisor practice: Solo practitioner or providing data on your book of business only", Value = "Single advisor practice" },
@@ -514,10 +439,10 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
-            batModel.PracticeTypes = new SelectList(types, "Value", "Text", batModel.PracticeType);
+                batModel.PracticeTypes = new SelectList(types, "Value", "Text", batModel.PracticeType);
 
-            //Affiliation Modes
-            List<SelectListItem> modes = new List<SelectListItem>
+                //Affiliation Modes
+                List<SelectListItem> modes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Affiliation Mode", Value = "N/A" },
                 new SelectListItem { Text = "BD (Broker-Dealer): Affiliated with a full-service BD/wirehouse, independent BD, insurance BD or own BD", Value = "BD (Broker-Dealer)" },
@@ -526,10 +451,10 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
-            batModel.AffiliationModes = new SelectList(modes, "Value", "Text");
+                batModel.AffiliationModes = new SelectList(modes, "Value", "Text");
 
-            // Firm Types
-            List<SelectListItem> firmTypes = new List<SelectListItem>
+                // Firm Types
+                List<SelectListItem> firmTypes = new List<SelectListItem>
             {
                 new SelectListItem { Text = "Firm Types", Value = "N/A" },
                 new SelectListItem { Text = "Financial Planning Firm: Focused on providing financial planning services / process", Value = "Financial Planning Firm" },
@@ -539,7 +464,12 @@ namespace AssetmarkBAT.Controllers
                 new SelectListItem { Text = "Other", Value = "Other" }
             };
 
-            batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
+                batModel.FirmTypes = new SelectList(firmTypes, "Value", "Text");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error initializing dropdowns", e.Message);
+            }
         }
 
         private void PrepopulateVMIs(BATModel model)
@@ -567,19 +497,7 @@ namespace AssetmarkBAT.Controllers
             model.Vmi_Emp_Human = "5";
             model.Vmi_Emp_Responsibilities = "5";
             model.Vmi_Emp_Staff = "5";
-        }
-
-        //private double _Helpers.ConvertToDouble(string input)
-        //{
-        //    try
-        //    {
-        //        return Convert.ToDouble(input.Replace("$", "").Replace(",", "").Replace(" ", ""));
-        //    }
-        //    catch
-        //    {
-        //        return 0;
-        //    }
-        //}
+        }       
 
         private void PopulateEntityFromModel(BATModel model)
         {
@@ -726,17 +644,13 @@ namespace AssetmarkBAT.Controllers
                         model.Ff_IndirecteExpenses = original.Ff_IndirectExpenses;
                         model.Ff_IndirecteExpensesAnnualized = original.Ff_IndirectExpenses_Annualized;
                         model.Ff_ProjectedGrowthRate = original.Ff_Projected_Growth;
-                        //model.Ff_ProjectedGrowthRateAnnualized = original.Ff_OperaintProfit_Annualized;
                         model.Ff_ClientRelationships = original.Ff_Client_Relationships;
-                        //model.Ff_ClientRelationshipsAnnualized = original.Ff_New_Clients_Annualized;
                         model.Ff_FullTimeNonAdvisors = original.Ff_Fte_Non_Advisors;
                         model.Ff_FullTimeAdvisors = original.Ff_Fte_Advisors;
                         model.Ff_NewClients = original.Ff_New_Clients;
                         model.Ff_NewClientsAnnualized = original.Ff_New_Clients_Annualized;
                         model.Ff_TotalRevenue = original.Ff_TotalRevenue;
                         model.Ff_TotalRevenueAnnualized = original.Ff_TotalRevenue_Annualized;
-
-
 
                         //VMI's
                         model.Vmi_Man_Phase = original.Vmi_Man_Phase;
@@ -777,8 +691,6 @@ namespace AssetmarkBAT.Controllers
                 return false;
             }
         }
-
-
 
         public string KnownUserId()
         {
@@ -842,7 +754,6 @@ namespace AssetmarkBAT.Controllers
                 model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
 
                 int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
-                //double temp = total / 5 / 2000;
                 double temp = total / 10000.00;
 
                 model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
@@ -929,7 +840,7 @@ namespace AssetmarkBAT.Controllers
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -955,7 +866,7 @@ namespace AssetmarkBAT.Controllers
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return false;
             }

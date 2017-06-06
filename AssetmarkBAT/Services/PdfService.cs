@@ -40,7 +40,7 @@ namespace AssetmarkBAT.Services
                 }
 
                 page.Graphics.DrawString(model.firstName + " " + model.lastName, new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 16), textBlueBrush, 21, 20);
-                page.Graphics.DrawString(timeRange + ", " + "Created on " + model.DateStarted, new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 12.5), textBlueBrush, 370, 70);
+                page.Graphics.DrawString(timeRange + ", " + "Created on " + DateTime.Now.ToString("d"), new PdfStandardFont(PdfStandardFontFace.HelveticaBold, 12.5), textBlueBrush, 370, 70);
 
 
                 model.BenchmarksValuationModel = new BenchmarksValuationModel();
@@ -122,7 +122,7 @@ namespace AssetmarkBAT.Services
                 }
                 else
                 {
-                    DateTime dt = new DateTime(DateTime.Now.Year, model.Month, 31);
+                    DateTime dt = new DateTime(DateTime.Now.Year, model.Month, 1);
                     year = "Jan - " + dt.ToString("MMM") + " " + dt.Year;
                 }
 
@@ -151,19 +151,16 @@ namespace AssetmarkBAT.Services
 
 
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                ////////////////////////                    GRAPHS                     //////////////////////////////////////////
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 
                 //Graph brushes
                 PdfBrush graphBrush1 = new PdfBrush((new PdfRgbColor(0, 74, 129))); //#004b81 Darkest
                 PdfBrush graphBrush2 = new PdfBrush((new PdfRgbColor(0, 126, 187))); // #007ebb
                 PdfBrush graphBrush3 = new PdfBrush((new PdfRgbColor(109, 198, 233))); //#6dc6e7;
                 PdfBrush graphBrush4 = new PdfBrush((new PdfRgbColor(176, 216, 235))); //#b0d8eb;
-
-
-
-                // ===================================================== VMI Graph =======================================================================
+                               
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////                                                      VMI GRAPH                                                           /////////////////////
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(35, 300), new PdfPoint(35, 415)); //vertical
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(35, 300), new PdfPoint(255, 300));
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(35, 327), new PdfPoint(255, 327));
@@ -245,7 +242,7 @@ namespace AssetmarkBAT.Services
 
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                /////////////// VALUATION RANGE GRAPH   /////////////////////
+                ///////////////                                                  VALUATION RANGE GRAPH                                                           /////////////////////
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 double axisMax = peerGroup.ValuationMax + (peerGroup.ValuationMax / 4);
                 pixel = axisMax / 135;
@@ -303,26 +300,18 @@ namespace AssetmarkBAT.Services
 
                 page.Graphics.DrawString("$0", helvetica, textBrush, 342, 430);              
                 page.Graphics.DrawString(((int)Math.Round(axisMax / 1000) * 1000).ToString("C0"), appearance, layout);
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 double incrementHeight = 135 / 4;
                 double incrementValue = axisMax / 4;
 
                 layout.Y = layout.Y + incrementHeight;
-                //page.Graphics.DrawString(_Helpers.RountDouble((axisMax - incrementValue)).ToString("C0"), appearance, layout);
                 page.Graphics.DrawString(((int)Math.Round((axisMax - incrementValue) / 1000) * 1000).ToString("C0"), appearance, layout);
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
-                //page.Graphics.DrawString((axisMax - (axisMax / 2)).ToString("C0"), appearance, layout);
                 page.Graphics.DrawString(((int)Math.Round((axisMax / 2) / 1000) * 1000).ToString("C0"), appearance, layout);
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
 
                 layout.Y = layout.Y + incrementHeight;
-                //page.Graphics.DrawString((axisMax - (incrementValue * 3)).ToString("C0"), appearance, layout);
                 page.Graphics.DrawString(((int)Math.Round((axisMax - (incrementValue * 3)) / 1000) * 1000).ToString("C0"), appearance, layout);
-                //page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, layout.Y), new PdfPoint(550, layout.Y)); //line
-
 
 
                 //Upload the PDF to Azure storage
@@ -333,20 +322,16 @@ namespace AssetmarkBAT.Services
 
 
 
-                // Converts the PdfDocument object to byte form.
+             
                 byte[] docBytes = stream.ToArray();
-                //Loads the byte array in PdfLoadedDocument
-
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
                 CloudBlobClient client = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer myContainer = client.GetContainerReference("assetmarkbat");
                 var permissions = myContainer.GetPermissions();
                 permissions.PublicAccess = BlobContainerPublicAccessType.Blob;
                 myContainer.SetPermissions(permissions);
-
                 CloudBlockBlob blockBlob = myContainer.GetBlockBlobReference(model.UserId + ".pdf");
                 blockBlob.Properties.ContentType = "application/pdf";
-                //blockBlob.UploadFromStream(stream);
                 blockBlob.UploadFromByteArray(docBytes, 0, docBytes.Count());
             }
             catch (Exception e)
@@ -360,23 +345,5 @@ namespace AssetmarkBAT.Services
             using (var stream = new FileStream(filename, FileMode.Open))
                 return new PdfFixedDocument(stream);
         }
-
-        //public static int RoundInt(this int i, int nearest)
-        //{
-        //    if (nearest <= 0 || nearest % 10 != 0)
-        //        throw new ArgumentOutOfRangeException("nearest", "Must round to a positive multiple of 10");
-
-        //    return (i + 5 * nearest / 10) / nearest * nearest;
-        //}
-
-        //public static int RoundDouble(this double d, int nearest)
-        //{
-        //    int i = Convert.ToInt32(d);
-
-        //    if (nearest <= 0 || nearest % 10 != 0)
-        //        throw new ArgumentOutOfRangeException("nearest", "Must round to a positive multiple of 10");
-
-        //    return (i + 5 * nearest / 10) / nearest * nearest;
-        //}
     }
 }
