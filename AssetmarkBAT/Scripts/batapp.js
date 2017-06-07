@@ -222,6 +222,8 @@ app.controller('MainCtrl', function ($scope, $rootScope, $timeout, $uibModal) {
                 columnrange: {
                     dataLabels: {
                         enabled: true,
+                        crop: false,
+                        overflow: 'none',
                         formatter: function () {
                             var label = '';
 

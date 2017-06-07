@@ -1160,7 +1160,7 @@
                         </div>
                         <div class="col-md-3 field-value">
                             <div class="error" ng-show="newClients.number > 1000">Please enter a value less than 1,000</div>
-                            <span ng-show="newClients.number != null && newClients.number >= 0 && newClients.number <= 1000">{{ (newClients.number/selectedMonth)*12 | number : undefined : 2 }}</span>
+                            <span ng-show="newClients.number != null && newClients.number >= 0 && newClients.number <= 1000">{{ (newClients.number/selectedMonth)*12 | number : undefined : 0 }}</span>
                         </div>
                     </div>
                 </fieldset>
