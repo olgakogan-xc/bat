@@ -696,7 +696,9 @@ $(function () {
 
     // will redo
     try {
-        $('#download-pdf')[0].click();
+        setTimeout(function () {
+            $('#download-pdf')[0].click();
+        }, 3000);
     } catch (ex) {
         //console.log(ex);
     }
