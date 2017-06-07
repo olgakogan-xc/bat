@@ -385,7 +385,7 @@ namespace AssetmarkBAT.Controllers
 
                 top_pagr_max = 12,
                 top_pagr_min = 8,
-                top_pm_max = 25,
+                top_pm_max = 40,
                 top_pm_min = 20,
                 top_vmi_max = 900,
                 top_vmi_min = 700
