@@ -466,7 +466,6 @@
                                     *
                                 </span>
                             </label>
-                            @*<input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -484,7 +483,6 @@
                                     *
                                 </span>
                             </label>
-                            @*<input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -502,7 +500,6 @@
                                     *
                                 </span>
                             </label>
-                            @*<input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -516,9 +513,7 @@
                         <p class="field-p">
                             <label for="field3" class="label-position top ">
                                 SFDC ContactID
-                            </label>
-                            @*<input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />*@
-                           
+                            </label>                           
                             @Html.TextBoxFor(m => m.sFDCContactID, new { @id = "field3", @type = "text", @name = "sFDCContactID", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -547,7 +542,6 @@
                             <label for="field5" class="label-position top ">
                                 Business Phone
                             </label>
-                            @*<input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -562,7 +556,6 @@
                             <label for="field6" class="label-position top ">
                                 Zip or Postal Code
                             </label>
-                            @*<input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -577,7 +570,6 @@
                             <label for="field7" class="label-position top ">
                                 Broker Dealer or RIA
                             </label>
-                            @*<input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />*@
                             @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -670,12 +662,10 @@
                 <div class="individual field-wrapper">
                     <div class="_100 field-style">
                         <p class="field-p">
-                            @*<input type="submit" value="Submit" class="submit-button" style="font-size: 100%; height: 24px; width: 100px" />*@
                         </p>
                     </div>
                 </div>
             </div>
-            @*</form>*@
 
             <script src="https://img.en25.com/i/livevalidation_standalone.compressed.js" type="text/javascript">
             </script>
@@ -920,7 +910,6 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label"></div>
                     <div class="row">
-                        @*<div>PT: @Model.PracticeType </div> <div>PTO: @Model.PracticeTypeOther</div>*@
                         <div class="col-md-6" ng-init="setPracticeType('@Model.PracticeTypeOther')">
                             @Html.DropDownListFor(x => Model.PracticeType, Model.PracticeTypes)
                             @Html.TextBoxFor(x => Model.PracticeTypeOther, new { @class = "hide" })
@@ -931,7 +920,6 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Affiliation model describes the registration or affiliation status of your firm. Select the model that accurately represents your firm. </div>
                     <div class="row">
-                        @*<div>PT: @Model.AffiliationMode </div> <div>PTO: @Model.AffiliationModeOther</div>*@
                         <div class="col-md-6" ng-init="setAffiliationMode('@Model.AffiliationModeOther')">
                             @Html.DropDownListFor(x => Model.AffiliationMode, Model.AffiliationModes)
                             @Html.TextBoxFor(x => Model.AffiliationModeOther, new { @class = "hide" })
@@ -942,7 +930,6 @@
                 <div class="fancy-form-row" ng-cloak>
                     <div class="fancy-form-label">Firm type is defined by the primary services provided to clients. Select the firm type that most closely represent your firm.</div>
                     <div class="row">
-                        @*<div>PT: @Model.FirmType </div> <div>PTO: @Model.FirmTypeOther</div>*@
                         <div class="col-md-6" ng-init="setFirmType('@Model.FirmTypeOther')">
                             @Html.DropDownListFor(x => Model.FirmType, Model.FirmTypes)
                             @Html.TextBoxFor(x => Model.FirmTypeOther, new { @class = "hide" })
@@ -974,7 +961,6 @@
                                     <label for="">Month for YTD entry {{time.period}}</label>
                                     @Html.TextBoxFor(m => m.Month, new { ng_model = "selectedMonth", ng_init = string.Format("selectedMonth = {0}", Model.Month), @class = "hide" })
                                     <div class="fancy-select">
-                                        @*@Html.DropDownListFor(m => Model.Month, Model.Months, new { @class = "exclude", @name= "timeMonth", ng_model = "selectedMonth", ng_init = "yearSelected()" })*@
                                         <select name="timeMonth" class="exclude" ng-model="selectedMonth" ng-init="yearSelected()">
                                             <option ng-repeat="month in shownMonths" value="{{$index+1}}" ng-selected="($index+1) == selectedMonth">
                                                 {{month}}
@@ -1001,7 +987,6 @@
                             Total Firm Assets Under Management <i class="icon-info tooltip" data-tooltip="The entire market value of each securities portfolio for which you provide continuous and regular supervisory or management services."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="assets" ng-model="assets" ui-money-mask="0" min="1000000" max="99000000" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_TotalFirmAsset, new { ng_init = string.Format("assets = '{0}'", Model.Ff_TotalFirmAsset).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "assets", min = "1000000", max = "99000000000", ui_money_mask = "0", @name = "assets" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1015,7 +1000,6 @@
                             Non-recurring Revenue
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="nonRecurringRevenue" ng-model="nonRecurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_NonRecurringRevenue, new { ng_init = string.Format("nonRecurringRevenue = '{0}'", Model.Ff_NonRecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "nonRecurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1028,7 +1012,6 @@
                             Recurring Revenue
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="recurringRevenue" ng-model="recurringRevenue" ui-money-mask="0" max="10000000" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_RecurringRevenue, new { ng_init = string.Format("recurringRevenue = '{0}'", Model.Ff_RecurringRevenue).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), ng_model = "recurringRevenue", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1052,7 +1035,6 @@
                             Direct Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are directly related to revenue generating activities or professionals, including benefits and payroll costs for owner advisors. These expenses should be normalized."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="directExpenses" ng-model="directExpenses" ui-money-mask="0" max="10000000" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_DirectExpenses, new { ng_init = string.Format("directExpenses = '{0}'", Model.Ff_DirectExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "directExpenses", ng_model = "directExpenses", ui_money_mask = "0", min = "1", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1066,7 +1048,6 @@
                             Indirect Expenses <i class="icon-info tooltip" data-tooltip="Expenses that are not directly related to revenue generating activities or professionals. These expenses typically relate operating expenses, such as to non-advisor staffing compensation, rent, technology, insurance, and marketing."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="indirectExpenses" ng-model="indirectExpenses" ui-money-mask="0" min="0" max="10000000" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_IndirecteExpenses, new { ng_init = string.Format("indirectExpenses = '{0}'", Model.Ff_IndirecteExpenses).Replace("$", "").Replace(",", "").Replace(".", "").Replace(" ", "").Replace("%", ""), @name = "indirectExpenses", ng_model = "indirectExpenses", ui_money_mask = "0", min = "0", max = "10000000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1100,7 +1081,6 @@
                             Projected Annual Growth Rate <i class="icon-info tooltip" data-tooltip="The anticipated or average growth rate of the firm in the near-term, typically 3-5 years."></i>
                         </div>
                         <div class="col-md-4 field-control percentage">
-                            @*<input type="text" name="growthRate" ng-model="growthRate" ui-percentage-mask="0" min="0" max="25" ui-hide-space>*@
                             @Html.TextBoxFor(m => Model.Ff_ProjectedGrowthRate, new { ng_init = string.Format("growthRate = '{0}'", Model.Ff_ProjectedGrowthRate).Replace(" ", "").Replace("%", ""), ng_model = "growthRate", ui_number_mask = "0", min = "0", max = "20" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1113,7 +1093,6 @@
                             Number of Client Relationships
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="clientRel" ng-model="clientRel" ui-number-mask="0" min="1" max="10000">*@
                             @Html.TextBoxFor(m => Model.Ff_ClientRelationships, new { ng_init = string.Format("clientRel = '{0}'", Model.Ff_ClientRelationships), ng_model = "clientRel", ui_number_mask = "0", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1127,7 +1106,6 @@
                             Number of Full-Time Equivalent Non Advisors <i class="icon-info tooltip" data-tooltip='The full-time equivalent number of employees that are not directly responsible for managing client relationships. An FTE of "1" would be equivalent to one (1) full-time staff person, while an FTE of less than 1 (e.g., 0.5) would be the equivalent of a staff person who works 20 hours per week. An FTE of "1.5" could be equivalent to 1 full time staff + 1 part-time staff, or 3 part-time staff persons.'></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="nonAdvisors" ng-model="nonAdvisors" ui-number-mask="1" min="1" max="10000">*@
                             @Html.TextBoxFor(m => Model.Ff_FullTimeNonAdvisors, new { ng_init = string.Format("nonAdvisors.number = '{0}'", Model.Ff_FullTimeNonAdvisors), ng_model = "nonAdvisors.number", is_non_advisors = "", min = "0", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1141,7 +1119,6 @@
                             Number of Full-Time Equivalent Advisors
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="advisors" ng-model="advisors" ui-number-mask="1" min="1" max="10000">*@
                             @Html.TextBoxFor(m => Model.Ff_FullTimeAdvisors, new { ng_init = string.Format("advisors.number = '{0}'", Model.Ff_FullTimeAdvisors), @name = "advisors", ng_model = "advisors.number", is_advisors = "", min = "1", max = "10000" })
                         </div>
                         <div class="col-md-3 field-value">
@@ -1155,7 +1132,6 @@
                             Number of New Clients <i class="icon-info tooltip" data-tooltip="The number of new clients that you have added to your client base in the given time-frame selected above."></i>
                         </div>
                         <div class="col-md-4 field-control">
-                            @*<input type="text" name="newClients" ng-model="newClients" ui-number-mask="0" min="0" max="1000">*@
                             @Html.TextBoxFor(m => Model.Ff_NewClients, new { ng_init = string.Format("newClients.number = '{0}'", Model.Ff_NewClients), ng_model = "newClients.number", is_newclients = "", min = "0", max = "1000" })
                         </div>
                         <div class="col-md-3 field-value">

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace AssetmarkBAT.Models
 {
@@ -49,8 +46,6 @@ namespace AssetmarkBAT.Models
         //VMI 
         public double VmiRiskRate { get; set; }
         public double UserPerpetualGrowthRate { get; set; }
-        //public int VMIScore { get; set; }
-
         public int ManagingYourPracticeScore { get; set; }
         public int MarketingYourBusinessScore { get; set; }
         public int EmpoweringYourTeamScore { get; set; }
@@ -59,7 +54,6 @@ namespace AssetmarkBAT.Models
 
         //Value Optimizer variables
         public double ProfitMargin { get; set; }
-        //public double ProjectedAnnualGrowthRate { get; set; }
 
         //KPI's
         public string RecurringRevenuePerClient { get; set; }
@@ -78,8 +72,6 @@ namespace AssetmarkBAT.Models
 
         public ClientValuationModel()
         {
-            //VMIScore = 0;
-
         }
     }
 

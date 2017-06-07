@@ -250,6 +250,17 @@ namespace AssetmarkBAT.Services
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, 300), new PdfPoint(353, 435)); //vertical
                 page.Graphics.DrawLine(new PdfPen(PdfRgbColor.Black, 1), new PdfPoint(353, 435), new PdfPoint(550, 435)); //horizontal
 
+                //Gray lines
+                y = 300;
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, y), new PdfPoint(550, y)); //horizontal
+                y = y + 34;
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, y), new PdfPoint(550, y)); //horizontal
+                y = y + 34;
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, y), new PdfPoint(550, y)); //horizontal
+                y = y + 34;
+                page.Graphics.DrawLine(new PdfPen(PdfRgbColor.LightGray, 0.5), new PdfPoint(353, y), new PdfPoint(550, y)); //horizontal
+
+
                 page.Graphics.DrawString("Your Firm", helvetica, textBlueBrush, 390, 440);
                 page.Graphics.DrawString("Benchmark Index", helvetica, textBlueBrush, 470, 440);
 

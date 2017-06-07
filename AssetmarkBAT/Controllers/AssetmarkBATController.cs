@@ -28,6 +28,7 @@ namespace AssetmarkBAT.Controllers
         /// <summary>
         /// Action Method to initiate the BAT tool
         /// </summary>     
+        
         public ActionResult Index()
         {
             BATModel model = new BATModel();
@@ -107,7 +108,6 @@ namespace AssetmarkBAT.Controllers
                 return View(_TermsViewName);
             }
 
-            //BATModel model = new BATModel();
             InitializeDropDowns(model);
 
             if (string.IsNullOrEmpty(KnownUserId()))
@@ -126,70 +126,6 @@ namespace AssetmarkBAT.Controllers
             }
 
             return View(_Page1QuestionsViewName, model);
-        }
-
-        private void SaveAnswers(BATModel model)
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(model.PracticeType) && model.PracticeType != "Other") { model.PracticeTypeOther = null; }
-
-                if (!string.IsNullOrEmpty(model.AffiliationMode) && model.AffiliationMode != "Other") { model.AffiliationModeOther = null; }
-
-                if (!string.IsNullOrEmpty(model.FirmType) && model.FirmType != "Other") { model.FirmTypeOther = null; }
-
-
-                if (model.Year != null && !model.Year.Contains("Previous"))
-                {
-                    model.Year = "YTD " + DateTime.Now.Year;
-                }
-
-
-                             
-                TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-                DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
-
-                model.DateStarted = pacificTime.ToString();
-
-                if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
-                {
-                    model.EloquaId = HttpContext.Request.Cookies[_EloquaCookieName].Value;
-                }
-
-                //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
-                if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
-                    && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
-                    && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
-                    && !string.IsNullOrEmpty(model.Ff_NewClients))
-                {
-                    model.Ff_TotalRevenue = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_OperatingProfit = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue) - _Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) - _Helpers.ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (_Helpers.ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
-
-                    model.Ff_NonRecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_RecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_TotalRevenueAnnualized = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenueAnnualized) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_DirectExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-                    model.Ff_IndirecteExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
-
-                    model.Ff_NewClientsAnnualized = (_Helpers.ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
-                    model.Page1Complete = true;
-                }
-                else
-                {
-                    model.Page1Complete = false;
-                }
-
-
-
-                PopulateEntityFromModel(model);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error saving to Azure database " + model.UserId, ex.Message);
-            }
         }
 
         /// <summary>
@@ -222,25 +158,7 @@ namespace AssetmarkBAT.Controllers
 
                 return View(_Page2QuestionsViewName, model);
             }
-        }
-
-        private void CalculateValuation(BATModel model, bool recalculate)
-        {
-            CalculateValuationVariables(model, recalculate);
-
-            string pgr = model.Ff_ProjectedGrowthRate;
-            string vmi = model.Vmi_Index;
-            string profit = model.Ff_OperatingProfit;
-            string profilAnnual = model.Ff_OperatingProfitAnnualized;
-
-            bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model, recalculate);
-            bool discountedCashFlow = CalculateDiscountedCashFlow(model);
-
-            if (nonAdvisorCashFlow && discountedCashFlow)
-            {
-                CalculateValuationRanges(model);
-            }
-        }
+        }      
 
         /// <summary>
         /// Action method to handle user input on Page 2 (VMI sliders)
@@ -372,7 +290,6 @@ namespace AssetmarkBAT.Controllers
             return Json(new
             {
                 operatingprofitannual = (_Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) * PM).ToString(),
-                //profitmarginannual = (_Helpers.ConvertToDouble(clientModel.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized)),
                 profitmarginannual = PM,
                 maxvalue = (maxValueForClient > maxValueForComparative) ? maxValueForClient.ToString() : maxValueForComparative.ToString(),
                 currentmin = clientModel.ClientValuationModel.ValuationMin,
@@ -692,6 +609,95 @@ namespace AssetmarkBAT.Controllers
             }
         }
 
+        private void SaveAnswers(BATModel model)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(model.PracticeType) && model.PracticeType != "Other") { model.PracticeTypeOther = null; }
+
+                if (!string.IsNullOrEmpty(model.AffiliationMode) && model.AffiliationMode != "Other") { model.AffiliationModeOther = null; }
+
+                if (!string.IsNullOrEmpty(model.FirmType) && model.FirmType != "Other") { model.FirmTypeOther = null; }
+
+
+                if (model.Year != null && !model.Year.Contains("Previous"))
+                {
+                    model.Year = "YTD " + DateTime.Now.Year;
+                }
+
+
+
+                TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                DateTime pacificTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, cstZone);
+
+                model.DateStarted = pacificTime.ToString();
+
+                if (HttpContext.Request.Cookies[_EloquaCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_EloquaCookieName].Value))
+                {
+                    model.EloquaId = HttpContext.Request.Cookies[_EloquaCookieName].Value;
+                }
+
+                //If all fields filled out calculate annuals, valuation metrics, and mark Page1Complete as true
+                if (!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) && !string.IsNullOrEmpty(model.Ff_RecurringRevenue) && !string.IsNullOrEmpty(model.Ff_NonRecurringRevenue)
+                    && !string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses)
+                    && !string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) && !string.IsNullOrEmpty(model.Ff_ClientRelationships) && !string.IsNullOrEmpty(model.Ff_FullTimeAdvisors) && !string.IsNullOrEmpty(model.Ff_FullTimeNonAdvisors)
+                    && !string.IsNullOrEmpty(model.Ff_NewClients))
+                {
+                    model.Ff_TotalRevenue = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_OperatingProfit = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue) - _Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) - _Helpers.ConvertToDouble(model.Ff_DirectExpenses)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_OperatingProfitAnnualized = (model.Month < 12) ? (_Helpers.ConvertToDouble(model.Ff_OperatingProfit) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US")) : model.Ff_OperatingProfit;
+
+                    model.Ff_NonRecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_RecurringRevenueAnnualized = ((_Helpers.ConvertToDouble(model.Ff_RecurringRevenue) / model.Month * 12)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_TotalRevenueAnnualized = (_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenueAnnualized) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized)).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_DirectExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_DirectExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+                    model.Ff_IndirecteExpensesAnnualized = (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) / model.Month * 12).ToString("C", new System.Globalization.CultureInfo("en-US"));
+
+                    model.Ff_NewClientsAnnualized = (_Helpers.ConvertToDouble(model.Ff_NewClients) / model.Month * 12).ToString();
+                    model.Page1Complete = true;
+                }
+                else
+                {
+                    model.Page1Complete = false;
+                }
+
+
+
+                PopulateEntityFromModel(model);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving to Azure database " + model.UserId, ex.Message);
+            }
+        }
+
+        private void CalculateValuation(BATModel model, bool recalculate)
+        {
+            try
+            {
+                CalculateValuationVariables(model, recalculate);
+
+                string pgr = model.Ff_ProjectedGrowthRate;
+                string vmi = model.Vmi_Index;
+                string profit = model.Ff_OperatingProfit;
+                string profilAnnual = model.Ff_OperatingProfitAnnualized;
+
+                bool nonAdvisorCashFlow = CalculateNonAdvisorTaxFreeCashFlow(model, recalculate);
+                bool discountedCashFlow = CalculateDiscountedCashFlow(model);
+
+                if (nonAdvisorCashFlow && discountedCashFlow)
+                {
+                    CalculateValuationRanges(model);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error calculating valuation ", ex.Message);
+            }
+        }
+
         public string KnownUserId()
         {
             if (HttpContext.Request.Cookies[_BATCookieName] != null && !string.IsNullOrEmpty(HttpContext.Request.Cookies[_BATCookieName].Value))
@@ -732,9 +738,6 @@ namespace AssetmarkBAT.Controllers
                 //Do all calculations here
                 CalculateValuation(model, recalculate);
                 CalculateKPIs(model);
-
-                //model.ClientValuationModel.ValuationMin = model.ClientValuationModel.ValuationMin;
-                //model.ClientValuationModel.ValuationMax = model.ClientValuationModel.ValuationMax;
             }
 
             return model;
@@ -746,24 +749,31 @@ namespace AssetmarkBAT.Controllers
         /// <param name="model"></param>
         private void CalculateValuationVariables(BATModel model, bool recalculate)
         {
-            if (!recalculate)
+            try
             {
-                model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
-                model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
-                model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
-                model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+                if (!recalculate)
+                {
+                    model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
+                    model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
+                    model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
+                    model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
 
-                int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
-                double temp = total / 10000.00;
+                    int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
+                    double temp = total / 10000.00;
 
-                model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
-                model.Vmi_Index = total.ToString();
-                model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+                    model.ClientValuationModel.VmiRiskRate = 0.15 - temp;
+                    model.Vmi_Index = total.ToString();
+                    model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+                }
+                else
+                {
+                    model.ClientValuationModel.VmiRiskRate = 0.15 - (Convert.ToInt32(model.Vmi_Index) / 10000.00);
+                    model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                model.ClientValuationModel.VmiRiskRate = 0.15 - (Convert.ToInt32(model.Vmi_Index) / 10000.00);
-                model.ClientValuationModel.UserPerpetualGrowthRate = (Convert.ToInt32(model.Vmi_Index) >= 700) ? model.ClientValuationModel._PerpetualGrowthRateMax : model.ClientValuationModel._PerpetualGrowthRateMax - 0.01;
+                Console.WriteLine("Error calculating valuation variables ", ex.Message);
             }
         }
 
@@ -771,17 +781,7 @@ namespace AssetmarkBAT.Controllers
         {
             try
             {
-                model.ClientValuationModel.ProfitMargin = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)) - (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) + _Helpers.ConvertToDouble(model.Ff_DirectExpenses)));
-
-                //0.12
-                //model.ClientValuationModel.ProjectedAnnualGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
-
-                //model.Ff_ProjectedGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", "")) / 100;
-
-                //if(recalculate)
-                //{
-                //    model.ClientValuationModel.ProjectedAnnualGrowthRate = _Helpers.ConvertToDouble(model.Ff_ProjectedGrowthRate.Replace("%", "").Replace(" ", ""));
-                //}
+                model.ClientValuationModel.ProfitMargin = ((_Helpers.ConvertToDouble(model.Ff_NonRecurringRevenue) + _Helpers.ConvertToDouble(model.Ff_RecurringRevenue)) - (_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses) + _Helpers.ConvertToDouble(model.Ff_DirectExpenses)));               
 
                 //year 1
                 if (string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate))
@@ -876,23 +876,9 @@ namespace AssetmarkBAT.Controllers
         {
             try
             {
-                ////Discounted Cash Flow Range
-                //model.ClientValuationModel.DiscountedCashFlowMin = Math.Ceiling(model.ClientValuationModel.DiscountedCashFlowYear1Min + model.ClientValuationModel.DiscountedCashFlowYear2Min + model.ClientValuationModel.DiscountedCashFlowYear3Min + model.ClientValuationModel.DiscountedCashFlowYear4Min + model.ClientValuationModel.DiscountedCashFlowYear5Min);
-                //model.ClientValuationModel.DiscountedCashFlowMax = Math.Ceiling(model.ClientValuationModel.DiscountedCashFlowYear1Max + model.ClientValuationModel.DiscountedCashFlowYear2Max + model.ClientValuationModel.DiscountedCashFlowYear3Max + model.ClientValuationModel.DiscountedCashFlowYear4Max + model.ClientValuationModel.DiscountedCashFlowYear5Max);
-
                 //Discounted Cash Flow Range
                 model.ClientValuationModel.DiscountedCashFlowMin = model.ClientValuationModel.DiscountedCashFlowYear1Min + model.ClientValuationModel.DiscountedCashFlowYear2Min + model.ClientValuationModel.DiscountedCashFlowYear3Min + model.ClientValuationModel.DiscountedCashFlowYear4Min + model.ClientValuationModel.DiscountedCashFlowYear5Min;
                 model.ClientValuationModel.DiscountedCashFlowMax = model.ClientValuationModel.DiscountedCashFlowYear1Max + model.ClientValuationModel.DiscountedCashFlowYear2Max + model.ClientValuationModel.DiscountedCashFlowYear3Max + model.ClientValuationModel.DiscountedCashFlowYear4Max + model.ClientValuationModel.DiscountedCashFlowYear5Max;
-
-
-                ////Perpetual Growth Rate Cash FLow
-                //model.ClientValuationModel.PerpetualGrowthRateCashFlowMin = Math.Ceiling(model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel._PerpetualGrowthRateMin) /
-                //    ((model.ClientValuationModel.VmiRiskRate + model.ClientValuationModel._ValuationRiskRate) - model.ClientValuationModel._PerpetualGrowthRateMin) /
-                //    Math.Pow(1 + model.ClientValuationModel.VmiRiskRate + model.ClientValuationModel._ValuationRiskRate, 5));
-
-                //model.ClientValuationModel.PerpetualGrowthRateCashFlowMax = Math.Ceiling(model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel.UserPerpetualGrowthRate) /
-                //    ((model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate) - model.ClientValuationModel.UserPerpetualGrowthRate) /
-                //    Math.Pow(1 + model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate, 5));
 
                 //Perpetual Growth Rate Cash FLow
                 model.ClientValuationModel.PerpetualGrowthRateCashFlowMin = model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel._PerpetualGrowthRateMin) /
@@ -902,9 +888,6 @@ namespace AssetmarkBAT.Controllers
                 model.ClientValuationModel.PerpetualGrowthRateCashFlowMax = model.ClientValuationModel.NonAdvisorCashFlowYear5 * (1 + model.ClientValuationModel.UserPerpetualGrowthRate) /
                     ((model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate) - model.ClientValuationModel.UserPerpetualGrowthRate) /
                     Math.Pow(1 + model.ClientValuationModel._MinVMIRiskRate + model.ClientValuationModel._ValuationRiskRate, 5);
-
-                //model.ClientValuationModel.ValuationMin = model.ClientValuationModel.DiscountedCashFlowMin + model.ClientValuationModel.PerpetualGrowthRateCashFlowMin;
-                //model.ClientValuationModel.ValuationMax = model.ClientValuationModel.DiscountedCashFlowMax + model.ClientValuationModel.PerpetualGrowthRateCashFlowMax;
 
                 model.ClientValuationModel.ValuationMin = RoundDown(model.ClientValuationModel.DiscountedCashFlowMin + model.ClientValuationModel.PerpetualGrowthRateCashFlowMin);
                 model.ClientValuationModel.ValuationMax = RoundUp(model.ClientValuationModel.DiscountedCashFlowMax + model.ClientValuationModel.PerpetualGrowthRateCashFlowMax);
@@ -932,93 +915,100 @@ namespace AssetmarkBAT.Controllers
 
         private void CalculateKPIs(BATModel model)
         {
-            //D10 - Total Assets
-            //D12 - RecurringRevenueAnnualized
-            //D18 - ClientRelationships
-            //D20 - FTE Advisors
-            //D13 - Total RevenueAnnualized
-            //D16 - 
+            try
+            {
+                //D10 - Total Assets
+                //D12 - RecurringRevenueAnnualized
+                //D18 - ClientRelationships
+                //D20 - FTE Advisors
+                //D13 - Total RevenueAnnualized
+                //D16 - 
 
-            //D12 and D18 - Recurring Revenue per Client
-            if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
-            {
-                model.ClientValuationModel.RecurringRevenuePerClient = "N/A";
+                //D12 and D18 - Recurring Revenue per Client
+                if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+                {
+                    model.ClientValuationModel.RecurringRevenuePerClient = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.RecurringRevenuePerClient = (_Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+                }
+                //D12 and D20 - Recurring  Revenue per Advisor
+                if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+                {
+                    model.ClientValuationModel.RecurringRevenuePerAdvisor = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.RecurringRevenuePerAdvisor = (_Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+                }
+                //D13 and D18 - Total Revenue per Client
+                if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+                {
+                    model.ClientValuationModel.TotalRevenuePerClient = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.TotalRevenuePerClient = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+                }
+                //D10 and D18 - Total AUM per Client
+                if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+                {
+                    model.ClientValuationModel.TotalAUMperClient = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.TotalAUMperClient = (_Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+                }
+                //D10 and D20 - Total AUM per Advisor
+                if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+                {
+                    model.ClientValuationModel.TotalAUMperAdvisor = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.TotalAUMperAdvisor = (_Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+                }
+                //D16 and D18 - Profit per Client
+                if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
+                {
+                    model.ClientValuationModel.ProfitPerClient = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.ProfitPerClient = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
+                }
+                //D16 and D13 - Profit per Client
+                if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized))
+                {
+                    model.ClientValuationModel.ProfitAsPercentOfRevenue = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.ProfitAsPercentOfRevenue = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) * 100).ToString();
+                }
+                //D18 and D20 - Clients per Advisor
+                if (string.IsNullOrEmpty(model.Ff_ClientRelationships) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
+                {
+                    model.ClientValuationModel.ClientsPerAdvisor = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.ClientsPerAdvisor = (_Helpers.ConvertToDouble(model.Ff_ClientRelationships) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
+                }
+                //D13 and D10 - Revenue as BPS on Assets
+                if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_TotalFirmAsset))
+                {
+                    model.ClientValuationModel.RevenueAsBPSOnAssets = "N/A";
+                }
+                else
+                {
+                    model.ClientValuationModel.RevenueAsBPSOnAssets = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) * 10000).ToString();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                model.ClientValuationModel.RecurringRevenuePerClient = (_Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
-            }
-            //D12 and D20 - Recurring  Revenue per Advisor
-            if (string.IsNullOrEmpty(model.Ff_RecurringRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
-            {
-                model.ClientValuationModel.RecurringRevenuePerAdvisor = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.RecurringRevenuePerAdvisor = (_Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
-            }
-            //D13 and D18 - Total Revenue per Client
-            if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
-            {
-                model.ClientValuationModel.TotalRevenuePerClient = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.TotalRevenuePerClient = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
-            }
-            //D10 and D18 - Total AUM per Client
-            if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
-            {
-                model.ClientValuationModel.TotalAUMperClient = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.TotalAUMperClient = (_Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
-            }
-            //D10 and D20 - Total AUM per Advisor
-            if (string.IsNullOrEmpty(model.Ff_TotalFirmAsset) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
-            {
-                model.ClientValuationModel.TotalAUMperAdvisor = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.TotalAUMperAdvisor = (_Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
-            }
-            //D16 and D18 - Profit per Client
-            if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_ClientRelationships))
-            {
-                model.ClientValuationModel.ProfitPerClient = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.ProfitPerClient = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_ClientRelationships)).ToString();
-            }
-            //D16 and D13 - Profit per Client
-            if (string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) || string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized))
-            {
-                model.ClientValuationModel.ProfitAsPercentOfRevenue = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.ProfitAsPercentOfRevenue = (_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) * 100).ToString();
-            }
-            //D18 and D20 - Clients per Advisor
-            if (string.IsNullOrEmpty(model.Ff_ClientRelationships) || string.IsNullOrEmpty(model.Ff_FullTimeAdvisors))
-            {
-                model.ClientValuationModel.ClientsPerAdvisor = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.ClientsPerAdvisor = (_Helpers.ConvertToDouble(model.Ff_ClientRelationships) / _Helpers.ConvertToDouble(model.Ff_FullTimeAdvisors)).ToString();
-            }
-            //D13 and D10 - Revenue as BPS on Assets
-            if (string.IsNullOrEmpty(model.Ff_TotalRevenueAnnualized) || string.IsNullOrEmpty(model.Ff_TotalFirmAsset))
-            {
-                model.ClientValuationModel.RevenueAsBPSOnAssets = "N/A";
-            }
-            else
-            {
-                model.ClientValuationModel.RevenueAsBPSOnAssets = (_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized) / _Helpers.ConvertToDouble(model.Ff_TotalFirmAsset) * 10000).ToString();
+                Console.WriteLine("Error calculating KPI's", ex.Message);
             }
         }
 
