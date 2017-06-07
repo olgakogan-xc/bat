@@ -85,23 +85,23 @@ namespace AssetmarkBAT.Services
                 //============================================================== Firm Financials Table =============================================================
                 page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalFirmAsset) ? (_Helpers.ConvertToDouble(model.Ff_TotalFirmAsset)).ToString("C0") : "N/A", helvetica, blackBrush, 170, 128);
                 page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ClientRelationships) ? model.Ff_ClientRelationships : "N/A", helvetica, blackBrush, 170, 147);
-                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_RecurringRevenue) ? (Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_RecurringRevenue))).ToString("C0") : "N/A", helvetica, blackBrush, 170, 165);
-                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalRevenue) ? (Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_TotalRevenue))).ToString("C0") : "N/A", helvetica, textBrush, 170, 183);
+                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_RecurringRevenue) ? (Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_RecurringRevenueAnnualized))).ToString("C0") : "N/A", helvetica, blackBrush, 170, 165);
+                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_TotalRevenue) ? (Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_TotalRevenueAnnualized))).ToString("C0") : "N/A", helvetica, textBrush, 170, 183);
 
-                if (!string.IsNullOrEmpty(model.Ff_DirectExpenses) && !string.IsNullOrEmpty(model.Ff_IndirecteExpenses))
+                if (!string.IsNullOrEmpty(model.Ff_DirectExpensesAnnualized) && !string.IsNullOrEmpty(model.Ff_IndirecteExpensesAnnualized))
                 {
-                    page.Graphics.DrawString(Convert.ToInt32((_Helpers.ConvertToDouble(model.Ff_DirectExpenses) + _Helpers.ConvertToDouble(model.Ff_IndirecteExpenses))).ToString("C0"), helvetica, blackBrush, 170, 201);
+                    page.Graphics.DrawString(Convert.ToInt32((_Helpers.ConvertToDouble(model.Ff_DirectExpensesAnnualized) + _Helpers.ConvertToDouble(model.Ff_IndirecteExpensesAnnualized))).ToString("C0"), helvetica, blackBrush, 170, 201);
                 }
-                else if (string.IsNullOrEmpty(model.Ff_DirectExpenses))
+                else if (string.IsNullOrEmpty(model.Ff_DirectExpensesAnnualized))
                 {
-                    page.Graphics.DrawString((Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_IndirecteExpenses)).ToString("C0")), helvetica, blackBrush, 170, 201);
+                    page.Graphics.DrawString((Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_IndirecteExpensesAnnualized)).ToString("C0")), helvetica, blackBrush, 170, 201);
                 }
                 else
                 {
-                    page.Graphics.DrawString((Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_DirectExpenses)).ToString("C0")), helvetica, blackBrush, 170, 201);
+                    page.Graphics.DrawString((Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_DirectExpensesAnnualized)).ToString("C0")), helvetica, blackBrush, 170, 201);
                 }
 
-                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_OperatingProfit) ? Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_OperatingProfit)).ToString("C0") : "N/A", helvetica, blackBrush, 170, 218);
+                page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_OperatingProfitAnnualized) ? Convert.ToInt32(_Helpers.ConvertToDouble(model.Ff_OperatingProfitAnnualized)).ToString("C0") : "N/A", helvetica, blackBrush, 170, 218);
                 page.Graphics.DrawString(!string.IsNullOrEmpty(model.Ff_ProjectedGrowthRate) ? model.Ff_ProjectedGrowthRate + "%" : "N/A", helvetica, blackBrush, 170, 236);
 
                 page.Graphics.DrawString(peerGroup.AUM.ToString("C0"), helvetica, blackBrush, 290, 128);
@@ -322,7 +322,7 @@ namespace AssetmarkBAT.Services
 
 
 
-             
+
                 byte[] docBytes = stream.ToArray();
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]); //connection string is copied from Azure storage account's Settings
                 CloudBlobClient client = storageAccount.CreateCloudBlobClient();
