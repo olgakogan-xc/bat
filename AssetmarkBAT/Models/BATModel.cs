@@ -1,5 +1,4 @@
-﻿using AssetmarkBAT.Utilities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace AssetmarkBAT.Models
@@ -157,14 +156,6 @@ namespace AssetmarkBAT.Models
 
             Vmi_Index = "N/A";
         }
-    }
-
-    public class AgreeToTermsModel
-    {
-        [Display(Name = "Agree to the terms of use")]
-        [BooleanRequired(ErrorMessage = "Please agree to terms to proceed")]
-        public bool AgreedToTerms { get; set; }
-
     }
 }
 

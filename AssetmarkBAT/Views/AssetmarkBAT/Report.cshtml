@@ -8,8 +8,6 @@
     AssetMark – BAT – Assessement4
 }
 
-
-
 @using (Html.BeginForm("Optimizer", "AssetmarkBAT", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.DateStarted)
@@ -47,13 +45,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="First Name">*@
                                         @Html.TextBoxFor(m => m.firstName, new { @class= "form-control", @placeholder = "First Name", ng_model = "lead.firstName", ng_init = string.Format("lead.firstName = '{0}'", Model.firstName) })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="Last Name">*@
                                         @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", @placeholder = "Last Name", ng_model = "lead.lastName", ng_init = string.Format("lead.lastName = '{0}'", Model.lastName) })
                                     </div>
                                 </div>
@@ -61,13 +57,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="Email">*@
                                         @Html.TextBoxFor(m => m.emailAddress, new { @class = "form-control", @placeholder = "Email", ng_model = "lead.email", ng_init = string.Format("lead.email = '{0}'", Model.emailAddress) })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="Phone Number">*@
                                         @Html.TextBoxFor(m => m.busPhone, new { @class = "form-control", @placeholder = "Phone Number", ng_model = "lead.phone", ng_init = string.Format("lead.phone = '{0}'", Model.busPhone) })
                                     </div>
                                 </div>
@@ -75,20 +69,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="Zip or Postal Code">*@
                                         @Html.TextBoxFor(m => m.zipPostal, new { @class = "form-control", @placeholder = "Zip or Postal Code", ng_model = "lead.zip", ng_init = string.Format("lead.zip = '{0}'", Model.zipPostal) })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        @*<input type="text" class="form-control" placeholder="Broker-Dealer or RIA Name">*@
                                         @Html.TextBoxFor(m => m.brokerDealer1, new { @class = "form-control", @placeholder = "Broder-Dealer or RIA Name", ng_model = "lead.broker", ng_init = string.Format("lead.broker = '{0}'", Model.brokerDealer1) })
                                     </div>
                                 </div>
                             </div>
                         </fieldset>
                         <div class="button-container text-center">
-                            @*<a href="@Model.PDFPath" class="btn" target="_blank" onclick="">View Complete Report</a>*@
                             <input type="submit" value="View Complete Report" name="submit" ng-disabled="lead.firstName == '' || lead.lastName == '' || lead.email == '' || lead.phone == '' || lead.zip == ''" />
                         </div>
                     </div>
