@@ -394,7 +394,12 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#submitToEloqua").click();
-            //window.location.href = '/';
+
+            for (i = 0; i < 100000000; i++) {
+                var a = i;
+            }           
+
+            window.location.href = '/';
         });
     </script>
 </head>
