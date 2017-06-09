@@ -8,10 +8,12 @@
     AssetMark – BAT – Assessement4
 }
 
+
+
 @using (Html.BeginForm("Optimizer", "AssetmarkBAT", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.DateStarted)
-    @Html.HiddenFor(m => m.PDFPath)
+    @Html.HiddenFor(m => m.results)
     @Html.HiddenFor(m => m.UserId)
 
     <main>

@@ -9,9 +9,9 @@
     AssetMark – BAT – Assessement5
 }
 
-@Html.HiddenFor(m => Model.PDFPath)
+@Html.HiddenFor(m => Model.results)
 
-<a id="download-pdf" href="@Model.PDFPath" class="hide" target="_blank">Download PDF</a>
+<a id="download-pdf" href="@Model.results" class="hide" target="_blank">Download PDF</a>
 
 
 <main>
@@ -20,7 +20,7 @@
             <h1><img src="~/Images/business_assessment_logo.png" alt="Business Assessment Tool" width="350"></h1>
             <h2><span>Business Assessment</span></h2>
             <p>Thank you for completing your business assessment.</p>
-            <p><a href="@Model.PDFPath" class="button" target="_blank">Download Your Business Assessment PDF</a></p>
+            <p><a href="@Model.results" class="button" target="_blank">Download Your Business Assessment PDF</a></p>
             <p>Take a look at the Value Maximization Index® table below to identify which category you scored the lowest in, then click the category links to access resources specific to each category that are designed to help you improve corresponding areas of your business.</p>
 
             <div class="row">

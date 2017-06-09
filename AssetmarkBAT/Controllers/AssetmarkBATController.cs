@@ -170,7 +170,7 @@ namespace AssetmarkBAT.Controllers
 
             if (submit == "Save Your Inputs")
             {
-                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
+                model.results = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
                 model.Vmi_Index = ((Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
@@ -187,7 +187,7 @@ namespace AssetmarkBAT.Controllers
             }
             else
             {
-                model.PDFPath = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
+                model.results = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
                 model.Vmi_Index = ((Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)
                     + Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)
                     + Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)
@@ -230,7 +230,8 @@ namespace AssetmarkBAT.Controllers
                 _PdfService.DrawPdf(savedModel);
             }
 
-            return View(_ValuationOptimizer, savedModel);
+            //return View(_ValuationOptimizer, savedModel);
+            return View("Eloqua", savedModel);
         }
 
         /// <summary>
@@ -445,7 +446,7 @@ namespace AssetmarkBAT.Controllers
                         TimeRange = model.Year,
                         Month = (model.Year != null && model.Year.Contains("Previous")) ? 12 : Convert.ToInt32(model.Month),
 
-                        PDF = model.PDFPath,
+                        PDF = model.results,
                         DateStarted = model.DateStarted,
                         Page2Complete = model.Page2Complete,
                         Page1Complete = model.Page1Complete,
@@ -535,7 +536,7 @@ namespace AssetmarkBAT.Controllers
                         model.EloquaId = original.EloquaId;
                         model.Year = original.TimeRange;
                         model.Month = original.Month.Value;
-                        model.PDFPath = original.PDF;
+                        model.results = original.PDF;
                         model.DateStarted = original.DateStarted;
 
                         model.PracticeType = original.PracticeType;

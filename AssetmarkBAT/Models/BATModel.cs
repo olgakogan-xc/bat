@@ -43,7 +43,7 @@ namespace AssetmarkBAT.Models
 
         public string DateStarted { get; set; }
         public string Message { get; set; }
-        public string PDFPath { get; set; }
+        public string results { get; set; }
         public bool Page1Complete { get; set; }
         public bool Page2Complete { get; set; }
 
