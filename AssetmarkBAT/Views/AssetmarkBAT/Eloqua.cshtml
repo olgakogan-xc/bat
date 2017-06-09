@@ -393,9 +393,8 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            //alert("saving to Eloqua and redirecting");
-            //submitToEloqua
             $("#submitToEloqua").click();
+            window.location.href = '/';
         });
     </script>
 </head>
@@ -418,8 +417,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>
-                            @*<input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -436,8 +434,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>
-                            @*<input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -454,8 +451,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>
-                            @*<input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />*@
+                            </label>                        
                             @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -469,8 +465,7 @@
                         <p class="field-p">
                             <label for="field3" class="label-position top ">
                                 SFDC ContactID
-                            </label>
-                            @*<input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.sFDCContactID, new { @id = "field3", @type = "text", @name = "sFDCContactID", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -498,8 +493,7 @@
                         <p class="field-p">
                             <label for="field5" class="label-position top ">
                                 Business Phone
-                            </label>
-                            @*<input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -513,8 +507,7 @@
                         <p class="field-p">
                             <label for="field6" class="label-position top ">
                                 Zip or Postal Code
-                            </label>
-                            @*<input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -528,8 +521,7 @@
                         <p class="field-p">
                             <label for="field7" class="label-position top ">
                                 Broker Dealer or RIA
-                            </label>
-                            @*<input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />*@
+                            </label>                          
                             @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -610,8 +602,7 @@
                 </div>
                 <div class="individual field-wrapper">
                     <div class="_100 field-style">
-                        <p class="field-p">
-                            @*<input id="field13" type="hidden" name="results" value="" />*@
+                        <p class="field-p">                           
                             @Html.TextBoxFor(m => m.results, new { @id = "field13", @type = "text", @name = "results", @class = "field-size-top-large" })
                         </p>
                     </div>
