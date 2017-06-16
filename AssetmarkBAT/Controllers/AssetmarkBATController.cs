@@ -230,7 +230,6 @@ namespace AssetmarkBAT.Controllers
                 _PdfService.DrawPdf(savedModel);
             }
 
-            //return View(_ValuationOptimizer, savedModel);
             return View("Eloqua", savedModel);
         }
 
@@ -362,7 +361,7 @@ namespace AssetmarkBAT.Controllers
                 //Affiliation Modes
                 List<SelectListItem> modes = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Affiliation Mode", Value = "N/A" },
+                new SelectListItem { Text = "Affiliation Model", Value = "N/A" },
                 new SelectListItem { Text = "BD (Broker-Dealer): Affiliated with a full-service BD/wirehouse, independent BD, insurance BD or own BD", Value = "BD (Broker-Dealer)" },
                 new SelectListItem { Text = "RIA only (Registered Investment Advisor): Registered as an investment advisor registered with the SEC or state", Value = "RIA only (Registered Investment Advisor)" },
                 new SelectListItem { Text = "Hybrid BD/RIA: Have your own RIA, as well as a BD affiliation", Value = "Hybrid BD/RIA" },

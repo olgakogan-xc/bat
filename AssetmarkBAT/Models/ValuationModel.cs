@@ -87,7 +87,7 @@ namespace AssetmarkBAT.Models
             {
                 // Peer group $0 - $249K
                     new BenchmarkGroup
-                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 1751000, ValuationMax = 2497000, 
+                        { GroupRangeMin = 0, GroupRangeMax = 250000, ValuationMin = 244000, ValuationMax = 329000, 
                         //Firm Financials
                         RecurringRevenue = 130333, TotalRevenue = 165333, TotalExpenses = 139350, OperatingProfit = 25983, ProjectedAnnualGrowthRate = 98.6, AUM = 30773333, ClientRelationships = 137,
                             //KPI's
