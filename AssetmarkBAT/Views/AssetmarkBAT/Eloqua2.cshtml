@@ -388,16 +388,25 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            //$("#submitToEloqua").click();
-            alert($('#field0').val());
+            var eloquaTimeout,
+                timeoutCounter = 0,
+                timeoutCounterMax = 50;
 
-            while ($('#field0').val() === '') {
-                alert("blank");
-            }
+            console.log('Initial Value: ' + $('#field0').val());
+            
+            eloquaTimeout = setTimeout(function () {
+                if (timeoutCounter <= timeoutCounterMax) {
+                    console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
 
-            alert("First Name is: " + $('#field0').val());
-
-            $('#form1007').submit();
+                    if ($('#field0').val() !== '') {
+                        clearTimeout(eloquaTimeout);
+                        $('#form1007').submit();
+                    } else {
+                        timeoutCounter++;
+                    }
+                }
+            }, 500);
+            
         });
     </script>
 </head>
