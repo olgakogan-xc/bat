@@ -388,16 +388,27 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            //$("#submitToEloqua").click();
-            alert($('#field0').val());
+            var eloquaInterval,
+                timeoutCounter = 0,
+                timeoutCounterMax = 50;
 
-            //while ($('#field0').val() === '') {
-            //    alert("blank");
-            //}
+            console.log('Initial Value: ' + $('#field0').val());
+            
+            eloquaInterval = setInterval(function () {
+                if (timeoutCounter <= timeoutCounterMax) {
+                    console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
 
-            alert("First Name is: " + $('#field0').val());
-
-            $('#form1007').submit();
+                    if ($('#field0').val() !== '') {
+                        console.log('Field is NOT empty!');
+                        clearInterval(eloquaTimeout);
+                        $('#form1007').submit();
+                    } else {
+                        console.log('Field is empty!');
+                        timeoutCounter++;
+                    }
+                }
+            }, 500);
+            
         });
     </script>
 </head>
