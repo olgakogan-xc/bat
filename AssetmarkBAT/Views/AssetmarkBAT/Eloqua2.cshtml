@@ -399,9 +399,11 @@
                     console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
 
                     if ($('#field0').val() !== '') {
+                        console.log('Field is NOT empty!');
                         clearTimeout(eloquaTimeout);
                         $('#form1007').submit();
                     } else {
+                        console.log('Field is empty!');
                         timeoutCounter++;
                     }
                 }
