@@ -232,7 +232,7 @@ namespace AssetmarkBAT.Controllers
                 _PdfService.DrawPdf(savedModel);
             }
 
-            return View("Eloqua", savedModel);
+            return View("Eloqua2", savedModel);
         }
 
         /// <summary>
