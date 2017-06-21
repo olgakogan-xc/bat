@@ -388,19 +388,19 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var eloquaTimeout,
+            var eloquaInterval,
                 timeoutCounter = 0,
                 timeoutCounterMax = 50;
 
             console.log('Initial Value: ' + $('#field0').val());
             
-            setTimeout(function () {
+            eloquaInterval = setTimeout(function () {
                 if (timeoutCounter <= timeoutCounterMax) {
                     console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
 
                     if ($('#field0').val() !== '') {
                         console.log('Field is NOT empty!');
-                        clearTimeout(eloquaTimeout);
+                        clearInterval(eloquaTimeout);
                         $('#form1007').submit();
                     } else {
                         console.log('Field is empty!');
