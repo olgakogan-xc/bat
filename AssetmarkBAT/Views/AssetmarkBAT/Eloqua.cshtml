@@ -1,11 +1,7 @@
 ﻿@model AssetmarkBAT.Models.BATModel
-@{
-    Layout = null;
-}
 
 <html>
 <head>
-
     <script src="~/Scripts/jquery-3.2.1.min.js"></script>
     <style type="text/css" media="screen">
         /* RESET */ .elq-form * {
@@ -377,7 +373,7 @@
         function SetElqContent() {
             if (FirstLookup) {
                 //LOOKUP B:  Eloqua Contact/DataCard/Prospect/Company Data Lookup from Email Address
-                _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'),'<C_EmailAddress>' + GetElqContentPersonalizationValue(VisitorUniqueField) + '</C_EmailAddress>']);
+                _elqQ.push(['elqDataLookup', escape('e087f5d896174b92bdf576c56a10cd3f'), '<C_EmailAddress>' + GetElqContentPersonalizationValue(VisitorUniqueField) + '</C_EmailAddress>']);
                 FirstLookup = false;
             } else {
                 //This is triggered the after Lookup B fires.  LoadFields starts the field prepoulation process.
@@ -389,17 +385,11 @@
         // LOOKUP A:  Eloqua Visitor Data Lookup from Cookie  -  Ensure VisitorUniqueField is pulled in the Profile View
         _elqQ.push(['elqDataLookup', escape(LookupIdVisitor), '']);
 
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#submitToEloqua").click();
-        });
-    </script>
+    </script>  
 </head>
-<body>
+<body onload="$('#form1007').submit()">
     <div style="display:none;">
-        <form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function () { if (document.querySelector) { var s = document.querySelector('form#form1007 input[type=submit]'); if (s) { s.disabled = true; } } }, 100); return true;" id="form1007" class="elq-form">
+        <form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form1007 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form1007" class="elq-form">
             <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
             <input value="2564" type="hidden" name="elqSiteId" />
             <input name="elqCampaignId" type="hidden" />
@@ -416,7 +406,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -433,7 +423,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -450,7 +440,7 @@
                                 <span class="required">
                                     *
                                 </span>
-                            </label>                        
+                            </label>
                             @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -464,7 +454,7 @@
                         <p class="field-p">
                             <label for="field3" class="label-position top ">
                                 SFDC ContactID
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.sFDCContactID, new { @id = "field3", @type = "text", @name = "sFDCContactID", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -492,7 +482,7 @@
                         <p class="field-p">
                             <label for="field5" class="label-position top ">
                                 Business Phone
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -506,7 +496,7 @@
                         <p class="field-p">
                             <label for="field6" class="label-position top ">
                                 Zip or Postal Code
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -520,7 +510,7 @@
                         <p class="field-p">
                             <label for="field7" class="label-position top ">
                                 Broker Dealer or RIA
-                            </label>                          
+                            </label>
                             @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
                         </p>
                     </div>
@@ -582,17 +572,13 @@
                     </div>
                 </div>
             </div>
-
             <div id="formElement12" class="sc-view form-design-field sc-static-layout  sc-regular-size">
                 <div class="field-wrapper">
                 </div>
                 <div class="individual field-wrapper">
                     <div class="_100 field-style">
                         <p class="field-p">
-                            <label for="field13" class="label-position top ">
-                                BDS Email
-                            </label>
-                            <input id="field12" type="hidden" name="hiddenField" value="<eloqua type='emailfield' syntax='BDS_Email1' />" />
+                            <input id="field12" type="hidden" name="hiddenField" value="" />
                         </p>
                     </div>
                 </div>
@@ -617,64 +603,12 @@
                 <div class="individual field-wrapper">
                     <div class="_100 field-style">
                         <p class="field-p">
-                            <input id="field14" type="hidden" name="results" value="" />
                             @Html.TextBoxFor(m => m.results, new { @id = "field14", @type = "text", @name = "results", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
             </div>
-            @*<div id="formElement15" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                <div class="field-wrapper">
-                </div>
-                <div class="individual field-wrapper">
-                    <div class="_100 field-style">
-                        <p class="field-p">
-                            <input type="submit" value="Submit" class="submit-button" style="font-size: 100%; height: 24px; width: 100px" />
-                        </p>
-                    </div>
-                </div>
-            </div>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            @*<div id="formElement12" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
-                <div class="field-wrapper">
-                </div>
-                <div class="individual field-wrapper">
-                    <div class="_100 field-style">
-                        <p class="field-p">
-                            <label for="field12" class="label-position top ">
-                                Last SFDC Campaign ID
-                            </label>
-                            <input id="field12" name="sFDCLastCampaignID" type="text" value="70132000000wp" class="field-size-top-large" />
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div id="formElement13" class="sc-view form-design-field sc-static-layout  sc-regular-size">
-                <div class="field-wrapper">
-                </div>
-                <div class="individual field-wrapper">
-                    <div class="_100 field-style">
-                        <p class="field-p">                           
-                            @Html.TextBoxFor(m => m.results, new { @id = "field13", @type = "text", @name = "results", @class = "field-size-top-large" })
-                        </p>
-                    </div>
-                </div>
-            </div>*@
-            <div id="formElement14" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
+            <div id="formElement15" class="sc-view form-design-field sc-static-layout item-padding sc-regular-size">
                 <div class="field-wrapper">
                 </div>
                 <div class="individual field-wrapper">
@@ -717,103 +651,126 @@
         <script type="text/javascript">
             var dom0 = document.querySelector('#form1007 #field0');
             var field0 = new LiveValidation(dom0, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             field0.add(Validate.Presence, {
-                failureMessage:"This field is required"}
+                failureMessage: "This field is required"
+            }
                       );
             var dom1 = document.querySelector('#form1007 #field1');
             var field1 = new LiveValidation(dom1, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             field1.add(Validate.Presence, {
-                failureMessage:"This field is required"}
+                failureMessage: "This field is required"
+            }
                       );
             var dom2 = document.querySelector('#form1007 #field2');
             var field2 = new LiveValidation(dom2, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             field2.add(Validate.Presence, {
-                failureMessage:"This field is required"}
+                failureMessage: "This field is required"
+            }
                       );
             field2.add(Validate.Format, {
-                pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"}
+                pattern: /^([^@@\s]+)@@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, failureMessage: "A valid email address is required"
+            }
                       );
             var dom3 = document.querySelector('#form1007 #field3');
             var field3 = new LiveValidation(dom3, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom4 = document.querySelector('#form1007 #field4');
             var field4 = new LiveValidation(dom4, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom5 = document.querySelector('#form1007 #field5');
             var field5 = new LiveValidation(dom5, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom6 = document.querySelector('#form1007 #field6');
             var field6 = new LiveValidation(dom6, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom7 = document.querySelector('#form1007 #field7');
             var field7 = new LiveValidation(dom7, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom8 = document.querySelector('#form1007 #field8');
             var field8 = new LiveValidation(dom8, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             field8.add(Validate.Custom, {
-                against: function(value) {
+                against: function (value) {
                     return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
                 }
-              , failureMessage: "Value must not contain any URL's"}
+              , failureMessage: "Value must not contain any URL's"
+            }
                       );
             field8.add(Validate.Length, {
-                tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
+                tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+            }
                       );
             var dom9 = document.querySelector('#form1007 #field9');
             var field9 = new LiveValidation(dom9, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                            );
             var dom10 = document.querySelector('#form1007 #field10');
             var field10 = new LiveValidation(dom10, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                             );
             var dom11 = document.querySelector('#form1007 #field11');
             var field11 = new LiveValidation(dom11, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                             );
             field11.add(Validate.Custom, {
-                against: function(value) {
+                against: function (value) {
                     return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
                 }
-              , failureMessage: "Value must not contain any URL's"}
+              , failureMessage: "Value must not contain any URL's"
+            }
                        );
             field11.add(Validate.Length, {
-                tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
+                tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+            }
                        );
             var dom12 = document.querySelector('#form1007 #field12');
             var field12 = new LiveValidation(dom12, {
-                validMessage: "", onlyOnBlur: false, wait: 300}
+                validMessage: "", onlyOnBlur: false, wait: 300
+            }
                                             );
             field12.add(Validate.Custom, {
-                against: function(value) {
+                against: function (value) {
                     return !value.match(/(telnet|ftp|https?):\/\/(?:[a-z0-9][a-z0-9-]{0,61}[a-z0-9]\.|[a-z0-9]\.)+[a-z]{2,63}/i);
                 }
-              , failureMessage: "Value must not contain any URL's"}
+              , failureMessage: "Value must not contain any URL's"
+            }
                        );
             field12.add(Validate.Length, {
-                tooShortMessage:"Invalid length for field value", tooLongMessage: "Invalid length for field value",  minimum: 0, maximum: 35}
+                tooShortMessage: "Invalid length for field value", tooLongMessage: "Invalid length for field value", minimum: 0, maximum: 35
+            }
                        );
-            function resetSubmitButton(e){
+            function resetSubmitButton(e) {
                 var submitButtons = e.target.form.getElementsByClassName('submit-button');
-                for(var i=0;i<submitButtons.length;i++){
+                for (var i = 0; i < submitButtons.length; i++) {
                     submitButtons[i].disabled = false;
                 }
             }
-            function addChangeHandler(elements){
-                for(var i=0; i<elements.length; i++){
+            function addChangeHandler(elements) {
+                for (var i = 0; i < elements.length; i++) {
                     elements[i].addEventListener('change', resetSubmitButton);
                 }
             }
@@ -825,7 +782,7 @@
             if (nodes) {
                 for (i = 0, len = nodes.length; i < len; i++) {
                     var status = nodes[i].dataset ? nodes[i].dataset.subscription : nodes[i].getAttribute('data-subscription');
-                    if(status ==='true') {
+                    if (status === 'true') {
                         nodes[i].checked = true;
                     }
                 }
@@ -837,7 +794,7 @@
                     var selectedValue = node.dataset ? node.dataset.value : node.getAttribute('data-value');
                     if (selectedValue) {
                         for (var j = 0; j < node.options.length; j++) {
-                            if(node.options[j].value === selectedValue) {
+                            if (node.options[j].value === selectedValue) {
                                 node.options[j].selected = 'selected';
                                 break;
                             }
@@ -847,27 +804,23 @@
             }
         </script>
         <script>
-            document.getElementById("form1007").onload = function() {setFormFieldValue(elqForm, strFormFieldName, strContactFieldName)};
+            document.getElementById("form1007").onload = function () { setFormFieldValue(elqForm, strFormFieldName, strContactFieldName) };
 
-            function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName){
+            function setFormFieldValue(elqForm, strFormFieldName, strContactFieldName) {
                 if (elqForm.elements[strFormFieldName])
                     elqForm.elements[strFormFieldName].value = GetElqContentPersonalizationValue(strContactFieldName);
             }
 
-            function SetElqContent2(){
-                if (this.GetElqContentPersonalizationValue){
+            function SetElqContent2() {
+                if (this.GetElqContentPersonalizationValue) {
 
                     var elqForm;
                     var blnFound = false;
                     //find the form object from the form HTMLName
-                    for (var formIndex = 0; formIndex < document.forms.length; formIndex++)
-                    {
-                        for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++)
-                        {
-                            if (document.forms[formIndex].elements[elemIndex].name == "elqFormName")
-                            {
-                                if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated")
-                                {
+                    for (var formIndex = 0; formIndex < document.forms.length; formIndex++) {
+                        for (var elemIndex = 0; elemIndex < document.forms[formIndex].length; elemIndex++) {
+                            if (document.forms[formIndex].elements[elemIndex].name == "elqFormName") {
+                                if (document.forms[formIndex].elements[elemIndex].value == "BAT2017_Survey_Gated") {
                                     elqForm = document.forms[formIndex];
                                     blnFound = true;
                                     break;
@@ -877,8 +830,7 @@
                         if (blnFound) break;
                     }
 
-                    if (elqForm)
-                    {
+                    if (elqForm) {
                         setFormFieldValue(elqForm, "sFDCLeadID", "C_SFDCLeadID");
                         setFormFieldValue(elqForm, "brokerDealer1", "C_Broker_Dealer1");
                         setFormFieldValue(elqForm, "iCName1", "C_IC_Name1");
@@ -890,6 +842,9 @@
                         setFormFieldValue(elqForm, "sFDCContactID", "C_SFDCContactID");
                         setFormFieldValue(elqForm, "rCEmailAddress1", "C_RC_Email_Address1");
                         setFormFieldValue(elqForm, "zipPostal", "C_Zip_Postal");
+                        setFormFieldValue(elqForm, "iCEmailAddress1", "C_IC_Email_Address1");
+                        setFormFieldValue(elqForm, "salesperson", "C_Salesperson");
+                        setFormFieldValue(elqForm, "hiddenField", "C_BDS__Email1");
                     }
                 }
             }

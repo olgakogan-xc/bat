@@ -278,8 +278,9 @@
     <Content Include="Views\AssetmarkBAT\PdfShell.cshtml" />
     <Content Include="UserPDF\PdfTemplate.pdf" />
     <Content Include="Views\AssetmarkBAT\Eloqua.cshtml" />
-    <Content Include="Views\AssetmarkBAT\Eloqua2.cshtml" />
     <Content Include="UserPDF\PdfBlankTemplate.pdf" />
+    <Content Include="UserPDF\PdfTemplateLong.pdf" />
+    <Content Include="Views\AssetmarkBAT\EloquaCopy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

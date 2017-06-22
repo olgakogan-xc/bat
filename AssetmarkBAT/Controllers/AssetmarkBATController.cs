@@ -60,10 +60,6 @@ namespace AssetmarkBAT.Controllers
                         {
                             if (!string.IsNullOrEmpty(model.firstName) && !string.IsNullOrEmpty(model.lastName))
                             {
-                                //model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
-                                //model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
-                                //model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
-                                //model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
                                 GetVMISectionScores(model);
 
                                 return View(_ValuationOptimizer, model);
@@ -218,12 +214,6 @@ namespace AssetmarkBAT.Controllers
                 savedModel.brokerDealer1 = model.brokerDealer1;
 
                 SaveAnswers(savedModel);
-
-                //savedModel.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(savedModel.Vmi_Man_Written_Plan) + Convert.ToInt32(savedModel.Vmi_Man_Track) + Convert.ToInt32(savedModel.Vmi_Man_Phase) + Convert.ToInt32(savedModel.Vmi_Man_Revenue) + Convert.ToInt32(savedModel.Vmi_Man_Practice)) * 5;
-                //savedModel.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(savedModel.Vmi_Mar_Value_Proposition) + Convert.ToInt32(savedModel.Vmi_Mar_Materials) + Convert.ToInt32(savedModel.Vmi_Mar_Plan) + Convert.ToInt32(savedModel.Vmi_Mar_Prospects) + Convert.ToInt32(savedModel.Vmi_Mar_New_Business)) * 5;
-                //savedModel.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(savedModel.Vmi_Emp_Human) + Convert.ToInt32(savedModel.Vmi_Emp_Compensation) + Convert.ToInt32(savedModel.Vmi_Emp_Responsibilities) + Convert.ToInt32(savedModel.Vmi_Emp_Staff) + Convert.ToInt32(savedModel.Vmi_Emp_Emp_Retention)) * 5;
-                //savedModel.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(savedModel.Vmi_Opt_Automate) + Convert.ToInt32(savedModel.Vmi_Opt_Procedures) + Convert.ToInt32(savedModel.Vmi_Opt_Segment) + Convert.ToInt32(savedModel.Vmi_Opt_Model) + Convert.ToInt32(savedModel.Vmi_Opt_Schedule)) * 5;
-
                 GetVMISectionScores(savedModel);
 
                 CalculateKPIs(savedModel);
@@ -232,7 +222,7 @@ namespace AssetmarkBAT.Controllers
                 _PdfService.DrawPdf(savedModel);
             }
 
-            return View("Eloqua2", savedModel);
+            return View("Eloqua", savedModel);
         }
 
         /// <summary>
@@ -797,10 +787,6 @@ namespace AssetmarkBAT.Controllers
             {
                 if (!recalculate)
                 {
-                    //model.ClientValuationModel.ManagingYourPracticeScore = (Convert.ToInt32(model.Vmi_Man_Written_Plan) + Convert.ToInt32(model.Vmi_Man_Track) + Convert.ToInt32(model.Vmi_Man_Phase) + Convert.ToInt32(model.Vmi_Man_Revenue) + Convert.ToInt32(model.Vmi_Man_Practice)) * 5;
-                    //model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
-                    //model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
-                    //model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
                     GetVMISectionScores(model);
 
                     int total = model.ClientValuationModel.ManagingYourPracticeScore + model.ClientValuationModel.MarketingYourBusinessScore + model.ClientValuationModel.EmpoweringYourTeamScore + model.ClientValuationModel.OptimizingYourOperationsScore;
