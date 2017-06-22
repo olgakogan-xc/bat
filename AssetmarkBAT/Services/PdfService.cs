@@ -19,7 +19,7 @@ namespace AssetmarkBAT.Services
         {
             try
             {
-                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfTemplate.pdf"));
+                PdfFixedDocument document = Load(HttpContext.Current.Server.MapPath(@"~\UserPDF\PdfBlankTemplate.pdf"));
                 PdfPage page = document.Pages[0];
 
                 // Fonts and Brushes

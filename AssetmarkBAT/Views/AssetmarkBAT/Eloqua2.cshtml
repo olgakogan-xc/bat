@@ -388,32 +388,32 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var eloquaInterval,
-                timeoutCounter = 0,
-                timeoutCounterMax = 50;
+            //var eloquaInterval,
+            //    timeoutCounter = 0,
+            //    timeoutCounterMax = 50;
 
-            console.log('Initial Value: ' + $('#field0').val());
+            //console.log('Initial Value: ' + $('#field0').val());
             
-            eloquaInterval = setInterval(function () {
-                if (timeoutCounter <= timeoutCounterMax) {
-                    console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
+            //eloquaInterval = setInterval(function () {
+            //    if (timeoutCounter <= timeoutCounterMax) {
+            //        console.log('Check Value ' + timeoutCounter + ': ' + $('#field0').val());
 
-                    if ($('#field0').val() !== '') {
-                        console.log('Field is NOT empty!');
-                        clearInterval(eloquaTimeout);
-                        $('#form1007').submit();
-                    } else {
-                        console.log('Field is empty!');
-                        timeoutCounter++;
-                    }
-                }
-            }, 500);
-            
+            //        if ($('#field0').val() !== '') {
+            //            console.log('Field is NOT empty!');
+            //            clearInterval(eloquaTimeout);
+            //            $('#form1007').submit();
+            //        } else {
+            //            console.log('Field is empty!');
+            //            timeoutCounter++;
+            //        }
+            //    }
+            //}, 500);
+            $('#form1007').submit();
         });
     </script>
 </head>
 <body>
-    <div>
+    <div style="display:none;">
         <form method="post" name="BAT2017_Survey_Gated" action="https://s2564.t.eloqua.com/e/f2" onsubmit="setTimeout(function(){if(document.querySelector){var s=document.querySelector('form#form1007 input[type=submit]');if(s){s.disabled=true;}}},100);return true;" id="form1007" class="elq-form">
             <input value="BAT2017_Survey_Gated" type="hidden" name="elqFormName" />
             <input value="2564" type="hidden" name="elqSiteId" />
@@ -432,7 +432,8 @@
                                     *
                                 </span>
                             </label>
-                            <input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field0" name="firstName" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.firstName, new { @id = "field0", @type = "text", @name = "firstName", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -449,7 +450,8 @@
                                     *
                                 </span>
                             </label>
-                            <input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field1" name="lastName" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.lastName, new { @id = "field1", @type = "text", @name = "lastName", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -466,7 +468,8 @@
                                     *
                                 </span>
                             </label>
-                            <input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field2" name="emailAddress" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.emailAddress, new { @id = "field2", @type = "text", @name = "emailAddress", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -480,7 +483,8 @@
                             <label for="field3" class="label-position top ">
                                 SFDC ContactID
                             </label>
-                            <input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field3" name="sFDCContactID" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.sFDCContactID, new { @id = "field3", @type = "text", @name = "sFDCContactID", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -508,7 +512,8 @@
                             <label for="field5" class="label-position top ">
                                 Business Phone
                             </label>
-                            <input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field5" name="busPhone" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.busPhone, new { @id = "field5", @type = "text", @name = "busPhone", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -522,7 +527,8 @@
                             <label for="field6" class="label-position top ">
                                 Zip or Postal Code
                             </label>
-                            <input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field6" name="zipPostal" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.zipPostal, new { @id = "field6", @type = "text", @name = "zipPostal", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -536,7 +542,8 @@
                             <label for="field7" class="label-position top ">
                                 Broker Dealer or RIA
                             </label>
-                            <input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />
+                            @*<input id="field7" name="brokerDealer1" type="text" value="" class="field-size-top-large" />*@
+                            @Html.TextBoxFor(m => m.brokerDealer1, new { @id = "field7", @type = "text", @name = "brokerDealer1", @class = "field-size-top-large" })
                         </p>
                     </div>
                 </div>
@@ -578,7 +585,7 @@
                             <label for="field10" class="label-position top ">
                                 Salesperson
                             </label>
-                            <input id="field10" name="salesperson" type="text" value="" class="field-size-top-large" />
+                            <input id="field10" name="salesperson" type="text" value="" class="field-size-top-large"/>                     
                         </p>
                     </div>
                 </div>
