@@ -259,8 +259,8 @@ hr {
 
 @font-face {
   font-family: 'ico';
-  src: url("fonts/ico.eot?97334248");
-  src: url("fonts/ico.eot?97334248#iefix") format("embedded-opentype"), url("fonts/ico.woff2?97334248") format("woff2"), url("fonts/ico.woff?97334248") format("woff"), url("fonts/ico.ttf?97334248") format("truetype"), url("fonts/ico.svg?97334248#ico") format("svg");
+  src: url("fonts/ico.eot?12582991");
+  src: url("fonts/ico.eot?12582991#iefix") format("embedded-opentype"), url("fonts/ico.woff2?12582991") format("woff2"), url("fonts/ico.woff?12582991") format("woff"), url("fonts/ico.ttf?12582991") format("truetype"), url("fonts/ico.svg?12582991#ico") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -270,7 +270,7 @@ hr {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'ico';
-    src: url('fonts/ico.svg?97334248#ico') format('svg');
+    src: url('fonts/ico.svg?12582991#ico') format('svg');
   }
 }
 */
@@ -304,52 +304,78 @@ hr {
 }
 
 /* line 58, ../scss/app/core/_fonts.scss */
-.icon-phone:before {
-  content: '\e800';
-}
-
-/* '' */
-/* line 59, ../scss/app/core/_fonts.scss */
-.icon-info:before {
+.icon-down-micro:before {
   content: '\e801';
 }
 
 /* '' */
-/* line 60, ../scss/app/core/_fonts.scss */
-.icon-chevron-left:before {
+/* line 59, ../scss/app/core/_fonts.scss */
+.icon-up-micro:before {
   content: '\e802';
 }
 
 /* '' */
-/* line 61, ../scss/app/core/_fonts.scss */
-.icon-chevron-right:before {
-  content: '\e803';
-}
-
-/* '' */
-/* line 62, ../scss/app/core/_fonts.scss */
-.icon-down-open:before {
-  content: '\f004';
-}
-
-/* '' */
-/* line 63, ../scss/app/core/_fonts.scss */
+/* line 60, ../scss/app/core/_fonts.scss */
 .icon-up-open:before {
-  content: '\f005';
+  content: '\e804';
 }
 
-/* '' */
+/* '' */
+/* line 61, ../scss/app/core/_fonts.scss */
+.icon-down-open:before {
+  content: '\e805';
+}
+
+/* '' */
+/* line 62, ../scss/app/core/_fonts.scss */
+.icon-question:before {
+  content: '\e80f';
+}
+
+/* '' */
+/* line 63, ../scss/app/core/_fonts.scss */
+.icon-phone:before {
+  content: '\e81e';
+}
+
+/* '' */
+/* line 64, ../scss/app/core/_fonts.scss */
+.icon-chevron-left:before {
+  content: '\e83c';
+}
+
+/* '' */
 /* line 65, ../scss/app/core/_fonts.scss */
+.icon-chevron-right:before {
+  content: '\e83d';
+}
+
+/* '' */
+/* line 67, ../scss/app/core/_fonts.scss */
 .icon-chevron-left,
 .icon-chevron-right {
   font-size: 0.7em;
   line-height: 1.0em;
 }
-/* line 70, ../scss/app/core/_fonts.scss */
+/* line 72, ../scss/app/core/_fonts.scss */
 .icon-chevron-left:before,
 .icon-chevron-right:before {
   position: relative;
   top: -0.1em;
+}
+
+/* line 78, ../scss/app/core/_fonts.scss */
+.icon-large {
+  display: inline-block;
+}
+/* line 81, ../scss/app/core/_fonts.scss */
+.icon-large:before {
+  position: relative;
+  top: 0.2em;
+  font-size: 3.0rem;
+  line-height: 0.5em;
+  width: 0.5em;
+  vertical-align: baseline;
 }
 
 /* line 1, ../scss/app/core/_typography.scss */
@@ -1695,7 +1721,7 @@ ol.additional-resources a img {
 }
 
 /* line 5, ../scss/app/core/_helpers.scss */
-.clearfix:after {
+.clearfix:after, .score-legend:after, .score-bar:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -1705,13 +1731,13 @@ ol.additional-resources a img {
 }
 
 /* line 13, ../scss/app/core/_helpers.scss */
-* html .clearfix {
+* html .clearfix, * html .score-legend, * html .score-bar {
   zoom: 1;
 }
 
 /* IE6 */
 /* line 14, ../scss/app/core/_helpers.scss */
-*:first-child + html .clearfix {
+*:first-child + html .clearfix, *:first-child + html .score-legend, *:first-child + html .score-bar {
   zoom: 1;
 }
 
@@ -1760,26 +1786,25 @@ table tbody tr:last-child td {
 /* line 20, ../scss/app/core/_tables.scss */
 table tbody td {
   padding: 0.5rem;
-  border-color: #bebbba;
+  border: none;
 }
-/* line 25, ../scss/app/core/_tables.scss */
+/* line 26, ../scss/app/core/_tables.scss */
 table tbody:before {
   content: "-";
   display: block;
-  line-height: 2em;
+  line-height: 1em;
   color: transparent;
 }
-/* line 32, ../scss/app/core/_tables.scss */
+/* line 33, ../scss/app/core/_tables.scss */
 table tbody:after {
   content: "-";
   display: block;
-  line-height: 2em;
+  line-height: 1em;
   color: transparent;
 }
-/* line 41, ../scss/app/core/_tables.scss */
+/* line 43, ../scss/app/core/_tables.scss */
 table tfoot td {
   padding: 0.5rem;
-  border-top: 1px solid #bebbba;
   border-bottom: none;
   font-weight: 600;
 }
@@ -2496,7 +2521,7 @@ section.white {
   right: 1.0rem;
   top: 0.3em;
   font-family: 'ico';
-  content: '\f004';
+  content: '\e805';
   color: #fff;
 }
 /* line 40, ../scss/app/modules/_fancyform.scss */
@@ -2608,7 +2633,7 @@ section.white {
   right: 1.0rem;
   top: 0.3em;
   font-family: 'ico';
-  content: '\f004';
+  content: '\e804';
   color: #fff;
 }
 /* line 134, ../scss/app/modules/_fancyform.scss */
@@ -2670,4 +2695,126 @@ div.tooltip {
 /* line 9, ../scss/app/modules/_swatch.scss */
 .swatch.grey {
   background-color: #aaa;
+}
+
+/* line 1, ../scss/app/modules/_score.scss */
+.score-legend {
+  width: 100%;
+}
+/* line 5, ../scss/app/modules/_score.scss */
+.score-legend > div {
+  position: relative;
+  float: left;
+  padding-bottom: 0.5rem;
+  border-bottom: 5px solid #ccc;
+  text-align: center;
+}
+/* line 12, ../scss/app/modules/_score.scss */
+.score-legend > div.poor, .score-legend > div.average {
+  width: 40%;
+}
+/* line 16, ../scss/app/modules/_score.scss */
+.score-legend > div.poor:after, .score-legend > div.average:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: ' ';
+  width: 2px;
+  height: 100%;
+  border-right: 2px solid #ccc;
+}
+/* line 26, ../scss/app/modules/_score.scss */
+.score-legend > div.great {
+  width: 20%;
+  border-right: none;
+}
+
+/* line 32, ../scss/app/modules/_score.scss */
+.score-bar {
+  position: relative;
+  padding-bottom: 1.2rem;
+  width: 100%;
+}
+/* line 38, ../scss/app/modules/_score.scss */
+.score-bar > div {
+  position: relative;
+  float: left;
+  border-bottom: 5px solid;
+  padding-top: 3.0rem;
+}
+/* line 45, ../scss/app/modules/_score.scss */
+.score-bar > div.poor, .score-bar > div.average {
+  width: 40%;
+}
+/* line 49, ../scss/app/modules/_score.scss */
+.score-bar > div.poor:after, .score-bar > div.average:after {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: -5px;
+  content: ' ';
+  width: 2px;
+  height: 5px;
+  border-right: 2px solid #fff;
+}
+/* line 60, ../scss/app/modules/_score.scss */
+.score-bar > div.great {
+  width: 20%;
+  border-right: none;
+}
+/* line 65, ../scss/app/modules/_score.scss */
+.score-bar > div.poor {
+  border-color: #f35a00;
+}
+/* line 68, ../scss/app/modules/_score.scss */
+.score-bar > div.average {
+  border-color: #d1a200;
+}
+/* line 71, ../scss/app/modules/_score.scss */
+.score-bar > div.great {
+  border-color: #638b08;
+}
+/* line 76, ../scss/app/modules/_score.scss */
+.score-bar .score,
+.score-bar .benchmark {
+  margin-left: -2%;
+  -webkit-transition: left 0.5s ease-in-out;
+  -o-transition: left 0.5s ease-in-out;
+  transition: left 0.5s ease-in-out;
+}
+/* line 84, ../scss/app/modules/_score.scss */
+.score-bar .score {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+}
+/* line 91, ../scss/app/modules/_score.scss */
+.score-bar .score:after {
+  display: block;
+  content: '\e801';
+  font-family: 'ico';
+  font-size: 2.0em;
+  line-height: 0.5em;
+}
+/* line 100, ../scss/app/modules/_score.scss */
+.score-bar .benchmark {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #9ed1e6;
+}
+/* line 106, ../scss/app/modules/_score.scss */
+.score-bar .benchmark:after {
+  display: block;
+  content: '\e802';
+  font-family: 'ico';
+  font-size: 2.0em;
+  line-height: 0.5em;
+}
+
+/* line 116, ../scss/app/modules/_score.scss */
+.light-blue {
+  color: #9ed1e6;
 }

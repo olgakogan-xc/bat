@@ -23,43 +23,100 @@
             <p><a href="@Model.results" class="button" target="_blank">Download Your Business Assessment PDF</a></p>
             <p>Take a look at the Value Maximization Index® table below to identify which category you scored the lowest in, then click the category links to access resources specific to each category that are designed to help you improve corresponding areas of your business.</p>
 
-            <div class="row">
+            <div class="row" ng-cloak>
                 <div class="col-md-8 col-md-offset-2">
-                    <table ng-cloak>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Valuation Categories</th>
-                                <th>Score</th>
+                                <th style="width: 50%;">Your Scores and Benchmarks</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice" target="_blank">Managing Your Practice</a></td>
-                                <td>@Model.ClientValuationModel.ManagingYourPracticeScore</td>
+                                <td></td>
+                                <td>
+                                    <div class="score-legend">
+                                        <div class="poor">
+                                            <h5>Poor</h5>
+                                            <h6>1-100</h6>
+                                        </div>
+                                        <div class="average">
+                                            <h5>Average</h5>
+                                            <h6>101-200</h6>
+                                        </div>
+                                        <div class="great">
+                                            <h5>Great</h5>
+                                            <h6>201-250</h6>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
-                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness" target="_blank">Marketing Your Business</a></td>
-                                <td>@Model.ClientValuationModel.MarketingYourBusinessScore</td>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice" target="_blank">Managing Your Practice</a></td>
+                                <td>
+                                    <div class="score-bar" ng-init="score.myp = 95; benchmark.myp = 190">
+                                        <div class="poor"></div>
+                                        <div class="average"></div>
+                                        <div class="great"></div>
+                                        <span class="score" style="left: {{(score.myp/250)*100}}%;">{{score.myp}}</span>
+                                        <span class="benchmark" style="left: {{(benchmark.myp/250)*100}}%;"></span>
+                                    </div>
+                                </td>
                             </tr>
+
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/OptimizingYourOperations" target="_blank">Optimizing Your Operations</a></td>
-                                <td>@Model.ClientValuationModel.OptimizingYourOperationsScore</td>
+                                <td>
+                                    <div class="score-bar" ng-init="score.oyo = 175; benchmark.oyo = 199">
+                                        <div class="poor"></div>
+                                        <div class="average"></div>
+                                        <div class="great"></div>
+                                        <span class="score" style="left: {{(score.oyo/250)*100}}%;">{{score.oyo}}</span>
+                                        <span class="benchmark" style="left: {{(benchmark.oyo/250)*100}}%;"></span>
+                                    </div>
+                                </td>
                             </tr>
+
+                            <tr>
+                                <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness" target="_blank">Marketing Your Business</a></td>
+                                <td>
+                                    <div class="score-bar" ng-init="score.myb = 140; benchmark.myb = 130">
+                                        <div class="poor"></div>
+                                        <div class="average"></div>
+                                        <div class="great"></div>
+                                        <span class="score" style="left: {{(score.myb/250)*100}}%;">{{score.myb}}</span>
+                                        <span class="benchmark" style="left: {{(benchmark.myb/250)*100}}%;"></span>
+                                    </div>
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/EmpoweringYourTeam" target="_blank">Empowering Your Team</a></td>
-                                <td>@Model.ClientValuationModel.EmpoweringYourTeamScore</td>
+                                <td>
+                                    <div class="score-bar" ng-init="score.eyt = 210; benchmark.eyt = 180">
+                                        <div class="poor"></div>
+                                        <div class="average"></div>
+                                        <div class="great"></div>
+                                        <span class="score" style="left: {{(score.eyt/250)*100}}%;">{{score.eyt}}</span>
+                                        <span class="benchmark" style="left: {{(benchmark.eyt/250)*100}}%;"></span>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td>Total VMI Score</td>
-                                <td>@Model.Vmi_Index</td>
                                 <td></td>
+                                <td class="text-right">
+                                    <span><i class="icon-down-micro icon-large"></i> Your Score</span>
+                                    <span><i class="icon-up-micro icon-large light-blue"></i> Benchmarks</span>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
+
             <p><strong>To adjust your inputs you can <a href="/?redo=1">return to the beginning</a></strong></p>
         </div>
     </section>
