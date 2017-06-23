@@ -226,6 +226,7 @@
     <Content Include="Images\business_assessment_logo.png" />
     <Content Include="Images\Lock.png" />
     <Content Include="Images\pdf.png" />
+    <Content Include="Images\slider.png" />
     <Content Include="Scripts\angular-input-masks.js" />
     <Content Include="Scripts\angular-locale_en-us.js" />
     <Content Include="Scripts\angular.js" />
