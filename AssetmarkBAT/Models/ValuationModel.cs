@@ -70,9 +70,7 @@ namespace AssetmarkBAT.Models
         public double ValuationMin { get; set; }
         public double ValuationMax { get; set; }
 
-        public ClientValuationModel()
-        {
-        }
+        public ClientValuationModel() {}
     }
 
 
@@ -80,6 +78,7 @@ namespace AssetmarkBAT.Models
     public class BenchmarksValuationModel
     {
         public List<BenchmarkGroup> PeerGroups { get; set; }
+        public BenchmarkGroup CurrentPeerGroup { get; set; }
 
         public BenchmarksValuationModel()
         {

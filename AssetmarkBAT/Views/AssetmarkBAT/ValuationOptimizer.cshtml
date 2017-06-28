@@ -55,7 +55,7 @@
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/managingyourpractice" target="_blank">Managing Your Practice</a></td>
                                 <td>
-                                    <div class="score-bar" ng-init="score.myp = 95; benchmark.myp = 190">
+                                    <div class="score-bar" ng-init="score.myp = @Model.ClientValuationModel.ManagingYourPracticeScore; benchmark.myp = @Model.BenchmarksValuationModel.CurrentPeerGroup.MYP">
                                         <div class="poor"></div>
                                         <div class="average"></div>
                                         <div class="great"></div>
@@ -68,7 +68,7 @@
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/OptimizingYourOperations" target="_blank">Optimizing Your Operations</a></td>
                                 <td>
-                                    <div class="score-bar" ng-init="score.oyo = 175; benchmark.oyo = 199">
+                                    <div class="score-bar" ng-init="score.oyo = @Model.ClientValuationModel.OptimizingYourOperationsScore; benchmark.oyo = @Model.BenchmarksValuationModel.CurrentPeerGroup.OYO">
                                         <div class="poor"></div>
                                         <div class="average"></div>
                                         <div class="great"></div>
@@ -81,7 +81,7 @@
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/MarketingYourBusiness" target="_blank">Marketing Your Business</a></td>
                                 <td>
-                                    <div class="score-bar" ng-init="score.myb = 140; benchmark.myb = 130">
+                                    <div class="score-bar" ng-init="score.myb = @Model.ClientValuationModel.MarketingYourBusinessScore; benchmark.myb = @Model.BenchmarksValuationModel.CurrentPeerGroup.MYB">
                                         <div class="poor"></div>
                                         <div class="average"></div>
                                         <div class="great"></div>
@@ -94,7 +94,7 @@
                             <tr>
                                 <td><a href="https://www.assetmark.com/business-Assessment-Tool/EmpoweringYourTeam" target="_blank">Empowering Your Team</a></td>
                                 <td>
-                                    <div class="score-bar" ng-init="score.eyt = 210; benchmark.eyt = 180">
+                                    <div class="score-bar" ng-init="score.eyt = @Model.ClientValuationModel.EmpoweringYourTeamScore; benchmark.eyt = @Model.BenchmarksValuationModel.CurrentPeerGroup.EYT">
                                         <div class="poor"></div>
                                         <div class="average"></div>
                                         <div class="great"></div>

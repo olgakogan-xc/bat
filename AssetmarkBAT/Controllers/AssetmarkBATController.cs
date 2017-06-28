@@ -61,6 +61,7 @@ namespace AssetmarkBAT.Controllers
                             if (!string.IsNullOrEmpty(model.firstName) && !string.IsNullOrEmpty(model.lastName))
                             {
                                 GetVMISectionScores(model);
+                                GetBenchmarkGroup(model);
 
                                 return View(_ValuationOptimizer, model);
                             }
@@ -215,6 +216,7 @@ namespace AssetmarkBAT.Controllers
 
                 SaveAnswers(savedModel);
                 GetVMISectionScores(savedModel);
+                GetBenchmarkGroup(savedModel);
 
                 CalculateKPIs(savedModel);
                 CalculateValuation(savedModel, false);
@@ -1049,6 +1051,22 @@ namespace AssetmarkBAT.Controllers
             model.ClientValuationModel.MarketingYourBusinessScore = (Convert.ToInt32(model.Vmi_Mar_Value_Proposition) + Convert.ToInt32(model.Vmi_Mar_Materials) + Convert.ToInt32(model.Vmi_Mar_Plan) + Convert.ToInt32(model.Vmi_Mar_Prospects) + Convert.ToInt32(model.Vmi_Mar_New_Business)) * 5;
             model.ClientValuationModel.EmpoweringYourTeamScore = (Convert.ToInt32(model.Vmi_Emp_Human) + Convert.ToInt32(model.Vmi_Emp_Compensation) + Convert.ToInt32(model.Vmi_Emp_Responsibilities) + Convert.ToInt32(model.Vmi_Emp_Staff) + Convert.ToInt32(model.Vmi_Emp_Emp_Retention)) * 5;
             model.ClientValuationModel.OptimizingYourOperationsScore = (Convert.ToInt32(model.Vmi_Opt_Automate) + Convert.ToInt32(model.Vmi_Opt_Procedures) + Convert.ToInt32(model.Vmi_Opt_Segment) + Convert.ToInt32(model.Vmi_Opt_Model) + Convert.ToInt32(model.Vmi_Opt_Schedule)) * 5;
+        }
+
+        private void GetBenchmarkGroup(BATModel clientModel)
+        {
+            BenchmarkGroup peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.FirstOrDefault(x => _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > x.GroupRangeMin && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) < x.GroupRangeMax);
+
+            if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) > 0)
+            {
+                peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.Last();
+            }
+            else if (peerGroup == null && _Helpers.ConvertToDouble(clientModel.Ff_TotalRevenueAnnualized) == 0)
+            {
+                peerGroup = clientModel.BenchmarksValuationModel.PeerGroups.First();
+            }
+
+            clientModel.BenchmarksValuationModel.CurrentPeerGroup = peerGroup;
         }
 
         #endregion
