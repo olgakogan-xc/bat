@@ -63,6 +63,11 @@ namespace AssetmarkBAT.Controllers
                                 GetVMISectionScores(model);
                                 GetBenchmarkGroup(model);
 
+                                if(string.IsNullOrEmpty(model.results))
+                                {
+                                    model.results = "https://assetmarkstdstor.blob.core.windows.net/assetmarkbat/" + model.UserId + ".pdf";
+                                }
+
                                 return View(_ValuationOptimizer, model);
                             }
                             else
