@@ -2777,21 +2777,20 @@ div.tooltip {
 /* line 76, ../scss/app/modules/_score.scss */
 .score-bar .score,
 .score-bar .benchmark {
-  margin-left: -2%;
   -webkit-transition: left 0.5s ease-in-out;
   -o-transition: left 0.5s ease-in-out;
   transition: left 0.5s ease-in-out;
 }
-/* line 84, ../scss/app/modules/_score.scss */
+/* line 83, ../scss/app/modules/_score.scss */
 .score-bar .score {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
-  margin-left: -3.7%;
+  margin-left: -3.6%;
   text-align: center;
 }
-/* line 92, ../scss/app/modules/_score.scss */
+/* line 91, ../scss/app/modules/_score.scss */
 .score-bar .score:after {
   display: block;
   content: '\e801';
@@ -2799,8 +2798,9 @@ div.tooltip {
   font-size: 2.0em;
   line-height: 0.5em;
 }
-/* line 101, ../scss/app/modules/_score.scss */
+/* line 100, ../scss/app/modules/_score.scss */
 .score-bar .benchmark {
+  margin-left: -1.9%;
   position: absolute;
   bottom: 0;
   left: 0;
