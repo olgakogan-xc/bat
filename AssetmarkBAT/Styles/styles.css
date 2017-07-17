@@ -2777,17 +2777,17 @@ div.tooltip {
 /* line 76, ../scss/app/modules/_score.scss */
 .score-bar .score,
 .score-bar .benchmark {
-  margin-left: -2%;
   -webkit-transition: left 0.5s ease-in-out;
   -o-transition: left 0.5s ease-in-out;
   transition: left 0.5s ease-in-out;
 }
-/* line 84, ../scss/app/modules/_score.scss */
+/* line 83, ../scss/app/modules/_score.scss */
 .score-bar .score {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0;
+  margin-left: -3.6%;
   text-align: center;
 }
 /* line 91, ../scss/app/modules/_score.scss */
@@ -2800,12 +2800,13 @@ div.tooltip {
 }
 /* line 100, ../scss/app/modules/_score.scss */
 .score-bar .benchmark {
+  margin-left: -1.9%;
   position: absolute;
   bottom: 0;
   left: 0;
   color: #9ed1e6;
 }
-/* line 106, ../scss/app/modules/_score.scss */
+/* line 107, ../scss/app/modules/_score.scss */
 .score-bar .benchmark:after {
   display: block;
   content: '\e802';
@@ -2814,7 +2815,7 @@ div.tooltip {
   line-height: 0.5em;
 }
 
-/* line 116, ../scss/app/modules/_score.scss */
+/* line 117, ../scss/app/modules/_score.scss */
 .light-blue {
   color: #9ed1e6;
 }
