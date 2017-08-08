@@ -261,11 +261,14 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\AssetmarkBAT\Terms.cshtml" />
     <Content Include="Views\AssetmarkBAT\Page1Questions.cshtml" />
     <Content Include="Views\AssetmarkBAT\Page2Questions.cshtml" />
