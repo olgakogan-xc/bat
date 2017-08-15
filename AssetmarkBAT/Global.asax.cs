@@ -27,5 +27,12 @@ namespace AssetmarkBAT
             HttpContext.Current.Response.Headers.Remove("X-AspNet-Version");
             HttpContext.Current.Response.Headers.Remove("X-AspNetMvc-Version");
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            HttpContext.Current.ClearError();
+            Response.Redirect("~/Error.aspx", false);
+            return;
+        }
     }
 }

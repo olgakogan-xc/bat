@@ -211,6 +211,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -256,6 +263,7 @@
     <Content Include="Styles\images\bg-slider.png" />
     <Content Include="Styles\pdf_styles.css" />
     <Content Include="Styles\styles.css" />
+    <Content Include="Error.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
