@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Error.aspx.cs" Inherits="AssetmarkBAT.Error" %>
+
 <!DOCTYPE html>
 <html lang="en" ng-app="batApp">
 <head>
@@ -35,7 +36,56 @@
                 </div>
             </section>
         </header>
-        <main><br /><br /><br /><br />There has been an error processing your request...<br /><br /><br /><br /></main>
+        <main>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="content-block content-block-with-image-vertical content-block-align-center content-block-center-image">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="content-block-body">
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="content-block-image-wrapper" style="text-align:center;">
+                                        <img src="/images/error_icon.png?h=82&amp;la=en&amp;w=82" class="content-block-image" alt="" width="82" height="82">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="basic-row basic-row-no-top-margin">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="content-block content-block-align-center content-block-center-vertical" style="text-align:center;">
+                                <div class="underlined-headline">
+                                    <h1>Page Not Found</h1>
+                                </div>
+                                <div class="content-block-body">
+                                    <p>
+                                        The page you selected could not be found. It may have been removed or is
+                                        <br>
+                                        temporarily unavailable.
+                                    </p>
+                                    <p>
+                                        Please click the <a href="javascript:window.history.back();">back</a> button to return to the previous page, or the AssetMark
+                                        <br>
+                                        logo above to go to the website homepage.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
         <footer>
             <section class="footer">
                 <div class="container">

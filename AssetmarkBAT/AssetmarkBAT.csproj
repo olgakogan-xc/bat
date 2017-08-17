@@ -231,6 +231,7 @@
     <Content Include="Images\AMK_Wordmark.png" />
     <Content Include="Images\assetmark-logo.jpg" />
     <Content Include="Images\business_assessment_logo.png" />
+    <Content Include="Images\Error_Icon.png" />
     <Content Include="Images\Lock.png" />
     <Content Include="Images\pdf.png" />
     <Content Include="Images\slider.png" />
