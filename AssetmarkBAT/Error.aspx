@@ -110,14 +110,8 @@
     <script src="/Scripts/highcharts-more.js"></script>
     <script src="/Scripts/js.cookie.js"></script>
     <script src="/Scripts/batapp.js"></script>
-    <script type="text/javascript">_satellite.pageBottom();</script>
 
-    <!-- Visual Studio Browser Link -->
-    <script type="application/json" id="__browserLink_initializationData">
-    {"appName":"Chrome","requestId":"234e1f72caac4b6d819ea6bb340a8fec"}
-    </script>
-    <script type="text/javascript" src="http://localhost:12176/b5027f12a1e040a4ab3f9c6c434b0231/browserLink" async="async"></script>
-    <!-- End Browser Link -->
+  
 
 </body>
 </html>
